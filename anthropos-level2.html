@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTHROPOS - Level 2: Telos Scanner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a12;
+            --bg-panel: #12121f;
+            --bg-card: #1a1a2e;
+            --accent-gold: #c9a227;
+            --accent-cyan: #00d4ff;
+            --accent-red: #ff4757;
+            --accent-green: #2ed573;
+            --accent-purple: #a55eea;
+            --accent-olive: #7c9a3e;
+            --text-primary: #ffffff;
+            --text-secondary: #8892b0;
+            --nomos: #4a90d9;
+            --philia: #e6739f;
+            --logos-meter: #f5a623;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ========== TITLE SCREEN ========== */
+        #titleScreen {
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0a0a12 0%, #1a2a1a 50%, #0a0a12 100%);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .title-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-olive));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.3rem;
+            margin-bottom: 3rem;
+        }
+
+        .level-info {
+            background: var(--bg-panel);
+            border: 2px solid var(--accent-olive);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 550px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .level-info .lens-tag {
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .level-info h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-olive);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .level-info h3 {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .level-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            font-family: 'Orbitron', sans-serif;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-olive), #9ab84a);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(124, 154, 62, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* ========== INTRO SCREEN ========== */
+        #introScreen {
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            padding: 2rem;
+        }
+
+        .intro-container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .intro-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .intro-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tutorial-section {
+            background: var(--bg-panel);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .tutorial-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-olive);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .tutorial-section p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .concept-card {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .concept-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .concept-card .name {
+            font-weight: 700;
+            color: var(--accent-olive);
+            margin-bottom: 0.3rem;
+        }
+
+        .concept-card .greek {
+            font-style: italic;
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .concept-card .desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .meter-explain {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+
+        .meter-explain .meter-icon {
+            font-size: 1.5rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .meter-explain h4 {
+            margin-bottom: 0.3rem;
+        }
+
+        .meter-explain.nomos h4 { color: var(--nomos); }
+        .meter-explain.philia h4 { color: var(--philia); }
+        .meter-explain.logos-m h4 { color: var(--logos-meter); }
+
+        .meter-explain p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .intro-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #333;
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--accent-olive);
+            transform: scale(1.3);
+        }
+
+        .skip-btn {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* ========== GAME SCREEN ========== */
+        #gameScreen {
+            background: linear-gradient(180deg, #0a0f0a 0%, #1a2a1a 100%);
+        }
+
+        .game-hud {
+            background: var(--bg-panel);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-olive);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timer-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+        }
+
+        .polis-meters {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .polis-meter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+        }
+
+        .polis-meter .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .polis-meter.nomos .label { color: var(--nomos); }
+        .polis-meter.philia .label { color: var(--philia); }
+        .polis-meter.logos-m .label { color: var(--logos-meter); }
+
+        .polis-meter .bar {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .polis-meter .fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .polis-meter.nomos .fill { background: var(--nomos); }
+        .polis-meter.philia .fill { background: var(--philia); }
+        .polis-meter.logos-m .fill { background: var(--logos-meter); }
+
+        .polis-meter .value {
+            font-size: 0.75rem;
+            margin-top: 0.2rem;
+            color: var(--text-secondary);
+        }
+
+        .scene-indicator {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: var(--accent-olive);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .game-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .scene-container {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+        }
+
+        .scene-container.active {
+            display: flex;
+            animation: sceneIn 0.5s ease;
+        }
+
+        @keyframes sceneIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scene-narrative {
+            background: var(--bg-card);
+            border-left: 4px solid var(--accent-olive);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .scene-narrative p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .scene-narrative .highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .scene-narrative .concept {
+            color: var(--accent-olive);
+            font-weight: 600;
+        }
+
+        /* Scanner interface */
+        .scanner-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scan-object {
+            background: var(--bg-card);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .scan-object:hover:not(.scanned) {
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        .scan-object.scanned {
+            border-color: var(--accent-olive);
+            background: rgba(124, 154, 62, 0.1);
+        }
+
+        .scan-object .icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .scan-object .name {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .scan-object .telos {
+            display: none;
+            color: var(--accent-olive);
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #333;
+        }
+
+        .scan-object.scanned .telos {
+            display: block;
+        }
+
+        /* NPC dialogues */
+        .npc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .npc-card {
+            background: var(--bg-card);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .npc-card:hover:not(.talked) {
+            border-color: var(--accent-cyan);
+        }
+
+        .npc-card.talked {
+            border-color: var(--accent-olive);
+            opacity: 0.7;
+        }
+
+        .npc-card .npc-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .npc-card .avatar {
+            font-size: 2rem;
+        }
+
+        .npc-card .npc-name {
+            font-weight: 700;
+        }
+
+        .npc-card .npc-role {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .npc-card .fragment {
+            display: none;
+            background: rgba(124, 154, 62, 0.2);
+            border: 1px solid var(--accent-olive);
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--accent-olive);
+        }
+
+        .npc-card.talked .fragment {
+            display: block;
+        }
+
+        /* Dialogue modal */
+        .dialogue-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .dialogue-modal.active {
+            display: flex;
+        }
+
+        .dialogue-box {
+            background: var(--bg-panel);
+            border: 2px solid var(--accent-olive);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .dialogue-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .dialogue-header .avatar {
+            font-size: 3rem;
+        }
+
+        .dialogue-header h3 {
+            color: var(--accent-olive);
+        }
+
+        .dialogue-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .dialogue-question {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .dialogue-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .dialogue-option {
+            background: var(--bg-card);
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            color: var(--text-primary);
+        }
+
+        .dialogue-option:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        /* Virtue tests */
+        .virtue-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .virtue-card {
+            background: var(--bg-card);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .virtue-card:hover:not(.tested):not(.locked) {
+            border-color: var(--accent-purple);
+            transform: translateY(-3px);
+        }
+
+        .virtue-card.tested {
+            border-color: var(--accent-green);
+            background: rgba(46, 213, 115, 0.1);
+        }
+
+        .virtue-card.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .virtue-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .virtue-card .name {
+            font-weight: 700;
+            color: var(--accent-purple);
+            margin-bottom: 0.3rem;
+        }
+
+        .virtue-card .desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .virtue-card .result {
+            display: none;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #333;
+            font-size: 0.85rem;
+        }
+
+        .virtue-card.tested .result {
+            display: block;
+        }
+
+        .virtue-card .result.passed {
+            color: var(--accent-green);
+        }
+
+        .virtue-card .result.failed {
+            color: var(--accent-red);
+        }
+
+        /* Virtue test modal */
+        .virtue-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .virtue-modal.active {
+            display: flex;
+        }
+
+        .virtue-test-box {
+            background: var(--bg-panel);
+            border: 2px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .virtue-test-box h3 {
+            color: var(--accent-purple);
+            margin-bottom: 1rem;
+        }
+
+        .virtue-test-box .scenario {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .timing-bar {
+            width: 100%;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .timing-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-red));
+            transition: width 0.1s linear;
+        }
+
+        .virtue-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .virtue-btn {
+            padding: 1rem 2rem;
+            border: 2px solid;
+            border-radius: 8px;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .virtue-btn.resist {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .virtue-btn.resist:hover {
+            background: var(--accent-green);
+            color: #000;
+        }
+
+        .virtue-btn.give-in {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        /* Boss debate */
+        .boss-panel {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .boss-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .boss-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .boss-info h4 {
+            color: var(--accent-red);
+        }
+
+        .boss-speech {
+            background: rgba(255, 71, 87, 0.1);
+            border-left: 3px solid var(--accent-red);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .boss-speech p {
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .argument-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .argument-btn {
+            background: transparent;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .argument-btn:hover:not(:disabled) {
+            border-color: var(--accent-olive);
+            background: rgba(124, 154, 62, 0.1);
+        }
+
+        .argument-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .argument-btn.correct {
+            border-color: var(--accent-green);
+            background: rgba(46, 213, 115, 0.2);
+        }
+
+        /* Telos construct */
+        .construct-container {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-olive);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .construct-template {
+            font-size: 1.1rem;
+            line-height: 2;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .construct-slot {
+            display: inline-block;
+            min-width: 120px;
+            padding: 0.3rem 0.8rem;
+            border: 2px dashed var(--accent-cyan);
+            border-radius: 4px;
+            margin: 0 0.3rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .construct-slot.filled {
+            border-style: solid;
+            border-color: var(--accent-olive);
+            background: rgba(124, 154, 62, 0.2);
+            color: var(--accent-olive);
+        }
+
+        .construct-slot:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .fragments-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .fragment-chip {
+            background: var(--bg-panel);
+            border: 2px solid #444;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .fragment-chip:hover:not(.used) {
+            border-color: var(--accent-olive);
+            background: rgba(124, 154, 62, 0.1);
+        }
+
+        .fragment-chip.used {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .fragment-chip.valid {
+            border-color: var(--accent-olive);
+            color: var(--accent-olive);
+        }
+
+        .fragment-chip.invalid {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        /* Feedback messages */
+        .feedback-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .feedback-message.success {
+            background: rgba(46, 213, 115, 0.2);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .feedback-message.failure {
+            background: rgba(255, 71, 87, 0.2);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .feedback-message.info {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* Continue button */
+        .continue-btn {
+            background: var(--accent-olive);
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: auto;
+            align-self: flex-end;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(124, 154, 62, 0.4);
+        }
+
+        /* ========== RESULT SCREEN ========== */
+        #resultScreen {
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #0a0a12, #1a2a1a);
+        }
+
+        .result-container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .result-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-olive);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .reward-card {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-olive);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .reward-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-olive);
+            margin-bottom: 1rem;
+        }
+
+        .reward-card .claim {
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(124, 154, 62, 0.1);
+            border-radius: 8px;
+        }
+
+        .codex-unlocks {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .codex-unlocks h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .codex-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .codex-tag {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .reflection-box {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .reflection-box h4 {
+            color: var(--accent-purple);
+            margin-bottom: 1rem;
+        }
+
+        .reflection-box textarea {
+            width: 100%;
+            background: var(--bg-panel);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-primary);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .reflection-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .reflection-chip {
+            background: transparent;
+            border: 1px solid #444;
+            color: var(--text-secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .reflection-chip:hover {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .reflection-chip.selected {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            color: #fff;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title-logo { font-size: 2.5rem; }
+            .game-hud { flex-direction: column; padding: 1rem; }
+            .polis-meters { flex-wrap: wrap; justify-content: center; }
+            .scanner-grid, .npc-grid, .virtue-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- TITLE SCREEN -->
+    <div class="screen active" id="titleScreen">
+        <h1 class="title-logo">ANTHROPOS</h1>
+        <p class="title-subtitle">Een onderzoek naar de menselijke ziel</p>
+
+        <div class="level-info">
+            <p class="lens-tag">Lens 2 van 10</p>
+            <h2>TELOS SCANNER</h2>
+            <h3>Aristoteles (384–322 v.Chr.)</h3>
+            <p><strong>Onderzoeksvraag:</strong> Als alles een functie heeft, wat is dan de functie van de mens?</p>
+        </div>
+
+        <button class="btn btn-primary" onclick="startIntro()">START LEVEL</button>
+
+        <p style="margin-top: 2rem; color: var(--text-secondary); font-size: 0.85rem;">
+            <a href="anthropos.html" style="color: var(--accent-cyan); text-decoration: none;">← Terug naar Level 1</a>
+        </p>
+    </div>
+
+    <!-- INTRO SCREEN -->
+    <div class="screen" id="introScreen">
+        <div class="intro-container">
+            <div class="step-indicator">
+                <div class="step-dot active" id="dot1"></div>
+                <div class="step-dot" id="dot2"></div>
+                <div class="step-dot" id="dot3"></div>
+            </div>
+
+            <!-- Step 1: Mission briefing -->
+            <div class="intro-step active" id="introStep1">
+                <div class="tutorial-section" style="text-align: center;">
+                    <h2>📡 GALACTISCHE RAAD — VERVOLGOPDRACHT</h2>
+                    <p style="margin-bottom: 1.5rem;">"Operator, je hebt aangetoond dat mensen innerlijk conflict ervaren. Maar dat verklaart nog niet <em>wat</em> een mens is."</p>
+                    <p style="margin-bottom: 1.5rem;">"Onze scanners detecteren dat aardse objecten een <span class="highlight">telos</span> hebben — een doel, een functie. Een eikel wordt een eik. Een oog is er om te zien."</p>
+                    <p style="color: var(--accent-cyan);">"Maar wanneer we de mens scannen, krijgen we een foutmelding:<br><strong>ERROR: TELOS ONBEKEND — DATA ONTBREEKT</strong>"</p>
+                    <p style="margin-top: 1.5rem;">"We laden de volgende lens: <span style="color: var(--accent-olive);">ARISTOTELES</span>..."</p>
+                </div>
+                <div class="intro-nav">
+                    <button class="btn btn-primary" onclick="showIntroStep(2)">VOLGENDE →</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Aristoteles concepts -->
+            <div class="intro-step" id="introStep2">
+                <div class="tutorial-section">
+                    <h2>🏛️ ARISTOTELES' KERNIDEEËN</h2>
+                    <p>Aristoteles ziet de wereld anders dan Plato. Voor hem heeft <em>alles</em> een doel (telos) en is iets "goed" als het dat doel goed vervult.</p>
+
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <div class="icon">🎯</div>
+                            <div class="name">TELOS</div>
+                            <div class="greek">τέλος</div>
+                            <div class="desc">Doel / functie van iets</div>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">🌸</div>
+                            <div class="name">EUDAIMONIA</div>
+                            <div class="greek">εὐδαιμονία</div>
+                            <div class="desc">Floreren / bloei / geluk</div>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">⚖️</div>
+                            <div class="name">DEUGD</div>
+                            <div class="greek">ἀρετή</div>
+                            <div class="desc">Uitmuntendheid in functie</div>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">🏛️</div>
+                            <div class="name">ZOON POLITIKON</div>
+                            <div class="greek">ζῷον πολιτικόν</div>
+                            <div class="desc">De mens als gemeenschapsdier</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Kernvraag:</strong> Als een mes goed is wanneer het goed snijdt, en een oog goed is wanneer het goed ziet... wanneer is een <em>mens</em> goed?</p>
+                </div>
+                <div class="intro-nav">
+                    <button class="btn btn-secondary" onclick="showIntroStep(1)">← TERUG</button>
+                    <button class="btn btn-primary" onclick="showIntroStep(3)">VOLGENDE →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Polis meters -->
+            <div class="intro-step" id="introStep3">
+                <div class="tutorial-section">
+                    <h2>📊 DE POLIS-METERS</h2>
+                    <p>Je bevindt je in een simulatie van de Griekse polis (stadstaat). Drie factoren bepalen of de gemeenschap stabiel blijft:</p>
+
+                    <div class="meter-explain nomos">
+                        <div class="meter-icon">⚖️</div>
+                        <div>
+                            <h4>NOMOS (Wetten)</h4>
+                            <p>Orde en regels. Te laag = chaos. Te hoog = tirannie.</p>
+                        </div>
+                    </div>
+
+                    <div class="meter-explain philia">
+                        <div class="meter-icon">🤝</div>
+                        <div>
+                            <h4>PHILIA (Vriendschap)</h4>
+                            <p>Vertrouwen en samenwerking. Zonder philia valt de polis uiteen.</p>
+                        </div>
+                    </div>
+
+                    <div class="meter-explain logos-m">
+                        <div class="meter-icon">💬</div>
+                        <div>
+                            <h4>LOGOS (Publieke rede)</h4>
+                            <p>Kwaliteit van debat en argumenten. Essentieel voor democratie.</p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1rem; color: var(--accent-cyan);"><strong>Let op:</strong> Als één meter naar 0 zakt, breekt chaos uit!</p>
+                </div>
+                <div class="intro-nav">
+                    <button class="btn btn-secondary" onclick="showIntroStep(2)">← TERUG</button>
+                    <button class="btn btn-primary" onclick="startGame()">START LEVEL →</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="skip-btn" onclick="startGame()">SKIP INTRO →</button>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div class="screen" id="gameScreen">
+        <div class="game-hud">
+            <div class="timer-display" id="timer">12:00</div>
+
+            <div class="polis-meters">
+                <div class="polis-meter nomos">
+                    <div class="label">⚖️ Nomos</div>
+                    <div class="bar"><div class="fill" id="nomosFill" style="width: 60%"></div></div>
+                    <div class="value"><span id="nomosValue">60</span>%</div>
+                </div>
+                <div class="polis-meter philia">
+                    <div class="label">🤝 Philia</div>
+                    <div class="bar"><div class="fill" id="philiaFill" style="width: 60%"></div></div>
+                    <div class="value"><span id="philiaValue">60</span>%</div>
+                </div>
+                <div class="polis-meter logos-m">
+                    <div class="label">💬 Logos</div>
+                    <div class="bar"><div class="fill" id="logosPolFill" style="width: 60%"></div></div>
+                    <div class="value"><span id="logosPolValue">60</span>%</div>
+                </div>
+            </div>
+
+            <div class="scene-indicator" id="sceneIndicator">SCENE 1</div>
+        </div>
+
+        <div class="game-main">
+            <!-- Scene 1: Tutorial - Scanning -->
+            <div class="scene-container" id="scene1">
+                <div class="scene-narrative">
+                    <p><strong>POLIS LAB — Museum</strong></p>
+                    <p>Je staat in een ruimte met objecten uit de natuur en menselijke creaties. Je <span class="highlight">Telos Scanner</span> kan het doel van elk object onthullen.</p>
+                    <p>Scan de 4 objecten om te begrijpen wat <span class="concept">telos</span> betekent.</p>
+                </div>
+
+                <div class="scanner-grid">
+                    <div class="scan-object" id="scan-acorn" onclick="scanObject('acorn')">
+                        <div class="icon">🌰</div>
+                        <div class="name">Eikel</div>
+                        <div class="telos">→ Eik worden (groei)</div>
+                    </div>
+                    <div class="scan-object" id="scan-eye" onclick="scanObject('eye')">
+                        <div class="icon">👁️</div>
+                        <div class="name">Oog</div>
+                        <div class="telos">→ Zien (waarneming)</div>
+                    </div>
+                    <div class="scan-object" id="scan-knife" onclick="scanObject('knife')">
+                        <div class="icon">🔪</div>
+                        <div class="name">Mes</div>
+                        <div class="telos">→ Snijden (functie)</div>
+                    </div>
+                    <div class="scan-object" id="scan-hive" onclick="scanObject('hive')">
+                        <div class="icon">🐝</div>
+                        <div class="name">Bijenkorf</div>
+                        <div class="telos">→ Samenwerken (collectief)</div>
+                    </div>
+                </div>
+
+                <div id="scene1Feedback"></div>
+            </div>
+
+            <!-- Scene 2: Agora - NPC dialogues -->
+            <div class="scene-container" id="scene2">
+                <div class="scene-narrative">
+                    <p><strong>DE AGORA — Marktplein</strong></p>
+                    <p>Je komt op het centrale plein van de polis. Vier burgers staan hier, elk met een eigen perspectief op wat de mens maakt.</p>
+                    <p>Verzamel <span class="concept">telos-fragmenten</span> door met hen te praten. Niet alle fragmenten zijn even waardevol...</p>
+                </div>
+
+                <div class="npc-grid">
+                    <div class="npc-card" id="npc-craftsman" onclick="talkToNPC('craftsman')">
+                        <div class="npc-header">
+                            <div class="avatar">👨‍🔧</div>
+                            <div>
+                                <div class="npc-name">De Ambachtsman</div>
+                                <div class="npc-role">Beeldhouwer</div>
+                            </div>
+                        </div>
+                        <div class="fragment">Fragment: VAARDIGHEID</div>
+                    </div>
+                    <div class="npc-card" id="npc-orator" onclick="talkToNPC('orator')">
+                        <div class="npc-header">
+                            <div class="avatar">🗣️</div>
+                            <div>
+                                <div class="npc-name">De Redenaar</div>
+                                <div class="npc-role">Politicus</div>
+                            </div>
+                        </div>
+                        <div class="fragment">Fragment: SPRAAK & REDE</div>
+                    </div>
+                    <div class="npc-card" id="npc-friend" onclick="talkToNPC('friend')">
+                        <div class="npc-header">
+                            <div class="avatar">🤝</div>
+                            <div>
+                                <div class="npc-name">De Vriend</div>
+                                <div class="npc-role">Filosoof</div>
+                            </div>
+                        </div>
+                        <div class="fragment">Fragment: GEMEENSCHAP</div>
+                    </div>
+                    <div class="npc-card" id="npc-hedonist" onclick="talkToNPC('hedonist')">
+                        <div class="npc-header">
+                            <div class="avatar">🍷</div>
+                            <div>
+                                <div class="npc-name">De Genieter</div>
+                                <div class="npc-role">Feestganger</div>
+                            </div>
+                        </div>
+                        <div class="fragment">Fragment: PLEZIER</div>
+                    </div>
+                </div>
+
+                <div id="scene2Feedback"></div>
+            </div>
+
+            <!-- Scene 3: Virtue tests -->
+            <div class="scene-container" id="scene3">
+                <div class="scene-narrative">
+                    <p><strong>DE DEUGDENPROEF</strong></p>
+                    <p>Aristoteles zegt: de mens wordt goed door <span class="concept">deugd</span> (aretē) — uitmuntendheid in karakter. Maar deugd is geen theorie, het is <em>oefening</em>.</p>
+                    <p>Kies <strong>2 deugden</strong> om te testen. Elke keuze beïnvloedt de polis-meters.</p>
+                </div>
+
+                <div class="virtue-grid">
+                    <div class="virtue-card" id="virtue-temperance" onclick="startVirtueTest('temperance')">
+                        <div class="icon">🧘</div>
+                        <div class="name">Matigheid</div>
+                        <div class="desc">Weersta de overdaad</div>
+                        <div class="result"></div>
+                    </div>
+                    <div class="virtue-card" id="virtue-courage" onclick="startVirtueTest('courage')">
+                        <div class="icon">🦁</div>
+                        <div class="name">Moed</div>
+                        <div class="desc">Spreek een impopulaire waarheid</div>
+                        <div class="result"></div>
+                    </div>
+                    <div class="virtue-card" id="virtue-justice" onclick="startVirtueTest('justice')">
+                        <div class="icon">⚖️</div>
+                        <div class="name">Rechtvaardigheid</div>
+                        <div class="desc">Verdeel middelen eerlijk</div>
+                        <div class="result"></div>
+                    </div>
+                    <div class="virtue-card" id="virtue-wisdom" onclick="startVirtueTest('wisdom')">
+                        <div class="icon">🧠</div>
+                        <div class="name">Verstandigheid</div>
+                        <div class="desc">Plan vooruit, overzie gevolgen</div>
+                        <div class="result"></div>
+                    </div>
+                </div>
+
+                <div id="scene3Feedback"></div>
+            </div>
+
+            <!-- Scene 4: Mini-boss - The Hermit -->
+            <div class="scene-container" id="scene4">
+                <div class="scene-narrative">
+                    <p><strong>DE BRUG — Blokkade</strong></p>
+                    <p>Een figuur blokkeert de toegang tot de Telos Terminal. Hij draagt een eenvoudig gewaad en kijkt je minachtend aan.</p>
+                </div>
+
+                <div class="boss-panel">
+                    <div class="boss-header">
+                        <div class="boss-avatar">🏔️</div>
+                        <div class="boss-info">
+                            <h4>DE KLUIZENAAR</h4>
+                            <p>Zelfverklaarde vrije geest</p>
+                        </div>
+                    </div>
+
+                    <div class="boss-speech" id="hermitSpeech">
+                        <p>"Ik heb niemand nodig. Ik leef in de bergen, vrij van jullie regels en sociale spelletjes. De mens is het beste als individu — de gemeenschap is ballast."</p>
+                    </div>
+
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">Weerspreek de kluizenaar met Aristoteles' argumenten.</p>
+
+                    <div class="argument-options" id="hermitOptions">
+                        <button class="argument-btn" onclick="debateHermit('language')">
+                            "Zonder polis geen taal en moraal — je hebt de gemeenschap nodig om mens te worden."
+                        </button>
+                        <button class="argument-btn" onclick="debateHermit('function')">
+                            "Een mens buiten de gemeenschap mist zijn functie — zoals een hand los van het lichaam."
+                        </button>
+                        <button class="argument-btn" onclick="debateHermit('flourish')">
+                            "Eudaimonia is floreren, niet overleven — echte bloei vereist vriendschap en deugd."
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 5: Telos Construct -->
+            <div class="scene-container" id="scene5">
+                <div class="scene-narrative">
+                    <p><strong>TELOS TERMINAL — Finale</strong></p>
+                    <p>Je hebt toegang tot de terminal. Tijd om de <span class="concept">telos van de mens</span> te reconstrueren uit de verzamelde fragmenten.</p>
+                </div>
+
+                <div class="construct-container">
+                    <div class="construct-template">
+                        "De mens is goed als hij
+                        <span class="construct-slot" id="slot1" onclick="selectSlot(1)">___</span>
+                        gebruikt om
+                        <span class="construct-slot" id="slot2" onclick="selectSlot(2)">___</span>
+                        te bereiken binnen
+                        <span class="construct-slot" id="slot3" onclick="selectSlot(3)">___</span>."
+                    </div>
+
+                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 1rem;">Klik op een slot, dan op een fragment:</p>
+
+                    <div class="fragments-pool" id="fragmentsPool">
+                        <span class="fragment-chip" onclick="useFragment('REDE')">REDE</span>
+                        <span class="fragment-chip" onclick="useFragment('SPRAAK')">SPRAAK</span>
+                        <span class="fragment-chip" onclick="useFragment('DEUGD')">DEUGD</span>
+                        <span class="fragment-chip" onclick="useFragment('EUDAIMONIA')">EUDAIMONIA</span>
+                        <span class="fragment-chip" onclick="useFragment('GEMEENSCHAP')">GEMEENSCHAP</span>
+                        <span class="fragment-chip" onclick="useFragment('PLEZIER')">PLEZIER</span>
+                        <span class="fragment-chip" onclick="useFragment('MACHT')">MACHT</span>
+                    </div>
+                </div>
+
+                <div id="scene5Feedback"></div>
+                <button class="continue-btn" id="validateBtn" onclick="validateConstruct()" style="display: none;">VALIDEER CONSTRUCTIE →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialogue Modal -->
+    <div class="dialogue-modal" id="dialogueModal">
+        <div class="dialogue-box">
+            <div class="dialogue-header">
+                <div class="avatar" id="dialogueAvatar">👨‍🔧</div>
+                <div>
+                    <h3 id="dialogueName">De Ambachtsman</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;" id="dialogueRole">Beeldhouwer</p>
+                </div>
+            </div>
+            <div class="dialogue-text" id="dialogueText"></div>
+            <div class="dialogue-question" id="dialogueQuestion"></div>
+            <div class="dialogue-options" id="dialogueOptions"></div>
+        </div>
+    </div>
+
+    <!-- Virtue Test Modal -->
+    <div class="virtue-modal" id="virtueModal">
+        <div class="virtue-test-box">
+            <h3 id="virtueTitle">Deugdtest</h3>
+            <p class="scenario" id="virtueScenario"></p>
+            <div class="timing-bar">
+                <div class="timing-fill" id="timingFill" style="width: 100%"></div>
+            </div>
+            <div class="virtue-actions">
+                <button class="virtue-btn resist" onclick="virtueChoice('resist')">WEERSTAAN</button>
+                <button class="virtue-btn give-in" onclick="virtueChoice('give-in')">TOEGEVEN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="screen" id="resultScreen">
+        <div class="result-container">
+            <h1 class="result-title">LEVEL VOLTOOID</h1>
+            <p class="result-subtitle">De telos van de mens is gereconstrueerd.</p>
+
+            <div class="reward-card">
+                <h3>🃏 ARGUMENTKAART VERKREGEN</h3>
+                <div class="claim">
+                    "Goed leven is uitmuntend functioneren als mens in gemeenschap. Geluk is geen gevoel, maar floreren door deugd."
+                </div>
+                <div style="margin-top: 1rem;">
+                    <p style="color: var(--accent-green); font-size: 0.9rem;"><strong>STERK TEGEN:</strong> "Geluk is alleen een gevoel/plezier."</p>
+                    <p style="color: var(--accent-red); font-size: 0.9rem; margin-top: 0.5rem;"><strong>ZWAK TEGEN:</strong> "Wat als iemand niet kan 'uitmunten'?"</p>
+                </div>
+            </div>
+
+            <div class="codex-unlocks">
+                <h4>📚 CODEX ONTGRENDELD</h4>
+                <div class="codex-tags">
+                    <span class="codex-tag">Telos</span>
+                    <span class="codex-tag">Eudaimonia</span>
+                    <span class="codex-tag">Zoon Politikon</span>
+                    <span class="codex-tag">Deugd (Aretē)</span>
+                    <span class="codex-tag">Phronesis</span>
+                </div>
+            </div>
+
+            <div class="reflection-box">
+                <h4>🧠 MICRO-REFLECTIE</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">
+                    Waarom zegt Aristoteles dat je de gemeenschap nodig hebt om volledig mens te worden? (1–2 zinnen)
+                </p>
+                <textarea id="reflectionText" placeholder="Typ je antwoord hier..."></textarea>
+                <div class="reflection-chips">
+                    <button class="reflection-chip" onclick="selectChip(this)">taal en moraal</button>
+                    <button class="reflection-chip" onclick="selectChip(this)">vriendschap en deugd</button>
+                    <button class="reflection-chip" onclick="selectChip(this)">wetten en samenwerking</button>
+                    <button class="reflection-chip" onclick="selectChip(this)">ik twijfel</button>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="finishLevel()">VOLTOOIEN</button>
+                <button class="btn btn-secondary" onclick="restartGame()">OPNIEUW</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== GAME STATE ==========
+        let gameState = {
+            timer: 720, // 12 minutes
+            nomos: 60,
+            philia: 60,
+            logosPol: 60,
+            currentScene: 1,
+            scannedObjects: [],
+            talkedNPCs: [],
+            fragments: [],
+            virtuesTested: 0,
+            virtuesMax: 2,
+            debateStage: 0,
+            selectedSlot: null,
+            construct: { slot1: null, slot2: null, slot3: null },
+            timerInterval: null,
+            virtueTimer: null
+        };
+
+        // ========== SCREEN MANAGEMENT ==========
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function startIntro() {
+            showScreen('introScreen');
+        }
+
+        function showIntroStep(step) {
+            document.querySelectorAll('.intro-step').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active'));
+            document.getElementById(`introStep${step}`).classList.add('active');
+            document.getElementById(`dot${step}`).classList.add('active');
+        }
+
+        function startGame() {
+            showScreen('gameScreen');
+            showScene(1);
+            startTimer();
+        }
+
+        function showScene(num) {
+            document.querySelectorAll('.scene-container').forEach(s => s.classList.remove('active'));
+            document.getElementById(`scene${num}`).classList.add('active');
+            document.getElementById('sceneIndicator').textContent = `SCENE ${num}`;
+            gameState.currentScene = num;
+        }
+
+        // ========== TIMER ==========
+        function startTimer() {
+            gameState.timerInterval = setInterval(() => {
+                gameState.timer--;
+                updateTimerDisplay();
+                if (gameState.timer <= 0) {
+                    clearInterval(gameState.timerInterval);
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(gameState.timer / 60);
+            const seconds = gameState.timer % 60;
+            document.getElementById('timer').textContent =
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // ========== POLIS METERS ==========
+        function adjustMeter(meter, amount) {
+            gameState[meter] = Math.max(0, Math.min(100, gameState[meter] + amount));
+            updateMeterDisplay(meter);
+            checkPolisStability();
+        }
+
+        function updateMeterDisplay(meter) {
+            const meterMap = {
+                nomos: 'nomos',
+                philia: 'philia',
+                logosPol: 'logosPol'
+            };
+            const fillId = meter === 'logosPol' ? 'logosPolFill' : `${meter}Fill`;
+            const valueId = meter === 'logosPol' ? 'logosPolValue' : `${meter}Value`;
+            document.getElementById(fillId).style.width = `${gameState[meter]}%`;
+            document.getElementById(valueId).textContent = gameState[meter];
+        }
+
+        function checkPolisStability() {
+            if (gameState.nomos <= 0 || gameState.philia <= 0 || gameState.logosPol <= 0) {
+                showFeedback('CHAOS! Een polis-meter is gecrasht. Tijdstraf: -30 sec.', 'failure', `scene${gameState.currentScene}Feedback`);
+                gameState.timer -= 30;
+                gameState.nomos = Math.max(20, gameState.nomos);
+                gameState.philia = Math.max(20, gameState.philia);
+                gameState.logosPol = Math.max(20, gameState.logosPol);
+                updateMeterDisplay('nomos');
+                updateMeterDisplay('philia');
+                updateMeterDisplay('logosPol');
+            }
+        }
+
+        function showFeedback(message, type, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = `<div class="feedback-message ${type}">${message}</div>`;
+            setTimeout(() => {
+                if (container.querySelector('.feedback-message')) {
+                    container.innerHTML = '';
+                }
+            }, 3000);
+        }
+
+        // ========== SCENE 1: SCANNING ==========
+        function scanObject(obj) {
+            if (gameState.scannedObjects.includes(obj)) return;
+
+            gameState.scannedObjects.push(obj);
+            document.getElementById(`scan-${obj}`).classList.add('scanned');
+
+            showFeedback(`Object gescand! Telos onthuld.`, 'success', 'scene1Feedback');
+
+            if (gameState.scannedObjects.length === 4) {
+                setTimeout(() => {
+                    showFeedback('Alle objecten gescand! Telos begrepen: alles heeft een doel.', 'info', 'scene1Feedback');
+                    setTimeout(() => showScene(2), 2000);
+                }, 1000);
+            }
+        }
+
+        // ========== SCENE 2: NPC DIALOGUES ==========
+        const npcData = {
+            craftsman: {
+                avatar: '👨‍🔧',
+                name: 'De Ambachtsman',
+                role: 'Beeldhouwer',
+                text: '"Ik maak beelden. Mijn handen kennen hun werk — dat is mijn telos. Maar wat is het telos van de mens zelf?"',
+                question: 'Wat maakt de mens anders dan een dier?',
+                options: [
+                    { text: 'Vaardigheden en gereedschap', effect: { philia: 5 }, fragment: 'VAARDIGHEID' },
+                    { text: 'Het vermogen om te spreken en te redeneren', effect: { logosPol: 10 }, fragment: 'SPRAAK' },
+                    { text: 'Niets bijzonders', effect: { nomos: -10 }, fragment: null }
+                ]
+            },
+            orator: {
+                avatar: '🗣️',
+                name: 'De Redenaar',
+                role: 'Politicus',
+                text: '"In de agora maken we wetten met woorden. De mens is het enige wezen dat argumenteert over goed en kwaad."',
+                question: 'Waarom is spraak zo belangrijk?',
+                options: [
+                    { text: 'We kunnen samenwerken en recht spreken', effect: { logosPol: 10, nomos: 5 }, fragment: 'REDE' },
+                    { text: 'We kunnen anderen overtuigen', effect: { logosPol: 5 }, fragment: 'OVERTUIGING' },
+                    { text: 'Spraak is overrated', effect: { logosPol: -15 }, fragment: null }
+                ]
+            },
+            friend: {
+                avatar: '🤝',
+                name: 'De Vriend',
+                role: 'Filosoof',
+                text: '"Aristoteles zei: zonder vrienden zou niemand willen leven, ook al had hij alle andere goederen."',
+                question: 'Kun je goed leven zonder anderen?',
+                options: [
+                    { text: 'Nee, de mens is een gemeenschapsdier', effect: { philia: 15 }, fragment: 'GEMEENSCHAP' },
+                    { text: 'Ja, als je sterk genoeg bent', effect: { philia: -10 }, fragment: null },
+                    { text: 'Alleen voor deugd heb je anderen nodig', effect: { philia: 5, logosPol: 5 }, fragment: 'DEUGD' }
+                ]
+            },
+            hedonist: {
+                avatar: '🍷',
+                name: 'De Genieter',
+                role: 'Feestganger',
+                text: '"Waarom zo serieus? Het leven is om te genieten! Eet, drink, dans — dát is geluk!"',
+                question: 'Is geluk hetzelfde als plezier?',
+                options: [
+                    { text: 'Ja! Geniet van het moment!', effect: { philia: 5, nomos: -10 }, fragment: 'PLEZIER' },
+                    { text: 'Nee, geluk is dieper — het is floreren', effect: { logosPol: 10 }, fragment: 'BLOEI' },
+                    { text: 'Plezier is een deel van geluk', effect: { philia: 5 }, fragment: 'PLEZIER' }
+                ]
+            }
+        };
+
+        function talkToNPC(npc) {
+            if (gameState.talkedNPCs.includes(npc)) return;
+
+            const data = npcData[npc];
+            document.getElementById('dialogueAvatar').textContent = data.avatar;
+            document.getElementById('dialogueName').textContent = data.name;
+            document.getElementById('dialogueRole').textContent = data.role;
+            document.getElementById('dialogueText').textContent = data.text;
+            document.getElementById('dialogueQuestion').textContent = data.question;
+
+            let optionsHtml = '';
+            data.options.forEach((opt, i) => {
+                optionsHtml += `<button class="dialogue-option" onclick="selectDialogueOption('${npc}', ${i})">${opt.text}</button>`;
+            });
+            document.getElementById('dialogueOptions').innerHTML = optionsHtml;
+
+            document.getElementById('dialogueModal').classList.add('active');
+        }
+
+        function selectDialogueOption(npc, optionIndex) {
+            const data = npcData[npc];
+            const option = data.options[optionIndex];
+
+            // Apply effects
+            Object.entries(option.effect).forEach(([meter, value]) => {
+                adjustMeter(meter, value);
+            });
+
+            // Add fragment
+            if (option.fragment && !gameState.fragments.includes(option.fragment)) {
+                gameState.fragments.push(option.fragment);
+            }
+
+            gameState.talkedNPCs.push(npc);
+            document.getElementById(`npc-${npc}`).classList.add('talked');
+            document.getElementById('dialogueModal').classList.remove('active');
+
+            if (gameState.talkedNPCs.length === 4) {
+                setTimeout(() => {
+                    showFeedback('Alle burgers gesproken! Fragmenten verzameld.', 'info', 'scene2Feedback');
+                    setTimeout(() => showScene(3), 2000);
+                }, 500);
+            }
+        }
+
+        // ========== SCENE 3: VIRTUE TESTS ==========
+        const virtueData = {
+            temperance: {
+                title: 'MATIGHEID',
+                scenario: 'Een overdadig banket staat voor je. De geuren zijn onweerstaanbaar. Je maag rammelt. Maar je hebt al gegeten — meer is ongezond.',
+                resistEffect: { philia: 5, nomos: 5 },
+                giveInEffect: { philia: -5, nomos: -5 }
+            },
+            courage: {
+                title: 'MOED',
+                scenario: 'De menigte juicht voor een populaire maar onrechtvaardige wet. Jij weet dat het fout is. Durf je te spreken?',
+                resistEffect: { logosPol: 15, philia: -5 },
+                giveInEffect: { logosPol: -10, philia: 5 }
+            },
+            justice: {
+                title: 'RECHTVAARDIGHEID',
+                scenario: 'Je moet brood verdelen over drie families. Één familie is je vriend, één is arm, één is vreemd. Verdeel je eerlijk?',
+                resistEffect: { nomos: 10, philia: 5 },
+                giveInEffect: { nomos: -10, philia: -5 }
+            },
+            wisdom: {
+                title: 'VERSTANDIGHEID',
+                scenario: 'Je kunt nu een snelle winst pakken, maar het schaadt de polis op lange termijn. Denk je vooruit?',
+                resistEffect: { logosPol: 10, nomos: 5 },
+                giveInEffect: { logosPol: -10, nomos: -5 }
+            }
+        };
+
+        let currentVirtue = null;
+
+        function startVirtueTest(virtue) {
+            if (gameState.virtuesTested >= gameState.virtuesMax) {
+                showFeedback('Je hebt al 2 deugden getest.', 'info', 'scene3Feedback');
+                return;
+            }
+            if (document.getElementById(`virtue-${virtue}`).classList.contains('tested')) return;
+
+            currentVirtue = virtue;
+            const data = virtueData[virtue];
+
+            document.getElementById('virtueTitle').textContent = data.title;
+            document.getElementById('virtueScenario').textContent = data.scenario;
+            document.getElementById('timingFill').style.width = '100%';
+
+            document.getElementById('virtueModal').classList.add('active');
+
+            // Start timing bar
+            let width = 100;
+            gameState.virtueTimer = setInterval(() => {
+                width -= 2;
+                document.getElementById('timingFill').style.width = `${width}%`;
+                if (width <= 0) {
+                    clearInterval(gameState.virtueTimer);
+                    virtueChoice('give-in');
+                }
+            }, 100);
+        }
+
+        function virtueChoice(choice) {
+            clearInterval(gameState.virtueTimer);
+            document.getElementById('virtueModal').classList.remove('active');
+
+            const data = virtueData[currentVirtue];
+            const card = document.getElementById(`virtue-${currentVirtue}`);
+            const resultDiv = card.querySelector('.result');
+
+            if (choice === 'resist') {
+                Object.entries(data.resistEffect).forEach(([meter, value]) => {
+                    adjustMeter(meter, value);
+                });
+                resultDiv.textContent = '✓ Geslaagd';
+                resultDiv.className = 'result passed';
+            } else {
+                Object.entries(data.giveInEffect).forEach(([meter, value]) => {
+                    adjustMeter(meter, value);
+                });
+                resultDiv.textContent = '✗ Gezwicht';
+                resultDiv.className = 'result failed';
+            }
+
+            card.classList.add('tested');
+            gameState.virtuesTested++;
+
+            if (gameState.virtuesTested >= gameState.virtuesMax) {
+                // Lock remaining virtues
+                document.querySelectorAll('.virtue-card:not(.tested)').forEach(c => c.classList.add('locked'));
+                setTimeout(() => {
+                    showFeedback('Deugdenproef voltooid! Door naar de confrontatie.', 'info', 'scene3Feedback');
+                    setTimeout(() => showScene(4), 2000);
+                }, 1000);
+            }
+        }
+
+        // ========== SCENE 4: HERMIT DEBATE ==========
+        function debateHermit(choice) {
+            const options = document.getElementById('hermitOptions');
+            const buttons = options.querySelectorAll('.argument-btn');
+
+            buttons.forEach(btn => {
+                btn.disabled = true;
+            });
+
+            const speech = document.getElementById('hermitSpeech');
+
+            if (gameState.debateStage === 0) {
+                // All three are valid Aristotelian responses
+                speech.innerHTML = `<p>"Ha! Maar ik leef al jaren alleen en het gaat prima. Ik heb mijn eigen regels, mijn eigen ritme. Waarom zou ik jullie polis nodig hebben?"</p>`;
+
+                adjustMeter('logosPol', 10);
+
+                setTimeout(() => {
+                    options.innerHTML = `
+                        <button class="argument-btn" onclick="debateHermit('final_function')">
+                            "Je gebruikt taal die je van anderen leerde. Je moraal komt van de gemeenschap. Je bent nooit écht alleen geweest."
+                        </button>
+                        <button class="argument-btn" onclick="debateHermit('final_flourish')">
+                            "Overleven is niet hetzelfde als floreren. Zonder vriendschap mis je een essentieel deel van menselijk geluk."
+                        </button>
+                    `;
+                    gameState.debateStage = 1;
+                }, 2000);
+            } else {
+                // Final answer
+                if (choice === 'final_function') {
+                    speech.innerHTML = `<p>De Kluizenaar zwijgt. Hij kijkt naar zijn handen, die gereedschap vasthouden dat door anderen is gemaakt.<br><br><em>"Misschien... heb je een punt."</em></p>`;
+                    adjustMeter('logosPol', 15);
+                } else {
+                    speech.innerHTML = `<p>De Kluizenaar knikt langzaam.<br><br><em>"Ik mis... soms... gesprekken. Maar dat geef ik niet graag toe."</em></p>`;
+                    adjustMeter('philia', 10);
+                }
+
+                setTimeout(() => {
+                    options.innerHTML = `<button class="continue-btn" onclick="showScene(5)">DOOR NAAR DE TERMINAL →</button>`;
+                }, 2000);
+            }
+        }
+
+        // ========== SCENE 5: TELOS CONSTRUCT ==========
+        function selectSlot(num) {
+            document.querySelectorAll('.construct-slot').forEach(s => s.style.borderColor = '');
+            document.getElementById(`slot${num}`).style.borderColor = 'var(--accent-gold)';
+            gameState.selectedSlot = num;
+        }
+
+        function useFragment(fragment) {
+            if (!gameState.selectedSlot) {
+                showFeedback('Selecteer eerst een slot!', 'info', 'scene5Feedback');
+                return;
+            }
+
+            const chip = Array.from(document.querySelectorAll('.fragment-chip')).find(c => c.textContent === fragment);
+            if (chip.classList.contains('used')) return;
+
+            // Clear previous fragment in this slot
+            const oldFragment = gameState.construct[`slot${gameState.selectedSlot}`];
+            if (oldFragment) {
+                const oldChip = Array.from(document.querySelectorAll('.fragment-chip')).find(c => c.textContent === oldFragment);
+                if (oldChip) oldChip.classList.remove('used');
+            }
+
+            // Set new fragment
+            gameState.construct[`slot${gameState.selectedSlot}`] = fragment;
+            document.getElementById(`slot${gameState.selectedSlot}`).textContent = fragment;
+            document.getElementById(`slot${gameState.selectedSlot}`).classList.add('filled');
+            chip.classList.add('used');
+
+            gameState.selectedSlot = null;
+            document.querySelectorAll('.construct-slot').forEach(s => s.style.borderColor = '');
+
+            // Check if all slots filled
+            if (gameState.construct.slot1 && gameState.construct.slot2 && gameState.construct.slot3) {
+                document.getElementById('validateBtn').style.display = 'block';
+            }
+        }
+
+        function validateConstruct() {
+            const { slot1, slot2, slot3 } = gameState.construct;
+
+            // Valid combinations (Aristotelian)
+            const validSlot1 = ['REDE', 'SPRAAK', 'DEUGD'];
+            const validSlot2 = ['EUDAIMONIA', 'BLOEI', 'DEUGD'];
+            const validSlot3 = ['GEMEENSCHAP', 'POLIS'];
+
+            const score =
+                (validSlot1.includes(slot1) ? 1 : 0) +
+                (validSlot2.includes(slot2) ? 1 : 0) +
+                (validSlot3.includes(slot3) ? 1 : 0);
+
+            if (score >= 2) {
+                showFeedback('Constructie gevalideerd! De telos van de mens is gereconstrueerd.', 'success', 'scene5Feedback');
+                clearInterval(gameState.timerInterval);
+                setTimeout(() => showScreen('resultScreen'), 2000);
+            } else {
+                showFeedback('Constructie inconsistent. Probeer opnieuw met andere fragmenten.', 'failure', 'scene5Feedback');
+                adjustMeter('logosPol', -10);
+
+                // Reset slots
+                ['slot1', 'slot2', 'slot3'].forEach(slot => {
+                    if (gameState.construct[slot]) {
+                        const chip = Array.from(document.querySelectorAll('.fragment-chip')).find(c => c.textContent === gameState.construct[slot]);
+                        if (chip) chip.classList.remove('used');
+                    }
+                    gameState.construct[slot] = null;
+                    document.getElementById(slot).textContent = '___';
+                    document.getElementById(slot).classList.remove('filled');
+                });
+                document.getElementById('validateBtn').style.display = 'none';
+            }
+        }
+
+        // ========== REFLECTION ==========
+        function selectChip(chip) {
+            chip.classList.toggle('selected');
+        }
+
+        function finishLevel() {
+            const reflection = document.getElementById('reflectionText').value;
+            console.log('Level 2 completed:', { reflection, fragments: gameState.fragments });
+            alert('Level 2 voltooid! Je antwoord is opgeslagen.\n\nIn de volledige versie volgt nu Level 3: Descartes.');
+        }
+
+        function restartGame() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

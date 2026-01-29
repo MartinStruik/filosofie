@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTHROPOS - Level 1: De Wagenmenner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a12;
+            --bg-panel: #12121f;
+            --bg-card: #1a1a2e;
+            --accent-gold: #c9a227;
+            --accent-cyan: #00d4ff;
+            --accent-red: #ff4757;
+            --accent-green: #2ed573;
+            --accent-purple: #a55eea;
+            --text-primary: #ffffff;
+            --text-secondary: #8892b0;
+            --epithymia: #1a1a1a;
+            --thymos: #f0f0f0;
+            --logos: #c9a227;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ========== SCREENS ========== */
+        .screen {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ========== TITLE SCREEN ========== */
+        #titleScreen {
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 50%, #0a0a12 100%);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .title-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(201, 162, 39, 0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.5)); }
+        }
+
+        .title-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.3rem;
+            margin-bottom: 3rem;
+        }
+
+        .level-preview {
+            background: var(--bg-panel);
+            border: 2px solid var(--accent-gold);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+
+        .level-preview h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .level-preview h3 {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .level-preview p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            font-family: 'Orbitron', sans-serif;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-gold), #e6c55a);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-cyan);
+            color: #000;
+        }
+
+        /* ========== INTRO CINEMATIC ========== */
+        #introScreen {
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            padding: 2rem;
+        }
+
+        .intro-container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .intro-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .intro-step.active {
+            display: block;
+        }
+
+        .cinematic-box {
+            max-width: 700px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .cinematic-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInText 1s ease forwards;
+        }
+
+        .cinematic-text.delay-1 { animation-delay: 0.5s; }
+        .cinematic-text.delay-2 { animation-delay: 2s; }
+        .cinematic-text.delay-3 { animation-delay: 3.5s; }
+
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+
+        .cinematic-highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Tutorial explanation styling */
+        .tutorial-section {
+            background: var(--bg-panel);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .tutorial-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .tutorial-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tutorial-section p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .tutorial-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .metaphor-visual {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .metaphor-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            min-width: 140px;
+        }
+
+        .metaphor-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .metaphor-item .name {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .metaphor-item.black-horse .name { color: #666; }
+        .metaphor-item.white-horse .name { color: #fff; }
+        .metaphor-item.charioteer .name { color: var(--accent-gold); }
+
+        .metaphor-item .desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .action-explain {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+
+        .action-explain .action-icon {
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .action-explain.focus-action .action-icon {
+            background: rgba(201, 162, 39, 0.2);
+            border: 1px solid var(--accent-gold);
+        }
+
+        .action-explain.breathe-action .action-icon {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .action-explain.goal-action .action-icon {
+            background: rgba(165, 94, 234, 0.2);
+            border: 1px solid var(--accent-purple);
+        }
+
+        .action-explain .action-info h4 {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .action-explain.focus-action .action-info h4 { color: var(--accent-gold); }
+        .action-explain.breathe-action .action-info h4 { color: var(--accent-cyan); }
+        .action-explain.goal-action .action-info h4 { color: var(--accent-purple); }
+
+        .action-explain .action-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .action-explain .action-info .effect {
+            font-size: 0.8rem;
+            color: var(--accent-green);
+        }
+
+        .intro-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .intro-nav .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #333;
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.3);
+        }
+
+        .skip-btn {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .skip-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* ========== GAME SCREEN ========== */
+        #gameScreen {
+            background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%);
+        }
+
+        /* Top HUD */
+        .game-hud {
+            background: var(--bg-panel);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        .timer-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+        }
+
+        .timer-display.warning {
+            color: var(--accent-red);
+            animation: pulse 0.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .meters-container {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .meter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 120px;
+        }
+
+        .meter-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .meter-label.epithymia { color: #666; }
+        .meter-label.thymos { color: #fff; }
+        .meter-label.logos { color: var(--accent-gold); }
+
+        .meter-bar {
+            width: 100%;
+            height: 12px;
+            background: #333;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        .meter-fill.epithymia {
+            background: linear-gradient(90deg, #333, #666);
+        }
+
+        .meter-fill.thymos {
+            background: linear-gradient(90deg, #ccc, #fff);
+        }
+
+        .meter-fill.logos {
+            background: linear-gradient(90deg, var(--accent-gold), #e6c55a);
+        }
+
+        .meter-value {
+            font-size: 0.75rem;
+            margin-top: 0.2rem;
+            color: var(--text-secondary);
+        }
+
+        .scene-indicator {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Main game area */
+        .game-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .scene-container {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+        }
+
+        .scene-container.active {
+            display: flex;
+            animation: sceneIn 0.5s ease;
+        }
+
+        @keyframes sceneIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scene-narrative {
+            background: var(--bg-card);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .scene-narrative p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .scene-narrative p:last-child {
+            margin-bottom: 0;
+        }
+
+        .scene-narrative .highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .scene-narrative .warning-text {
+            color: var(--accent-red);
+        }
+
+        /* Temptation alerts */
+        .temptation-alert {
+            background: linear-gradient(135deg, rgba(255, 71, 87, 0.2), rgba(255, 71, 87, 0.1));
+            border: 1px solid var(--accent-red);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .temptation-alert .icon {
+            font-size: 2rem;
+        }
+
+        .temptation-alert .text {
+            flex: 1;
+        }
+
+        .temptation-alert .text strong {
+            color: var(--accent-red);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .temptation-alert .text span {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Action buttons */
+        .actions-panel {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 0.8rem 1rem;
+            border: 2px solid;
+            border-radius: 8px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .action-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .action-btn.focus {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .action-btn.focus:hover:not(:disabled) {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .action-btn.breathe {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .action-btn.breathe:hover:not(:disabled) {
+            background: var(--accent-cyan);
+            color: #000;
+        }
+
+        .action-btn.goal {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .action-btn.goal:hover:not(:disabled) {
+            background: var(--accent-purple);
+            color: #fff;
+        }
+
+        .action-btn .cooldown {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        /* Choice cards */
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .choice-card {
+            background: var(--bg-card);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .choice-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateX(10px);
+        }
+
+        .choice-card .choice-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .choice-card .choice-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .choice-card .choice-effect {
+            font-size: 0.8rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .choice-card .effect-positive {
+            color: var(--accent-green);
+        }
+
+        .choice-card .effect-negative {
+            color: var(--accent-red);
+        }
+
+        .choice-card.selected {
+            border-color: var(--accent-gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        /* Debate panel */
+        .debate-panel {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .debate-opponent {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .opponent-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .opponent-info h4 {
+            color: var(--accent-purple);
+            margin-bottom: 0.3rem;
+        }
+
+        .opponent-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .debate-speech {
+            background: rgba(165, 94, 234, 0.1);
+            border-left: 3px solid var(--accent-purple);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .debate-speech p {
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .argument-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .argument-btn {
+            background: transparent;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .argument-btn:hover {
+            border-color: var(--accent-gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        .argument-btn.correct {
+            border-color: var(--accent-green);
+            background: rgba(46, 213, 115, 0.2);
+        }
+
+        .argument-btn.wrong {
+            border-color: var(--accent-red);
+            background: rgba(255, 71, 87, 0.2);
+        }
+
+        /* Feedback messages */
+        .feedback-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feedback-message.success {
+            background: rgba(46, 213, 115, 0.2);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .feedback-message.failure {
+            background: rgba(255, 71, 87, 0.2);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .feedback-message.info {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* Continue button */
+        .continue-btn {
+            background: var(--accent-gold);
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: auto;
+            align-self: flex-end;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201, 162, 39, 0.4);
+        }
+
+        /* ========== RESULT SCREEN ========== */
+        #resultScreen {
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #0a0a12, #1a1a2e);
+        }
+
+        .result-container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .result-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .reward-card {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-gold);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .reward-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .reward-card .claim {
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(201, 162, 39, 0.1);
+            border-radius: 8px;
+        }
+
+        .reward-card .strengths {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .reward-card .strength-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .reward-card .strength-item.strong::before {
+            content: "STERK:";
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .reward-card .strength-item.weak::before {
+            content: "ZWAK:";
+            color: var(--accent-red);
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .codex-unlocks {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .codex-unlocks h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .codex-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .codex-tag {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .reflection-box {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .reflection-box h4 {
+            color: var(--accent-purple);
+            margin-bottom: 1rem;
+        }
+
+        .reflection-box textarea {
+            width: 100%;
+            background: var(--bg-panel);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-primary);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .reflection-box textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+        }
+
+        .reflection-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .reflection-chip {
+            background: transparent;
+            border: 1px solid #444;
+            color: var(--text-secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .reflection-chip:hover {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .reflection-chip.selected {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            color: #fff;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .title-logo {
+                font-size: 2.5rem;
+            }
+
+            .game-hud {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .meters-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .meter {
+                width: 100px;
+            }
+
+            .actions-panel {
+                justify-content: center;
+            }
+
+            .action-btn {
+                min-width: 100px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TITLE SCREEN -->
+    <div class="screen active" id="titleScreen">
+        <h1 class="title-logo">ANTHROPOS</h1>
+        <p class="title-subtitle">Een onderzoek naar de menselijke ziel</p>
+
+        <button class="btn btn-primary" onclick="startIntro()" style="margin-top: 3rem;">BEGIN</button>
+
+        <p style="margin-top: 3rem; color: var(--text-secondary); font-size: 0.85rem;">
+            <a href="index.html" style="color: var(--accent-cyan); text-decoration: none;">← Terug naar Filosofie</a>
+        </p>
+    </div>
+
+    <!-- INTRO CINEMATIC -->
+    <div class="screen" id="introScreen">
+        <div class="intro-container">
+            <!-- Step indicators -->
+            <div class="step-indicator">
+                <div class="step-dot active" id="dot1"></div>
+                <div class="step-dot" id="dot2"></div>
+                <div class="step-dot" id="dot3"></div>
+                <div class="step-dot" id="dot4"></div>
+                <div class="step-dot" id="dot5"></div>
+            </div>
+
+            <!-- Step 1: Cinematic intro -->
+            <div class="intro-step active" id="introStep1">
+                <div class="cinematic-box">
+                    <p class="cinematic-text delay-1">
+                        <span class="cinematic-highlight">GALACTISCHE RAAD // DOSSIER: HOMO SAPIENS</span>
+                    </p>
+                    <p class="cinematic-text delay-2">
+                        "Operator, de Raad staat voor een besluit. Op planeet Aarde evolueert een soort<br>
+                        die zichzelf <span class="cinematic-highlight">Homo sapiens</span> noemt — 'de wijze mens'.<br>
+                        Ze bezitten technologie, taal en zelfbewustzijn. Maar wat <em>zijn</em> ze werkelijk?"
+                    </p>
+                    <p class="cinematic-text delay-3">
+                        "Voordat de Raad beleid bepaalt, hebben we data nodig. Jouw missie:<br>
+                        voer een grondig <span class="cinematic-highlight">antropologisch onderzoek</span> uit.<br>
+                        Analyseer de menselijke ziel vanuit 10 filosofische perspectieven.<br>
+                        Jouw bevindingen vormen het <span class="cinematic-highlight">Definitief Rapport</span>."
+                    </p>
+                    <p class="cinematic-text" style="animation-delay: 5s; margin-top: 2rem; font-size: 0.95rem;">
+                        We beginnen bij de oudste observaties. <span class="cinematic-highlight">Lens 1 wordt geladen...</span>
+                    </p>
+                </div>
+                <div class="intro-nav" style="margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="showIntroStep(2)">VOLGENDE →</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Level intro -->
+            <div class="intro-step" id="introStep2">
+                <div class="tutorial-section" style="text-align: center;">
+                    <p style="color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 0.5rem;">Lens 1 van 10</p>
+                    <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">DE WAGENMENNER</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Plato (427–347 v.Chr.)</p>
+
+                    <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; text-align: left;">
+                        <p style="color: var(--accent-cyan); font-size: 0.85rem; margin-bottom: 1rem;">ONDERZOEKSVRAAG: Kan de menselijke rede de driften beheersen?</p>
+                        <p><strong style="color: var(--accent-gold);">Simulatie:</strong> Alex moet binnen 9 minuten de Bibliotheek bereiken voor het Toegangsexamen.</p>
+                        <p style="margin-top: 1rem; color: var(--text-secondary);">Onderweg trekken verleidingen, sociale druk en provocaties aan de ziel. Observeer hoe de drie zielsdelen met elkaar strijden.</p>
+                    </div>
+                </div>
+                <div class="intro-nav">
+                    <button class="btn btn-secondary" onclick="showIntroStep(1)">← TERUG</button>
+                    <button class="btn btn-primary" onclick="showIntroStep(3)">VOLGENDE →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: The Metaphor Explained -->
+            <div class="intro-step" id="introStep3">
+                <div class="tutorial-section">
+                    <h2>🏛️ PLATO'S WAGENMENNER</h2>
+                    <p>Plato vergelijkt de menselijke ziel met een <strong>wagen getrokken door twee paarden</strong>. De drie delen van de ziel werken samen — of tegen elkaar.</p>
+
+                    <div class="metaphor-visual">
+                        <div class="metaphor-item black-horse">
+                            <div class="icon">🐴</div>
+                            <div class="name">ZWART PAARD</div>
+                            <div class="desc">Epithymia</div>
+                            <div class="desc">Verlangens & impulsen</div>
+                        </div>
+                        <div class="metaphor-item charioteer">
+                            <div class="icon">👤</div>
+                            <div class="name">DE MENNER</div>
+                            <div class="desc">Logos</div>
+                            <div class="desc">De rede zelf</div>
+                        </div>
+                        <div class="metaphor-item white-horse">
+                            <div class="icon">🐴</div>
+                            <div class="name">WIT PAARD</div>
+                            <div class="desc">Thymos</div>
+                            <div class="desc">Trots & wilskracht</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Het zwarte paard (Epithymia)</strong> trekt naar directe bevrediging: scrollen, snacks, afleidingen. Het wil alles <em>nu</em>, zonder na te denken over gevolgen.</p>
+                    <p><strong>Het witte paard (Thymos)</strong> wil erkenning en eer. Het helpt volhouden uit trots, maar kan ook leiden tot schaamte of woede.</p>
+                    <p><strong>De wagenmenner (Logos)</strong> is de rede — het deel dat kan nadenken, plannen en kiezen. Zonder sterke Logos trekken de paarden de wagen alle kanten op.</p>
+                    <p style="margin-top: 1rem; color: var(--accent-cyan);"><strong>Jouw rol:</strong> Jij bestuurt Alex. Kun jij de rede laten winnen?</p>
+                </div>
+                <div class="intro-nav">
+                    <button class="btn btn-secondary" onclick="showIntroStep(2)">← TERUG</button>
+                    <button class="btn btn-primary" onclick="showIntroStep(4)">VOLGENDE →</button>
+                </div>
+            </div>
+
+            <!-- Step 4: How to Play - Meters -->
+            <div class="intro-step" id="introStep4">
+                <div class="tutorial-section">
+                    <h2>📊 DE DRIE METERS</h2>
+                    <p>Tijdens het spel zie je drie balken die de kracht van elk zielsdeel weergeven:</p>
+
+                    <div class="action-explain focus-action">
+                        <div class="action-icon">🐴</div>
+                        <div class="action-info">
+                            <h4>ZWART PAARD (Epithymia)</h4>
+                            <p>Meet hoe sterk de verlangens trekken. Stijgt bij verleidingen en afleiding.</p>
+                            <p><strong>Gevaar:</strong> Bij 90%+ neemt het paard even over — je verliest tijd!</p>
+                            <span class="effect">Strategie: Hou dit onder controle met Focus en Adem</span>
+                        </div>
+                    </div>
+
+                    <div class="action-explain breathe-action">
+                        <div class="action-icon">🐴</div>
+                        <div class="action-info">
+                            <h4>WIT PAARD (Thymos)</h4>
+                            <p>Meet je trots en doorzettingsvermogen. Stijgt als je verleidingen weerstaat.</p>
+                            <p><strong>Gevaar:</strong> Te hoge Thymos bij lage Logos = rigide en star worden.</p>
+                            <span class="effect">Strategie: Bouw dit op door goede keuzes te maken</span>
+                        </div>
+                    </div>
+
+                    <div class="action-explain goal-action">
+                        <div class="action-icon">👤</div>
+                        <div class="action-info">
+                            <h4>DE MENNER (Logos)</h4>
+                            <p>Meet de kracht van de rede. Nodig voor weloverwogen keuzes. Kan uitgeput raken!</p>
+                            <p><strong>Gevaar:</strong> Onder 20% kun je Route B niet meer halen.</p>
+                            <span class="effect">Strategie: Herstel met Adem, versterk met Doel</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-nav">
+                    <button class="btn btn-secondary" onclick="showIntroStep(3)">← TERUG</button>
+                    <button class="btn btn-primary" onclick="showIntroStep(5)">VOLGENDE →</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Actions -->
+            <div class="intro-step" id="introStep5">
+                <div class="tutorial-section">
+                    <h2>🎮 JOUW ACTIES</h2>
+                    <p>Je hebt drie acties om je meters te beïnvloeden. Gebruik ze strategisch!</p>
+
+                    <div class="action-explain focus-action">
+                        <div class="action-icon">🎯</div>
+                        <div class="action-info">
+                            <h4>FOCUS</h4>
+                            <p>Actief de verleiding negeren. Je richt je aandacht bewust op iets anders.</p>
+                            <p><strong>Wanneer gebruiken?</strong> Als het zwarte paard te hard trekt (hoge Epithymia).</p>
+                            <span class="effect">Effect: Epithymia -15, maar kost Logos -10</span>
+                        </div>
+                    </div>
+
+                    <div class="action-explain breathe-action">
+                        <div class="action-icon">🌬️</div>
+                        <div class="action-info">
+                            <h4>ADEM</h4>
+                            <p>Pauzeer en adem diep in. Dit kalmeert je systeem en herstelt rationele kracht.</p>
+                            <p><strong>Wanneer gebruiken?</strong> Als je Logos laag is en je weer helder wilt denken.</p>
+                            <span class="effect">Effect: Logos +10, Epithymia -10 (cooldown: 10 sec)</span>
+                        </div>
+                    </div>
+
+                    <div class="action-explain goal-action">
+                        <div class="action-icon">💭</div>
+                        <div class="action-info">
+                            <h4>DOEL</h4>
+                            <p>Herinner jezelf waarom je dit doet. "Bibliotheek. Examen. Ik kan dit."</p>
+                            <p><strong>Wanneer gebruiken?</strong> Om motivatie en focus te versterken.</p>
+                            <span class="effect">Effect: Thymos +10, Logos +5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-nav">
+                    <button class="btn btn-secondary" onclick="showIntroStep(4)">← TERUG</button>
+                    <button class="btn btn-primary" onclick="startGame()">START LEVEL →</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="skip-btn" onclick="startGame()">SKIP INTRO →</button>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div class="screen" id="gameScreen">
+        <div class="game-hud">
+            <div class="timer-display" id="timer">09:00</div>
+
+            <div class="meters-container">
+                <div class="meter">
+                    <div class="meter-label epithymia">🐴 Zwart Paard</div>
+                    <div class="meter-bar">
+                        <div class="meter-fill epithymia" id="epithymiaFill" style="width: 30%"></div>
+                    </div>
+                    <div class="meter-value"><span id="epithymiaValue">30</span>%</div>
+                </div>
+
+                <div class="meter">
+                    <div class="meter-label thymos">🐴 Wit Paard</div>
+                    <div class="meter-bar">
+                        <div class="meter-fill thymos" id="thymosFill" style="width: 40%"></div>
+                    </div>
+                    <div class="meter-value"><span id="thymosValue">40</span>%</div>
+                </div>
+
+                <div class="meter">
+                    <div class="meter-label logos">👤 Menner (Logos)</div>
+                    <div class="meter-bar">
+                        <div class="meter-fill logos" id="logosFill" style="width: 70%"></div>
+                    </div>
+                    <div class="meter-value"><span id="logosValue">70</span>%</div>
+                </div>
+            </div>
+
+            <div class="scene-indicator" id="sceneIndicator">SCENE 1</div>
+        </div>
+
+        <div class="game-main">
+            <!-- Scene 1: Tutorial -->
+            <div class="scene-container" id="scene1">
+                <div class="scene-narrative">
+                    <p><strong>ATHENE 2.0 — Simulatie geladen</strong></p>
+                    <p>Je bestuurt <span class="highlight">Alex</span>, een student op weg naar de Bibliotheek. Over <span class="highlight">9 minuten</span> sluit de poort voor het Toegangsexamen — de belangrijkste test van het jaar.</p>
+                    <p>Eerste obstakel: een <span class="warning-text">SCROLL-MUUR</span> — een gigantisch scherm vol video's, memes en notificaties. Het trekt aan de aandacht...</p>
+                </div>
+
+                <div class="temptation-alert">
+                    <div class="icon">📱</div>
+                    <div class="text">
+                        <strong>ZWART PAARD TREKT!</strong>
+                        <span>Epithymia stijgt. Je focus daalt. Gebruik je acties om weerstand te bieden.</span>
+                    </div>
+                </div>
+
+                <div class="actions-panel">
+                    <button class="action-btn focus" onclick="useAction('focus')">
+                        🎯 FOCUS<br><span class="cooldown">-10 Logos</span>
+                    </button>
+                    <button class="action-btn breathe" onclick="useAction('breathe')">
+                        🌬️ ADEM<br><span class="cooldown">Cooldown: 10s</span>
+                    </button>
+                    <button class="action-btn goal" onclick="useAction('goal')">
+                        💭 DOEL<br><span class="cooldown">+Thymos, +Logos</span>
+                    </button>
+                </div>
+
+                <div class="choices-container">
+                    <div class="choice-card" onclick="makeChoice(1, 'resist')">
+                        <div class="choice-title">💪 Weerstaan</div>
+                        <div class="choice-desc">Je loopt door zonder te kijken. De beelden flitsen voorbij.</div>
+                        <div class="choice-effect">
+                            <span class="effect-positive">+Thymos</span>
+                            <span class="effect-negative">-5 Logos (inspanning)</span>
+                        </div>
+                    </div>
+                    <div class="choice-card" onclick="makeChoice(1, 'peek')">
+                        <div class="choice-title">👀 Even kijken</div>
+                        <div class="choice-desc">"Alleen 10 seconden..." Je stopt om te scrollen.</div>
+                        <div class="choice-effect">
+                            <span class="effect-negative">+20 Epithymia</span>
+                            <span class="effect-negative">-30 sec tijd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 2: Social Pull -->
+            <div class="scene-container" id="scene2">
+                <div class="scene-narrative">
+                    <p><strong>HET PLEIN — Sociale Zone</strong></p>
+                    <p>Alex' vrienden staan op het plein. Ze lachen, filmen, roepen.</p>
+                    <p><em>"Alex! Kom hier! We doen iets grappigs voor TikTok. Alleen 5 minuutjes!"</em></p>
+                    <p>De <span class="highlight">sociale druk</span> voelt sterk. Niet meedoen betekent gemist worden. Maar de klok tikt...</p>
+                </div>
+
+                <div class="temptation-alert">
+                    <div class="icon">👥</div>
+                    <div class="text">
+                        <strong>SOCIALE PULL GEDETECTEERD</strong>
+                        <span>Epithymia + Thymos stijgen beiden. Status en plezier trekken samen.</span>
+                    </div>
+                </div>
+
+                <div class="actions-panel">
+                    <button class="action-btn focus" onclick="useAction('focus')">
+                        🎯 FOCUS
+                    </button>
+                    <button class="action-btn breathe" onclick="useAction('breathe')" id="breatheBtn">
+                        🌬️ ADEM
+                    </button>
+                    <button class="action-btn goal" onclick="useAction('goal')">
+                        💭 DOEL
+                    </button>
+                </div>
+
+                <div class="choices-container">
+                    <div class="choice-card" onclick="makeChoice(2, 'join')">
+                        <div class="choice-title">🎉 5 minuten meedoen</div>
+                        <div class="choice-desc">Je doet mee met de video. Het is leuk, maar de tijd vliegt.</div>
+                        <div class="choice-effect">
+                            <span class="effect-positive">Sociale boost</span>
+                            <span class="effect-negative">-60 sec tijd, +30 Epithymia</span>
+                        </div>
+                    </div>
+                    <div class="choice-card" onclick="makeChoice(2, 'walk')">
+                        <div class="choice-title">🚶 Doorlopen (zwijgend)</div>
+                        <div class="choice-desc">Je loopt door zonder iets te zeggen. Ze roepen nog, maar je negeert het.</div>
+                        <div class="choice-effect">
+                            <span class="effect-positive">+15 Thymos (trots)</span>
+                            <span class="effect-negative">+10 Epithymia (FOMO)</span>
+                        </div>
+                    </div>
+                    <div class="choice-card" onclick="makeChoice(2, 'honest')">
+                        <div class="choice-title">🗣️ Eerlijk zeggen</div>
+                        <div class="choice-desc">"Ik moet leren, maar we zien elkaar na het examen!"</div>
+                        <div class="choice-effect">
+                            <span class="effect-positive">+20 Logos (helderheid)</span>
+                            <span class="effect-negative">-10 Thymos (ze lachen)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 3: Routes -->
+            <div class="scene-container" id="scene3">
+                <div class="scene-narrative">
+                    <p><strong>DE KRUISING — Strategische Keuze</strong></p>
+                    <p>Je staat voor een kruising. Twee routes naar de Bibliotheek:</p>
+                    <p><span class="highlight">ROUTE A (Omweg):</span> Langs winkels, eetgelegenheden, een arcade. Veel verleidingen, maar je kunt niet verdwalen.</p>
+                    <p><span class="highlight">ROUTE B (Directe weg):</span> Een rustige steeg. Sneller, maar vereist concentratie — er zijn twee punten waar je de juiste afslag moet kiezen.</p>
+                </div>
+
+                <div class="choices-container">
+                    <div class="choice-card" onclick="makeChoice(3, 'easy')">
+                        <div class="choice-title">🛣️ Route A: Omweg</div>
+                        <div class="choice-desc">Makkelijk te volgen, maar onderweg trek je langs drie verleidingen. Je Epithymia wordt getest.</div>
+                        <div class="choice-effect">
+                            <span class="effect-negative">+15 Epithymia (verleidingen)</span>
+                            <span class="effect-negative">-10 Logos (mentale inspanning)</span>
+                        </div>
+                    </div>
+                    <div class="choice-card" onclick="makeChoice(3, 'fast')">
+                        <div class="choice-title">⚡ Route B: Directe weg</div>
+                        <div class="choice-desc">Sneller, maar je hebt voldoende Logos nodig om de juiste afslagen te herkennen.</div>
+                        <div class="choice-effect">
+                            <span class="effect-positive">+30 sec tijd (als Logos ≥ 40)</span>
+                            <span class="effect-negative">-20 sec tijd (als Logos &lt; 40)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 4: Provocation (Thymos test) -->
+            <div class="scene-container" id="scene4">
+                <div class="scene-narrative">
+                    <p><strong>DE STEEG — Provocatie</strong></p>
+                    <p>Je loopt verder als iemand je pad blokkeert. Een oudere leerling met een spottende grijns.</p>
+                    <p><em>"Hé, is dat niet die nerd die altijd in de bieb zit? Wat zielig. Heb je geen vrienden?"</em></p>
+                    <p>Zijn vrienden lachen. Je voelt je <span class="warning-text">gezicht warm worden</span>. Woede borrelt op.</p>
+                </div>
+
+                <div class="temptation-alert">
+                    <div class="icon">😤</div>
+                    <div class="text">
+                        <strong>THYMOS GEACTIVEERD!</strong>
+                        <span>Je trots is gekwetst. Het witte paard wil vechten of bewijzen. Maar helpt dat je doel?</span>
+                    </div>
+                </div>
+
+                <div class="actions-panel">
+                    <button class="action-btn focus" onclick="useAction('focus')">
+                        🎯 FOCUS
+                    </button>
+                    <button class="action-btn breathe" onclick="useAction('breathe')" id="breatheBtn2">
+                        🌬️ ADEM
+                    </button>
+                    <button class="action-btn goal" onclick="useAction('goal')">
+                        💭 DOEL
+                    </button>
+                </div>
+
+                <div class="choices-container">
+                    <div class="choice-card" onclick="makeChoice(4, 'fight')">
+                        <div class="choice-title">👊 Terugslaan met woorden</div>
+                        <div class="choice-desc">"Tenminste heb ik een toekomst." Je verdedigt je eer.</div>
+                        <div class="choice-effect">
+                            <span class="effect-negative">+25 Thymos (woede)</span>
+                            <span class="effect-negative">-20 Logos (emotie wint)</span>
+                            <span class="effect-negative">-45 sec (confrontatie)</span>
+                        </div>
+                    </div>
+                    <div class="choice-card" onclick="makeChoice(4, 'prove')">
+                        <div class="choice-title">🎯 Bewijzen dat je beter bent</div>
+                        <div class="choice-desc">Je negeert hem, maar van binnen beloof je jezelf: "Ik zal het ze laten zien."</div>
+                        <div class="choice-effect">
+                            <span class="effect-positive">+15 Thymos (motivatie)</span>
+                            <span class="effect-negative">+10 Epithymia (frustratie)</span>
+                        </div>
+                    </div>
+                    <div class="choice-card" onclick="makeChoice(4, 'letgo')">
+                        <div class="choice-title">🧘 Loslaten</div>
+                        <div class="choice-desc">Je haalt diep adem. "Dit gaat niet over mij. Dit gaat over hem." Je loopt door.</div>
+                        <div class="choice-effect">
+                            <span class="effect-positive">+15 Logos (rationeel)</span>
+                            <span class="effect-negative">-5 Thymos (even slikken)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 5: Mini-Boss (The Sophist) -->
+            <div class="scene-container" id="scene5">
+                <div class="scene-narrative">
+                    <p><strong>DE BRUG — Blokkade</strong></p>
+                    <p>Een figuur blokkeert de brug naar de Bibliotheek. Hij draagt een glanzend gewaad en glimlacht superieur.</p>
+                </div>
+
+                <div class="debate-panel">
+                    <div class="debate-opponent">
+                        <div class="opponent-avatar">🎭</div>
+                        <div class="opponent-info">
+                            <h4>DE SOFIST</h4>
+                            <p>Meester van retoriek</p>
+                        </div>
+                    </div>
+
+                    <div class="debate-speech" id="sophistSpeech">
+                        <p>"Vrijheid is doen wat je wilt, wanneer je het wilt. Jij bent pas écht vrij als je je impulsen volgt. Al dat 'zelfbeheersing'-gedoe is onderdrukking!"</p>
+                    </div>
+
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">Kies je antwoord zorgvuldig. De Sofist zal je uitdagen.</p>
+
+                    <div class="argument-options" id="debateOptions">
+                        <button class="argument-btn" onclick="debateChoice('control')">
+                            "Vrijheid is zelfbestuur — de rede moet leiden."
+                        </button>
+                        <button class="argument-btn" onclick="debateChoice('slave')">
+                            "Impulsen volgen maakt je juist een slaaf van je driften."
+                        </button>
+                        <button class="argument-btn" onclick="debateChoice('better')">
+                            "Echte vrijheid is kiezen voor het betere, niet het makkelijkste."
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 6: Final Sprint -->
+            <div class="scene-container" id="scene6">
+                <div class="scene-narrative">
+                    <p><strong>DE LAATSTE METERS</strong></p>
+                    <p>De Bibliotheek is in zicht. De Exam Gate staat open. Nog 30 seconden.</p>
+                    <p>Maar de stad probeert je nog één keer te trekken. Een laatste golf van notificaties, een bekende die langsloopt, het geluid van muziek...</p>
+                </div>
+
+                <div class="temptation-alert">
+                    <div class="icon">⚡</div>
+                    <div class="text">
+                        <strong>MAXIMALE PULL!</strong>
+                        <span>Alle meters onder druk. Focus nu of verlies de controle.</span>
+                    </div>
+                </div>
+
+                <div class="feedback-message info" id="finalMessage" style="display: none;"></div>
+
+                <div class="choices-container">
+                    <div class="choice-card" onclick="makeChoice(6, 'sprint')">
+                        <div class="choice-title">🏃 Sprint naar de Gate</div>
+                        <div class="choice-desc">Je negeert alles en rent. De rede houdt de teugels strak.</div>
+                        <div class="choice-effect">
+                            <span class="effect-positive">FINISH</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="screen" id="resultScreen">
+        <div class="result-container">
+            <h1 class="result-title">LEVEL VOLTOOID</h1>
+            <p class="result-subtitle">De Wagenmenner heeft zijn doel bereikt.</p>
+
+            <div class="reward-card">
+                <h3>🃏 ARGUMENTKAART VERKREGEN</h3>
+                <div class="claim">
+                    "Vrijheid is zelfbestuur. Wie zijn driften volgt, is een slaaf. De rede moet de teugels vasthouden."
+                </div>
+                <div class="strengths">
+                    <div class="strength-item strong">
+                        Tegen: "Ik kan niet anders, het is mijn natuur."
+                    </div>
+                    <div class="strength-item weak">
+                        Tegen: "Gevoel en intuïtie hebben ook waarde."
+                    </div>
+                </div>
+            </div>
+
+            <div class="codex-unlocks">
+                <h4>📚 CODEX ONTGRENDELD</h4>
+                <div class="codex-tags">
+                    <span class="codex-tag">Logos</span>
+                    <span class="codex-tag">Thymos</span>
+                    <span class="codex-tag">Epithymia</span>
+                    <span class="codex-tag">Zelfbeheersing</span>
+                    <span class="codex-tag">Dualisme (ziel)</span>
+                </div>
+            </div>
+
+            <div class="reflection-box">
+                <h4>🧠 MICRO-REFLECTIE</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">
+                    Wat bedoelt Plato met vrijheid? (1-2 zinnen)
+                </p>
+                <textarea id="reflectionText" placeholder="Typ je antwoord hier..."></textarea>
+                <div class="reflection-chips">
+                    <button class="reflection-chip" onclick="selectChip(this)">Vrijheid = doen wat je wilt</button>
+                    <button class="reflection-chip" onclick="selectChip(this)">Vrijheid = zelfbeheersing</button>
+                    <button class="reflection-chip" onclick="selectChip(this)">Rede moet leiden</button>
+                    <button class="reflection-chip" onclick="selectChip(this)">Ik twijfel</button>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="finishLevel()">VOLTOOIEN</button>
+                <button class="btn btn-secondary" onclick="restartGame()">OPNIEUW</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== GAME STATE ==========
+        let gameState = {
+            currentScene: 1,
+            timer: 540, // 9 minutes in seconds
+            epithymia: 30,
+            thymos: 40,
+            logos: 70,
+            breatheCooldown: false,
+            debateStage: 0,
+            choices: [],
+            timerInterval: null
+        };
+
+        // ========== SCREEN MANAGEMENT ==========
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function startIntro() {
+            showScreen('introScreen');
+            showIntroStep(1);
+        }
+
+        function showIntroStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.intro-step').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active'));
+
+            // Show selected step
+            document.getElementById(`introStep${step}`).classList.add('active');
+            document.getElementById(`dot${step}`).classList.add('active');
+        }
+
+        function startGame() {
+            showScreen('gameScreen');
+            showScene(1);
+            startTimer();
+        }
+
+        // ========== TIMER ==========
+        function startTimer() {
+            gameState.timerInterval = setInterval(() => {
+                gameState.timer--;
+                updateTimerDisplay();
+
+                // Random temptation pulses
+                if (Math.random() < 0.1) {
+                    adjustMeter('epithymia', 2);
+                }
+
+                if (gameState.timer <= 0) {
+                    clearInterval(gameState.timerInterval);
+                    // Time out - could add fail state
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(gameState.timer / 60);
+            const seconds = gameState.timer % 60;
+            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = display;
+
+            if (gameState.timer < 60) {
+                timerEl.classList.add('warning');
+            }
+        }
+
+        // ========== SCENE MANAGEMENT ==========
+        function showScene(num) {
+            document.querySelectorAll('.scene-container').forEach(s => s.classList.remove('active'));
+            document.getElementById(`scene${num}`).classList.add('active');
+            document.getElementById('sceneIndicator').textContent = `SCENE ${num}`;
+            gameState.currentScene = num;
+        }
+
+        // ========== METER MANAGEMENT ==========
+        function adjustMeter(meter, amount) {
+            gameState[meter] = Math.max(0, Math.min(100, gameState[meter] + amount));
+            updateMeterDisplay(meter);
+            checkMeterCrash();
+        }
+
+        function updateMeterDisplay(meter) {
+            document.getElementById(`${meter}Fill`).style.width = `${gameState[meter]}%`;
+            document.getElementById(`${meter}Value`).textContent = gameState[meter];
+        }
+
+        function checkMeterCrash() {
+            if (gameState.epithymia >= 90) {
+                // Crash state - could add visual effect
+                adjustMeter('epithymia', -20);
+                gameState.timer -= 15;
+                showFeedback('Zwart paard nam even over! -15 seconden.', 'failure');
+            }
+            if (gameState.logos <= 10 && gameState.thymos >= 80) {
+                adjustMeter('thymos', -20);
+                showFeedback('Te rigide! Thymos gecorrigeerd.', 'failure');
+            }
+        }
+
+        function showFeedback(message, type) {
+            const existing = document.querySelector('.temp-feedback');
+            if (existing) existing.remove();
+
+            const feedback = document.createElement('div');
+            feedback.className = `feedback-message ${type} temp-feedback`;
+            feedback.textContent = message;
+
+            const container = document.querySelector('.scene-container.active');
+            if (container) {
+                container.insertBefore(feedback, container.firstChild);
+                setTimeout(() => feedback.remove(), 3000);
+            }
+        }
+
+        // ========== ACTIONS ==========
+        function useAction(action) {
+            switch(action) {
+                case 'focus':
+                    if (gameState.logos >= 10) {
+                        adjustMeter('logos', -10);
+                        adjustMeter('epithymia', -15);
+                        showFeedback('Focus! Epithymia daalt.', 'success');
+                    } else {
+                        showFeedback('Niet genoeg Logos!', 'failure');
+                    }
+                    break;
+
+                case 'breathe':
+                    if (!gameState.breatheCooldown) {
+                        adjustMeter('logos', 10);
+                        adjustMeter('epithymia', -10);
+                        gameState.breatheCooldown = true;
+                        showFeedback('Adem... Rust keert terug.', 'info');
+
+                        const btn = document.getElementById('breatheBtn');
+                        if (btn) btn.disabled = true;
+
+                        setTimeout(() => {
+                            gameState.breatheCooldown = false;
+                            if (btn) btn.disabled = false;
+                        }, 10000);
+                    }
+                    break;
+
+                case 'goal':
+                    adjustMeter('thymos', 10);
+                    adjustMeter('logos', 5);
+                    showFeedback('"Bibliotheek. Focus. Je kunt dit."', 'info');
+                    break;
+            }
+        }
+
+        // ========== CHOICES ==========
+        function makeChoice(scene, choice) {
+            gameState.choices.push({ scene, choice });
+
+            switch(scene) {
+                case 1:
+                    if (choice === 'resist') {
+                        adjustMeter('thymos', 15);
+                        adjustMeter('logos', -5);
+                        showFeedback('Je weerstaat de Scroll-Muur. Thymos +15!', 'success');
+                    } else {
+                        adjustMeter('epithymia', 20);
+                        gameState.timer -= 30;
+                        showFeedback('30 seconden weg aan scrollen...', 'failure');
+                    }
+                    setTimeout(() => showScene(2), 1500);
+                    break;
+
+                case 2:
+                    if (choice === 'join') {
+                        adjustMeter('epithymia', 30);
+                        gameState.timer -= 60;
+                        showFeedback('Gezellig, maar 60 seconden verloren.', 'failure');
+                    } else if (choice === 'walk') {
+                        adjustMeter('thymos', 15);
+                        adjustMeter('epithymia', 10);
+                        showFeedback('Doorgelopen. Trots, maar ook FOMO.', 'info');
+                    } else {
+                        adjustMeter('logos', 20);
+                        adjustMeter('thymos', -10);
+                        showFeedback('Eerlijk gezegd. Ze lachen, maar de rede wint.', 'info');
+                    }
+                    setTimeout(() => showScene(3), 1500);
+                    break;
+
+                case 3:
+                    if (choice === 'easy') {
+                        adjustMeter('epithymia', 15);
+                        adjustMeter('logos', -10);
+                        showFeedback('Route A: veel verleidingen onderweg.', 'info');
+                    } else {
+                        if (gameState.logos >= 40) {
+                            gameState.timer += 30;
+                            showFeedback('Route B: helder hoofd! +30 seconden.', 'success');
+                        } else {
+                            gameState.timer -= 20;
+                            showFeedback('Verkeerde afslag genomen. -20 seconden.', 'failure');
+                        }
+                    }
+                    setTimeout(() => showScene(4), 1500);
+                    break;
+
+                case 4: // Provocation scene
+                    if (choice === 'fight') {
+                        adjustMeter('thymos', 25);
+                        adjustMeter('logos', -20);
+                        gameState.timer -= 45;
+                        showFeedback('Woede wint. Confrontatie kost je 45 seconden.', 'failure');
+                    } else if (choice === 'prove') {
+                        adjustMeter('thymos', 15);
+                        adjustMeter('epithymia', 10);
+                        showFeedback('Je loopt door met gebalde vuisten. Motivatie gevonden.', 'info');
+                    } else {
+                        adjustMeter('logos', 15);
+                        adjustMeter('thymos', -5);
+                        showFeedback('Loslaten. De rede wint van de trots.', 'success');
+                    }
+                    setTimeout(() => showScene(5), 1500);
+                    break;
+
+                case 6: // Final sprint
+                    clearInterval(gameState.timerInterval);
+                    document.getElementById('finalMessage').style.display = 'block';
+                    document.getElementById('finalMessage').textContent = 'Je hebt het gehaald! De Menner heeft de paarden in bedwang gehouden.';
+                    setTimeout(() => showScreen('resultScreen'), 2000);
+                    break;
+            }
+        }
+
+        // ========== DEBATE ==========
+        function debateChoice(choice) {
+            const options = document.getElementById('debateOptions');
+            const buttons = options.querySelectorAll('.argument-btn');
+
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('disabled');
+            });
+
+            if (gameState.debateStage === 0) {
+                // First response - Sophist counters
+                const speech = document.getElementById('sophistSpeech');
+
+                if (choice === 'control' || choice === 'slave' || choice === 'better') {
+                    // All three are valid Platonic responses
+                    speech.innerHTML = `<p>"Ha! Maar wie bepaalt wat 'beter' is? Jouw rede is ook maar een stem in je hoofd. Waarom zou die stem méér waard zijn dan je verlangen naar plezier?"</p>`;
+
+                    setTimeout(() => {
+                        options.innerHTML = `
+                            <button class="argument-btn" onclick="debateChoice('final_reason')">
+                                "Omdat de rede kan reflecteren op verlangens. Verlangens kunnen niet reflecteren op zichzelf."
+                            </button>
+                            <button class="argument-btn" onclick="debateChoice('final_regret')">
+                                "Omdat ik na impulsieve keuzes spijt heb, maar na doordachte keuzes niet."
+                            </button>
+                        `;
+                        gameState.debateStage = 1;
+                    }, 2000);
+                }
+            } else {
+                // Final answer
+                const speech = document.getElementById('sophistSpeech');
+
+                if (choice === 'final_reason') {
+                    speech.innerHTML = `<p>De Sofist zwijgt. Hij stapt opzij.<br><br><em>"Je hebt gelijk. Ik... ik moet nadenken."</em></p>`;
+                    adjustMeter('logos', 20);
+                } else {
+                    speech.innerHTML = `<p>De Sofist knikt langzaam.<br><br><em>"Ervaring als leraar. Interessant argument. Je mag passeren."</em></p>`;
+                    adjustMeter('thymos', 15);
+                }
+
+                setTimeout(() => {
+                    options.innerHTML = `<button class="continue-btn" onclick="showScene(6)">DOOR NAAR DE FINISH →</button>`;
+                }, 2000);
+            }
+        }
+
+        // ========== REFLECTION ==========
+        function selectChip(chip) {
+            chip.classList.toggle('selected');
+        }
+
+        function finishLevel() {
+            const reflection = document.getElementById('reflectionText').value;
+            const selectedChips = Array.from(document.querySelectorAll('.reflection-chip.selected'))
+                .map(c => c.textContent);
+
+            console.log('Reflection saved:', { text: reflection, chips: selectedChips, choices: gameState.choices });
+
+            // Could send to server or local storage
+            alert('Level voltooid! Je antwoord is opgeslagen.\n\nIn de volledige versie volgt nu Level 2: Aristoteles.');
+        }
+
+        function restartGame() {
+            gameState = {
+                currentScene: 1,
+                timer: 540,
+                epithymia: 30,
+                thymos: 40,
+                logos: 70,
+                breatheCooldown: false,
+                debateStage: 0,
+                choices: [],
+                timerInterval: null
+            };
+
+            // Reset displays
+            updateMeterDisplay('epithymia');
+            updateMeterDisplay('thymos');
+            updateMeterDisplay('logos');
+
+            showScreen('titleScreen');
+        }
+    </script>
+</body>
+</html>
