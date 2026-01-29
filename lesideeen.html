@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filosofische Lesideeën - Oostvaarders College</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: linear-gradient(135deg, #1a7a8a 0%, #145f6a 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #c9a227;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        /* --- MAIN --- */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .intro-box {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #c9a227;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .intro-box p {
+            color: #555;
+        }
+
+        /* --- CATEGORY --- */
+        .category {
+            margin-bottom: 2.5rem;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #1a7a8a 0%, #145f6a 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .category-header .icon {
+            font-size: 1.5rem;
+        }
+
+        .category-header h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- LESSON CARD --- */
+        .lesson-card {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-left: 4px solid #1a7a8a;
+            border-bottom: 1px solid #eee;
+            transition: all 0.2s;
+        }
+
+        .lesson-card:last-child {
+            border-radius: 0 0 8px 8px;
+            border-bottom: none;
+        }
+
+        .lesson-card:hover {
+            background: #f8fafb;
+            border-left-color: #c9a227;
+        }
+
+        .lesson-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a7a8a;
+            margin-bottom: 0.3rem;
+        }
+
+        .lesson-author {
+            font-size: 0.9rem;
+            color: #c9a227;
+            font-style: italic;
+            margin-bottom: 0.8rem;
+        }
+
+        .lesson-question {
+            background: #e8f4f6;
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: #1a7a8a;
+        }
+
+        .lesson-question::before {
+            content: "❓ ";
+        }
+
+        .lesson-content {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+            background: white;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Terug naar hoofdpagina</a>
+            <h1>FILOSOFISCHE LESIDEEËN</h1>
+            <p>Ontworpen en uitgevoerd door leerlingen</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="intro-box">
+            <p>Hier vind je een overzicht van alle filosofische lesideeën, ontworpen door leerlingen. Elke les bevat een prikkelende vraag en verwijst naar bekende filosofen. Gebruik deze ideeën als inspiratie voor je eigen les!</p>
+        </div>
+
+        <!-- Categorie 1: Brein & Bewustzijn -->
+        <section class="category">
+            <div class="category-header">
+                <span class="icon">🧠</span>
+                <h2>Het Mysterie van het Brein & Bewustzijn</h2>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">1. Is dit al eerder gebeurd? (Déjà Vu)</h3>
+                <p class="lesson-author">Door: Valérie</p>
+                <div class="lesson-question">Wat is een déjà vu en is het een hapering in onze hersenen of iets spiritueels?</div>
+                <p class="lesson-content">Je duikt in wetenschappelijke verklaringen zoals vertragingen in je hersenen, maar kijkt ook naar spirituele ideeën zoals reïncarnatie. Is kennis slechts een herinnering, zoals Plato dacht?</p>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">2. Dromen Bedrog?</h3>
+                <p class="lesson-author">Door: Farida, Shauna & Aaliyah</p>
+                <div class="lesson-question">Hebben onze dromen betekenis of is het random ruis?</div>
+                <p class="lesson-content">Volgens Sigmund Freud zijn dromen de 'koninklijke weg' naar je onbewuste en zitten ze vol verdrongen (vaak stiekeme) verlangens. Ann Faraday bekijkt het nuchterder: dromen vertellen iets over de werkelijkheid, jezelf of je verwachtingen.</p>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">3. Ben ik mijn lichaam of mijn geest?</h3>
+                <p class="lesson-author">Door: Timothy, Dorian, Jordan, Joshua & Jeremy</p>
+                <div class="lesson-question">Als we je lichaam teleporteren en opnieuw opbouwen, ben jij het dan nog?</div>
+                <p class="lesson-content">Een <em>mind-bending</em> discussie over het Dualisme (lichaam en ziel zijn gescheiden, zegt Descartes) versus het Monisme (alles is één). Hebben we eigenlijk wel een Vrije Wil of ligt alles al vast?</p>
+            </div>
+        </section>
+
+        <!-- Categorie 2: Recht & Maatschappij -->
+        <section class="category">
+            <div class="category-header">
+                <span class="icon">⚖️</span>
+                <h2>Recht & Maatschappij</h2>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">4. Eerlijk zullen we alles delen? (Kapitalisme vs. Communisme)</h3>
+                <p class="lesson-author">Door: Sayaad & Huy Phong</p>
+                <div class="lesson-question">Is het communisme een eerlijker alternatief voor ons kapitalistische systeem?</div>
+                <p class="lesson-content">Een strijd tussen de vrije markt van Adam Smith (ieder voor zich, de markt regelt het wel) en de revolutie van Karl Marx (alles is van iedereen om uitbuiting te stoppen). Wat is het meest rechtvaardig?</p>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">5. Wanneer is straf rechtvaardig?</h3>
+                <p class="lesson-author">Door: Naomi & Gloridie</p>
+                <div class="lesson-question">Mag je straffen om wraak te nemen, of moet het nuttig zijn?</div>
+                <p class="lesson-content">Aan de hand van de heftige zaak rondom Anne Faber wordt gekeken naar straf. Kant zegt: oog om oog, straf moet verdiend zijn (vergelding). Bentham zegt: straffen is alleen goed als het de samenleving veiliger maakt (nut).</p>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">6. Liever alleen of samen?</h3>
+                <p class="lesson-author">Door: Maaike & Olivia</p>
+                <div class="lesson-question">Kun je jezelf beter ontwikkelen in je eentje of in een groep?</div>
+                <p class="lesson-content">Aristoteles noemt de mens een 'sociaal dier'; je hebt anderen nodig om te groeien. Emerson zegt juist: onzin! De groep zorgt voor groepsdruk. Wees 'self-reliant' (zelfredzaam) en vertrouw op jezelf.</p>
+            </div>
+        </section>
+
+        <!-- Categorie 3: Toekomst & Waarheid -->
+        <section class="category">
+            <div class="category-header">
+                <span class="icon">🌍</span>
+                <h2>De Toekomst & De Waarheid</h2>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">7. Is de Aarde Plat? (Kennis & Twijfel)</h3>
+                <p class="lesson-author">Door: Alexander</p>
+                <div class="lesson-question">Waarom geloven mensen in complottheorieën ondanks wetenschappelijk bewijs?</div>
+                <p class="lesson-content">Een les over wantrouwen en zintuigen. Waarom vertrouwen 'Flat Earthers' hun eigen ogen ("de horizon is recht") meer dan NASA? We gebruiken de twijfel van Descartes: weet je wel zeker dat wat je ziet echt is?</p>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">8. Doemdenkers of Optimisten?</h3>
+                <p class="lesson-author">Door: Ian, Jippe & Huchena</p>
+                <div class="lesson-question">Wordt de toekomst beter of stevenen we af op ellende?</div>
+                <p class="lesson-content">Fukuyama is de optimist: democratie heeft gewonnen en oorlog verdwijnt. John Gray is de pessimist: de mens is een vernietigend dier en de geschiedenis herhaalt zich altijd. Wie heeft gelijk?</p>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">9. Is school wel ethisch?</h3>
+                <p class="lesson-author">Door: Noumedia & Wassila</p>
+                <div class="lesson-question">Stoomt school ons klaar voor het leven, of maakt het eenheidsworsten van ons?</div>
+                <p class="lesson-content">Een kritische blik op toetsen en niveaus. Filosofen Drummen & Fasen pleiten voor Agora-onderwijs (volg je passie). Derrida vraagt zich af: wie bepaalt eigenlijk of jij een diploma 'waard' bent? Iedereen leert anders.</p>
+            </div>
+        </section>
+
+        <!-- Categorie 4: Het Goede Leven -->
+        <section class="category">
+            <div class="category-header">
+                <span class="icon">🍀</span>
+                <h2>Het Goede Leven</h2>
+            </div>
+
+            <div class="lesson-card">
+                <h3 class="lesson-title">10. Wat is Geluk?</h3>
+                <p class="lesson-author">Door: Elsa, Mitchel & Mylaine</p>
+                <div class="lesson-question">Is geluk maakbaar of is het een illusie?</div>
+                <p class="lesson-content">Drie smaken: Aristoteles zegt dat je moet werken aan je karakter (deugdzaamheid). Epicurus zegt: geniet, maar met mate (vermijd pijn). Schopenhauer is de 'party pooper': geluk bestaat niet echt, het leven is lijden, dus probeer gewoon de pijn te beperken.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Filosofie — Oostvaarders College</p>
+    </footer>
+</body>
+</html>

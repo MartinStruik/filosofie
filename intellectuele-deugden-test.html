@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intellectuele Deugdentest - Oostvaarders College</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --petrol: #1a7a8a;
+            --petrol-dark: #145f6a;
+            --petrol-light: #2a9aaa;
+            --oker: #c9a227;
+            --oker-light: #e6c55a;
+            --groen: #2d8a4e;
+            --paars: #7b5ea7;
+            --rood: #c0392b;
+            --donkergrijs: #333333;
+            --middengrijs: #666666;
+            --lichtgrijs: #999999;
+            --achtergrond: #ffffff;
+            --achtergrond-licht: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--donkergrijs);
+            background: var(--achtergrond-licht);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--petrol) 0%, var(--petrol-dark) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Screens */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            margin-top: 2rem;
+        }
+
+        .card h2 {
+            color: var(--petrol);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .card p {
+            color: var(--middengrijs);
+            margin-bottom: 1rem;
+        }
+
+        /* Intro Screen */
+        .intro-card {
+            text-align: center;
+        }
+
+        .intro-card .subtitle {
+            font-size: 1.1rem;
+            color: var(--middengrijs);
+            margin-bottom: 1.5rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        @media (max-width: 500px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: var(--achtergrond-licht);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 1.4rem;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: var(--donkergrijs);
+        }
+
+        .feature-text strong {
+            display: block;
+            color: var(--petrol);
+            margin-bottom: 0.2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--petrol);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--petrol-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 122, 138, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--middengrijs);
+            border: 2px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: var(--achtergrond-licht);
+            border-color: var(--middengrijs);
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--lichtgrijs);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--petrol), var(--oker));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Question Types */
+        .question-type {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .question-type.scenario {
+            background: rgba(201, 162, 39, 0.15);
+            color: var(--oker);
+        }
+
+        .question-type.stelling {
+            background: rgba(26, 122, 138, 0.15);
+            color: var(--petrol);
+        }
+
+        .question-deugd {
+            font-size: 0.8rem;
+            color: var(--lichtgrijs);
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            color: var(--donkergrijs);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .scenario-context {
+            background: var(--achtergrond-licht);
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--oker);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: var(--middengrijs);
+        }
+
+        /* Answer Options - Likert */
+        .answers-likert {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .likert-option {
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .likert-option input {
+            display: none;
+        }
+
+        .likert-circle {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #ddd;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--lichtgrijs);
+            transition: all 0.2s;
+        }
+
+        .likert-option:hover .likert-circle {
+            border-color: var(--petrol);
+            color: var(--petrol);
+        }
+
+        .likert-option.selected .likert-circle {
+            border-color: var(--petrol);
+            background: var(--petrol);
+            color: white;
+        }
+
+        .likert-label {
+            font-size: 0.7rem;
+            color: var(--lichtgrijs);
+        }
+
+        @media (max-width: 500px) {
+            .likert-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+            .likert-label {
+                font-size: 0.6rem;
+            }
+        }
+
+        /* Answer Options - Scenario */
+        .answers-scenario {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .scenario-option {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem 1.2rem;
+            background: var(--achtergrond-licht);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .scenario-option:hover {
+            border-color: var(--petrol);
+            background: white;
+        }
+
+        .scenario-option.selected {
+            border-color: var(--petrol);
+            background: rgba(26, 122, 138, 0.08);
+        }
+
+        .scenario-option input {
+            display: none;
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--lichtgrijs);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--lichtgrijs);
+            margin-right: 1rem;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .scenario-option.selected .option-letter {
+            border-color: var(--petrol);
+            background: var(--petrol);
+            color: white;
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        /* Results Screen */
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .results-header h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-container {
+            max-width: 380px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Filosoof Card */
+        .filosoof-card {
+            background: linear-gradient(135deg, var(--petrol) 0%, var(--petrol-dark) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .filosoof-card .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .filosoof-card .name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .filosoof-card .years {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .filosoof-card .quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .filosoof-card .description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .filosoof-card .portrait {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+        }
+
+        .filosoof-card .portrait svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Profiel Sections */
+        .profiel-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .profiel-section h3 {
+            font-size: 1rem;
+            color: var(--petrol);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--achtergrond-licht);
+        }
+
+        .deugd-score {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--achtergrond-licht);
+        }
+
+        .deugd-score:last-child {
+            border-bottom: none;
+        }
+
+        .deugd-name {
+            flex: 1;
+            font-weight: 600;
+            color: var(--donkergrijs);
+        }
+
+        .deugd-bar-container {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .deugd-bar {
+            flex: 1;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .deugd-bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .deugd-bar-fill.high {
+            background: linear-gradient(90deg, var(--groen), #3aa85e);
+        }
+
+        .deugd-bar-fill.medium {
+            background: linear-gradient(90deg, var(--oker), var(--oker-light));
+        }
+
+        .deugd-bar-fill.low {
+            background: linear-gradient(90deg, var(--rood), #e74c3c);
+        }
+
+        .deugd-score-value {
+            width: 45px;
+            text-align: right;
+            font-weight: 600;
+            color: var(--middengrijs);
+        }
+
+        /* Krachtpunten en Uitdagingen */
+        .insight-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .insight-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .insight-card {
+            padding: 1.2rem;
+            border-radius: 10px;
+        }
+
+        .insight-card.krachtpunten {
+            background: rgba(45, 138, 78, 0.1);
+            border-left: 4px solid var(--groen);
+        }
+
+        .insight-card.uitdagingen {
+            background: rgba(201, 162, 39, 0.1);
+            border-left: 4px solid var(--oker);
+        }
+
+        .insight-card h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .insight-card.krachtpunten h4 {
+            color: var(--groen);
+        }
+
+        .insight-card.uitdagingen h4 {
+            color: var(--oker);
+        }
+
+        .insight-card ul {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        .insight-card li {
+            padding: 0.4rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .insight-card.krachtpunten li::before {
+            content: "+";
+            position: absolute;
+            left: 0;
+            color: var(--groen);
+            font-weight: bold;
+        }
+
+        .insight-card.uitdagingen li::before {
+            content: "!";
+            position: absolute;
+            left: 0;
+            color: var(--oker);
+            font-weight: bold;
+        }
+
+        /* Advies */
+        .advies-section {
+            background: var(--achtergrond-licht);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .advies-section h4 {
+            color: var(--petrol);
+            margin-bottom: 0.8rem;
+        }
+
+        .advies-section p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-retry {
+            background: transparent;
+            color: var(--petrol);
+            border: 2px solid var(--petrol);
+        }
+
+        .btn-retry:hover {
+            background: var(--petrol);
+            color: white;
+        }
+
+        .btn-print {
+            background: var(--middengrijs);
+        }
+
+        .btn-print:hover {
+            background: var(--donkergrijs);
+        }
+
+        /* Print styles */
+        @media print {
+            header, .action-buttons, .nav-buttons {
+                display: none;
+            }
+            .card {
+                box-shadow: none;
+                padding: 1rem;
+            }
+            body {
+                background: white;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--lichtgrijs);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--petrol);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Intellectuele Deugdentest</h1>
+        <p>Ontdek je filosofische profiel</p>
+    </header>
+
+    <div class="container">
+        <!-- Intro Screen -->
+        <div id="intro-screen" class="screen active">
+            <div class="card intro-card">
+                <h2>Welke denker ben jij?</h2>
+                <p class="subtitle">Ontdek je intellectuele krachtpunten en uitdagingen, en leer welke filosoof bij je past.</p>
+
+                <div class="features">
+                    <div class="feature">
+                        <span class="feature-icon">🎯</span>
+                        <div class="feature-text">
+                            <strong>7 Deugden</strong>
+                            Van nieuwsgierigheid tot creativiteit
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🎭</span>
+                        <div class="feature-text">
+                            <strong>Scenario's & Stellingen</strong>
+                            Afwisselende vragen
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">📊</span>
+                        <div class="feature-text">
+                            <strong>Persoonlijk Profiel</strong>
+                            Met radar chart
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🏛️</span>
+                        <div class="feature-text">
+                            <strong>Jouw Filosoof</strong>
+                            Koppeling aan een denker
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.9rem; color: var(--lichtgrijs);">21 vragen • Geen goede of foute antwoorden</p>
+
+                <button class="btn" onclick="startTest()" style="margin-top: 1.5rem;">Start de test</button>
+            </div>
+        </div>
+
+        <!-- Question Screen -->
+        <div id="question-screen" class="screen">
+            <div class="card">
+                <div class="progress-container">
+                    <div class="progress-text">
+                        <span id="progress-label">Vraag 1 van 21</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div id="question-content">
+                    <!-- Generated by JS -->
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="btn-prev" onclick="prevQuestion()" disabled>Vorige</button>
+                    <button class="btn" id="btn-next" onclick="nextQuestion()" disabled>Volgende</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="card">
+                <div class="results-header">
+                    <h2>Jouw Intellectuele Profiel</h2>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+
+                <div id="filosoof-section">
+                    <!-- Generated by JS -->
+                </div>
+
+                <div class="profiel-section">
+                    <h3>Scores per deugd</h3>
+                    <div id="scores-detail">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+
+                <div id="insights-section">
+                    <!-- Generated by JS -->
+                </div>
+
+                <div id="advies-section">
+                    <!-- Generated by JS -->
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-retry" onclick="retryTest()">Opnieuw doen</button>
+                    <button class="btn btn-print" onclick="window.print()">Afdrukken</button>
+                    <a href="index.html" class="btn">Terug naar Filosofie</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p><a href="index.html">← Terug naar Filosofie</a> — Oostvaarders College</p>
+    </footer>
+
+    <script>
+        // ==================== DATA ====================
+
+        const deugden = {
+            'openheid': {
+                naam: 'Openheid & Nieuwsgierigheid',
+                kort: 'Openheid',
+                beschrijving: 'Je staat open voor nieuwe ideeën en bent nieuwsgierig naar de gedachtewereld van anderen.',
+                filosoof: 'Socrates',
+                krachtpunt: 'Je durft je te verwonderen en neemt geen genoegen met oppervlakkige antwoorden.',
+                uitdaging: 'Je kunt soms te veel openstaan voor alles, zonder kritisch te selecteren.'
+            },
+            'zelfvertrouwen': {
+                naam: 'Intellectueel Zelfvertrouwen',
+                kort: 'Zelfvertrouwen',
+                beschrijving: 'Je durft op je eigen verstand te vertrouwen en neemt je eigen conclusies serieus.',
+                filosoof: 'Descartes',
+                krachtpunt: 'Je laat je niet zomaar ompraten en staat stevig in je overtuigingen.',
+                uitdaging: 'Je kunt soms te zeker zijn van je eigen gelijk en kritiek te snel afwijzen.'
+            },
+            'integriteit': {
+                naam: 'Intellectuele Integriteit',
+                kort: 'Integriteit',
+                beschrijving: 'Je bent eerlijk in je denken en waakzaam voor zelfbedrog.',
+                filosoof: 'Kant',
+                krachtpunt: 'Je wilt dat je gedachten consistent en waarheidsgetrouw zijn.',
+                uitdaging: 'Je kunt soms te streng voor jezelf zijn of star worden in je principes.'
+            },
+            'zorgvuldigheid': {
+                naam: 'Intellectuele Zorgvuldigheid',
+                kort: 'Zorgvuldigheid',
+                beschrijving: 'Je luistert, leest en formuleert nauwkeurig en precies.',
+                filosoof: 'Wittgenstein',
+                krachtpunt: 'Je mist zelden nuances en drukt je helder uit.',
+                uitdaging: 'Je kunt doorslaan in perfectionisme of te lang blijven schaven.'
+            },
+            'grondigheid': {
+                naam: 'Grondigheid & Vastberadenheid',
+                kort: 'Grondigheid',
+                beschrijving: 'Je gaat door tot je iets volledig begrijpt en geeft niet snel op.',
+                filosoof: 'Spinoza',
+                krachtpunt: 'Je graaft diep en laat je niet afschepen met halve antwoorden.',
+                uitdaging: 'Je kunt moeilijk loslaten en soms te lang doorploegen.'
+            },
+            'creativiteit': {
+                naam: 'Creativiteit',
+                kort: 'Creativiteit',
+                beschrijving: 'Je speelt graag met ideeën en bedenkt originele invalshoeken.',
+                filosoof: 'Nietzsche',
+                krachtpunt: 'Je brengt verfrissende perspectieven en durft anders te denken.',
+                uitdaging: 'Je kunt soms te speculatief worden of de grond onder je voeten verliezen.'
+            },
+            'betrokkenheid': {
+                naam: 'Filosofische Betrokkenheid',
+                kort: 'Betrokkenheid',
+                beschrijving: 'Je hebt oprechte interesse in wijsheid en filosofische thema\'s.',
+                filosoof: 'Aristoteles',
+                krachtpunt: 'Je bent intrinsiek gemotiveerd om te leren en te groeien als denker.',
+                uitdaging: 'Je kunt soms te abstract worden en de praktijk uit het oog verliezen.'
+            }
+        };
+
+        const filosofen = {
+            'Socrates': {
+                naam: 'Socrates',
+                jaren: '470-399 v.Chr.',
+                quote: '"Ik weet dat ik niets weet."',
+                beschrijving: 'De vader van de westerse filosofie, bekend om zijn vragende houding en het Socratisch gesprek. Hij zocht niet naar antwoorden, maar naar betere vragen.',
+                kerndeugd: 'openheid',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#6a8a5a"/>
+                    <!-- Kaal hoofd -->
+                    <ellipse cx="50" cy="42" rx="24" ry="22" fill="#e8d4b8"/>
+                    <!-- Grote baard -->
+                    <path d="M26 50 Q24 85 50 92 Q76 85 74 50 Q70 75 50 80 Q30 75 26 50" fill="#c8c0b8"/>
+                    <!-- Wilde wenkbrauwen -->
+                    <path d="M30 38 Q38 32 48 38" stroke="#9c9488" stroke-width="3" fill="none"/>
+                    <path d="M52 38 Q62 32 70 38" stroke="#9c9488" stroke-width="3" fill="none"/>
+                    <!-- Diepliggende ogen -->
+                    <ellipse cx="38" cy="45" rx="5" ry="4" fill="#2c2416"/>
+                    <ellipse cx="62" cy="45" rx="5" ry="4" fill="#2c2416"/>
+                    <!-- Brede neus -->
+                    <path d="M50 48 L45 60 Q50 64 55 60 L50 48" fill="#d4c0a8"/>
+                    <!-- Rimpels -->
+                    <path d="M32 35 Q50 32 68 35" stroke="#d8c8b0" stroke-width="1" fill="none"/>
+                </svg>`
+            },
+            'Descartes': {
+                naam: 'René Descartes',
+                jaren: '1596-1650',
+                quote: '"Cogito ergo sum — Ik denk, dus ik ben."',
+                beschrijving: 'De grondlegger van het moderne rationalisme. Hij twijfelde aan alles om tot onbetwijfelbare waarheid te komen, en vond die in zijn eigen denkende bestaan.',
+                kerndeugd: 'zelfvertrouwen',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#5a4a6a"/>
+                    <!-- Lang haar 17e eeuw -->
+                    <path d="M22 45 Q18 30 30 22 Q50 15 70 22 Q82 30 78 45 Q80 65 72 75 L28 75 Q20 65 22 45" fill="#1c1810"/>
+                    <!-- Gezicht -->
+                    <ellipse cx="50" cy="50" rx="20" ry="24" fill="#f0e4d8"/>
+                    <!-- Snor -->
+                    <path d="M35 62 Q42 66 50 64 Q58 66 65 62" stroke="#2c2420" stroke-width="2" fill="none"/>
+                    <!-- Sik -->
+                    <path d="M45 68 Q50 78 55 68" fill="#2c2420"/>
+                    <!-- Wenkbrauwen -->
+                    <path d="M35 42 Q42 40 47 43" stroke="#2c2420" stroke-width="1.5" fill="none"/>
+                    <path d="M53 43 Q58 40 65 42" stroke="#2c2420" stroke-width="1.5" fill="none"/>
+                    <!-- Ogen - onderzoekend -->
+                    <ellipse cx="40" cy="48" rx="4" ry="3" fill="#2c2416"/>
+                    <ellipse cx="60" cy="48" rx="4" ry="3" fill="#2c2416"/>
+                    <!-- Neus -->
+                    <path d="M50 50 L48 58 Q50 60 52 58 L50 50" fill="#e0d4c8"/>
+                    <!-- Kraag -->
+                    <ellipse cx="50" cy="78" rx="22" ry="8" fill="white"/>
+                    <path d="M28 78 Q50 85 72 78" stroke="#d8d0c8" stroke-width="1" fill="none"/>
+                </svg>`
+            },
+            'Kant': {
+                naam: 'Immanuel Kant',
+                jaren: '1724-1804',
+                quote: '"Heb de moed je van je eigen verstand te bedienen."',
+                beschrijving: 'De filosoof van de plicht en de rede. Kant stond voor principevast denken en handelen, zonder uitzondering of zelfbedrog.',
+                kerndeugd: 'integriteit',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#5a6a7a"/>
+                    <!-- Pruik 18e eeuw -->
+                    <path d="M22 42 Q20 28 35 22 Q50 18 65 22 Q80 28 78 42" fill="#d8d4d0"/>
+                    <ellipse cx="22" cy="52" rx="8" ry="12" fill="#d8d4d0"/>
+                    <ellipse cx="78" cy="52" rx="8" ry="12" fill="#d8d4d0"/>
+                    <!-- Gezicht - smal -->
+                    <ellipse cx="50" cy="52" rx="18" ry="24" fill="#f0e4d8"/>
+                    <!-- Wenkbrauwen - streng -->
+                    <path d="M35 44 L46 42" stroke="#6c5c4c" stroke-width="2"/>
+                    <path d="M54 42 L65 44" stroke="#6c5c4c" stroke-width="2"/>
+                    <!-- Ogen - doordringend -->
+                    <ellipse cx="40" cy="50" rx="4" ry="3" fill="#3c3428"/>
+                    <ellipse cx="60" cy="50" rx="4" ry="3" fill="#3c3428"/>
+                    <!-- Neus - lang -->
+                    <path d="M50 52 L48 62 Q50 64 52 62 L50 52" fill="#e0d4c8"/>
+                    <!-- Dunne lippen -->
+                    <path d="M44 70 L56 70" stroke="#9c7c6c" stroke-width="2"/>
+                    <!-- Jas -->
+                    <path d="M28 82 Q40 78 50 80 Q60 78 72 82 L75 100 L25 100 Z" fill="#2c3e50"/>
+                </svg>`
+            },
+            'Wittgenstein': {
+                naam: 'Ludwig Wittgenstein',
+                jaren: '1889-1951',
+                quote: '"De grenzen van mijn taal zijn de grenzen van mijn wereld."',
+                beschrijving: 'Een filosoof geobsedeerd door precisie in taal en denken. Voor hem was helderheid het hoogste doel van de filosofie.',
+                kerndeugd: 'zorgvuldigheid',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#4a5a5a"/>
+                    <!-- Kort haar, strak -->
+                    <path d="M28 40 Q30 25 50 22 Q70 25 72 40 L72 45 L28 45 Z" fill="#3c3830"/>
+                    <!-- Gezicht - hoekig -->
+                    <path d="M30 45 L30 60 Q35 78 50 80 Q65 78 70 60 L70 45 Z" fill="#f0e4d8"/>
+                    <!-- Intens gefronste wenkbrauwen -->
+                    <path d="M32 48 L45 45" stroke="#3c3428" stroke-width="2.5"/>
+                    <path d="M55 45 L68 48" stroke="#3c3428" stroke-width="2.5"/>
+                    <!-- Diepliggende ogen -->
+                    <ellipse cx="40" cy="54" rx="4" ry="3" fill="#2c2820"/>
+                    <ellipse cx="60" cy="54" rx="4" ry="3" fill="#2c2820"/>
+                    <!-- Scherpe neus -->
+                    <path d="M50 52 L47 64 L50 66 L53 64 L50 52" fill="#e0d4c8"/>
+                    <!-- Strakke mond -->
+                    <path d="M42 72 L58 72" stroke="#7c6050" stroke-width="2"/>
+                    <!-- Open kraag -->
+                    <path d="M35 82 L30 100 L70 100 L65 82 Q50 86 35 82" fill="#e8e0d8"/>
+                    <path d="M35 82 L50 90 L65 82" stroke="#c8c0b8" stroke-width="1" fill="none"/>
+                </svg>`
+            },
+            'Spinoza': {
+                naam: 'Baruch Spinoza',
+                jaren: '1632-1677',
+                quote: '"Alle voortreffelijke dingen zijn even moeilijk als zeldzaam."',
+                beschrijving: 'Een systematisch denker die met wiskundige grondigheid de werkelijkheid probeerde te doorgronden. Standvastig in zijn zoektocht, ondanks tegenstand.',
+                kerndeugd: 'grondigheid',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#6a5a4a"/>
+                    <!-- Lang krullend haar 17e eeuw -->
+                    <path d="M20 48 Q15 30 30 20 Q50 12 70 20 Q85 30 80 48 Q82 68 75 78 L25 78 Q18 68 20 48" fill="#1c1810"/>
+                    <circle cx="25" cy="45" r="6" fill="#1c1810"/>
+                    <circle cx="75" cy="45" r="6" fill="#1c1810"/>
+                    <circle cx="22" cy="58" r="5" fill="#1c1810"/>
+                    <circle cx="78" cy="58" r="5" fill="#1c1810"/>
+                    <!-- Gezicht -->
+                    <ellipse cx="50" cy="50" rx="20" ry="24" fill="#e8dcd0"/>
+                    <!-- Zachte wenkbrauwen -->
+                    <path d="M35 42 Q42 40 47 42" stroke="#4c3c2c" stroke-width="1.5" fill="none"/>
+                    <path d="M53 42 Q58 40 65 42" stroke="#4c3c2c" stroke-width="1.5" fill="none"/>
+                    <!-- Kalme ogen -->
+                    <ellipse cx="40" cy="48" rx="4" ry="3" fill="#2c2416"/>
+                    <ellipse cx="60" cy="48" rx="4" ry="3" fill="#2c2416"/>
+                    <!-- Neus -->
+                    <path d="M50 50 L48 60 Q50 62 52 60 L50 50" fill="#d8ccbc"/>
+                    <!-- Subtiele glimlach -->
+                    <path d="M44 68 Q50 71 56 68" stroke="#8c6c5c" stroke-width="1.5" fill="none"/>
+                    <!-- Eenvoudige kraag -->
+                    <path d="M32 76 L32 85 Q50 90 68 85 L68 76" fill="white"/>
+                </svg>`
+            },
+            'Nietzsche': {
+                naam: 'Friedrich Nietzsche',
+                jaren: '1844-1900',
+                quote: '"Men moet nog chaos in zich hebben om een dansende ster te kunnen baren."',
+                beschrijving: 'De filosoof met de hamer, die oude waarden omverwierp en nieuwe perspectieven creëerde. Radicaal, creatief en provocerend.',
+                kerndeugd: 'creativiteit',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#7a4a4a"/>
+                    <!-- Wild haar -->
+                    <path d="M25 45 Q20 30 35 25 Q50 20 65 25 Q80 30 75 45" fill="#3c3028"/>
+                    <path d="M25 45 Q22 38 28 32" stroke="#3c3028" stroke-width="4" fill="none"/>
+                    <path d="M75 45 Q78 38 72 32" stroke="#3c3028" stroke-width="4" fill="none"/>
+                    <!-- Gezicht -->
+                    <ellipse cx="50" cy="52" rx="20" ry="24" fill="#f0e0d0"/>
+                    <!-- Karakteristieke grote snor -->
+                    <path d="M30 62 Q35 58 42 62 Q50 68 58 62 Q65 58 70 62" fill="#3c3028"/>
+                    <path d="M42 62 Q50 72 58 62" fill="#3c3028"/>
+                    <!-- Intense wenkbrauwen -->
+                    <path d="M32 42 Q40 38 48 42" stroke="#3c3028" stroke-width="2.5" fill="none"/>
+                    <path d="M52 42 Q60 38 68 42" stroke="#3c3028" stroke-width="2.5" fill="none"/>
+                    <!-- Doordringende ogen -->
+                    <ellipse cx="40" cy="48" rx="4" ry="3" fill="#1c1810"/>
+                    <ellipse cx="60" cy="48" rx="4" ry="3" fill="#1c1810"/>
+                    <!-- Neus -->
+                    <path d="M50 50 L48 58 Q50 60 52 58 L50 50" fill="#e0d4c0"/>
+                    <!-- Jas -->
+                    <path d="M30 80 L28 100 L72 100 L70 80 Q50 85 30 80" fill="#2c2420"/>
+                </svg>`
+            },
+            'Aristoteles': {
+                naam: 'Aristoteles',
+                jaren: '384-322 v.Chr.',
+                quote: '"Alle mensen verlangen van nature naar kennis."',
+                beschrijving: 'De universele denker die over alles nadacht: ethiek, logica, natuurkunde, politiek. Voor hem was filosofie een levenswijze gericht op wijsheid.',
+                kerndeugd: 'betrokkenheid',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#4a6741"/>
+                    <!-- Haar -->
+                    <ellipse cx="50" cy="35" rx="28" ry="22" fill="#3d3229"/>
+                    <!-- Gezicht -->
+                    <ellipse cx="50" cy="48" rx="22" ry="26" fill="#e8d4b8"/>
+                    <!-- Baard -->
+                    <path d="M28 55 Q30 85 50 88 Q70 85 72 55 Q70 70 50 75 Q30 70 28 55" fill="#5c4a3d"/>
+                    <!-- Wenkbrauwen -->
+                    <path d="M35 38 Q42 35 48 38" stroke="#3d3229" stroke-width="2" fill="none"/>
+                    <path d="M52 38 Q58 35 65 38" stroke="#3d3229" stroke-width="2" fill="none"/>
+                    <!-- Ogen -->
+                    <ellipse cx="40" cy="45" rx="5" ry="3" fill="#2c2416"/>
+                    <ellipse cx="60" cy="45" rx="5" ry="3" fill="#2c2416"/>
+                    <!-- Neus -->
+                    <path d="M50 48 L48 58 Q50 60 52 58 L50 48" fill="#d4c0a8"/>
+                    <!-- Toga -->
+                    <path d="M20 88 Q25 75 35 72 L50 78 L65 72 Q75 75 80 88 L80 100 L20 100 Z" fill="#c9b896"/>
+                    <path d="M35 72 Q50 68 65 72" stroke="#a89878" stroke-width="2" fill="none"/>
+                </svg>`
+            }
+        };
+
+        // Questions: mix of scenarios and statements
+        const questions = [
+            // OPENHEID (3 vragen)
+            {
+                id: 'O1',
+                deugd: 'openheid',
+                type: 'stelling',
+                text: 'Als iemand een mening heeft die heel anders is dan de mijne, word ik nieuwsgierig naar hoe diegene tot die mening is gekomen.'
+            },
+            {
+                id: 'O2',
+                deugd: 'openheid',
+                type: 'scenario',
+                context: 'In een klassendiscussie brengt een medeleerling een standpunt in dat je nog nooit hebt gehoord en dat je vreemd in de oren klinkt.',
+                text: 'Wat doe je?',
+                options: [
+                    { value: 5, text: 'Ik vraag door om te begrijpen waar het idee vandaan komt' },
+                    { value: 3, text: 'Ik luister beleefd maar houd vast aan mijn eigen visie' },
+                    { value: 1, text: 'Ik geef aan waarom ik denk dat het idee niet klopt' }
+                ]
+            },
+            {
+                id: 'O3',
+                deugd: 'openheid',
+                type: 'stelling',
+                text: 'Ik vind het leuk om me te verdiepen in onderwerpen waar ik nog niets van weet.'
+            },
+
+            // ZELFVERTROUWEN (3 vragen)
+            {
+                id: 'Z1',
+                deugd: 'zelfvertrouwen',
+                type: 'stelling',
+                text: 'Als ik na goed nadenken tot een conclusie kom, durf ik die te verdedigen, ook als anderen het er niet mee eens zijn.'
+            },
+            {
+                id: 'Z2',
+                deugd: 'zelfvertrouwen',
+                type: 'scenario',
+                context: 'Je hebt je goed voorbereid op een presentatie. Tijdens de vragen stelt iemand je redenering ter discussie.',
+                text: 'Hoe reageer je?',
+                options: [
+                    { value: 5, text: 'Ik verdedig rustig mijn standpunt met argumenten' },
+                    { value: 3, text: 'Ik erken dat er meerdere perspectieven mogelijk zijn' },
+                    { value: 1, text: 'Ik geef toe dat de ander waarschijnlijk gelijk heeft' }
+                ]
+            },
+            {
+                id: 'Z3',
+                deugd: 'zelfvertrouwen',
+                type: 'stelling',
+                text: 'Ik vertrouw erop dat mijn eigen redenering waardevol is, ook als experts er anders over denken.'
+            },
+
+            // INTEGRITEIT (3 vragen)
+            {
+                id: 'I1',
+                deugd: 'integriteit',
+                type: 'stelling',
+                text: 'Ik ben eerlijk tegen mezelf als ik merk dat ik ergens ongelijk in heb.'
+            },
+            {
+                id: 'I2',
+                deugd: 'integriteit',
+                type: 'scenario',
+                context: 'Je ontdekt dat een overtuiging die je al jaren hebt, gebaseerd is op een misverstand.',
+                text: 'Wat doe je?',
+                options: [
+                    { value: 5, text: 'Ik pas mijn overtuiging aan, ook al voelt dat ongemakkelijk' },
+                    { value: 3, text: 'Ik denk er nog eens goed over na voordat ik iets verander' },
+                    { value: 1, text: 'Ik zoek naar redenen waarom mijn oude overtuiging toch kan kloppen' }
+                ]
+            },
+            {
+                id: 'I3',
+                deugd: 'integriteit',
+                type: 'stelling',
+                text: 'Ik merk het snel als ik mezelf iets probeer wijs te maken.'
+            },
+
+            // ZORGVULDIGHEID (3 vragen)
+            {
+                id: 'V1',
+                deugd: 'zorgvuldigheid',
+                type: 'stelling',
+                text: 'Voordat ik reageer op iemands standpunt, controleer ik eerst of ik het goed heb begrepen.'
+            },
+            {
+                id: 'V2',
+                deugd: 'zorgvuldigheid',
+                type: 'scenario',
+                context: 'Je leest een complex filosofisch argument. Halverwege merk je dat je de draad kwijt bent.',
+                text: 'Wat doe je?',
+                options: [
+                    { value: 5, text: 'Ik ga terug en lees het stap voor stap opnieuw' },
+                    { value: 3, text: 'Ik lees door en hoop dat het later duidelijk wordt' },
+                    { value: 1, text: 'Ik sla het over en ga naar het volgende onderdeel' }
+                ]
+            },
+            {
+                id: 'V3',
+                deugd: 'zorgvuldigheid',
+                type: 'stelling',
+                text: 'Ik herformuleer mijn zinnen tot ze precies zeggen wat ik bedoel.'
+            },
+
+            // GRONDIGHEID (3 vragen)
+            {
+                id: 'G1',
+                deugd: 'grondigheid',
+                type: 'stelling',
+                text: 'Als ik iets niet helemaal snap, blijf ik zoeken tot ik het volledig doorgrond.'
+            },
+            {
+                id: 'G2',
+                deugd: 'grondigheid',
+                type: 'scenario',
+                context: 'Je werkt aan een onderzoeksvraag. Je hebt al een redelijk antwoord, maar je hebt het gevoel dat er nog meer te ontdekken valt.',
+                text: 'Wat doe je?',
+                options: [
+                    { value: 5, text: 'Ik ga door met onderzoeken tot ik het volledig begrijp' },
+                    { value: 3, text: 'Ik weeg af hoeveel tijd ik nog heb en besluit dan' },
+                    { value: 1, text: 'Ik ben tevreden met het antwoord dat ik heb' }
+                ]
+            },
+            {
+                id: 'G3',
+                deugd: 'grondigheid',
+                type: 'stelling',
+                text: 'Ik wil de waarheid kennen, ook als het zoeken ernaar moeite kost.'
+            },
+
+            // CREATIVITEIT (3 vragen)
+            {
+                id: 'C1',
+                deugd: 'creativiteit',
+                type: 'stelling',
+                text: 'Ik geniet ervan om met gedachte-experimenten en "wat als"-vragen te spelen.'
+            },
+            {
+                id: 'C2',
+                deugd: 'creativiteit',
+                type: 'scenario',
+                context: 'Tijdens een brainstorm over een filosofisch probleem zijn de meeste ideeën al besproken.',
+                text: 'Wat doe je?',
+                options: [
+                    { value: 5, text: 'Ik probeer een heel nieuwe invalshoek te bedenken' },
+                    { value: 3, text: 'Ik bouw voort op wat er al gezegd is' },
+                    { value: 1, text: 'Ik vat samen wat de beste ideeën tot nu toe zijn' }
+                ]
+            },
+            {
+                id: 'C3',
+                deugd: 'creativiteit',
+                type: 'stelling',
+                text: 'Ik kan goed metaforen of vergelijkingen bedenken om abstracte ideeën uit te leggen.'
+            },
+
+            // BETROKKENHEID (3 vragen)
+            {
+                id: 'B1',
+                deugd: 'betrokkenheid',
+                type: 'stelling',
+                text: 'Ik denk in mijn vrije tijd wel eens na over filosofische vragen.'
+            },
+            {
+                id: 'B2',
+                deugd: 'betrokkenheid',
+                type: 'scenario',
+                context: 'Je komt een interessant filosofisch artikel tegen over een onderwerp dat niet voor school is.',
+                text: 'Wat doe je?',
+                options: [
+                    { value: 5, text: 'Ik lees het met interesse, ook zonder dat het moet' },
+                    { value: 3, text: 'Ik sla het op om later misschien te lezen' },
+                    { value: 1, text: 'Ik scroll verder, ik heb al genoeg te doen' }
+                ]
+            },
+            {
+                id: 'B3',
+                deugd: 'betrokkenheid',
+                type: 'stelling',
+                text: 'Ik wil mezelf ontwikkelen als denker en werk daar bewust aan.'
+            }
+        ];
+
+        const likertOptions = [
+            { value: 1, label: 'Helemaal niet' },
+            { value: 2, label: 'Beetje' },
+            { value: 3, label: 'Neutraal' },
+            { value: 4, label: 'Best wel' },
+            { value: 5, label: 'Helemaal' }
+        ];
+
+        // ==================== STATE ====================
+
+        let currentQuestion = 0;
+        let answers = {};
+        let radarChart = null;
+
+        // ==================== FUNCTIONS ====================
+
+        function startTest() {
+            document.getElementById('intro-screen').classList.remove('active');
+            document.getElementById('question-screen').classList.add('active');
+            showQuestion(0);
+        }
+
+        function showQuestion(index) {
+            const q = questions[index];
+            const container = document.getElementById('question-content');
+
+            // Update progress
+            const progress = (index / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('progress-label').textContent = `Vraag ${index + 1} van ${questions.length}`;
+            document.getElementById('progress-percent').textContent = Math.round(progress) + '%';
+
+            let html = `
+                <span class="question-type ${q.type}">${q.type === 'scenario' ? 'Scenario' : 'Stelling'}</span>
+                <div class="question-deugd">${deugden[q.deugd].kort}</div>
+            `;
+
+            if (q.type === 'scenario') {
+                html += `
+                    <div class="scenario-context">${q.context}</div>
+                    <div class="question-text">${q.text}</div>
+                    <div class="answers-scenario">
+                        ${q.options.map((opt, i) => `
+                            <label class="scenario-option ${answers[q.id] === opt.value ? 'selected' : ''}" onclick="selectAnswer('${q.id}', ${opt.value}, 'scenario')">
+                                <input type="radio" name="answer" value="${opt.value}" ${answers[q.id] === opt.value ? 'checked' : ''}>
+                                <span class="option-letter">${String.fromCharCode(65 + i)}</span>
+                                <span class="option-text">${opt.text}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="question-text">${q.text}</div>
+                    <div class="answers-likert">
+                        ${likertOptions.map(opt => `
+                            <label class="likert-option ${answers[q.id] === opt.value ? 'selected' : ''}" onclick="selectAnswer('${q.id}', ${opt.value}, 'likert')">
+                                <input type="radio" name="answer" value="${opt.value}" ${answers[q.id] === opt.value ? 'checked' : ''}>
+                                <div class="likert-circle">${opt.value}</div>
+                                <span class="likert-label">${opt.label}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+
+            // Update navigation
+            document.getElementById('btn-prev').disabled = index === 0;
+            document.getElementById('btn-next').textContent = index === questions.length - 1 ? 'Bekijk resultaat' : 'Volgende';
+            document.getElementById('btn-next').disabled = !answers[q.id];
+        }
+
+        function selectAnswer(questionId, value, type) {
+            answers[questionId] = value;
+
+            // Update visual
+            if (type === 'likert') {
+                document.querySelectorAll('.likert-option').forEach(opt => opt.classList.remove('selected'));
+            } else {
+                document.querySelectorAll('.scenario-option').forEach(opt => opt.classList.remove('selected'));
+            }
+            event.currentTarget.classList.add('selected');
+
+            document.getElementById('btn-next').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function calculateScores() {
+            const scores = {};
+            Object.keys(deugden).forEach(d => scores[d] = 0);
+
+            questions.forEach(q => {
+                if (answers[q.id]) {
+                    scores[q.deugd] += answers[q.id];
+                }
+            });
+
+            return scores;
+        }
+
+        function getTopDeugden(scores) {
+            return Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .map(([key, value]) => ({ key, value }));
+        }
+
+        function determineFilosoof(scores) {
+            const sorted = getTopDeugden(scores);
+            const topDeugd = sorted[0].key;
+
+            // Find the philosopher whose kerndeugd matches
+            for (const [name, data] of Object.entries(filosofen)) {
+                if (data.kerndeugd === topDeugd) {
+                    return data;
+                }
+            }
+            return filosofen['Socrates']; // fallback
+        }
+
+        function showResults() {
+            document.getElementById('question-screen').classList.remove('active');
+            document.getElementById('results-screen').classList.add('active');
+
+            const scores = calculateScores();
+            const sorted = getTopDeugden(scores);
+            const filosoof = determineFilosoof(scores);
+
+            // Radar Chart
+            const ctx = document.getElementById('radarChart').getContext('2d');
+
+            if (radarChart) {
+                radarChart.destroy();
+            }
+
+            radarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: Object.values(deugden).map(d => d.kort),
+                    datasets: [{
+                        label: 'Jouw score',
+                        data: Object.keys(deugden).map(k => scores[k]),
+                        backgroundColor: 'rgba(26, 122, 138, 0.2)',
+                        borderColor: '#1a7a8a',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#1a7a8a',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#1a7a8a'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 15,
+                            ticks: {
+                                stepSize: 3
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Filosoof section
+            document.getElementById('filosoof-section').innerHTML = `
+                <div class="filosoof-card">
+                    <div class="portrait">${filosoof.portrait}</div>
+                    <div class="label">Jouw filosoof</div>
+                    <div class="name">${filosoof.naam}</div>
+                    <div class="years">${filosoof.jaren}</div>
+                    <div class="quote">${filosoof.quote}</div>
+                    <div class="description">${filosoof.beschrijving}</div>
+                </div>
+            `;
+
+            // Scores detail
+            const scoresHtml = sorted.map(item => {
+                const d = deugden[item.key];
+                const percentage = (item.value / 15) * 100;
+                let level = 'medium';
+                if (percentage >= 70) level = 'high';
+                if (percentage <= 40) level = 'low';
+
+                return `
+                    <div class="deugd-score">
+                        <span class="deugd-name">${d.kort}</span>
+                        <div class="deugd-bar-container">
+                            <div class="deugd-bar">
+                                <div class="deugd-bar-fill ${level}" style="width: ${percentage}%"></div>
+                            </div>
+                            <span class="deugd-score-value">${item.value}/15</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('scores-detail').innerHTML = scoresHtml;
+
+            // Insights: top 2 as strengths, bottom 2 as challenges
+            const top2 = sorted.slice(0, 2);
+            const bottom2 = sorted.slice(-2).reverse();
+
+            document.getElementById('insights-section').innerHTML = `
+                <div class="insight-cards">
+                    <div class="insight-card krachtpunten">
+                        <h4>Jouw krachtpunten</h4>
+                        <ul>
+                            ${top2.map(item => `<li><strong>${deugden[item.key].kort}:</strong> ${deugden[item.key].krachtpunt}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="insight-card uitdagingen">
+                        <h4>Aandachtspunten</h4>
+                        <ul>
+                            ${bottom2.map(item => `<li><strong>${deugden[item.key].kort}:</strong> ${deugden[item.key].uitdaging}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            // Personal advice based on lowest score
+            const lowest = sorted[sorted.length - 1];
+            const lowestDeugd = deugden[lowest.key];
+
+            const adviesPerDeugd = {
+                'openheid': 'Probeer deze week bewust een gesprek aan te gaan met iemand die heel anders denkt dan jij. Stel vooral vragen in plaats van te reageren.',
+                'zelfvertrouwen': 'Schrijf een mening op waar je achter staat en verdedig deze in een gesprek. Merk op hoe het voelt om voor je overtuiging te staan.',
+                'integriteit': 'Onderzoek een overtuiging van jezelf kritisch. Vraag je af: zou ik dit ook geloven als ik in andere omstandigheden was opgegroeid?',
+                'zorgvuldigheid': 'Lees een kort filosofisch stuk en vat het samen in je eigen woorden. Controleer daarna of je samenvatting klopt.',
+                'grondigheid': 'Kies een vraag die je interesseert en blijf doorvragen tot je het gevoel hebt dat je het echt snapt. Geef niet te snel op.',
+                'creativiteit': 'Bedenk drie alternatieve antwoorden op een filosofische vraag, ook antwoorden die gek of onwaarschijnlijk lijken.',
+                'betrokkenheid': 'Lees of luister deze week iets filosofisch dat niet voor school is. Merk op of het je aan het denken zet.'
+            };
+
+            document.getElementById('advies-section').innerHTML = `
+                <div class="advies-section">
+                    <h4>Persoonlijk groeiadvies</h4>
+                    <p>Je laagste score is <strong>${lowestDeugd.kort}</strong>. ${adviesPerDeugd[lowest.key]}</p>
+                </div>
+            `;
+        }
+
+        function retryTest() {
+            answers = {};
+            currentQuestion = 0;
+            if (radarChart) {
+                radarChart.destroy();
+                radarChart = null;
+            }
+            document.getElementById('results-screen').classList.remove('active');
+            document.getElementById('intro-screen').classList.add('active');
+        }
+    </script>
+</body>
+</html>

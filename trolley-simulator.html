@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trolley Problem Simulator - Filosofie Oostvaarders College</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --petrol: #1a7a8a;
+            --petrol-dark: #145f6a;
+            --oker: #c9a227;
+            --oker-light: #e6c55a;
+            --groen: #2d8a4e;
+            --rood: #c0392b;
+            --donkergrijs: #333333;
+            --middengrijs: #666666;
+            --lichtgrijs: #999999;
+            --achtergrond: #ffffff;
+            --achtergrond-licht: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a7a8a 0%, #145f6a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 700px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: var(--donkergrijs);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.3rem;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Progress bar */
+        .progress-container {
+            background: var(--achtergrond-licht);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--oker), var(--oker-light));
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--lichtgrijs);
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        /* Content area */
+        .content {
+            padding: 2rem;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Intro screen */
+        .intro-screen {
+            text-align: center;
+        }
+
+        .trolley-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-screen h2 {
+            color: var(--petrol);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .intro-screen p {
+            color: var(--middengrijs);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-screen .warning {
+            background: var(--achtergrond-licht);
+            border-left: 4px solid var(--oker);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        /* Dilemma screen */
+        .dilemma-screen {
+            display: none;
+        }
+
+        .dilemma-screen.active {
+            display: block;
+        }
+
+        .scenario-box {
+            background: var(--achtergrond-licht);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-title {
+            color: var(--petrol);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scenario-text {
+            color: var(--donkergrijs);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .question {
+            font-weight: 700;
+            color: var(--petrol);
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem;
+            text-align: center;
+        }
+
+        /* Choice buttons */
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .choice-btn {
+            background: white;
+            border: 2px solid var(--petrol);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .choice-btn:hover {
+            background: var(--petrol);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .choice-btn .choice-label {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .choice-btn .choice-desc {
+            font-size: 0.85rem;
+            color: var(--middengrijs);
+        }
+
+        .choice-btn:hover .choice-desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Explanation after choice */
+        .explanation {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--achtergrond-licht);
+            border-radius: 8px;
+            border-left: 4px solid var(--oker);
+        }
+
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .explanation h4 {
+            color: var(--petrol);
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .explanation p {
+            color: var(--donkergrijs);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+
+        .explanation p:last-child {
+            margin-bottom: 0;
+        }
+
+        .philosopher-tag {
+            display: inline-block;
+            background: var(--petrol);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.3rem;
+        }
+
+        /* Result screen */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .result-screen.active {
+            display: block;
+        }
+
+        .philosopher-result {
+            margin: 1.5rem 0;
+        }
+
+        .philosopher-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--petrol);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .philosopher-name {
+            color: var(--petrol);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .philosopher-school {
+            color: var(--oker);
+            font-size: 1rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .philosopher-description {
+            background: var(--achtergrond-licht);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .philosopher-description p {
+            color: var(--donkergrijs);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .philosopher-description p:last-child {
+            margin-bottom: 0;
+        }
+
+        .quote-box {
+            background: var(--petrol);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .quote-box blockquote {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote-box cite {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .score-breakdown {
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .score-breakdown h4 {
+            color: var(--petrol);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .score-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .score-label {
+            width: 120px;
+            font-size: 0.85rem;
+            color: var(--donkergrijs);
+        }
+
+        .score-bar {
+            flex: 1;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .score-bar-fill.utilitarian { background: var(--groen); }
+        .score-bar-fill.deontological { background: var(--petrol); }
+        .score-bar-fill.virtue { background: var(--oker); }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--oker);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--oker-light);
+            color: var(--donkergrijs);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--petrol);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: var(--petrol-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--petrol);
+            color: var(--petrol);
+        }
+
+        .btn-outline:hover {
+            background: var(--petrol);
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        /* Footer link */
+        .back-link {
+            text-align: center;
+            padding: 1rem;
+            background: var(--achtergrond-licht);
+            border-top: 1px solid #eee;
+        }
+
+        .back-link a {
+            color: var(--petrol);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .philosopher-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Trolley Problem Simulator</h1>
+            <p>Ethische dilemma's - Oostvaarders College</p>
+        </div>
+
+        <div class="progress-container" id="progressContainer" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <p class="progress-text"><span id="currentQ">1</span> van <span id="totalQ">6</span> dilemma's</p>
+        </div>
+
+        <div class="content">
+            <!-- Intro Screen -->
+            <div class="intro-screen" id="introScreen">
+                <div class="trolley-icon">🚃</div>
+                <h2>Welkom bij de Trolley Problem Simulator</h2>
+                <p>Je staat voor een reeks ethische dilemma's. Er zijn geen goede of foute antwoorden — alleen keuzes die iets zeggen over hoe jij denkt over ethiek.</p>
+
+                <div class="warning">
+                    <strong>Let op:</strong> De scenario's zijn hypothetisch en soms confronterend. Ze zijn bedoeld om je aan het denken te zetten over morele principes, niet om je te choqueren.
+                </div>
+
+                <p>Na afloop ontdek je welke filosoof het beste bij jouw ethische intuïties past.</p>
+
+                <button class="btn btn-primary" onclick="startGame()">Start de simulator</button>
+            </div>
+
+            <!-- Dilemma Screens (generated by JS) -->
+            <div id="dilemmaContainer"></div>
+
+            <!-- Result Screen -->
+            <div class="result-screen" id="resultScreen">
+                <h2 style="color: var(--petrol); margin-bottom: 1rem;">Jouw Filosoof-Match</h2>
+
+                <div class="philosopher-result">
+                    <div class="philosopher-avatar" id="philosopherAvatar"></div>
+                    <div class="philosopher-name" id="philosopherName"></div>
+                    <div class="philosopher-school" id="philosopherSchool"></div>
+                </div>
+
+                <div class="quote-box">
+                    <blockquote id="philosopherQuote"></blockquote>
+                    <cite id="philosopherCite"></cite>
+                </div>
+
+                <div class="philosopher-description" id="philosopherDescription"></div>
+
+                <div class="score-breakdown">
+                    <h4>Jouw ethische profiel</h4>
+                    <div class="score-item">
+                        <span class="score-label">Utilistisch</span>
+                        <div class="score-bar">
+                            <div class="score-bar-fill utilitarian" id="utilScore" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Deontologisch</span>
+                        <div class="score-bar">
+                            <div class="score-bar-fill deontological" id="deontScore" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Deugdethisch</span>
+                        <div class="score-bar">
+                            <div class="score-bar-fill virtue" id="virtueScore" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="restartGame()">Opnieuw spelen</button>
+                    <a href="index.html" class="btn btn-outline">Terug naar overzicht</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← Terug naar Filosofie</a>
+        </div>
+    </div>
+
+    <script>
+        // Dilemma data
+        const dilemmas = [
+            {
+                id: 1,
+                title: "Het Klassieke Trolleyprobleem",
+                icon: "🚃",
+                scenario: `Een op hol geslagen trolley raast over de rails. Verderop staan vijf arbeiders die niet kunnen ontsnappen. Jij staat bij een wissel. Als je de hendel overhaalt, stuur je de trolley naar een zijspoor — maar daar staat één arbeider die dan zal sterven.`,
+                question: "Wat doe je?",
+                choices: [
+                    {
+                        label: "Hendel overhalen",
+                        desc: "De trolley naar het zijspoor sturen — één persoon sterft, vijf worden gered.",
+                        scores: { utilitarian: 2, deontological: 0, virtue: 1 }
+                    },
+                    {
+                        label: "Niets doen",
+                        desc: "De trolley laten doorrijden — vijf personen sterven, maar jij hebt niemand gedood.",
+                        scores: { utilitarian: 0, deontological: 2, virtue: 1 }
+                    }
+                ],
+                explanation: {
+                    title: "Filosofische analyse",
+                    text: `<p><span class="philosopher-tag">Utilisme</span> <strong>Jeremy Bentham</strong> zou zeggen: haal de hendel over. Vijf levens redden is beter dan één. Het gaat om de gevolgen.</p>
+                    <p><span class="philosopher-tag">Deontologie</span> <strong>Immanuel Kant</strong> zou twijfelen: door de hendel over te halen, gebruik je die ene persoon als middel om anderen te redden. Is dat toegestaan?</p>`
+                }
+            },
+            {
+                id: 2,
+                title: "De Voetgangersbrug",
+                icon: "🌉",
+                scenario: `Dezelfde trolley, maar nu sta je op een brug boven de rails. Naast je staat een grote man. Als je hem van de brug duwt, zal zijn lichaam de trolley stoppen en de vijf arbeiders redden. Hij zal sterven, maar de vijf overleven.`,
+                question: "Duw je de man?",
+                choices: [
+                    {
+                        label: "De man duwen",
+                        desc: "Hij sterft, maar vijf mensen worden gered door jouw actie.",
+                        scores: { utilitarian: 2, deontological: -1, virtue: 0 }
+                    },
+                    {
+                        label: "Niet duwen",
+                        desc: "Je weigert iemand te doden, ook al sterven er vijf anderen.",
+                        scores: { utilitarian: 0, deontological: 2, virtue: 1 }
+                    }
+                ],
+                explanation: {
+                    title: "Waarom voelt dit anders?",
+                    text: `<p>De meeste mensen halen wél de hendel over in scenario 1, maar weigeren te duwen in scenario 2. Waarom?</p>
+                    <p><span class="philosopher-tag">Doctrine of Double Effect</span> Er is een moreel verschil tussen iemands dood als <em>neveneffect</em> (hendel) versus iemand <em>gebruiken</em> als middel (duwen).</p>
+                    <p><span class="philosopher-tag">Kant</span> "Handel zo dat je de mensheid nooit louter als middel gebruikt, maar altijd ook als doel."</p>`
+                }
+            },
+            {
+                id: 3,
+                title: "De Chirurg",
+                icon: "🏥",
+                scenario: `Je bent chirurg. Vijf patiënten sterven tenzij ze elk een ander orgaan krijgen. In de wachtkamer zit een gezonde bezoeker. Je zou hem kunnen verdoven, zijn organen oogsten en zo de vijf patiënten redden. Niemand zou het ooit weten.`,
+                question: "Oogst je de organen?",
+                choices: [
+                    {
+                        label: "Ja, organen oogsten",
+                        desc: "Één onschuldige sterft, vijf patiënten worden gered.",
+                        scores: { utilitarian: 2, deontological: -2, virtue: -1 }
+                    },
+                    {
+                        label: "Nee, absoluut niet",
+                        desc: "Je weigert een onschuldige te vermoorden, wat de gevolgen ook zijn.",
+                        scores: { utilitarian: 0, deontological: 2, virtue: 2 }
+                    }
+                ],
+                explanation: {
+                    title: "Waarom walgelijk?",
+                    text: `<p>Bijna iedereen wijst dit af, ook utilitaristen. Maar waarom? De wiskunde is hetzelfde als bij de trolley.</p>
+                    <p><span class="philosopher-tag">Rechten</span> De gezonde bezoeker heeft een <em>recht</em> om niet vermoord te worden. Dat recht mag niet geschonden worden, zelfs niet voor goede gevolgen.</p>
+                    <p><span class="philosopher-tag">Vertrouwen</span> Als chirurgen dit zouden doen, zou niemand meer naar het ziekenhuis durven. De regel zelf ondermijnt het systeem.</p>`
+                }
+            },
+            {
+                id: 4,
+                title: "De Tikkende Tijdbom",
+                icon: "💣",
+                scenario: `Een terrorist heeft een bom geplaatst die duizend mensen zal doden. Je hebt hem gevangen. Hij weigert te praten. De enige manier om de locatie te achterhalen is marteling. De klok tikt.`,
+                question: "Martelt je de terrorist?",
+                choices: [
+                    {
+                        label: "Ja, martelen",
+                        desc: "Je veroorzaakt enorm lijden, maar redt mogelijk duizend levens.",
+                        scores: { utilitarian: 2, deontological: -1, virtue: 0 }
+                    },
+                    {
+                        label: "Nee, niet martelen",
+                        desc: "Marteling is altijd verkeerd, ongeacht de gevolgen.",
+                        scores: { utilitarian: 0, deontological: 2, virtue: 1 }
+                    }
+                ],
+                explanation: {
+                    title: "De grenzen van het utilisme",
+                    text: `<p><span class="philosopher-tag">Utilisme</span> Als marteling écht duizend levens redt, lijkt het gerechtvaardigd. Maar in de echte wereld is marteling vaak ineffectief en corrumpeert het de martelaar.</p>
+                    <p><span class="philosopher-tag">Mensenrechten</span> Het verbod op marteling is <em>absoluut</em> in het internationaal recht. Sommige grenzen mogen niet overschreden worden, ook niet met goede bedoelingen.</p>`
+                }
+            },
+            {
+                id: 5,
+                title: "De Zelfrijdende Auto",
+                icon: "🚗",
+                scenario: `Je zit in een zelfrijdende auto. Plotseling rennen vijf voetgangers de weg op. De auto kan niet stoppen. Hij kan óf rechtdoor rijden (vijf doden) óf uitwijken naar een muur (jij sterft). Je mag de auto programmeren: wie moet hij redden?`,
+                question: "Hoe programmeer je de auto?",
+                choices: [
+                    {
+                        label: "Red de voetgangers",
+                        desc: "De auto wijkt uit — jij sterft, maar vijf mensen overleven.",
+                        scores: { utilitarian: 2, deontological: 1, virtue: 2 }
+                    },
+                    {
+                        label: "Red de inzittende (jij)",
+                        desc: "De auto rijdt door — de voetgangers sterven, maar jij overleeft.",
+                        scores: { utilitarian: 0, deontological: 1, virtue: 0 }
+                    }
+                ],
+                explanation: {
+                    title: "Het probleem van autonome voertuigen",
+                    text: `<p>Dit is geen hypothetisch probleem meer — autofabrikanten moeten dit écht beslissen.</p>
+                    <p><span class="philosopher-tag">Interessant</span> Onderzoek toont: mensen willen dat auto's utilitaristisch geprogrammeerd worden (red de meesten), maar zelf zouden ze zo'n auto niet kopen!</p>
+                    <p><span class="philosopher-tag">Verantwoordelijkheid</span> Als de auto beslist, wie is dan verantwoordelijk? De programmeur? De eigenaar? De fabrikant?</p>`
+                }
+            },
+            {
+                id: 6,
+                title: "De Reddingsboot",
+                icon: "🚣",
+                scenario: `Een schip zinkt. In de reddingsboot is plaats voor zes mensen, maar er zijn zeven overlevenden. De boot zal zinken als iedereen erin gaat. Jij bent de kapitein. Één persoon moet achterblijven. Er is een oude man (80), een jonge moeder, een arts, een kind (8), een crimineel en een rijke zakenman.`,
+                question: "Wie moet achterblijven?",
+                choices: [
+                    {
+                        label: "Niemand kiezen",
+                        desc: "Je weigert te spelen voor God — laat het lot beslissen of iedereen sterft.",
+                        scores: { utilitarian: -1, deontological: 1, virtue: 1 }
+                    },
+                    {
+                        label: "De oudste (80 jaar)",
+                        desc: "Hij heeft het langste geleefd; de anderen hebben meer toekomst.",
+                        scores: { utilitarian: 2, deontological: 0, virtue: 0 }
+                    },
+                    {
+                        label: "De crimineel",
+                        desc: "Zijn leven is minder 'waardevol' vanwege zijn daden.",
+                        scores: { utilitarian: 1, deontological: -1, virtue: 0 }
+                    },
+                    {
+                        label: "Vrijwilliger vragen",
+                        desc: "Vraag of iemand zich wil opofferen — respecteer ieders autonomie.",
+                        scores: { utilitarian: 1, deontological: 2, virtue: 2 }
+                    }
+                ],
+                explanation: {
+                    title: "Wiens leven is meer waard?",
+                    text: `<p><span class="philosopher-tag">Gelijke waardigheid</span> Volgens Kant heeft elk mensenleven gelijke waarde. Niemand mag beoordelen wiens leven 'meer waard' is.</p>
+                    <p><span class="philosopher-tag">Utilisme</span> Een utilitarist zou kunnen rekenen: wie kan de meeste toekomstige waarde bijdragen aan de wereld?</p>
+                    <p><span class="philosopher-tag">Deugdethiek</span> Aristoteles zou vragen: wat zou een wijs en deugdzaam persoon doen in deze situatie? Misschien zichzelf opofferen?</p>`
+                }
+            }
+        ];
+
+        // Philosopher profiles
+        const philosophers = {
+            bentham: {
+                name: "Jeremy Bentham",
+                school: "Utilisme",
+                avatar: "🧮",
+                quote: "De grootste hoeveelheid geluk voor het grootste aantal mensen.",
+                description: `<p>Jouw antwoorden wijzen op een <strong>utilitaristische</strong> denkwijze. Je weegt consequenties af en kiest voor de actie die het meeste welzijn oplevert — ook als dat moeilijke keuzes vereist.</p>
+                <p><strong>Jeremy Bentham</strong> (1748-1832) was de grondlegger van het utilisme. Hij geloofde dat moraal draait om het maximaliseren van geluk en het minimaliseren van lijden.</p>
+                <p><strong>Sterkte:</strong> Je bent bereid moeilijke beslissingen te nemen voor het grotere goed.<br>
+                <strong>Valkuil:</strong> Pas op dat je individuele rechten niet opoffert voor statistieken.</p>`
+            },
+            kant: {
+                name: "Immanuel Kant",
+                school: "Deontologie / Plichtethiek",
+                avatar: "📜",
+                quote: "Handel alleen volgens die maxime waarvan je tegelijk kunt willen dat ze een algemene wet wordt.",
+                description: `<p>Jouw antwoorden wijzen op een <strong>deontologische</strong> denkwijze. Je gelooft dat sommige handelingen intrinsiek goed of fout zijn, ongeacht de gevolgen.</p>
+                <p><strong>Immanuel Kant</strong> (1724-1804) stelde dat moraal gebaseerd is op plichten en principes. Je mag een mens nooit louter als middel gebruiken.</p>
+                <p><strong>Sterkte:</strong> Je hebt sterke morele principes en respecteert de waardigheid van elk individu.<br>
+                <strong>Valkuil:</strong> Soms kan star vasthouden aan regels leiden tot vermijdbaar lijden.</p>`
+            },
+            aristoteles: {
+                name: "Aristoteles",
+                school: "Deugdethiek",
+                avatar: "🏛️",
+                quote: "Wij zijn wat wij herhaaldelijk doen. Voortreffelijkheid is dus geen handeling, maar een gewoonte.",
+                description: `<p>Jouw antwoorden wijzen op een <strong>deugdethische</strong> denkwijze. Je kijkt niet alleen naar regels of gevolgen, maar vraagt: wat zou een wijs en goed mens doen?</p>
+                <p><strong>Aristoteles</strong> (384-322 v.Chr.) geloofde dat moraal draait om karakterontwikkeling. Deugden als moed, rechtvaardigheid en praktische wijsheid vormen het fundament van het goede leven.</p>
+                <p><strong>Sterkte:</strong> Je zoekt naar balans en wijsheid in complexe situaties.<br>
+                <strong>Valkuil:</strong> Deugdethiek geeft soms geen duidelijk antwoord op acute dilemma's.</p>`
+            },
+            mixed: {
+                name: "Praktische Wijsheid",
+                school: "Pluralistisch",
+                avatar: "⚖️",
+                quote: "Er is geen eenvoudige formule voor ethiek — elke situatie vraagt om oordeelsvermogen.",
+                description: `<p>Jouw antwoorden laten een <strong>pluralistische</strong> benadering zien. Je combineert verschillende ethische perspectieven afhankelijk van de situatie.</p>
+                <p>Dit sluit aan bij wat Aristoteles <em>phronesis</em> noemde: praktische wijsheid. Je weegt principes, gevolgen én context mee in je oordeel.</p>
+                <p><strong>Sterkte:</strong> Je bent flexibel en kunt verschillende perspectieven integreren.<br>
+                <strong>Valkuil:</strong> Pas op voor willekeur — zorg dat je keuzes consistent en beargumenteerd zijn.</p>`
+            }
+        };
+
+        // Game state
+        let currentDilemma = 0;
+        let scores = {
+            utilitarian: 0,
+            deontological: 0,
+            virtue: 0
+        };
+        let answered = false;
+
+        // Start game
+        function startGame() {
+            document.getElementById('introScreen').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('totalQ').textContent = dilemmas.length;
+            renderDilemma();
+        }
+
+        // Render current dilemma
+        function renderDilemma() {
+            const container = document.getElementById('dilemmaContainer');
+            const dilemma = dilemmas[currentDilemma];
+            answered = false;
+
+            // Update progress
+            document.getElementById('currentQ').textContent = currentDilemma + 1;
+            document.getElementById('progressFill').style.width = ((currentDilemma) / dilemmas.length * 100) + '%';
+
+            let choicesHTML = dilemma.choices.map((choice, index) => `
+                <button class="choice-btn" onclick="selectChoice(${index})">
+                    <div class="choice-label">${choice.label}</div>
+                    <div class="choice-desc">${choice.desc}</div>
+                </button>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="dilemma-screen active fade-in">
+                    <div class="scenario-box">
+                        <div class="scenario-title">${dilemma.icon} ${dilemma.title}</div>
+                        <p class="scenario-text">${dilemma.scenario}</p>
+                    </div>
+
+                    <p class="question">${dilemma.question}</p>
+
+                    <div class="choices" id="choices">
+                        ${choicesHTML}
+                    </div>
+
+                    <div class="explanation" id="explanation">
+                        <h4>${dilemma.explanation.title}</h4>
+                        ${dilemma.explanation.text}
+                        <div class="button-group" style="margin-top: 1rem;">
+                            <button class="btn btn-secondary" onclick="nextDilemma()">
+                                ${currentDilemma < dilemmas.length - 1 ? 'Volgende dilemma →' : 'Bekijk resultaat →'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Handle choice selection
+        function selectChoice(index) {
+            if (answered) return;
+            answered = true;
+
+            const dilemma = dilemmas[currentDilemma];
+            const choice = dilemma.choices[index];
+
+            // Add scores
+            scores.utilitarian += choice.scores.utilitarian;
+            scores.deontological += choice.scores.deontological;
+            scores.virtue += choice.scores.virtue;
+
+            // Highlight selected choice
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach((btn, i) => {
+                if (i === index) {
+                    btn.style.background = 'var(--petrol)';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = 'var(--petrol)';
+                } else {
+                    btn.style.opacity = '0.5';
+                    btn.style.pointerEvents = 'none';
+                }
+            });
+
+            // Show explanation
+            setTimeout(() => {
+                document.getElementById('explanation').classList.add('show');
+            }, 300);
+        }
+
+        // Next dilemma or show results
+        function nextDilemma() {
+            currentDilemma++;
+            if (currentDilemma < dilemmas.length) {
+                renderDilemma();
+            } else {
+                showResults();
+            }
+        }
+
+        // Show results
+        function showResults() {
+            document.getElementById('dilemmaContainer').innerHTML = '';
+            document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('resultScreen').classList.add('active');
+            document.getElementById('resultScreen').style.display = 'block';
+
+            // Determine philosopher match
+            let philosopher;
+            const maxScore = Math.max(scores.utilitarian, scores.deontological, scores.virtue);
+            const minScore = Math.min(scores.utilitarian, scores.deontological, scores.virtue);
+            const range = maxScore - minScore;
+
+            if (range <= 2) {
+                philosopher = philosophers.mixed;
+            } else if (scores.utilitarian >= scores.deontological && scores.utilitarian >= scores.virtue) {
+                philosopher = philosophers.bentham;
+            } else if (scores.deontological >= scores.utilitarian && scores.deontological >= scores.virtue) {
+                philosopher = philosophers.kant;
+            } else {
+                philosopher = philosophers.aristoteles;
+            }
+
+            // Display philosopher
+            document.getElementById('philosopherAvatar').textContent = philosopher.avatar;
+            document.getElementById('philosopherName').textContent = philosopher.name;
+            document.getElementById('philosopherSchool').textContent = philosopher.school;
+            document.getElementById('philosopherQuote').textContent = philosopher.quote;
+            document.getElementById('philosopherCite').textContent = '— ' + philosopher.name;
+            document.getElementById('philosopherDescription').innerHTML = philosopher.description;
+
+            // Display score bars (normalize to percentage)
+            const total = Math.abs(scores.utilitarian) + Math.abs(scores.deontological) + Math.abs(scores.virtue);
+            const maxPossible = dilemmas.length * 2; // rough max per category
+
+            setTimeout(() => {
+                document.getElementById('utilScore').style.width = Math.max(0, (scores.utilitarian / maxPossible * 100)) + '%';
+                document.getElementById('deontScore').style.width = Math.max(0, (scores.deontological / maxPossible * 100)) + '%';
+                document.getElementById('virtueScore').style.width = Math.max(0, (scores.virtue / maxPossible * 100)) + '%';
+            }, 300);
+        }
+
+        // Restart game
+        function restartGame() {
+            currentDilemma = 0;
+            scores = { utilitarian: 0, deontological: 0, virtue: 0 };
+            answered = false;
+
+            document.getElementById('resultScreen').style.display = 'none';
+            document.getElementById('resultScreen').classList.remove('active');
+            document.getElementById('introScreen').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
