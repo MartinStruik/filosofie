@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logica Arena - Filosofie Oostvaarders College</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --petrol: #1a7a8a;
+            --petrol-dark: #145f6a;
+            --oker: #c9a227;
+            --oker-light: #e6c55a;
+            --groen: #2d8a4e;
+            --rood: #c0392b;
+            --paars: #8e44ad;
+            --blauw: #2980b9;
+            --donkergrijs: #333333;
+            --middengrijs: #666666;
+            --lichtgrijs: #999999;
+            --achtergrond: #ffffff;
+            --achtergrond-licht: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            background: linear-gradient(135deg, #8e44ad 0%, #5b2c6f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 850px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: var(--donkergrijs);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.2rem;
+        }
+
+        .header-left p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .score-display {
+            text-align: right;
+        }
+
+        .score-display .score-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+        }
+
+        .score-display .score-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--oker);
+        }
+
+        /* Progress bar */
+        .progress-container {
+            background: var(--achtergrond-licht);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #eee;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--paars), #a569bd);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--lichtgrijs);
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: var(--paars);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Content area */
+        .content {
+            padding: 2rem;
+            min-height: 450px;
+        }
+
+        /* Screens */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Intro screen */
+        .intro-screen {
+            text-align: center;
+        }
+
+        .logic-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .intro-screen h2 {
+            color: var(--paars);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .intro-screen > p {
+            color: var(--middengrijs);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        /* Theory sections */
+        .theory-section {
+            background: var(--achtergrond-licht);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .theory-section h3 {
+            color: var(--paars);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .concept-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--paars);
+        }
+
+        .concept-card h4 {
+            color: var(--donkergrijs);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .concept-card p {
+            font-size: 0.8rem;
+            color: var(--middengrijs);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .concept-card.truth { border-left-color: var(--blauw); }
+        .concept-card.validity { border-left-color: var(--groen); }
+        .concept-card.soundness { border-left-color: var(--oker); }
+
+        /* Logic forms grid */
+        .forms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .forms-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-card {
+            padding: 1rem;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .form-card.valid {
+            border-left: 4px solid var(--groen);
+        }
+
+        .form-card.invalid {
+            border-left: 4px solid var(--rood);
+        }
+
+        .form-card h4 {
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-card.valid h4 { color: var(--groen); }
+        .form-card.invalid h4 { color: var(--rood); }
+
+        .form-card .formula {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--donkergrijs);
+            background: var(--achtergrond-licht);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .valid-tag, .invalid-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        .valid-tag { background: var(--groen); color: white; }
+        .invalid-tag { background: var(--rood); color: white; }
+
+        /* Extra concepts list */
+        .concepts-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 500px) {
+            .concepts-list { grid-template-columns: 1fr; }
+        }
+
+        .concept-item {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .concept-item .icon {
+            font-size: 1.2rem;
+        }
+
+        .concept-item .text {
+            font-size: 0.85rem;
+            color: var(--donkergrijs);
+        }
+
+        .concept-item .text strong {
+            color: var(--paars);
+        }
+
+        /* Game screen */
+        .round-indicator {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .round-indicator span {
+            background: var(--paars);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .question-box {
+            background: var(--achtergrond-licht);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--paars);
+        }
+
+        .question-box h3 {
+            color: var(--paars);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .question-box .category-tag {
+            background: var(--paars);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Argument display */
+        .argument-display {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .premise {
+            background: var(--achtergrond-licht);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--donkergrijs);
+        }
+
+        .premise-label {
+            font-weight: 700;
+            color: var(--paars);
+            margin-right: 0.5rem;
+        }
+
+        .conclusion {
+            background: var(--paars);
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .conclusion-label {
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* Text passage for signal words */
+        .text-passage {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--donkergrijs);
+            border: 2px dashed #ddd;
+        }
+
+        .text-passage .highlight {
+            background: var(--oker-light);
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+        }
+
+        .question-text {
+            text-align: center;
+            font-weight: 700;
+            color: var(--donkergrijs);
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* Choice buttons */
+        .choices {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        .choices.single-column {
+            grid-template-columns: 1fr;
+        }
+
+        .choices.three-columns {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 600px) {
+            .choices, .choices.three-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .choice-btn {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .choice-btn:hover {
+            border-color: var(--paars);
+            background: #f9f5fc;
+        }
+
+        .choice-btn .choice-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--donkergrijs);
+            margin-bottom: 0.3rem;
+        }
+
+        .choice-btn .choice-desc {
+            font-size: 0.8rem;
+            color: var(--middengrijs);
+        }
+
+        .choice-btn .choice-type {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .choice-btn .choice-type.valid { color: var(--groen); }
+        .choice-btn .choice-type.invalid { color: var(--rood); }
+
+        .choice-btn.selected {
+            border-color: var(--paars);
+            background: var(--paars);
+        }
+
+        .choice-btn.selected .choice-name,
+        .choice-btn.selected .choice-desc,
+        .choice-btn.selected .choice-type {
+            color: white;
+        }
+
+        .choice-btn.correct {
+            border-color: var(--groen);
+            background: #e8f5e9;
+        }
+
+        .choice-btn.correct .choice-name { color: var(--groen); }
+
+        .choice-btn.wrong {
+            border-color: var(--rood);
+            background: #ffebee;
+        }
+
+        .choice-btn.wrong .choice-name { color: var(--rood); }
+
+        .choice-btn.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .choice-btn.show-correct {
+            border-color: var(--groen);
+            border-width: 3px;
+        }
+
+        /* Feedback */
+        .feedback {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .feedback.show { display: block; }
+
+        .feedback.correct {
+            background: #e8f5e9;
+            border-left: 4px solid var(--groen);
+        }
+
+        .feedback.wrong {
+            background: #ffebee;
+            border-left: 4px solid var(--rood);
+        }
+
+        .feedback h4 {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feedback.correct h4 { color: var(--groen); }
+        .feedback.wrong h4 { color: var(--rood); }
+
+        .feedback p {
+            color: var(--donkergrijs);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+
+        .feedback .formula-explain {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 0.8rem 0;
+        }
+
+        /* Result screen */
+        .result-screen {
+            text-align: center;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-screen h2 {
+            color: var(--paars);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-screen .final-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--donkergrijs);
+            margin: 1rem 0;
+        }
+
+        .result-screen .final-score span {
+            color: var(--paars);
+        }
+
+        .result-message {
+            background: var(--achtergrond-licht);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .result-message h3 {
+            color: var(--paars);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-message p {
+            color: var(--middengrijs);
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .stat-card {
+            background: var(--achtergrond-licht);
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--paars);
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.7rem;
+            color: var(--lichtgrijs);
+            text-transform: uppercase;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--oker);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--oker-light);
+            color: var(--donkergrijs);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--paars);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7d3c98;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--paars);
+            color: var(--paars);
+        }
+
+        .btn-outline:hover {
+            background: var(--paars);
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        /* Footer link */
+        .back-link {
+            text-align: center;
+            padding: 1rem;
+            background: var(--achtergrond-licht);
+            border-top: 1px solid #eee;
+        }
+
+        .back-link a {
+            color: var(--paars);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .content { padding: 1.5rem; }
+            .header { flex-direction: column; gap: 1rem; text-align: center; }
+            .score-display { text-align: center; }
+            .header-left h1 { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h1>⚔️ Logica Arena</h1>
+                <p>Propositielogica - Oostvaarders College</p>
+            </div>
+            <div class="score-display" id="scoreDisplay" style="display: none;">
+                <div class="score-label">Score</div>
+                <div class="score-value"><span id="currentScore">0</span>/<span id="maxScore">12</span></div>
+            </div>
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">
+                Vraag <span id="currentQ">1</span> van <span id="totalQ">12</span>
+                <span class="category-badge" id="categoryBadge">Redeneervormen</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Intro Screen -->
+            <div class="screen active" id="introScreen">
+                <div class="intro-screen">
+                    <div class="logic-icon">🧠</div>
+                    <h2>Welkom in de Logica Arena</h2>
+                    <p>Test je volledige kennis van propositielogica! Van redeneervormen tot verzwegen aannames.</p>
+
+                    <div class="theory-section">
+                        <h3>📚 Waarheid, Geldigheid & Deugdelijkheid</h3>
+                        <div class="concept-grid">
+                            <div class="concept-card truth">
+                                <h4>Waarheid</h4>
+                                <p>Klopt de bewering met de feiten? Een feitelijke kwestie.</p>
+                            </div>
+                            <div class="concept-card validity">
+                                <h4>Geldigheid</h4>
+                                <p>Volgt de conclusie noodzakelijk uit de premissen? Structuur.</p>
+                            </div>
+                            <div class="concept-card soundness">
+                                <h4>Deugdelijkheid</h4>
+                                <p>Geldig + ware premissen = betrouwbaar argument.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="theory-section">
+                        <h3>🎯 De Vier Redeneervormen</h3>
+                        <div class="forms-grid">
+                            <div class="form-card valid">
+                                <h4>Modus Ponens <span class="valid-tag">Geldig</span></h4>
+                                <div class="formula">P → Q; P; ∴ Q</div>
+                            </div>
+                            <div class="form-card valid">
+                                <h4>Modus Tollens <span class="valid-tag">Geldig</span></h4>
+                                <div class="formula">P → Q; ¬Q; ∴ ¬P</div>
+                            </div>
+                            <div class="form-card invalid">
+                                <h4>Bevestiging Consequent <span class="invalid-tag">Ongeldig</span></h4>
+                                <div class="formula">P → Q; Q; ∴ P ✗</div>
+                            </div>
+                            <div class="form-card invalid">
+                                <h4>Ontkenning Antecedent <span class="invalid-tag">Ongeldig</span></h4>
+                                <div class="formula">P → Q; ¬P; ∴ ¬Q ✗</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="theory-section">
+                        <h3>🔍 Extra Vaardigheden</h3>
+                        <div class="concepts-list">
+                            <div class="concept-item">
+                                <span class="icon">📝</span>
+                                <span class="text"><strong>Signaalwoorden</strong> — herken premissen (want, omdat, immers) en conclusies (dus, daarom, bijgevolg)</span>
+                            </div>
+                            <div class="concept-item">
+                                <span class="icon">🔎</span>
+                                <span class="text"><strong>Verzwegen aannames</strong> — onuitgesproken premissen die het argument compleet maken</span>
+                            </div>
+                            <div class="concept-item">
+                                <span class="icon">⚖️</span>
+                                <span class="text"><strong>Deductie</strong> — conclusie is zeker als premissen waar zijn</span>
+                            </div>
+                            <div class="concept-item">
+                                <span class="icon">📊</span>
+                                <span class="text"><strong>Inductie</strong> — conclusie is waarschijnlijk, maar weerlegbaar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="startGame()">Start de Arena!</button>
+                </div>
+            </div>
+
+            <!-- Game Screen -->
+            <div class="screen" id="gameScreen">
+                <div class="round-indicator">
+                    <span id="roundLabel">Ronde 1</span>
+                </div>
+
+                <div class="question-box" id="questionBox">
+                    <!-- Filled by JS -->
+                </div>
+
+                <p class="question-text" id="questionText">Welke redeneervorm is dit?</p>
+
+                <div class="choices" id="choices">
+                    <!-- Filled by JS -->
+                </div>
+
+                <div class="feedback" id="feedback">
+                    <!-- Filled by JS -->
+                </div>
+
+                <div class="button-group" id="nextButtonContainer" style="display: none;">
+                    <button class="btn btn-secondary" onclick="nextQuestion()">Volgende vraag →</button>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div class="screen" id="resultScreen">
+                <div class="result-screen">
+                    <div class="result-icon" id="resultIcon">🏆</div>
+                    <h2 id="resultTitle">Je resultaat</h2>
+                    <div class="final-score"><span id="finalScore">0</span>/<span id="finalMax">12</span></div>
+
+                    <div class="stats-grid" id="statsGrid">
+                        <!-- Filled by JS -->
+                    </div>
+
+                    <div class="result-message" id="resultMessage">
+                        <!-- Filled by JS -->
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="restartGame()">Opnieuw spelen</button>
+                        <a href="index.html" class="btn btn-outline">Terug naar overzicht</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← Terug naar Filosofie</a>
+        </div>
+    </div>
+
+    <script>
+        // ========== QUESTION DATABASE ==========
+
+        // Category 1: Redeneervormen (4 types)
+        const formQuestions = [
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'modus_ponens',
+                premise1: "Als het regent, dan wordt de straat nat.",
+                premise2: "Het regent.",
+                conclusion: "Dus de straat wordt nat.",
+                explanation: "De eerste premisse stelt: P → Q. De tweede premisse bevestigt P. Dus volgt Q noodzakelijk."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'modus_ponens',
+                premise1: "Als iets een zoogdier is, dan heeft het longen.",
+                premise2: "Een dolfijn is een zoogdier.",
+                conclusion: "Dus een dolfijn heeft longen.",
+                explanation: "Klassieke modus ponens: P is waar (dolfijn = zoogdier), dus Q volgt (heeft longen)."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'modus_tollens',
+                premise1: "Als het regent, dan wordt de straat nat.",
+                premise2: "De straat is niet nat.",
+                conclusion: "Dus het regent niet.",
+                explanation: "Modus tollens: als Q onwaar is (straat niet nat), dan moet P ook onwaar zijn."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'modus_tollens',
+                premise1: "Als Jan de dader is, dan heeft hij geen alibi.",
+                premise2: "Jan heeft een alibi.",
+                conclusion: "Dus Jan is niet de dader.",
+                explanation: "De consequent (geen alibi) is onwaar, dus de antecedent (dader zijn) moet ook onwaar zijn."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'affirming_consequent',
+                premise1: "Als het regent, dan wordt de straat nat.",
+                premise2: "De straat is nat.",
+                conclusion: "Dus het regent.",
+                explanation: "DROGREDEN! De straat kan ook nat zijn door andere oorzaken (sproeier, gemorst water)."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'affirming_consequent',
+                premise1: "Als je griep hebt, heb je koorts.",
+                premise2: "Je hebt koorts.",
+                conclusion: "Dus je hebt griep.",
+                explanation: "DROGREDEN! Koorts kan ook door andere ziektes komen. Q bevestigen bewijst P niet."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'denying_antecedent',
+                premise1: "Als het regent, dan wordt de straat nat.",
+                premise2: "Het regent niet.",
+                conclusion: "Dus de straat is niet nat.",
+                explanation: "DROGREDEN! De straat kan nog steeds nat zijn door andere oorzaken."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'denying_antecedent',
+                premise1: "Als je een kat bent, ben je een dier.",
+                premise2: "Je bent geen kat.",
+                conclusion: "Dus je bent geen dier.",
+                explanation: "DROGREDEN! Je kunt een hond zijn — nog steeds een dier. Niet-P bewijst niets over Q."
+            }
+        ];
+
+        // Category 2: Waarheid vs Geldigheid vs Deugdelijkheid
+        const validityQuestions = [
+            {
+                category: 'validity',
+                categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle vissen kunnen vliegen. Een zalm is een vis. Dus een zalm kan vliegen.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'valid_untrue',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig én ware premissen' }
+                ],
+                explanation: "Het argument is <strong>geldig</strong> (modus ponens), maar niet <strong>deugdelijk</strong> omdat de eerste premisse onwaar is. Geldigheid gaat over structuur, niet over feiten."
+            },
+            {
+                category: 'validity',
+                categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle mensen zijn sterfelijk. Socrates is een mens. Dus Socrates is sterfelijk.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'sound',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig én ware premissen' }
+                ],
+                explanation: "Dit is een <strong>deugdelijk</strong> argument: de structuur is geldig (modus ponens) én beide premissen zijn waar."
+            },
+            {
+                category: 'validity',
+                categoryLabel: 'Waarheid & Geldigheid',
+                question: "Amsterdam is de hoofdstad van Nederland. Nederland ligt in Europa. Dus Amsterdam is mooi.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'invalid',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig én ware premissen' }
+                ],
+                explanation: "Dit is <strong>ongeldig</strong>: de conclusie ('Amsterdam is mooi') volgt logisch niet uit de premissen. De premissen zijn waar, maar er is geen logisch verband."
+            },
+            {
+                category: 'validity',
+                categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle planeten in ons zonnestelsel draaien om de zon. De aarde is een planeet in ons zonnestelsel. Dus de aarde draait om de zon.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'sound',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig én ware premissen' }
+                ],
+                explanation: "Klassiek <strong>deugdelijk</strong> argument: geldige structuur + ware premissen = betrouwbare conclusie."
+            }
+        ];
+
+        // Category 3: Signaalwoorden
+        const signalQuestions = [
+            {
+                category: 'signals',
+                categoryLabel: 'Signaalwoorden',
+                text: "Je moet je paraplu meenemen, <span class='highlight'>want</span> het gaat regenen.",
+                questionText: "Het woord 'want' introduceert hier een...",
+                correctAnswer: 'premise',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                explanation: "'Want' is een <strong>premisse-indicator</strong>. Het introduceert de reden (het gaat regenen) voor de conclusie (paraplu meenemen)."
+            },
+            {
+                category: 'signals',
+                categoryLabel: 'Signaalwoorden',
+                text: "Alle studenten moeten dit boek lezen. Jij bent een student. <span class='highlight'>Dus</span> jij moet dit boek lezen.",
+                questionText: "Het woord 'dus' introduceert hier een...",
+                correctAnswer: 'conclusion',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                explanation: "'Dus' is een <strong>conclusie-indicator</strong>. Het signaleert wat volgt uit de voorafgaande premissen."
+            },
+            {
+                category: 'signals',
+                categoryLabel: 'Signaalwoorden',
+                text: "We moeten de uitstoot verminderen. <span class='highlight'>Immers</span>, de temperatuur op aarde stijgt al jaren.",
+                questionText: "Het woord 'immers' introduceert hier een...",
+                correctAnswer: 'premise',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                explanation: "'Immers' is een <strong>premisse-indicator</strong>. Het geeft de reden waarom we de uitstoot moeten verminderen."
+            },
+            {
+                category: 'signals',
+                categoryLabel: 'Signaalwoorden',
+                text: "De verdachte had een motief en geen alibi. <span class='highlight'>Bijgevolg</span> is hij waarschijnlijk schuldig.",
+                questionText: "Het woord 'bijgevolg' introduceert hier een...",
+                correctAnswer: 'conclusion',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                explanation: "'Bijgevolg' is een <strong>conclusie-indicator</strong>. Het signaleert de gevolgtrekking uit de gegeven feiten."
+            }
+        ];
+
+        // Category 4: Verzwegen aannames
+        const assumptionQuestions = [
+            {
+                category: 'assumptions',
+                categoryLabel: 'Verzwegen aannames',
+                argument: "Jan is een filosoof. Dus Jan is slim.",
+                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
+                correctAnswer: 'philosophers_smart',
+                options: [
+                    { id: 'philosophers_smart', label: 'Alle filosofen zijn slim', desc: '' },
+                    { id: 'jan_studies', label: 'Jan studeert hard', desc: '' },
+                    { id: 'smart_philosophers', label: 'Alle slimme mensen zijn filosofen', desc: '' }
+                ],
+                explanation: "De verzwegen aanname is: <strong>'Alle filosofen zijn slim'</strong>. Alleen met deze premisse wordt het een geldige modus ponens: Als filosoof → slim; Jan = filosoof; dus Jan = slim."
+            },
+            {
+                category: 'assumptions',
+                categoryLabel: 'Verzwegen aannames',
+                argument: "Dit medicijn is niet getest op mensen. Dus dit medicijn is niet veilig.",
+                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
+                correctAnswer: 'untested_unsafe',
+                options: [
+                    { id: 'untested_unsafe', label: 'Medicijnen die niet op mensen zijn getest, zijn niet veilig', desc: '' },
+                    { id: 'all_tested', label: 'Alle medicijnen moeten getest worden', desc: '' },
+                    { id: 'safe_tested', label: 'Veilige medicijnen zijn getest', desc: '' }
+                ],
+                explanation: "De verzwegen aanname is: <strong>'Niet-getest → niet veilig'</strong>. Dit maakt het een modus ponens."
+            },
+            {
+                category: 'assumptions',
+                categoryLabel: 'Verzwegen aannames',
+                argument: "Marie komt uit Frankrijk. Dus Marie spreekt Frans.",
+                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
+                correctAnswer: 'french_speak',
+                options: [
+                    { id: 'french_speak', label: 'Alle Fransen spreken Frans', desc: '' },
+                    { id: 'marie_studied', label: 'Marie heeft Frans gestudeerd', desc: '' },
+                    { id: 'france_europe', label: 'Frankrijk ligt in Europa', desc: '' }
+                ],
+                explanation: "De verzwegen aanname is: <strong>'Alle mensen uit Frankrijk spreken Frans'</strong>. Dit is de ontbrekende premisse die het argument compleet maakt."
+            }
+        ];
+
+        // Category 5: Deductie vs Inductie
+        const deductionQuestions = [
+            {
+                category: 'deduction',
+                categoryLabel: 'Deductie vs Inductie',
+                argument: "Alle zoogdieren zijn warmbloedig. Een hond is een zoogdier. Dus een hond is warmbloedig.",
+                questionText: "Dit is een voorbeeld van...",
+                correctAnswer: 'deduction',
+                options: [
+                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
+                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                ],
+                explanation: "Dit is <strong>deductie</strong>: als de premissen waar zijn, is de conclusie met zekerheid waar. De conclusie volgt noodzakelijk."
+            },
+            {
+                category: 'deduction',
+                categoryLabel: 'Deductie vs Inductie',
+                argument: "Ik heb 1000 zwanen gezien en ze waren allemaal wit. Dus alle zwanen zijn wit.",
+                questionText: "Dit is een voorbeeld van...",
+                correctAnswer: 'induction',
+                options: [
+                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
+                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                ],
+                explanation: "Dit is <strong>inductie</strong>: van specifieke waarnemingen naar een algemene conclusie. De conclusie is waarschijnlijk, maar kan weerlegd worden (zwarte zwanen bestaan!)."
+            },
+            {
+                category: 'deduction',
+                categoryLabel: 'Deductie vs Inductie',
+                argument: "De zon is de afgelopen 10.000 jaar elke dag opgekomen. Dus de zon komt morgen ook op.",
+                questionText: "Dit is een voorbeeld van...",
+                correctAnswer: 'induction',
+                options: [
+                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
+                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                ],
+                explanation: "Dit is <strong>inductie</strong>: we baseren onze verwachting op patroonherkenning. Hoe waarschijnlijk ook, het is geen logische noodzaak."
+            },
+            {
+                category: 'deduction',
+                categoryLabel: 'Deductie vs Inductie',
+                argument: "Als het sneeuwt, is het koud. Het sneeuwt. Dus het is koud.",
+                questionText: "Dit is een voorbeeld van...",
+                correctAnswer: 'deduction',
+                options: [
+                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
+                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                ],
+                explanation: "Dit is <strong>deductie</strong> (modus ponens): de conclusie volgt noodzakelijk uit de premissen."
+            }
+        ];
+
+        // ========== GAME STATE ==========
+        let currentQuestion = 0;
+        let score = 0;
+        let categoryScores = {
+            forms: { correct: 0, total: 0 },
+            validity: { correct: 0, total: 0 },
+            signals: { correct: 0, total: 0 },
+            assumptions: { correct: 0, total: 0 },
+            deduction: { correct: 0, total: 0 }
+        };
+        let shuffledQuestions = [];
+        let answered = false;
+        const TOTAL_QUESTIONS = 12;
+
+        // ========== HELPER FUNCTIONS ==========
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function pickQuestions() {
+            // Pick balanced selection from each category
+            const forms = shuffle(formQuestions).slice(0, 4);
+            const validity = shuffle(validityQuestions).slice(0, 2);
+            const signals = shuffle(signalQuestions).slice(0, 2);
+            const assumptions = shuffle(assumptionQuestions).slice(0, 2);
+            const deduction = shuffle(deductionQuestions).slice(0, 2);
+
+            return shuffle([...forms, ...validity, ...signals, ...assumptions, ...deduction]);
+        }
+
+        // ========== GAME FUNCTIONS ==========
+        function startGame() {
+            shuffledQuestions = pickQuestions();
+            currentQuestion = 0;
+            score = 0;
+            categoryScores = {
+                forms: { correct: 0, total: 0 },
+                validity: { correct: 0, total: 0 },
+                signals: { correct: 0, total: 0 },
+                assumptions: { correct: 0, total: 0 },
+                deduction: { correct: 0, total: 0 }
+            };
+
+            document.getElementById('introScreen').classList.remove('active');
+            document.getElementById('gameScreen').classList.add('active');
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('scoreDisplay').style.display = 'block';
+            document.getElementById('totalQ').textContent = TOTAL_QUESTIONS;
+            document.getElementById('maxScore').textContent = TOTAL_QUESTIONS;
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            answered = false;
+            const q = shuffledQuestions[currentQuestion];
+
+            // Update progress
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('roundLabel').textContent = `Ronde ${currentQuestion + 1}`;
+            document.getElementById('progressFill').style.width = ((currentQuestion) / TOTAL_QUESTIONS * 100) + '%';
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('categoryBadge').textContent = q.categoryLabel;
+
+            // Hide feedback
+            document.getElementById('feedback').classList.remove('show', 'correct', 'wrong');
+            document.getElementById('nextButtonContainer').style.display = 'none';
+
+            // Render based on category
+            if (q.category === 'forms') {
+                renderFormQuestion(q);
+            } else if (q.category === 'validity') {
+                renderValidityQuestion(q);
+            } else if (q.category === 'signals') {
+                renderSignalQuestion(q);
+            } else if (q.category === 'assumptions') {
+                renderAssumptionQuestion(q);
+            } else if (q.category === 'deduction') {
+                renderDeductionQuestion(q);
+            }
+        }
+
+        function renderFormQuestion(q) {
+            document.getElementById('questionBox').innerHTML = `
+                <h3><span class="category-tag">Redeneervormen</span> Analyseer dit argument:</h3>
+                <div class="argument-display">
+                    <div class="premise"><span class="premise-label">P1:</span> ${q.premise1}</div>
+                    <div class="premise"><span class="premise-label">P2:</span> ${q.premise2}</div>
+                    <div class="conclusion"><span class="conclusion-label">∴</span> ${q.conclusion}</div>
+                </div>
+            `;
+            document.getElementById('questionText').textContent = "Welke redeneervorm is dit?";
+            document.getElementById('choices').className = 'choices';
+            document.getElementById('choices').innerHTML = `
+                <button class="choice-btn" data-answer="modus_ponens">
+                    <div class="choice-name">Modus Ponens</div>
+                    <div class="choice-type valid">✓ Geldig</div>
+                </button>
+                <button class="choice-btn" data-answer="modus_tollens">
+                    <div class="choice-name">Modus Tollens</div>
+                    <div class="choice-type valid">✓ Geldig</div>
+                </button>
+                <button class="choice-btn" data-answer="affirming_consequent">
+                    <div class="choice-name">Bevestiging Consequent</div>
+                    <div class="choice-type invalid">✗ Drogreden</div>
+                </button>
+                <button class="choice-btn" data-answer="denying_antecedent">
+                    <div class="choice-name">Ontkenning Antecedent</div>
+                    <div class="choice-type invalid">✗ Drogreden</div>
+                </button>
+            `;
+            addChoiceListeners();
+        }
+
+        function renderValidityQuestion(q) {
+            document.getElementById('questionBox').innerHTML = `
+                <h3><span class="category-tag">Waarheid & Geldigheid</span> Beoordeel dit argument:</h3>
+                <div class="text-passage">${q.question}</div>
+            `;
+            document.getElementById('questionText').textContent = q.questionText;
+            document.getElementById('choices').className = 'choices three-columns';
+            document.getElementById('choices').innerHTML = q.options.map(opt => `
+                <button class="choice-btn" data-answer="${opt.id}">
+                    <div class="choice-name">${opt.label}</div>
+                    <div class="choice-desc">${opt.desc}</div>
+                </button>
+            `).join('');
+            addChoiceListeners();
+        }
+
+        function renderSignalQuestion(q) {
+            document.getElementById('questionBox').innerHTML = `
+                <h3><span class="category-tag">Signaalwoorden</span> Lees de tekst:</h3>
+                <div class="text-passage">${q.text}</div>
+            `;
+            document.getElementById('questionText').textContent = q.questionText;
+            document.getElementById('choices').className = 'choices';
+            document.getElementById('choices').innerHTML = q.options.map(opt => `
+                <button class="choice-btn" data-answer="${opt.id}">
+                    <div class="choice-name">${opt.label}</div>
+                    <div class="choice-desc">${opt.desc}</div>
+                </button>
+            `).join('');
+            addChoiceListeners();
+        }
+
+        function renderAssumptionQuestion(q) {
+            document.getElementById('questionBox').innerHTML = `
+                <h3><span class="category-tag">Verzwegen aannames</span> Dit argument mist iets:</h3>
+                <div class="text-passage">${q.argument}</div>
+            `;
+            document.getElementById('questionText').textContent = q.questionText;
+            document.getElementById('choices').className = 'choices single-column';
+            document.getElementById('choices').innerHTML = q.options.map(opt => `
+                <button class="choice-btn" data-answer="${opt.id}">
+                    <div class="choice-name">${opt.label}</div>
+                </button>
+            `).join('');
+            addChoiceListeners();
+        }
+
+        function renderDeductionQuestion(q) {
+            document.getElementById('questionBox').innerHTML = `
+                <h3><span class="category-tag">Deductie vs Inductie</span> Bekijk dit argument:</h3>
+                <div class="text-passage">${q.argument}</div>
+            `;
+            document.getElementById('questionText').textContent = q.questionText;
+            document.getElementById('choices').className = 'choices';
+            document.getElementById('choices').innerHTML = q.options.map(opt => `
+                <button class="choice-btn" data-answer="${opt.id}">
+                    <div class="choice-name">${opt.label}</div>
+                    <div class="choice-desc">${opt.desc}</div>
+                </button>
+            `).join('');
+            addChoiceListeners();
+        }
+
+        function addChoiceListeners() {
+            document.querySelectorAll('.choice-btn').forEach(btn => {
+                btn.addEventListener('click', () => selectAnswer(btn.dataset.answer));
+            });
+        }
+
+        function selectAnswer(answer) {
+            if (answered) return;
+            answered = true;
+
+            const q = shuffledQuestions[currentQuestion];
+            let correctAnswer;
+
+            if (q.category === 'forms') {
+                correctAnswer = q.type;
+            } else {
+                correctAnswer = q.correctAnswer;
+            }
+
+            const isCorrect = answer === correctAnswer;
+
+            // Update scores
+            categoryScores[q.category].total++;
+            if (isCorrect) {
+                score++;
+                categoryScores[q.category].correct++;
+            }
+            document.getElementById('currentScore').textContent = score;
+
+            // Style buttons
+            document.querySelectorAll('.choice-btn').forEach(btn => {
+                const btnAnswer = btn.dataset.answer;
+                if (btnAnswer === answer) {
+                    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+                    btn.classList.add('selected');
+                }
+                if (btnAnswer === correctAnswer && !isCorrect) {
+                    btn.classList.add('show-correct');
+                }
+                btn.classList.add('disabled');
+            });
+
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.classList.add('show', isCorrect ? 'correct' : 'wrong');
+
+            let explanationText = q.explanation;
+            if (q.category === 'forms') {
+                const formulas = {
+                    'modus_ponens': 'P → Q; P; ∴ Q',
+                    'modus_tollens': 'P → Q; ¬Q; ∴ ¬P',
+                    'affirming_consequent': 'P → Q; Q; ∴ P (ONGELDIG)',
+                    'denying_antecedent': 'P → Q; ¬P; ∴ ¬Q (ONGELDIG)'
+                };
+                const typeNames = {
+                    'modus_ponens': 'Modus Ponens',
+                    'modus_tollens': 'Modus Tollens',
+                    'affirming_consequent': 'Bevestiging van de Consequent',
+                    'denying_antecedent': 'Ontkenning van de Antecedent'
+                };
+                feedback.innerHTML = `
+                    <h4>${isCorrect ? '✓ Correct!' : '✗ Helaas, dat klopt niet'}</h4>
+                    <p>Dit is <strong>${typeNames[correctAnswer]}</strong>.</p>
+                    <div class="formula-explain">${formulas[correctAnswer]}</div>
+                    <p>${explanationText}</p>
+                `;
+            } else {
+                feedback.innerHTML = `
+                    <h4>${isCorrect ? '✓ Correct!' : '✗ Helaas, dat klopt niet'}</h4>
+                    <p>${explanationText}</p>
+                `;
+            }
+
+            document.getElementById('nextButtonContainer').style.display = 'flex';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < TOTAL_QUESTIONS) {
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('gameScreen').classList.remove('active');
+            document.getElementById('resultScreen').classList.add('active');
+            document.getElementById('progressContainer').style.display = 'none';
+
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalMax').textContent = TOTAL_QUESTIONS;
+
+            // Build stats grid
+            const statsHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${categoryScores.forms.correct}/${categoryScores.forms.total}</div>
+                    <div class="stat-label">Redeneervormen</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${categoryScores.validity.correct}/${categoryScores.validity.total}</div>
+                    <div class="stat-label">Waarheid/Geldigheid</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${categoryScores.signals.correct}/${categoryScores.signals.total}</div>
+                    <div class="stat-label">Signaalwoorden</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${categoryScores.assumptions.correct}/${categoryScores.assumptions.total}</div>
+                    <div class="stat-label">Verzwegen aannames</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${categoryScores.deduction.correct}/${categoryScores.deduction.total}</div>
+                    <div class="stat-label">Deductie/Inductie</div>
+                </div>
+            `;
+            document.getElementById('statsGrid').innerHTML = statsHTML;
+
+            // Result message
+            const percentage = (score / TOTAL_QUESTIONS) * 100;
+            let icon, title, message;
+
+            if (percentage >= 90) {
+                icon = '🏆';
+                title = 'Meesterlogicus!';
+                message = `<h3>Indrukwekkend!</h3><p>Je beheerst alle aspecten van propositielogica: van redeneervormen tot verzwegen aannames. Je bent klaar om elk argument te ontleden!</p>`;
+            } else if (percentage >= 70) {
+                icon = '🎯';
+                title = 'Sterke denker!';
+                message = `<h3>Goed gedaan!</h3><p>Je hebt een solide begrip van logica. Kijk nog eens naar de categorieën waar je punten hebt laten liggen.</p>`;
+            } else if (percentage >= 50) {
+                icon = '📚';
+                title = 'Op de goede weg';
+                message = `<h3>Blijf oefenen!</h3><p>Je kent de basis, maar sommige onderdelen verdienen extra aandacht. Tip: bestudeer het verschil tussen geldigheid en waarheid nog eens.</p>`;
+            } else {
+                icon = '🌱';
+                title = 'Leermoment';
+                message = `<h3>Logica is lastig!</h3><p>Geen zorgen — dit is complex materiaal. Lees de theorie nog eens door en probeer het opnieuw. Oefening baart kunst!</p>`;
+            }
+
+            document.getElementById('resultIcon').textContent = icon;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultMessage').innerHTML = message;
+        }
+
+        function restartGame() {
+            document.getElementById('resultScreen').classList.remove('active');
+            document.getElementById('introScreen').classList.add('active');
+            document.getElementById('scoreDisplay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

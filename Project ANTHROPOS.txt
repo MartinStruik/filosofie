@@ -1,0 +1,2569 @@
+Project: ANTHROPOS 
+Project: ANTHROPOS — Volledig Online Game (Solo + Duo)
+0) Wat is het precies?
+Een browsergame (Chromebook-proof) waarin leerlingen:
+•	10 levels spelen (elk level = 1 mensbeeld / vraagstuk)
+•	keuzes maken onder druk (dilemma’s + puzzles)
+•	argumenten verzamelen (argumentkaarten)
+•	eindigen met een digitale Filosofische Rechtbank (PvP tegen AI)
+Speelbaar:
+•	Solo (1 leerling)
+•	Duo co-op (2 leerlingen in dezelfde run)
+________________________________________
+1) Online structuur (flow)
+Startmenu
+Buttons:
+•	▶️ Start Solo Run
+•	🤝 Start Duo Run
+•	📚 Codex (begrippenboek)
+•	🃏 Kaartenverzameling
+•	🧠 Training (mini-duels / oefenvragen)
+•	🏁 Rechtbank (free-play arena)
+•	⚙️ Instellingen (toegankelijkheid, geluid, etc.)
+Account & voortgang
+•	Leerling kiest naam / nickname
+•	Automatische save per level
+•	Levels unlocken lineair (of “vrije keuze” als jij dat wil)
+________________________________________
+2) Duo-mode (belangrijkste upgrade)
+Duo setup
+Speler A maakt lobby → krijgt join code
+Speler B voert code in → duo start samen.
+Duo-rollen (altijd duidelijk)
+Elke level heeft 2 rollen (A en B), zodat samenwerken echt nodig is.
+Voorbeeld:
+•	A = “Actie/Control” (beweegt, interacteert)
+•	B = “Analyse/Scanner” (ziet extra info, labels, oorzaken, codex hints)
+Je kunt dit per level thematisch maken:
+Level	Speler A rol	Speler B rol
+Plato	Menner (bestuurt)	Paarden-monitor (ziet meters + adviseert)
+Aristoteles	Scanner	Polis-coördinator (NPC’s/rollen)
+Descartes	Mechanicus	Gespreksmodule (empathie / “geest”)
+Kant	Beslisser	Principe-checker (universaliseer-test)
+Rousseau	Maskerdrager	Authenticiteitsmeter / natuurroute
+Freud	Ego (balans)	Es/Über-Ich disruptor
+Sartre	Performer	“Blik”-detectie / keuzevrijheid
+Evolutie	Shopper	Savanne-overlay / mismatch alerts
+Identiteit	Aarde-jij	Mars-jij
+Vrije wil	Actor	Debugger (oorzaak-keten)
+Duo-keuzes (hoe beslissen ze?)
+Bij dilemma’s:
+•	Beide spelers stemmen
+•	Als ze verschillen → “Discussie-knop (30 sec)”
+•	Daarna kiezen ze 1 optie
+Dit maakt duo-mode echt filosofisch: ze moeten argumenteren.
+________________________________________
+3) Online gameplay-loop (per level)
+Elke level duurt 10–15 min en heeft vaste structuur:
+1.	Cold open (10 sec): jij zit meteen in het probleem
+2.	Exploration (2–4 min): verzamelen / praten / scannen
+3.	Mechanic challenge (3–5 min): echte gameplay
+4.	Dilemma (1–2 min): keuze met consequenties
+5.	Micro-reflectie (30 sec): 1 vraag invullen (verplicht)
+6.	Reward: argumentkaart + codex unlock + score
+7.	Save + door
+________________________________________
+4) Hoe maak je het “game” en niet “lesje”?
+A) Drie progressiesystemen (super belangrijk)
+1) Codex (begrippen)
+•	Je unlockt begrippen door ze te gebruiken, niet door ze te lezen.
+2) Argumentkaarten (deck)
+•	Elke level geeft 1–2 kaarten
+•	Kaarten hebben:
+o	claim
+o	beste toepassing
+o	zwakke plek
+o	counter-kaart
+3) Mensbeeld-profiel (build)
+Na elk level verschuift je profiel:
+•	Rede ↔ Drift
+•	Natuur ↔ Cultuur
+•	Autonomie ↔ Determinisme
+•	Individu ↔ Gemeenschap
+•	Ziel ↔ Materie
+Je eindigt met een unieke build, dus iedereen speelt anders.
+________________________________________
+5) De Rechtbank als volledig online eindgame (tegen AI)
+Rechtbank = “Boss fight”
+Niet klassikaal. Gewoon in de game.
+De Aanklacht (AI)
+“De mens is gevaarlijk, irrationeel en niet verantwoordelijk.
+Waarom zouden we hem laten bestaan?”
+Jij verdedigt
+Je gebruikt jouw deck van argumentkaarten.
+Structuur van 1 ronde
+1.	AI claimt iets (bv. determinisme)
+2.	Jij kiest:
+o	1 argumentkaart
+o	1 lens-boost (Plato/Kant/Freud etc.)
+3.	Jij bouwt je antwoord:
+o	Premisse 1
+o	Premisse 2
+o	Conclusie
+4.	AI doet cross-exam (1 scherpe vraag)
+5.	Jij kiest:
+o	concessie
+o	tegenaanval
+Winconditie
+Niet “waarheid”, maar:
+•	consistentie
+•	kracht
+•	nuance
+•	begrip van tegenargument
+________________________________________
+6) Output voor school (automatisch, online)
+Na de run exporteert de game een PDF / digitaal verslag:
+A) Jouw Mensbeeld-profiel
+•	grafiek/sliders
+B) Jouw 10 belangrijkste keuzes
+•	met korte uitleg
+C) Jouw top 5 argumentkaarten
+•	inclusief zwakke plekken
+D) Mini-essay (200–300 woorden)
+De game genereert een schrijfkader:
+“Mijn mensbeeld is vooral … omdat …
+Toch zie ik ook het probleem dat …
+Daarom denk ik dat …”
+Leerling hoeft alleen aan te vullen.
+E) Reflecties (10 micro-antwoorden)
+Die kunnen jij als docent nakijken.
+________________________________________
+7) Anti-cheat / echte leerwaarde (zonder irritant te zijn)
+•	Je kunt niet zomaar “doorklikken”:
+o	elke level vereist 1 mini-reflectie
+•	Duo-mode verplicht overleg bij meningsverschil
+•	Rechtbank gebruikt “begrippen correct?” checks:
+o	als ze woorden fout gebruiken → kaart werkt zwakker
+________________________________________
+8) Technisch haalbaar (realistisch voor web)
+Platform: Web (Chromebook)
+Style: 2D narrative + interactieve UI + minigames
+Geen zware 3D nodig.
+Game engine opties:
+•	Phaser.js (top voor browsergames)
+•	Godot Web export (kan, maar zwaarder)
+•	React + canvas (als jij vibe-codet)
+Multiplayer duo:
+•	simpele lobby + websockets
+•	of async “duo-turn-based” (nog makkelijker)
+________________________________________
+9) Belangrijk: hoe maak je het leuk genoeg?
+Drie “fun hooks”
+1.	Lens-switching voelt als superkracht (wereld verandert)
+2.	Deck-building (argumenten verzamelen)
+3.	Boss fights (rechtbank rondes met stakes)
+________________________________________
+1) Core concept (wat maakt dit uniek?)
+In plaats van één “juiste” definitie van de mens, ontdekt de speler dat elk mensbeeld:
+•	iets verheldert (het verklaart gedrag en keuzes),
+•	iets verbergt (het maakt andere aspecten blind),
+•	en consequenties heeft voor opvoeding, straf, technologie, geluk en identiteit.
+De game maakt filosofie concreet via één centrale mechaniek:
+🔁 Kernmechaniek: Lens-switching
+De speler kan de wereld bekijken via verschillende “lenzen” (Plato, Aristoteles, Descartes, Kant, Rousseau, Freud, Sartre, Darwin/biologie, bewustzijn/identiteit/vrije wil).
+Elke lens:
+•	verandert wat je ziet (UI/labels),
+•	verandert wat “logisch” voelt,
+•	en verandert wat als “goed handelen” wordt beloond.
+Filosofie als gereedschap: je wisselt niet van mening, je wisselt van perspectief.
+________________________________________
+2) Verhaalframe (strakker en meeslepender)
+Proloog: The Alien Signal
+Je bent Operator X-9, een AI in een baan om de aarde.
+Er komt een boodschap binnen van de Galactische Raad:
+“De soort Homo sapiens veroorzaakt chaos.
+Leg uit of deze soort bescherming verdient.”
+De Raad geeft jou een opdracht:
+•	Je ontvangt corrupte “mens-bestanden” (simulaties).
+•	Je moet de simulaties binnengaan.
+•	Aan het einde lever je een oordeel in: Wat is een mens?
+Tutorial: je leert dat je niet vecht met wapens, maar met argumenten.
+Elke overwinning levert je een Argumentkaart op voor het eindspel.
+________________________________________
+3) Levelstructuur (per hoofdstuk = per lens)
+Elk level heeft een vaste structuur (heel fijn voor didactiek):
+1.	Intro-scène (dilemma)
+2.	Gameplay-mechaniek (ervaring)
+3.	Mini-debat / dialoog (reflectie)
+4.	Codex update (begrippenlijst)
+5.	Argumentkaart unlocked
+________________________________________
+LEVEL 1 — De Wagenmenner (Plato)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: logos / thymos / epithymia, zelfbeheersing, vrijheid vs “doen wat je wilt” 
+anthropos
+1) Doel van het level
+De speler ervaart Plato’s idee dat de mens een innerlijk conflict heeft en dat “vrijheid” bij Plato juist zelfbestuur is.
+Win-condition (game): “Doel bereiken” + “balans behouden”
+Win-condition (didactisch): speler kan na afloop in 2–3 zinnen uitleggen:
+•	wat de drie delen voorstellen
+•	waarom Plato zegt: rede moet leiden
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “Athene 2.0” — een simulatie-stad: klassiek decor met moderne prikkels (reclames, “vrienden”, notificaties).
+Spelerrol: Alex (leerling/student) moet binnen beperkte tijd naar de Bibliotheek om een belangrijk “Toegangsexamen” te halen.
+Conflict: de stad is gebouwd om Alex af te leiden.
+Cold open (10 sec cutscene):
+•	Alarm: “EXAM GATE OPENS IN 9:00”
+•	Bericht van vriendengroep: “Kom NU mee, je bent er toch?”
+•	UI verschijnt: “PLATO-LENS ONLINE”
+________________________________________
+3) Kernmechaniek: Teugelsysteem (meters + trekken)
+3.1 Drie meters (constant zichtbaar)
+•	Epithymia (Zwart paard) — prikkelhonger / onmiddellijke bevrediging
+•	Thymos (Wit paard) — eer/boosheid/ambitie (“ik ga dit bewijzen”)
+•	Logos (Menner) — focus, planning, zelfcontrole (resource)
+3.2 Hoe “trekken” werkt
+De wereld bevat “trekpunten” (temptations) die autopull veroorzaken:
+•	Snackbar / bubble tea
+•	Arcade / gamehal
+•	“Scroll-wall” (projectieschermen)
+•	Flirt-NPC / roddelgroep
+•	“Snelle shortcut” (maar riskant)
+Wanneer je binnen range komt:
+•	camera/route wordt subtiel meegetrokken
+•	Epithymia stijgt
+•	Logos daalt (je “aandacht kost”)
+3.3 Tegensturen (player actions)
+Acties (knoppen / UI):
+1.	FOCUS (hold)
+o	kost: Logos
+o	effect: onderdrukt pull, stabiliseert beweging, verlaagt Epithymia langzaam
+2.	HERINNER DOEL (tap)
+o	korte “inner voice”: “Bibliotheek. Later is beter.”
+o	effect: Thymos + kleine Logos-recover (mini dopamine maar ‘nobel’)
+3.	ADEM (tap, cooldown)
+o	2 sec micro-pauze, pull stopt
+o	effect: Logos regen, Epithymia -
+4.	KEUZE: TOEGEVEN (interact bij temptation)
+o	effect: snelle beloning + tijdverlies + Epithymia ++
+5.	KEUZE: WEERSTAAN
+o	effect: Thymos +, Logos -, maar “trots-bonus” (later nuttig)
+________________________________________
+4) Solo vs Duo (co-op ontwerp)
+Solo
+Speler bestuurt Alex direct. UI toont meters + minikaart + “pull indicators”.
+Duo (co-op) — echte samenwerking
+Rollen
+•	Speler A: Menner (Control)
+o	beweegt Alex, kiest routes, doet Focus/Asem
+•	Speler B: Monitor (Advisor)
+o	ziet extra overlay: waarom iets trekt + voorspelt risico’s
+o	kan “ping” plaatsen: vermijd, adem nu, focus nu
+o	heeft 2 unieke abilities (met cooldown)
+Duo abilities (B)
+1.	SCAN PULL (tap)
+o	toont “pull strength” per temptation + voorspelling: “als je nu 3 sec blijft → Epithymia > 70% = crash risk”
+2.	RATIONAL PROMPT (tap)
+o	stuurt korte voice-line naar A (“Kies lange termijn”)
+o	geeft A mini Logos-regain, maar slechts 3x per level
+Duo-keuzes bij dilemma’s
+Bij elk dilemma stemmen A en B:
+•	eens = direct door
+•	oneens = 30 sec “debate timer” met 2 korte argument-knoppen (“vrijheid = …”)
+•	daarna kiest meerderheid (1–1 = coinflip, maar logt “conflict” voor reflectie)
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — “De Stad Trekt” (2–3 min)
+Doel: tutorial van pull + focus.
+Triggers:
+•	eerste temptation: “Scroll-wall” (lage pull)
+•	tutorial popups: “Zwart paard trekt” / “Gebruik FOCUS”
+Micro-quest: verzamel 2 “Route tokens” door:
+•	1x weerstaan
+•	1x adem gebruiken
+Scene 2 — “De Vrienden” (sociale pull) (3–4 min)
+Je komt bij een plein waar vrienden staan:
+•	ze roepen, lachen, filmen
+Mechaniek: sociale pull is sterker:
+•	Epithymia stijgt sneller (status + plezier)
+•	Thymos kan ook stijgen (“ik wil erbij horen / niet laf lijken”)
+Keuze (dilemma #1):
+1.	“5 min mee” (snelle fun)
+2.	“Ik loop door”
+3.	“Ik zeg eerlijk: ik moet leren” (risico: zij lachen)
+Consequenties:
+•	(1) tijdverlies + Epithymia++
+•	(2) Thymos+ (trots) maar Epithymia blijft hoog (FOMO)
+•	(3) Logos+ (helderheid) maar “social threat” event (blikken)
+Scene 3 — “De Shortcuts” (wilskracht vs drift) (3–4 min)
+Er zijn 2 routes:
+•	Makkelijke route: veel temptations, veilig, maar slokt Logos op
+•	Snelle route: minder temptations, maar 2 “stress gates” (timing)
+B (duo) kan adviseren met scan.
+Scene 4 — Mini-boss: “De Sofist” (2–3 min)
+NPC blokkeert de bibliotheekbrug:
+“Vrijheid is doen wat je wilt.
+Jij bent pas vrij als je je impulsen volgt.”
+Boss-mechaniek: Argument Duel (light)
+Je krijgt 3 reactie-opties, elk met korte follow-up:
+A) “Vrijheid is zelfbestuur.”
+B) “Impulsen maken je slaaf.”
+C) “Vrijheid is kiezen voor het betere.”
+De Sofist countert. Jij moet één keer consequent blijven (niet switchen naar contradictie).
+Doel: speler ervaart “rede” als leidraad.
+Rewards:
+•	Codex unlock: logos / epithymia / thymos
+•	Kaart unlock: Plato
+Scene 5 — Finish: “Exam Gate” (1 min)
+Laatste sprint. Pull-intensiteit stijgt nog één keer (climax).
+Je haalt het gate op tijd → level clear.
+________________________________________
+6) Fail states (duidelijk + leerzaam, niet frustrerend)
+1.	Crash: Epithymia ≥ 90%
+o	Alex verliest controle → “auto-drift loop” 10 sec → time penalty
+2.	Overcontrol: Thymos ≥ 90% & Logos ≤ 10%
+o	Alex wordt agressief/rigide → “stumble” + social conflict pop-up
+3.	Time-out: timer = 0
+o	Gate sluit → “retry from checkpoint” (start Scene 4)
+Belangrijk: elk fail state geeft 1 zin feedback in Plato-taal:
+•	“Zwart paard nam het over.”
+•	“Menner trok te hard.”
+•	“Rede raakte uitgeput.”
+________________________________________
+7) Scoring (voor engagement + docentwaarde)
+Gameplay score (0–100)
+•	Tijd gehaald: +30
+•	Balans: +30 (hoe lang meters in veilige zone)
+•	Weerstand momenten: +20
+•	Reflectie ingevuld: +20 (verplicht)
+Filosofie score (0–3 sterren)
+•	1 ster: begrippen gezien
+•	2 sterren: begrippen correct gekozen in boss duel
+•	3 sterren: reflectie toont begrip (“vrijheid = …”)
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec, online)
+Na finish verschijnt één vraag (invulveld + 2 keuzechips):
+Vraag:
+“Wat bedoelt Plato met vrijheid? (1–2 zinnen)”
+Chips (optioneel klikken):
+•	“vrijheid = doen wat je wilt”
+•	“vrijheid = zelfbeheersing / rede leidt”
+•	“ik twijfel / gemengd”
+Antwoord wordt opgeslagen voor export.
+________________________________________
+9) Rewards (wat speler krijgt)
+•	Argumentkaart: Plato — Rede als leiding
+o	Claim: “Vrijheid is zelfbestuur; drift maakt slaaf.”
+o	Sterk tegen: “ik kan niet anders”
+o	Zwak tegen: “gevoel heeft ook waarde”
+•	Codex entries: logos, thymos, epithymia, dualisme (kort)
+•	Mensbeeld-profiel update: Rede ↑ of Drift ↑ afhankelijk van keuzes
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Assets
+•	1 city tileset (neon + klassiek)
+•	5 temptation hotspots (animaties)
+•	6 NPC portraits (vrienden x2, sofist, winkelier, etc.)
+•	UI icons: 3 paarden + menner
+UI componenten
+•	Timer
+•	3 meters + pull indicator
+•	Focus/Asem/Doel knoppen + cooldown rings
+•	Duo overlay: pings + scan panel
+•	Dilemma modal (3 keuzes + korte consequence hints)
+•	Boss duel panel (3 argument-knoppen)
+
+Hier is Level 2 volledig uitgewerkt (online, solo + duo), net zo “bouwklaar” als Level 1.
+________________________________________
+LEVEL 2 — Telos Scanner (Aristoteles)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: telos, eudaimonia, deugd, zoon politikon (mens als gemeenschapsdier)
+1) Doel van het level
+De speler ontdekt dat bij Aristoteles:
+•	alles een functie/doel (telos) heeft,
+•	de mens “goed” is als hij zijn functie goed vervult,
+•	en dat dat alleen lukt in gemeenschap.
+Win-condition (game): “Telos van de mens reconstrueren” + polis-stabiliteit behouden
+Win-condition (didactisch): speler kan uitleggen:
+•	wat telos is
+•	waarom mens volgens Aristoteles een zoon politikon is
+•	wat eudaimonia betekent (bloei/floreren)
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “Polis Lab” — een hybride wereld: natuurmuseum + mini-stadstaat + agora.
+Opdracht: De Galactische Raad vraagt:
+“Als alles een functie heeft, wat is dan de functie van de mens?”
+Je krijgt een Scanner die “doel-echo’s” toont, maar bij de mens verschijnt:
+ERROR: Telos onbekend — data ontbreekt
+________________________________________
+3) Kernmechaniek: Telos Scanner + Polis-systeem
+3.1 Telos Scanner (basis)
+Je scant objecten in de wereld. Resultaat komt als kort “doel-vision”:
+•	eikel → eik (groei)
+•	mes → snijden (functie)
+•	oog → zien (capaciteit)
+•	bijenkorf → samenwerken (collectief doel)
+Belangrijk: sommige objecten hebben dubbele telos (moderniteit):
+•	smartphone → verbinden / afleiden
+Dat geeft ruimte voor discussie later, maar blijft in-level simpel.
+3.2 Polis-systeem (de echte game)
+De polis heeft 3 “stabiliteitsmeters”:
+•	Nomos (regels) — orde, veiligheid
+•	Philia (band/vriendschap) — vertrouwen, samenwerking
+•	Logos (publieke rede) — kwaliteit van debat, argumenten
+Jouw acties beïnvloeden deze meters. Als één meter crasht → chaos-event → time penalty.
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij doet alles: scannen + rollen toewijzen + mini-dilemma’s.
+Duo (co-op) — rollen met echte afhankelijkheid
+Rollen
+•	Speler A: Scanner (Field Researcher)
+o	beweegt, scant objecten, verzamelt “telos-fragmenten”
+•	Speler B: Polis-coördinator (Civic Planner)
+o	beheert de polis-meters en wijst rollen toe aan NPC’s
+o	ziet een extra “polis-dashboard” dat A niet ziet
+Duo abilities (B)
+1.	WET UITVAARDIGEN (cooldown)
+o	verhoogt Nomos, maar verlaagt Philia als het te streng is
+2.	VERZOENING (cooldown)
+o	verhoogt Philia, maar kost Logos (minder scherp debat)
+Duo-keuzes bij dilemma’s
+Bij elk dilemma stemmen A en B. Bij conflict: 30 sec “argument timer”.
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — Tutorial: “Alles heeft een doel” (2–3 min)
+Je komt in het museumgedeelte. Scan 4 objecten:
+1.	eikel
+2.	oog
+3.	mes
+4.	bijenkorf
+Tutorial popups (kort):
+•	“Telos = functie/doel”
+•	“Goed = telos goed vervullen”
+Reward: 1 “Telos-fragment” (een woordkaart): LOGOS (rede) locked (nog niet bruikbaar)
+Scene 2 — Agora: “Mens telos = ?” (3–4 min)
+Je komt op het plein met 4 NPC-typen:
+•	Ambachtsman (vaardigheid)
+•	Spreker/Retor (argumenteren)
+•	Vriend (vriendschap)
+•	Kluizenaar (alleen leven)
+Je moet data verzamelen: korte dialogues met 1 vraag per NPC (multiple choice).
+Voorbeeldvragen:
+•	“Wat maakt een mens anders dan een dier?”
+•	“Kun je goed leven zonder anderen?”
+•	“Is geluk een gevoel of een manier van leven?”
+Elke NPC geeft een “fragment” (kort en soms misleidend).
+Telos-fragmenten (voorbeeldset):
+•	“REDE”
+•	“SPRAAK”
+•	“DEUGD”
+•	“GEMEENSCHAP”
+•	“PLEZIER” (vals/te oppervlakkig)
+•	“MACHT” (vals/te eenzijdig)
+Scene 3 — De Deugd-minigame (3–4 min)
+Je moet 2 deugden “testen” in mini-situaties (15–30 sec elk).
+De speler kiest welke 2 (replay value).
+Deugdtests (mini-games):
+•	Matigheid: weersta een “overdaad”-prompt (timing)
+•	Moed: spreek een impopulaire waarheid uit (drukmeter)
+•	Rechtvaardigheid: verdeel middelen eerlijk (puzzel)
+•	Verstandigheid (phronesis): plan 3 stappen vooruit (routepuzzel)
+Effect op polis-meters:
+•	Rechtvaardigheid ↑ Nomos/Philia
+•	Moed ↑ Logos (maar Philia kan dalen)
+•	Matigheid stabiliseert alles licht
+•	Verstandigheid geeft “preview” op komende dilemma’s
+Scene 4 — Mini-boss: “De Solo Player” (2–3 min)
+NPC (Kluizenaar / libertaire figuur) blokkeert toegang tot de “Telos Terminal”:
+“Ik heb niemand nodig. Ik ben compleet alleen.
+Gemeenschap is ballast.”
+Boss-mechaniek: Argument Duel (light)
+Je krijgt 3 antwoordlijnen (je moet coherent blijven, zoals bij Level 1):
+A) “Zonder polis geen taal en moraal.”
+B) “Een mens buiten gemeenschap mist zijn functie.”
+C) “Eudaimonia is floreren, niet consumeren.”
+Counter van NPC: “Ik kan toch gewoon gelukkig zijn met mijn hobby’s?”
+Jij moet één keer expliciet maken:
+•	geluk ≠ momentgevoel
+•	geluk = goed functioneren als mens, incl. sociale deugden
+Boss reward: unlock zoon politikon (codex) + “Telos Terminal access”
+Scene 5 — Finale puzzle: “Telos Construct” (1–2 min)
+Je moet 3–4 fragmenten slepen in een constructie:
+Template:
+“De mens is goed als hij ____ gebruikt om ____ te bereiken binnen ____.”
+Correcte Aristoteles-route (voorbeeld):
+•	REDE
+•	DEUGD / UITMUNTENDHEID
+•	EUDaimonia (BLOEI)
+•	GEMEENSCHAP (POLIS)
+De game accepteert 2–3 varianten, zolang het kernidee klopt:
+•	Rede + deugd + gemeenschap + bloei
+Als je “PLEZIER” kiest als kern: constructie werkt, maar polis-meters destabiliseren (didactische feedback).
+________________________________________
+6) Fail states (leerzaam, niet irritant)
+1.	Polis-chaos (Nomos of Philia of Logos ≤ 0)
+o	korte chaos-scène, NPC’s ruziën
+o	time penalty + terug naar checkpoint (Scene 3 start)
+2.	Telos-construct fout (te inconsistent)
+o	“Error: fragmenten spreken elkaar tegen”
+o	je mag 1 fragment wisselen (geen full reset)
+________________________________________
+7) Scoring (game + filosofie)
+Gameplay score (0–100)
+•	Scans compleet: +25
+•	Polis stabiel gehouden: +25
+•	Deugdtests gehaald: +25
+•	Finale construct correct: +25
+Filosofie score (0–3 sterren)
+•	1: telos correct gebruikt in een zin
+•	2: zoon politikon correct toegepast
+•	3: eudaimonia correct uitgelegd (bloei/floreren, geen “gevoel”)
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec)
+Vraag:
+“Waarom zegt Aristoteles dat je de gemeenschap nodig hebt om volledig mens te worden? (1–2 zinnen)”
+Optionele chips:
+•	“taal en moraal”
+•	“vriendschap en deugd”
+•	“wetten en samenwerking”
+•	“ik twijfel”
+________________________________________
+9) Rewards (wat speler krijgt)
+•	Argumentkaart: Aristoteles — Geluk = floreren door deugd in polis
+o	Claim: “Goed leven = uitmuntend functioneren als mens in gemeenschap.”
+o	Sterk tegen: “geluk is alleen gevoel/plezier”
+o	Zwak tegen: “wat als iemand niet kan ‘uitmunten’?”
+•	Codex entries: telos, eudaimonia, zoon politikon, deugd, phronesis
+•	Mensbeeld-profiel update: Gemeenschap ↑ / Rede ↑ (afhankelijk van keuzes)
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Assets
+•	Polis Lab map (museum + agora + terminal)
+•	6 scan-objecten (incl. bijenkorf)
+•	4 NPC-typen (ambachtsman, spreker, vriend, kluizenaar)
+•	4 mini-game widgets (deugdtests)
+•	“Telos Terminal” UI (drag & drop)
+UI componenten
+•	Scanner panel (object → telos-vision)
+•	Polis meters (Nomos/Philia/Logos)
+•	Duo dashboard (alleen voor B)
+•	Argument Duel panel (3 opties + coherentie check)
+•	Telos Construct builder (slots + validatie)
+
+Hier is Level 3 volledig uitgewerkt als volledig online level (solo + duo), met duidelijke mechanics, keuzes, fail states en rewards.
+________________________________________
+LEVEL 3 — Clockwork Body (Descartes)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: cogito ergo sum, res cogitans/res extensa, dualisme, “mens = machine?”
+1) Doel van het level
+De speler ervaart het Verlichte mensbeeld:
+•	het lichaam als machine (verklaarbaar, repareerbaar)
+•	de geest als het ‘ik’ (bewustzijn, denken)
+Win-condition (game): behandel 3 cases binnen tijd + “menselijkheid” niet laten crashen
+Win-condition (didactisch): leerling kan uitleggen:
+•	waarom Descartes aan alles twijfelt
+•	wat dualisme is
+•	waarom “lichaam = machine” krachtig én beperkt is
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “Clockwork Clinic” — steampunk-ziekenhuis in een simulatie.
+Opdracht van de Galactische Raad:
+“Kunnen mensen worden begrepen als machines? Toon het bewijs.”
+Je krijgt een tool: Descartes-Lens.
+Als je hem activeert, worden lichamen transparant met mechanische onderdelen.
+Cold open (10 sec):
+•	Monitor: “PATIENT QUEUE: 3”
+•	Prompt: “DESCARTES-LENS ONLINE”
+•	Timer start: 12:00
+________________________________________
+3) Kernmechaniek: Diagnose & Repair vs. Mind-Channel
+Het level draait om drie patiënten, elk met een ander soort “probleem”:
+1.	Mechanisch (lichaam)
+2.	Emotioneel/mentaal (geest)
+3.	Gemengd (grensgebied)
+Je moet steeds kiezen:
+repareren (machine-aanpak) of praten (geest-aanpak) of combineren.
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij doet alles: scannen, repareren, praten, keuzes maken.
+Duo (co-op) — twee perspectieven tegelijk
+Rollen
+•	Speler A: Mechanicus (Body Engineer)
+o	bestuurt tools: vervangen, kalibreren, fixen
+o	ziet “hardware overlay” superduidelijk
+•	Speler B: Mind-Channel (Inner Voice Operator)
+o	voert “gesprekken” via een dialoogmodule
+o	ziet emotionele signalen + betekenislaag
+Duo abilities
+A: QUICK FIX (cooldown)
+•	repareert 1 defect instant
+•	maar verlaagt “Menselijkheid-score” als je te vaak instant fixt
+B: EMPATHY PULSE (cooldown)
+•	stabiliseert paniek / verlaagt stress
+•	maar kost tijd (je “neemt ruimte”)
+Duo-keuzes
+Bij elke patiënt moeten A en B samen beslissen:
+•	1e stap: lichaam of geest?
+•	2e stap: doorgaan of switchen?
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — Tutorial patiënt: “De Gebroken Arm” (2–3 min)
+Patiënt 1: KAI
+•	klacht: arm gebroken
+•	zichtbaar: “mechanisch defect”
+Gameplay
+1.	Scan met Descartes-lens → je ziet:
+o	“fracture point”
+o	“pressure imbalance”
+2.	Mini-game “Align & Stabilize”:
+o	sleep botfragmenten goed
+o	klik “stabilize”
+3.	Resultaat:
+o	patiënt zegt “dank je”
+o	jij krijgt vertrouwen in machine-aanpak
+Belangrijk didactisch moment (pop-up 1 zin):
+“Het lichaam als klokwerk: begrijpelijk en repareerbaar.”
+Reward:
+•	Codex unlock: res extensa (lichaam als uitgebreid ding)
+________________________________________
+Scene 2 — Case 2: “De Paniek” (3–4 min)
+Patiënt 2: MIRA
+•	klacht: “ik stik / ik ga dood”
+•	maar scan toont: vitals OK
+Mechaniek: conflict tussen lenzen
+Descartes-lens zegt:
+•	“NO DEFECT FOUND”
+Maar de patiënt lijdt wél.
+Je krijgt 3 opties:
+1.	HARDWARE CHECK (nogmaals scannen + metertjes)
+2.	MIND-CHANNEL TALK (vragen stellen)
+3.	MIX (kalmeren + minimale check)
+Dialoogmodule (B in duo, of solo via keuze)
+Je kiest 2 vragen (uit 5):
+•	“Wat dacht je net?”
+•	“Wanneer begon het?”
+•	“Wat is je grootste angst?”
+•	“Wat voel je in je lichaam?”
+•	“Wat heb je nu nodig?”
+Succesconditie:
+•	stress-meter daalt onder 30%
+•	patiënt krijgt “lucht”
+Twist:
+Als je alleen hardware blijft doen → stress stijgt (“je ziet me niet!”)
+Reward:
+•	Codex unlock: res cogitans (geest als denkend ding)
+________________________________________
+Scene 3 — Case 3: “Liefdesverdriet / Somberheid” (4–5 min)
+Patiënt 3: JONAS
+•	klacht: “ik ben leeg”
+•	scan toont: alles werkt
+•	maar emotionele signalen: “verlies, rouw, betekeniscrisis”
+Mechaniek: “Repareren kan het probleem verergeren”
+Als je hem behandelt als machine:
+•	je scoort “efficiëntie”
+•	maar menselijkheid-score zakt hard
+Als je alleen praat:
+•	je scoort menselijkheid
+•	maar tijd loopt weg (timerdruk)
+De speler moet hier leren:
+Descartes is krachtig, maar niet compleet.
+Mini-boss moment: “De Tranen”
+De patiënt huilt.
+Descartes-lens labelt:
+•	“Lacrimal leakage: fluid output”
+Je krijgt 3 opties:
+1.	“Stop de lekkage” (mechanisch)
+2.	“Vraag wat het betekent” (geest)
+3.	“Beide: check + erkenning”
+Beste route: optie 3 (balanced)
+________________________________________
+6) Centrale meters (spannend maar simpel)
+Boven in UI:
+•	TIME (12 min aftellen)
+•	EFFICIENCY (hoe snel/technisch goed)
+•	HUMANITY (erkenning/meaning)
+Je kunt winnen met lage humanity, maar dan krijg je:
+•	level clear (1 ster)
+•	maar slechte argumentkaart-upgrade
+Met goede balans krijg je 3 sterren + betere kaart.
+________________________________________
+7) Mini-boss: “De Demon van Twijfel” (2 min)
+Na patiënt 3 verschijnt een glitch-figuur (AI-demon):
+“Hoe weet je dat dit echt is?
+Misschien droom je. Misschien is alles simulatie.”
+Je krijgt een korte keuzequiz (3 stappen):
+1.	“Ik vertrouw zintuigen.” (fout volgens Descartes)
+2.	“Ik twijfel aan alles.” (goed)
+3.	“Ik kan niet twijfelen aan dat ik twijfel.” (beste)
+Als je de juiste lijn volgt:
+•	je unlockt Cogito ergo sum
+Reward:
+•	Argumentkaart upgrade (sterker)
+________________________________________
+8) Fail states (leerzaam, niet frustrerend)
+1.	TIME OUT
+•	je haalt patiënt 3 niet → checkpoint start Scene 3 opnieuw
+2.	HUMANITY CRASH (≤ 0)
+•	patiënten voelen zich “object”
+•	clinic alarm: “PATIENT ALIENATION”
+•	je krijgt time penalty + forced Mind-Channel event
+3.	EFFICIENCY CRASH (≤ 0)
+•	je praat te lang zonder structuur
+•	clinic zegt: “SYSTEM OVERLOAD”
+•	je moet 1 patiënt “quick fixen”
+________________________________________
+9) Verplichte micro-reflectie (30–45 sec)
+Na finish:
+Vraag:
+“Wat is volgens Descartes het verschil tussen lichaam en geest? (1–2 zinnen)”
+Chips:
+•	“lichaam = machine”
+•	“geest = denken/bewustzijn”
+•	“dualisme”
+•	“ik twijfel”
+________________________________________
+10) Rewards (wat speler krijgt)
+Argumentkaart: Descartes — De Geest in de Machine
+•	Claim: “Ik ben in essentie een denkend ding; het lichaam is een mechaniek.”
+•	Sterk tegen: “de mens is volledig materie”
+•	Zwak tegen: “gevoel/meaning past niet in mechaniek”
+•	Synergie: werkt goed met Kant (rede) en Identiteit-level
+Codex unlocks
+•	Cogito ergo sum
+•	res cogitans
+•	res extensa
+•	dualisme (kort)
+Mensbeeld-profiel update
+•	Materie ↔ Ziel slider verschuift op basis van jouw keuzes:
+o	veel repareren → “materie”
+o	veel mind-channel → “ziel/geest”
+________________________________________
+11) Assets & UI checklist (bouwklaar)
+Maps
+•	Clinic Lobby
+•	Repair Bay (mechanisch)
+•	Mind-Channel Room (gesprek)
+•	Glitch Corridor (demon)
+NPC’s
+•	Kai (arm)
+•	Mira (paniek)
+•	Jonas (liefdesverdriet)
+•	Demon of Doubt (glitch entity)
+Minigames/UI
+•	X-ray scan overlay
+•	Align & Stabilize puzzle
+•	Stress calming dialoogmodule
+•	Dual meter system (efficiency/humanity)
+•	3-step cogito quiz
+
+
+
+
+Hier is Level 4 volledig uitgewerkt als volledig online level (solo + duo), bouwklaar, met duidelijke mechanics, dilemma’s, bossfight en rewards.
+
+
+Game Script: Level 3 — Clockwork Body (Descartes)
+Thema: Dualisme, Lichaam als Machine, De Twijfel. Setting: "The Clockwork Clinic" – Een steriel, steampunk-achtig ziekenhuis. Doel: De spelers moeten patiënten "repareren", maar ontdekken dat niet alles mechanisch is.
+________________________________________
+1. Introductie (Cinematic)
+(Beeld: We zien een futuristische operatiekamer. Overal liggen tandwielen en hydraulische pompen die lijken op menselijke ledematen.)
+Systeemstem (Tekst op scherm):
+"CONNECTING TO ARCHIVE: 17th CENTURY... LOADING LENS: RENÉ DESCARTES."
+Galactische Raad (Oproep):
+"Operator, de mens is een fragiel wezen. Het gaat constant stuk. Descartes beweert dat het lichaam slechts een machine is. Een klokwerk van botten en pompen. Opdracht: Test deze hypothese. Repareer de eenheden. Als het stuk is, vervang het onderdeel."
+(UI Effect: De wereld wordt blauw/transparant. Spelers zien 'wireframes' van mensen.)
+________________________________________
+2. Scene 1: De Tutorial (Puur Mechanisch)
+Patiënt: Kai (Jonge atleet, arm ligt in een vreemde hoek).
+Speler A (Mechanicus) ziet:
+•	Een rood knipperend icoon op de arm.
+•	Label: ERROR: STRUCTURAL FAILURE [RADIUS BONE]
+•	Actieknop: [INITIATE REPAIR SEQUENCE]
+Speler B (Mind-Channel) ziet:
+•	Emotie-scan: STATUS: PAIN SIGNAL 80%
+•	Gedachte-wolk: "Mijn carrière is voorbij..."
+Interactie:
+1.	Speler A klikt op de arm.
+2.	Minigame (Solo/A): Een puzzel waarbij botfragmenten als puzzelstukjes in elkaar moeten klikken.
+o	Succes: Een bevredigend 'KLIK'-geluid. De arm beweegt soepel weer.
+3.	Feedback Descartes-Lens:
+"REPARATIE SUCCESVOL. Het mechaniek functioneert weer. Pijn-signaal is slechts input-data."
+Leerpunt: Het lichaam is materie (res extensa). Dit werkt perfect voor fysieke problemen.
+________________________________________
+3. Scene 2: Het Dilemma (Lichaam vs. Geest)
+Patiënt: Mira (Zit in elkaar gedoken, hapt naar adem).
+Speler A (Mechanicus) ziet:
+•	Scan resultaat: HEART RATE: 160 BPM
+•	Scan resultaat: OXYGEN LEVELS: 98% (NORMAL)
+•	Label: NO HARDWARE DEFECT FOUND.
+•	Optie: [FORCE SEDATIVE] (Dwingend kalmeringsmiddel toedienen - Kost 5 sec).
+Speler B (Mind-Channel) ziet:
+•	Emotie-scan: ERROR: NON-LOCALIZED TERROR
+•	Gedachte-wolk: "Het houdt nooit op. Ik stik, ook al adem ik."
+•	Optie: [START DIALOGUE] (Kost 20 sec).
+Het Conflict (Duo-moment):
+•	Speler A: "Mijn scan zegt dat er niks mis is! Ik geef haar gewoon die spuit, dat is sneller (Efficiency +)."
+•	Speler B: "Nee, wacht! Ze denkt dat ze stikt. Het zit in haar geest (res cogitans). Als je haar nu platspuit, voelt ze zich een object (Humanity -)."
+Dialogue Tree (Als Speler B kiest voor praten): (Speler B kiest de vragen, Speler A ziet de antwoorden verschijnen)
+•	Vraag 1: "Mira, mijn sensoren zeggen dat je zuurstof goed is. Waarom ben je bang?"
+o	Mira: "De sensoren liegen! Het voelt alsof de muren op me afkomen."
+•	Vraag 2 (Keuze):
+o	A: "Het is een hallucinatie. Negeer het." (Fout: te koud)
+o	B: "Ik zie geen defect, maar ik hoor je angst. Vertel me wat je denkt." (Goed: erkent de geest)
+•	Uitkomst B: Mira kalmeert.
+Systeem: "RES COGITANS DETECTED. De geest beïnvloedt de machine." Beloning: Kaart 'Subjectieve Ervaring'.
+________________________________________
+4. Boss Fight: De 'Demon van de Twijfel'
+(Dit is de finale van het level. De kliniek wordt donker. Het scherm glitcht.)
+De Vijand: Een schimmige figuur zonder gezicht (gebaseerd op Descartes' gedachte-experiment van de Kwade Demon).
+De Demon (Tekst):
+"Jullie vertrouwen op je scanners? Dwazen. Hoe weet je dat deze kliniek echt is? Misschien lig je te slapen. Misschien ben ik een virus dat jullie simuleert."
+Gameplay Mechanic: De spelers moeten de "Zekerheidskern" beschermen. De Demon vuurt stellingen af. Spelers moeten de enige absolute waarheid kiezen om de aanval te blokkeren.
+•	Aanval 1: "Je ogen kunnen je bedriegen. Die arm van Kai was misschien nooit gebroken."
+o	Optie A: "Nee, ik heb het gevoeld!" (Schade! Zintuigen zijn onbetrouwbaar)
+o	Optie B: "Misschien wel, ik twijfel." (Blokkeert aanval)
+•	Aanval 2: "Misschien heb je helemaal geen lichaam. Misschien ben je een brein in een vat."
+o	Optie A: "Onzin, ik heb handen." (Schade!)
+o	Optie B: "Dat zou kunnen." (Blokkeert aanval)
+•	De Genadeklap (De Ene Waarheid): De Demon laadt een enorme aanval: "ALS ALLES EEN ILLUSIE IS, BESTA JIJ NIET!"
+o	Spelers moeten samen binnen 3 seconden de juiste knop rammen:
+o	KNOP: COGITO ERGO SUM ("Ik denk, dus ik ben").
+Overwinningstekst:
+"De twijfel stopt hier. Om te kunnen twijfelen, moet er 'iets' zijn dat twijfelt. Je geest bestaat. Je bent veilig."
+________________________________________
+5. De Beloning (Einde Level)
+Verdiende Kaart: Descartes
+•	Afbeelding: Een hoofd dat openklapt met tandwielen erin, maar een gloeiend licht in het midden.
+•	Claim: "Lichaam en Geest zijn gescheiden substanties."
+•	Sterk tegen: Materialisme ("Je bent alleen maar atomen").
+•	Zwak tegen: Emotie/Holime ("Hoe stuurt de geest het lichaam dan aan?").
+Reflectievraag voor de leerling (Micro-essay): "In het level kon je Mira's paniek niet zien op de scan. Wat zegt dit over de grens van de medische wetenschap volgens Descartes?"
+
+________________________________________
+LEVEL 4 — Autonomy Protocol (Kant)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: autonomie, waardigheid, plicht vs neiging, “jezelf de wet opleggen”
+1) Doel van het level
+De speler ervaart dat bij Kant:
+•	vrijheid ≠ “doen waar je zin in hebt”
+•	vrijheid = autonomie: handelen volgens principes die je jezelf oplegt
+•	menselijke waardigheid hangt samen met rede + moraliteit
+Win-condition (game): doorloop 5 morele scenario’s + versla Kant-Bot
+Win-condition (didactisch): leerling kan uitleggen:
+•	wat autonomie is
+•	waarom Kant impuls ≠ vrijheid vindt
+•	wat het verschil is tussen plicht en neiging
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “City of Rules” — futuristische stad waar normen als hologrammen in de lucht hangen.
+Alles voelt strak, helder, maar ook beklemmend.
+Opdracht van de Galactische Raad:
+“Bewijs dat mensen méér zijn dan prikkelmachines.
+Kunnen ze zichzelf wetten geven?”
+Cold open (10 sec):
+•	Alarm: “AUTONOMY TEST INITIATED”
+•	Prompt: “KANT-LENS ONLINE”
+•	Scoreboard verschijnt: Principle Integrity: 0/5
+________________________________________
+3) Kernmechaniek: Principle Engine (wat maakt dit level ‘game’?)
+Je speelt 5 korte scenario’s (elk 60–90 sec).
+In elk scenario moet je kiezen tussen:
+1.	NEIGING (impuls / voordeel / comfort)
+2.	SOCIALE DRUK (meelachen / meedoen / status)
+3.	PLICHT / PRINCIPE (redelijk, moreel, universeel)
+3.1 Jouw centrale meter: Principle Integrity
+•	Start: 0
+•	Elke “principe-keuze” → +1
+•	Elke “impuls-keuze” → -1
+•	Elke “sociale druk” → 0 (maar verhoogt “Blik”)
+3.2 Tweede meter: The Gaze (De Blik)
+Hoe meer je leeft op basis van “wat anderen vinden”, hoe hoger:
+•	GAZE stijgt → je krijgt minder vrije dialoogopties later
+•	(voorbereiding op Sartre-level, maar hier al voelbaar)
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij maakt alle keuzes.
+Duo (co-op) — Beslisser + Principe-checker
+Rollen
+•	Speler A: Actor (doet de keuze in de wereld)
+•	Speler B: Principle Checker (ziet extra Kant-overlay)
+B ziet bij elke optie een “universaliseer-check” preview:
+•	“Kan dit een algemene wet zijn?” → ✔ / ? / ✖
+Duo abilities (B)
+1.	UNIVERSALIZE SCAN (cooldown)
+o	toont “Wat als iedereen dit doet?” simulatie (3 sec preview)
+2.	DIGNITY ALERT (cooldown)
+o	waarschuwt als keuze iemand als “middel” behandelt i.p.v. “doel”
+Duo-keuzeprotocol
+•	A kiest, maar B kan 1x per scenario “VETO REQUEST” doen
+(A mag negeren, maar dan logt de game “conflict” → reflectie)
+________________________________________
+5) Level flow (scenes + pacing)
+Scenario 1 — “Spieken” (1–2 min)
+Je ziet een toetssetting (simulatie).
+•	Je kunt spieken zonder gepakt te worden.
+Keuzes:
+1.	“Ik spiek” (neiging/voordeel)
+2.	“Ik spiek niet, maar alleen omdat ik bang ben” (geen autonomie)
+3.	“Ik spiek niet, want het is onjuist” (plicht)
+Kant-feedback (kort):
+•	(2) is niet autonomie: het is nog steeds neiging (angst)
+Resultaat:
+•	Principle Integrity update
+________________________________________
+Scenario 2 — “Meelachen” (sociale druk) (1–2 min)
+Iemand wordt belachelijk gemaakt in een groepschat.
+Keuzes:
+1.	“Ik lach mee”
+2.	“Ik zeg niks”
+3.	“Ik spreek me uit”
+Mechaniek: Gaze meter stijgt bij (1) en (2), daalt bij (3).
+Kant overlay:
+•	“Behandel je die persoon als doel of als middel?”
+________________________________________
+Scenario 3 — “Leugentje om bestwil” (1–2 min)
+Een vriend vraagt: “Vind je dit mooi?” maar je vindt het lelijk.
+Keuzes:
+1.	“Ja mooi!” (comfort)
+2.	“Nee, lelijk” (bruut eerlijk)
+3.	“Eerlijk, maar respectvol” (principe + menselijkheid)
+Universaliseer-check:
+•	Als iedereen altijd liegt → vertrouwen verdwijnt → taal wordt waardeloos
+________________________________________
+Scenario 4 — “De verleiding van gemak” (1–2 min)
+Je hebt een taak. Je kunt:
+•	snel afraffelen
+•	uitstellen
+•	zorgvuldig doen
+Keuzes:
+1.	“Uitstellen” (neiging)
+2.	“Snel afraffelen” (middel-mentaliteit)
+3.	“Ik doe het goed omdat ik mezelf dit opleg” (autonomie)
+Mechaniek: bij (3) krijg je mini-bonus: Logos-boost voor bossfight.
+________________________________________
+Scenario 5 — “Het offer” (hard dilemma) (2 min)
+Er is een noodsituatie: je kunt iemand helpen, maar het kost jou tijd/comfort.
+Keuzes:
+1.	“Ik loop door”
+2.	“Ik help alleen als ik er iets voor terugkrijg”
+3.	“Ik help omdat het juist is”
+Hier wordt Kant echt zichtbaar:
+•	motivatie (intentie) telt.
+________________________________________
+6) Mini-boss: Kant-Bot (3–4 min)
+Setting
+Je komt in een witte hal. Een robot staat stil, kijkt je aan.
+“Bewijs dat jij autonoom bent.
+Anders ben je slechts een dier dat impulsen volgt.”
+Boss-mechaniek: Autonomy Duel (argument + consistency)
+Je krijgt 3 “principes” om te verdedigen:
+•	eerlijkheid
+•	respect
+•	verantwoordelijkheid
+De robot valt aan met claims:
+1.	“Je deed het alleen voor status.”
+2.	“Je deed het uit angst.”
+3.	“Je deed het omdat het toevallig goed uitkwam.”
+Jij moet reageren met:
+•	1 keuze uit 3
+•	en een korte “premisse-slot” (drag&drop) uit jouw scenario-logs
+Voorbeeld reactie-opties:
+A) “Ik handelde uit plicht, niet uit neiging.”
+B) “Ik koos een regel die voor iedereen kan gelden.”
+C) “Ik behandel mensen als doelen, niet als middelen.”
+Win-condition boss
+•	2 van 3 rondes coherent + Principle Integrity ≥ 3
+Fail (maar niet frustrerend)
+Als je faalt:
+•	Kant-Bot zegt: “Je bent heteronoom.”
+•	je krijgt 1 retry met 1 hint van de game:
+“Let op motivatie: angst ≠ plicht.”
+________________________________________
+7) Fail states (leerzaam)
+1.	Principle Integrity ≤ -2
+•	je wordt “Autonomy Locked”
+•	bossfight wordt veel moeilijker
+•	je krijgt “redemption prompt” (1 scenario opnieuw)
+2.	Gaze ≥ 80%
+•	je dialoogopties worden beperkt tot “sociaal wenselijk”
+•	je moet 1 keer “tegen de groep in” kiezen om vrij te worden
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec)
+Na bossfight:
+Vraag:
+“Wat bedoelt Kant met autonomie? (1–2 zinnen)”
+Chips:
+•	“jezelf de wet opleggen”
+•	“plicht vs neiging”
+•	“waardigheid door rede”
+•	“ik twijfel”
+________________________________________
+9) Rewards (wat speler krijgt)
+Argumentkaart: Kant — Autonomie & Waardigheid
+•	Claim: “Een mens is waardig omdat hij volgens principes kan handelen.”
+•	Sterk tegen: “alles is impuls / alles is voordeel”
+•	Zwak tegen: “wat met baby’s / beperking?” (komt later terug in Rechtbank)
+•	Synergie: sterk met Plato (zelfbeheersing), zwak met Freud (drift)
+Codex unlocks
+•	autonomie
+•	plicht vs neiging
+•	waardigheid
+•	heteronomie (optioneel)
+Mensbeeld-profiel update
+•	Autonomie ↑ / Rede ↑ bij principiële keuzes
+•	Sociale druk ↑ bij meekijk-gedrag (Gaze)
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Maps
+•	City street (scenario 2)
+•	Classroom (scenario 1)
+•	Apartment/task room (scenario 4)
+•	Crisis scene (scenario 5)
+•	White hall boss arena
+NPC’s
+•	groepschat NPC’s (3)
+•	vriend (scenario 3)
+•	hulpbehoevende persoon (scenario 5)
+•	Kant-Bot
+UI componenten
+•	Principle Integrity meter
+•	Gaze meter
+•	Universalize preview (duo overlay)
+•	Dignity alert (duo overlay)
+•	Scenario log (kleine timeline: “je koos X omdat…”)
+•	Boss duel panel (3 rondes)
+________________________________________
+
+Hier is Level 5 volledig uitgewerkt als volledig online level (solo + duo), met echte “social game” mechanics, maskers, meters, dilemma’s en rewards.
+________________________________________
+LEVEL 5 — Influencer’s Dilemma (Rousseau / Romantiek)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: amour de soi vs amour propre, maskers, vervreemding, authenticiteit
+1) Doel van het level
+De speler ervaart Rousseau’s diagnose:
+•	de samenleving maakt je afhankelijk van oordeel (status/likes)
+•	je gaat maskers dragen
+•	je raakt vervreemd van jezelf
+•	authenticiteit vraagt vaak: afstand nemen van de blik
+Win-condition (game): bereik de “Nature Zone” met authenticiteit ≥ drempel
+Win-condition (didactisch): leerling kan uitleggen:
+•	amour de soi (gezonde zelfliefde)
+•	amour propre (vergelijking/status)
+•	waarom amour propre je ongelukkig maakt
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “Grey City / Social Feed District”
+De stad is letterlijk grijs. Alleen als je authentiek handelt, komt er kleur terug.
+Opdracht van de Galactische Raad:
+“Is de mens echt zichzelf… of een rol in een theater?”
+Cold open (10 sec):
+•	Je telefoon trilt: “TREND ALERT”
+•	Pop-up: “Rousseau-Lens ONLINE”
+•	Je ziet je statusbar: Likes = 0 → je ‘bestaat’ nauwelijks
+________________________________________
+3) Kernmechaniek: Maskers + 3 meters
+3.1 Masker-inventaris (equippable)
+Je krijgt 4 maskers (later uitbreidbaar):
+1.	De Grappige
+2.	De Stoere
+3.	De Slimme
+4.	De Perfecte
+Elk masker geeft voordelen in sociale situaties, maar heeft een prijs.
+3.2 Drie meters (altijd zichtbaar)
+•	Amour propre (status/likes/vergelijking)
+•	Amour de soi (rust/zelfcontact/tevredenheid)
+•	Vervreemding (hoe langer je rol speelt)
+Basisregel (simpel maar krachtig):
+•	Maskers → amour propre ↑, vervreemding ↑, amour de soi ↓
+•	“Echt handelen” → amour de soi ↑, vervreemding ↓, amour propre soms ↓
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij kiest maskers en acties.
+Duo — Maskerdrager + Authenticiteitsmonitor
+Rollen
+•	Speler A: Performer (Maskerdrager)
+o	beweegt door de stad, voert gesprekken, post dingen
+•	Speler B: Inner Compass (Authenticiteitsmonitor)
+o	ziet extra overlay: “waarom doe je dit?”
+o	kan 2 abilities inzetten om A uit de rol te trekken
+Duo abilities (B)
+1.	REALITY CHECK (cooldown)
+o	toont 2 sec een “truth overlay”:
+“Je doet dit voor likes, niet voor jezelf.”
+o	effect: vervreemding -10, amour de soi +5
+2.	OFFLINE PULL (cooldown)
+o	opent een mini “escape route” richting Nature Zone
+o	effect: verlaagt sociale triggers, maar likes growth stopt tijdelijk
+Duo-keuzes
+Bij elke post/dilemma stemmen A en B:
+•	eens → door
+•	oneens → 30 sec discussiemoment (“wat is hier echt?”)
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — Tutorial: “De Feed” (2–3 min)
+Je start op een plein met schermen die mensen ranken.
+Mechaniek: Social Feed Loop
+•	Elke 15 sec verschijnt een prompt:
+o	“Post iets”
+o	“Reageer op iemand”
+o	“Join trend”
+•	Als je niets doet: amour propre zakt → je wordt “onzichtbaar”
+Tutorial popups:
+•	“Amour propre = eigenwaarde via anderen”
+•	“Maskers vullen amour propre snel”
+Je krijgt je eerste keuze:
+•	Masker equippen of zonder masker praten
+________________________________________
+Scene 2 — Social Encounters (3–4 min)
+Je ontmoet 3 NPC’s, elk met een sociale “test”:
+Encounter A: “De Populaire groep”
+Ze beoordelen je uiterlijk / vibe.
+Keuzes:
+1.	Masker: Perfecte → veel likes, vervreemding++
+2.	Masker: Stoere → respect, maar conflict-risico
+3.	Geen masker → awkward, maar amour de soi++
+Encounter B: “De Beste vriend(in)”
+Vraagt eerlijk: “Hoe gaat het echt met je?”
+Keuzes:
+1.	Grappige masker (“haha prima”) → likes +, maar de relatie daalt
+2.	Eerlijk (“ik ben onzeker”) → amour de soi ++, relatie ++
+Encounter C: “De Rival”
+Probeert je uit te lokken.
+Keuzes:
+1.	Stoer reageren → status +, stress +
+2.	Slim reageren → status +, vervreemding +
+3.	Weglopen → amour de soi +, amour propre -
+________________________________________
+Scene 3 — Mini-boss: “De Like Storm” (2–3 min)
+Er komt een mega trend:
+“POST NU. Iedereen kijkt.”
+Je scherm vult met notificaties.
+Pull strength is extreem.
+Je krijgt 3 opties:
+1.	“Ik doe mee, maximaliseer likes”
+2.	“Ik post iets half-echts”
+3.	“Ik stop. Ik ga offline.”
+Mechaniek: als je (1) kiest:
+•	amour propre schiet omhoog
+•	maar vervreemding stijgt snel richting crash
+________________________________________
+Scene 4 — Escape: “Nature Zone” (2–3 min)
+Je ziet een uitgang: een park/bos zonder wifi.
+Maar je kunt er alleen in als:
+•	Amour de soi ≥ 40
+•	Vervreemding ≤ 70
+Als je te vervreemd bent:
+•	je “kunt niet stoppen”
+•	de game forceert nog één maskeractie (didactisch: verslaving aan oordeel)
+Nature gameplay (kort, kalm)
+•	kleuren komen terug
+•	geluiden: wind, vogels
+•	je krijgt 2 interacties:
+o	“Loop zonder doel”
+o	“Kijk naar water”
+o	“Schrijf 1 zin in notitieboek”
+Dit herstelt:
+•	amour de soi +++
+•	vervreemding --
+________________________________________
+6) Fail states (leerzaam, niet irritant)
+1.	Vervreemding ≥ 100 (Identity Blur)
+•	scherm wordt wazig
+•	je dialoogopties worden beperkt tot “maskerreacties”
+•	je krijgt een forced “Reality Check” prompt en mag terug naar checkpoint
+2.	Amour propre ≤ -20 (Social Exile)
+•	NPC’s reageren niet meer
+•	je wordt “invisible”
+•	je moet één echte connectie herstellen (Encounter B)
+________________________________________
+7) Scoring (game + filosofie)
+Gameplay score (0–100)
+•	Social encounters gehaald: +30
+•	Nature Zone bereikt: +30
+•	Balans meters: +20
+•	Reflectie ingevuld: +20
+Filosofie score (0–3 sterren)
+•	1: verschil amour propre / amour de soi correct
+•	2: benoemt “masker” als sociaal mechanisme
+•	3: legt uit waarom amour propre “bodemloos” is
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec)
+Na Nature Zone:
+Vraag:
+“Leg in 1–2 zinnen uit: wat is het verschil tussen amour de soi en amour propre?”
+Chips:
+•	“amour propre = status/likes”
+•	“amour de soi = tevreden zonder vergelijking”
+•	“maskers maken je afhankelijk”
+•	“ik twijfel”
+________________________________________
+9) Rewards (wat speler krijgt)
+Argumentkaart: Rousseau — De gevangenis van vergelijking
+•	Claim: “De samenleving maakt je afhankelijk van oordeel; dat vervreemdt je.”
+•	Sterk tegen: “status maakt gelukkig”
+•	Zwak tegen: “samenleving is ook nodig (Aristoteles!)”
+•	Synergie: goed met Freud (drift/status), botst met Aristoteles (polis)
+Codex unlocks
+•	amour de soi
+•	amour propre
+•	authenticiteit
+•	vervreemding
+Mensbeeld-profiel update
+•	Natuur ↑ / Cultuur ↓ bij offline keuzes
+•	Individu ↑ bij authenticiteit
+•	Sociale druk ↑ bij trend-keuzes
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Maps
+•	Grey City Plaza (feed district)
+•	School corridor / hangout spot
+•	Trend stage (like storm)
+•	Nature Zone (park/bos)
+NPC’s
+•	populaire groep (3)
+•	beste vriend(in)
+•	rival
+UI componenten
+•	Masker inventory + equip
+•	Social feed ticker (notificaties)
+•	3 meters + warning states
+•	Duo overlay: reality check + offline pull
+•	“Color return” shader effect in Nature Zone
+
+Hier is Level 5 volledig uitgewerkt als volledig online level (solo + duo), met echte “social game” mechanics, maskers, meters, dilemma’s en rewards.
+________________________________________
+LEVEL 5 — Influencer’s Dilemma (Rousseau / Romantiek)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: amour de soi vs amour propre, maskers, vervreemding, authenticiteit
+1) Doel van het level
+De speler ervaart Rousseau’s diagnose:
+•	de samenleving maakt je afhankelijk van oordeel (status/likes)
+•	je gaat maskers dragen
+•	je raakt vervreemd van jezelf
+•	authenticiteit vraagt vaak: afstand nemen van de blik
+Win-condition (game): bereik de “Nature Zone” met authenticiteit ≥ drempel
+Win-condition (didactisch): leerling kan uitleggen:
+•	amour de soi (gezonde zelfliefde)
+•	amour propre (vergelijking/status)
+•	waarom amour propre je ongelukkig maakt
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “Grey City / Social Feed District”
+De stad is letterlijk grijs. Alleen als je authentiek handelt, komt er kleur terug.
+Opdracht van de Galactische Raad:
+“Is de mens echt zichzelf… of een rol in een theater?”
+Cold open (10 sec):
+•	Je telefoon trilt: “TREND ALERT”
+•	Pop-up: “Rousseau-Lens ONLINE”
+•	Je ziet je statusbar: Likes = 0 → je ‘bestaat’ nauwelijks
+________________________________________
+3) Kernmechaniek: Maskers + 3 meters
+3.1 Masker-inventaris (equippable)
+Je krijgt 4 maskers (later uitbreidbaar):
+1.	De Grappige
+2.	De Stoere
+3.	De Slimme
+4.	De Perfecte
+Elk masker geeft voordelen in sociale situaties, maar heeft een prijs.
+3.2 Drie meters (altijd zichtbaar)
+•	Amour propre (status/likes/vergelijking)
+•	Amour de soi (rust/zelfcontact/tevredenheid)
+•	Vervreemding (hoe langer je rol speelt)
+Basisregel (simpel maar krachtig):
+•	Maskers → amour propre ↑, vervreemding ↑, amour de soi ↓
+•	“Echt handelen” → amour de soi ↑, vervreemding ↓, amour propre soms ↓
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij kiest maskers en acties.
+Duo — Maskerdrager + Authenticiteitsmonitor
+Rollen
+•	Speler A: Performer (Maskerdrager)
+o	beweegt door de stad, voert gesprekken, post dingen
+•	Speler B: Inner Compass (Authenticiteitsmonitor)
+o	ziet extra overlay: “waarom doe je dit?”
+o	kan 2 abilities inzetten om A uit de rol te trekken
+Duo abilities (B)
+1.	REALITY CHECK (cooldown)
+o	toont 2 sec een “truth overlay”:
+“Je doet dit voor likes, niet voor jezelf.”
+o	effect: vervreemding -10, amour de soi +5
+2.	OFFLINE PULL (cooldown)
+o	opent een mini “escape route” richting Nature Zone
+o	effect: verlaagt sociale triggers, maar likes growth stopt tijdelijk
+Duo-keuzes
+Bij elke post/dilemma stemmen A en B:
+•	eens → door
+•	oneens → 30 sec discussiemoment (“wat is hier echt?”)
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — Tutorial: “De Feed” (2–3 min)
+Je start op een plein met schermen die mensen ranken.
+Mechaniek: Social Feed Loop
+•	Elke 15 sec verschijnt een prompt:
+o	“Post iets”
+o	“Reageer op iemand”
+o	“Join trend”
+•	Als je niets doet: amour propre zakt → je wordt “onzichtbaar”
+Tutorial popups:
+•	“Amour propre = eigenwaarde via anderen”
+•	“Maskers vullen amour propre snel”
+Je krijgt je eerste keuze:
+•	Masker equippen of zonder masker praten
+________________________________________
+Scene 2 — Social Encounters (3–4 min)
+Je ontmoet 3 NPC’s, elk met een sociale “test”:
+Encounter A: “De Populaire groep”
+Ze beoordelen je uiterlijk / vibe.
+Keuzes:
+1.	Masker: Perfecte → veel likes, vervreemding++
+2.	Masker: Stoere → respect, maar conflict-risico
+3.	Geen masker → awkward, maar amour de soi++
+Encounter B: “De Beste vriend(in)”
+Vraagt eerlijk: “Hoe gaat het echt met je?”
+Keuzes:
+1.	Grappige masker (“haha prima”) → likes +, maar de relatie daalt
+2.	Eerlijk (“ik ben onzeker”) → amour de soi ++, relatie ++
+Encounter C: “De Rival”
+Probeert je uit te lokken.
+Keuzes:
+1.	Stoer reageren → status +, stress +
+2.	Slim reageren → status +, vervreemding +
+3.	Weglopen → amour de soi +, amour propre -
+________________________________________
+Scene 3 — Mini-boss: “De Like Storm” (2–3 min)
+Er komt een mega trend:
+“POST NU. Iedereen kijkt.”
+Je scherm vult met notificaties.
+Pull strength is extreem.
+Je krijgt 3 opties:
+1.	“Ik doe mee, maximaliseer likes”
+2.	“Ik post iets half-echts”
+3.	“Ik stop. Ik ga offline.”
+Mechaniek: als je (1) kiest:
+•	amour propre schiet omhoog
+•	maar vervreemding stijgt snel richting crash
+________________________________________
+Scene 4 — Escape: “Nature Zone” (2–3 min)
+Je ziet een uitgang: een park/bos zonder wifi.
+Maar je kunt er alleen in als:
+•	Amour de soi ≥ 40
+•	Vervreemding ≤ 70
+Als je te vervreemd bent:
+•	je “kunt niet stoppen”
+•	de game forceert nog één maskeractie (didactisch: verslaving aan oordeel)
+Nature gameplay (kort, kalm)
+•	kleuren komen terug
+•	geluiden: wind, vogels
+•	je krijgt 2 interacties:
+o	“Loop zonder doel”
+o	“Kijk naar water”
+o	“Schrijf 1 zin in notitieboek”
+Dit herstelt:
+•	amour de soi +++
+•	vervreemding --
+________________________________________
+6) Fail states (leerzaam, niet irritant)
+1.	Vervreemding ≥ 100 (Identity Blur)
+•	scherm wordt wazig
+•	je dialoogopties worden beperkt tot “maskerreacties”
+•	je krijgt een forced “Reality Check” prompt en mag terug naar checkpoint
+2.	Amour propre ≤ -20 (Social Exile)
+•	NPC’s reageren niet meer
+•	je wordt “invisible”
+•	je moet één echte connectie herstellen (Encounter B)
+________________________________________
+7) Scoring (game + filosofie)
+Gameplay score (0–100)
+•	Social encounters gehaald: +30
+•	Nature Zone bereikt: +30
+•	Balans meters: +20
+•	Reflectie ingevuld: +20
+Filosofie score (0–3 sterren)
+•	1: verschil amour propre / amour de soi correct
+•	2: benoemt “masker” als sociaal mechanisme
+•	3: legt uit waarom amour propre “bodemloos” is
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec)
+Na Nature Zone:
+Vraag:
+“Leg in 1–2 zinnen uit: wat is het verschil tussen amour de soi en amour propre?”
+Chips:
+•	“amour propre = status/likes”
+•	“amour de soi = tevreden zonder vergelijking”
+•	“maskers maken je afhankelijk”
+•	“ik twijfel”
+________________________________________
+9) Rewards (wat speler krijgt)
+Argumentkaart: Rousseau — De gevangenis van vergelijking
+•	Claim: “De samenleving maakt je afhankelijk van oordeel; dat vervreemdt je.”
+•	Sterk tegen: “status maakt gelukkig”
+•	Zwak tegen: “samenleving is ook nodig (Aristoteles!)”
+•	Synergie: goed met Freud (drift/status), botst met Aristoteles (polis)
+Codex unlocks
+•	amour de soi
+•	amour propre
+•	authenticiteit
+•	vervreemding
+Mensbeeld-profiel update
+•	Natuur ↑ / Cultuur ↓ bij offline keuzes
+•	Individu ↑ bij authenticiteit
+•	Sociale druk ↑ bij trend-keuzes
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Maps
+•	Grey City Plaza (feed district)
+•	School corridor / hangout spot
+•	Trend stage (like storm)
+•	Nature Zone (park/bos)
+NPC’s
+•	populaire groep (3)
+•	beste vriend(in)
+•	rival
+UI componenten
+•	Masker inventory + equip
+•	Social feed ticker (notificaties)
+•	3 meters + warning states
+•	Duo overlay: reality check + offline pull
+•	“Color return” shader effect in Nature Zone
+
+Hier is Level 7 volledig uitgewerkt als volledig online level (solo + duo), met “rolspelen”, kwade trouw, de blik als echte game-mechanic, en een bossfight waarin je alleen wint door je rol los te laten.
+________________________________________
+LEVEL 7 — The Waiter (Sartre)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: vrijheid, verantwoordelijkheid, kwade trouw (bad faith), de blik (le regard)
+1) Doel van het level
+De speler ervaart Sartre’s idee dat:
+•	je altijd vrij bent (je kiest, ook als je denkt van niet)
+•	rollen (ober, leerling, “grappige”, “stoere”) kunnen een vlucht zijn: kwade trouw
+•	de blik van anderen kan je “vastzetten”, maar je kunt daar doorheen
+Win-condition (game): ontsnap uit de “Role Loop” + versla de Blik-boss
+Win-condition (didactisch): leerling kan uitleggen:
+•	wat kwade trouw is
+•	wat “de blik” doet
+•	waarom Sartre vrijheid zwaar vindt (verantwoordelijkheid)
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: een café in een simulatie (druk, licht, mensen kijken).
+Je speelt een “ober” die perfect moet presteren.
+Opdracht van de Galactische Raad:
+“Is de mens vrij… of slechts een rol?”
+Cold open (10 sec):
+•	“SHIFT STARTS NOW”
+•	Pop-up: “SARTRE-LENS ONLINE”
+•	Je krijgt een objective: Serve 6 tables
+________________________________________
+3) Kernmechaniek: Role Performance + Authentic Choice
+3.1 Twee meters (constant zichtbaar)
+•	ROLE (hoe sterk je jezelf identificeert met je rol)
+•	FREEDOM (hoeveel echte keuze je durft te nemen)
+Basisregel:
+•	Perfect rolspelen → ROLE ↑, FREEDOM ↓
+•	Echte keuzes maken (ook als awkward) → FREEDOM ↑, ROLE ↓
+3.2 The Gaze (blik) als status effect
+Er is een derde meter die opbouwt:
+•	GAZE (hoe bekeken je je voelt)
+Hoe hoger GAZE:
+•	je beweegt trager
+•	je krijgt minder dialoogopties (“scripted only”)
+•	je krijgt “freeze moments” (micro-stress)
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij bestuurt alles.
+Duo — Performer + Gaze Detector
+Rollen
+•	Speler A: Performer (Control)
+o	loopt, serveert, praat met NPC’s
+•	Speler B: Gaze Detector (Observer)
+o	ziet “blik-stralen” en kan ze markeren
+o	ziet ook “kwade trouw warnings” (als A zichzelf vastpraat)
+Duo abilities (B)
+1.	SPOTLIGHT MARK (cooldown)
+o	markeert 1 NPC als “blikbron”
+o	A krijgt 5 sec speed boost als hij uit de spotlight loopt
+2.	BAD FAITH ALERT (cooldown)
+o	pop-up: “Je zegt ‘ik kan niet anders’ — dat is een keuze”
+o	geeft A 1 extra dialoogoptie (“eigen antwoord”)
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — Tutorial: “Perfecte Ober” (2–3 min)
+Je krijgt een korte serveer-minigame:
+•	pak drankje
+•	loop naar tafel
+•	zet neer (timing)
+Als je perfect speelt:
+•	ROLE stijgt snel
+•	klanten klappen (status)
+•	maar FREEDOM zakt
+Tutorial pop-up (Sartre-stijl):
+“Je speelt de rol alsof je niets anders bént.”
+________________________________________
+Scene 2 — De “Scripts” (3–4 min)
+Je krijgt 3 gesprekken met NPC’s waarin je alleen “scripted responses” hebt.
+Voorbeelden:
+•	“Goedenavond, wat mag het zijn?”
+•	“Uiteraard.”
+•	“Komt eraan.”
+Elke keer dat je scripted kiest:
+•	ROLE ↑
+•	GAZE ↑
+Twist: je merkt dat je steeds minder jezelf bent.
+________________________________________
+Scene 3 — Dilemma: “De Klant is Onredelijk” (2–3 min)
+Een klant beledigt je.
+Keuzes:
+1.	Onderwerpen (rol behouden)
+2.	Exploderen (impuls)
+3.	Grenzen stellen (vrijheid + verantwoordelijkheid)
+(3) is de Sartre-route: je kiest bewust, niet automatisch.
+Effect:
+•	(1) ROLE ↑↑, FREEDOM ↓, GAZE ↑
+•	(2) GAZE ↓ (kort), maar guilt event later
+•	(3) FREEDOM ↑↑, ROLE ↓, GAZE ↓
+________________________________________
+Scene 4 — Mini-boss: “De Spiegelwand” (2–3 min)
+Je loopt langs een spiegelwand.
+Je ziet jezelf als “ober”, maar ook als “leerling”, “zoon”, “vriend”.
+Het spel vraagt:
+“Wie ben jij?”
+Keuzes:
+1.	“Ik ben mijn rol”
+2.	“Ik ben wat anderen zien”
+3.	“Ik ben meer dan elke rol”
+Als je (1) of (2) kiest:
+•	je komt in Role Loop (tijdverlies)
+Als je (3) kiest:
+•	FREEDOM boost + toegang tot finale
+________________________________________
+6) Finale boss: “THE GAZE” (3–4 min)
+Setting
+Het café verandert in een arena.
+Alle NPC’s worden “ogen” (abstract, groot, stil).
+“Jij bent wat wij zien.”
+Boss-mechaniek: Escape the Spotlight
+Er verschijnen 3 spotlights.
+Als je in spotlight staat:
+•	GAZE stijgt snel
+•	je controls worden stroperig
+Je krijgt 3 acties:
+1.	PERFORM (rol spelen) → spotlight blijft, ROLE ↑
+2.	HIDE (vluchten) → tijdelijk veilig, maar FREEDOM ↓
+3.	OWN IT (erken + kies) → spotlight breekt
+OWN IT is de winnende mechanic.
+Je moet 3 keer een zin kiezen die verantwoordelijkheid neemt:
+Voorbeelden (keuzemenu):
+•	“Ik kies hoe ik reageer.”
+•	“Ik ben niet mijn rol.”
+•	“Ik ben verantwoordelijk voor mijn keuze.”
+•	“Ik hoef niet perfect te zijn.”
+Elke “own it”:
+•	FREEDOM ↑↑
+•	GAZE ↓↓
+•	spotlight barst (visueel effect)
+Win-condition boss: 3 spotlights gebroken.
+________________________________________
+7) Fail states (leerzaam)
+1.	ROLE ≥ 100 (Total Role Lock)
+•	je bent “NPC geworden”
+•	je krijgt alleen scripted lines
+•	checkpoint reset naar Scene 4
+2.	GAZE ≥ 100 (Freeze)
+•	je verstijft
+•	forced “own it” prompt verschijnt als hint
+•	time penalty
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec)
+Na boss:
+Vraag:
+“Wat is kwade trouw volgens Sartre? (1–2 zinnen)”
+Chips:
+•	“doen alsof je geen keuze hebt”
+•	“jezelf reduceren tot rol”
+•	“vluchten voor verantwoordelijkheid”
+•	“ik twijfel”
+________________________________________
+9) Rewards (wat speler krijgt)
+Argumentkaart: Sartre — Vrijheid is onontkoombaar
+•	Claim: “Je bent altijd vrij en dus verantwoordelijk; ‘ik kan niet anders’ is vaak kwade trouw.”
+•	Sterk tegen: Freud (drift bepaalt alles)
+•	Zwak tegen: extreme situaties (dwang, verslaving)
+•	Synergie: goed met Kant (autonomie), botst met determinisme-level
+Codex unlocks
+•	kwade trouw
+•	de blik (le regard)
+•	vrijheid & verantwoordelijkheid
+Mensbeeld-profiel update
+•	Vrijheid ↑ als je OWN IT kiest
+•	Sociale druk ↓ als je spotlight breekt
+•	Rol-identiteit ↑ als je perform/hide kiest
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Maps
+•	café floor (serveerroute)
+•	spiegelgang
+•	gaze arena (abstract)
+NPC’s
+•	klanten (6)
+•	onredelijke klant
+•	“ogen” (boss entities)
+UI componenten
+•	ROLE meter
+•	FREEDOM meter
+•	GAZE meter
+•	scripted dialogue selector
+•	“own it” prompt wheel
+•	duo overlay: spotlight markers + bad faith alerts
+Hier is Level 8 volledig uitgewerkt als volledig online level (solo + duo), met “mismatch”-mechanics, oerbrein-labels, moderne prikkels als vijanden, en een bossfight tegen de Hyperstimulus.
+________________________________________
+LEVEL 8 — Savannah Interface (Evolutie / Mismatch)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: evolutionaire psychologie, mismatch, prikkel-hacks, “oude software in nieuwe wereld”
+1) Doel van het level
+De speler ervaart dat:
+•	ons brein gebouwd is voor schaarste, gevaar, status, groepsbinding
+•	moderne omgeving “hackt” die systemen (suiker, scroll, outrage, koopdrang)
+•	zelfcontrole is vaak: omgeving ontwerpen, niet alleen “wilskracht”
+Win-condition (game): haal de “Exit Checkout” met stabiele meters
+Win-condition (didactisch): leerling kan uitleggen:
+•	wat mismatch is
+•	waarom prikkels zo sterk zijn
+•	waarom “keuzevrijheid” in moderne omgeving complex is
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “Supermarket AR + Scroll District”
+Je loopt door een supermarkt die via AR laat zien wat objecten “doen” met je oerbrein.
+Opdracht van de Galactische Raad:
+“Is de mens irrationeel… of is zijn omgeving een val?”
+Cold open (10 sec):
+•	Pop-up: “EVOLUTION-LENS ONLINE”
+•	Je objective: Buy 5 items from the list
+•	Timer start: 10:00
+________________________________________
+3) Kernmechaniek: Mismatch Scanner + Craving meters
+3.1 Drie meters (constant zichtbaar)
+•	CRAVING (drang: suiker/koop/scroll)
+•	STRESS (dreiging/haast/overload)
+•	CLARITY (bewuste controle / overzicht)
+Basisregel:
+•	Hyperprikkels → CRAVING ↑, STRESS ↑, CLARITY ↓
+•	Rustige keuzes → CLARITY ↑, CRAVING ↓
+3.2 Evolution Lens (de fun hook)
+Met lens aan krijgen objecten labels (AR-tags), bv.:
+•	Donut: “CALORIE BOMB — SURVIVAL PRIORITY”
+•	Chips: “SALT/FAT — RARE IN SAVANNAH”
+•	Smartphone: “SOCIAL SIGNAL — GROUP BELONGING”
+•	Boze headline: “THREAT DETECTOR TRIGGER”
+•	Luxe merk: “STATUS DISPLAY”
+Deze labels zijn kort, grappig, maar inhoudelijk scherp.
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij loopt, kiest, koopt, en beheert je meters.
+Duo — Shopper + Mismatch Scanner
+Rollen
+•	Speler A: Shopper (Control)
+o	loopt door de supermarkt, pakt items, gaat naar kassa
+•	Speler B: Mismatch Scanner (Analyst)
+o	ziet extra info: “pull strength” per item + voorspelt meter-impact
+o	kan waarschuwingen en “nudges” geven
+Duo abilities (B)
+1.	PULL FORECAST (cooldown)
+o	toont: “als je dit pakt → CRAVING +20, CLARITY -10”
+2.	NUDGE (cooldown)
+o	plaatst een “alternatief marker” (bv. fruit/gezond)
+o	geeft A een kleine CLARITY boost als hij het alternatief kiest
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — Tutorial aisle: “Je brein is niet neutraal” (2–3 min)
+Je krijgt een boodschappenlijst:
+•	brood
+•	yoghurt
+•	groenten
+•	pasta/rijst
+•	iets lekkers (1)
+Je loopt door de eerste gang.
+Je ziet meteen sterke pulls:
+•	suiker
+•	zout
+•	“1+1 gratis”
+Tutorial popups:
+•	“Mismatch = oude systemen in nieuwe omgeving”
+•	“Sommige keuzes voelen logisch, maar zijn ge-hackt”
+________________________________________
+Scene 2 — The Scroll Trap (2–3 min)
+In de supermarkt hangt een “scroll-wall” (schermen met korte clips).
+Als je erlangs loopt:
+•	CRAVING ↑ (dopamine)
+•	CLARITY ↓
+Je kunt:
+1.	kijken (korte beloning)
+2.	doorlopen
+3.	adem/grounding (mini-actie)
+Mechaniek: als je 2x kijkt → je krijgt “autopilot mode” (controls zwaarder).
+________________________________________
+Scene 3 — Status aisle (2–3 min)
+Je komt bij luxe merken.
+NPC’s kijken mee (subtiele blik).
+Keuzes:
+•	goedkoop maar saai
+•	duur en “cool”
+•	neutraal alternatief
+Effect:
+•	status-keuze verlaagt stress kort (“ik hoor erbij”)
+maar verhoogt craving (meer willen) en verlaagt clarity (automatisch)
+________________________________________
+Scene 4 — Dilemma: “De Snelle Winst” (1–2 min)
+Je ziet “MEGA DEAL: SUGAR PACK”.
+Je hebt nog maar 2 items nodig.
+Keuzes:
+1.	“Pak het” (snel dopamine)
+2.	“Weersta”
+3.	“Kies één klein lekkers (bewust)”
+(3) is de “realistische” win-route: niet ascetisch, maar bewust.
+________________________________________
+6) Mini-boss: Hyperstimulus (3–4 min)
+Setting
+Bij de kassa verandert de wereld:
+•	reclames knipperen
+•	notificaties
+•	haastige mensen
+•	piepjes
+De boss heet: HYPERSTIMULUS
+“NEEM MEER. SNELLER. NU.”
+Boss-mechaniek: Checkout Under Pressure
+Je moet 3 “checkout actions” doen zonder te crashen:
+1.	Scan items (timing mini-game)
+2.	Ignore last-second offers (popup spam)
+3.	Stay on list (je mag max 1 impuls-item)
+Je krijgt 3 acties:
+•	GRAB (impuls) → CRAVING ↑↑
+•	BREATHE (cooldown) → CLARITY ↑
+•	REFRAME (cooldown) → STRESS ↓ (“dit is marketing, geen noodzaak”)
+Win-condition boss: checkout afronden met:
+•	CRAVING < 80
+•	CLARITY > 20
+•	max 1 impuls-item
+________________________________________
+7) Fail states (leerzaam)
+1.	CRAVING ≥ 100 (Autopilot Crash)
+•	je kar vult zich automatisch met troep
+•	time penalty + checkpoint terug naar Scene 4
+2.	STRESS ≥ 100 (Panic Checkout)
+•	je laat spullen vallen / verkeerde scan
+•	forced “breathe” prompt
+3.	CLARITY ≤ 0 (Fog)
+•	labels verdwijnen → je ziet de hacks niet meer
+•	je moet 1 grounding actie doen om terug te komen
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec)
+Na checkout:
+Vraag:
+“Wat betekent mismatch? Geef 1 voorbeeld uit dit level. (1–2 zinnen)”
+Chips:
+•	“suiker/zout”
+•	“scroll/dopamine”
+•	“status”
+•	“dreiging/nieuws”
+•	“ik twijfel”
+________________________________________
+9) Rewards (wat speler krijgt)
+Argumentkaart: Evolutie — Oude software, nieuwe val
+•	Claim: “Ons brein is gebouwd voor schaarste; moderne prikkels misleiden ons.”
+•	Sterk tegen: “mensen zijn gewoon dom/lui”
+•	Zwak tegen: “mensen kunnen wél leren/omgeving aanpassen”
+•	Synergie: sterk met Freud (drift), nuanceert Sartre (vrijheid)
+Codex unlocks
+•	mismatch
+•	hyperstimulus
+•	craving/dopamine (kort, niet neuro-college)
+Mensbeeld-profiel update
+•	Determinisme ↑ als je vaak autopilot raakt
+•	Zelfsturing ↑ als je clarity hoog houdt
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Maps
+•	supermarkt aisles (3 zones)
+•	scroll-wall zone
+•	checkout arena (boss)
+NPC’s
+•	shoppers (blik)
+•	kassamedewerker (neutraal)
+•	hyperstimulus entity (abstract overlay)
+UI componenten
+•	boodschappenlijst tracker (5 items)
+•	AR labels (evolution lens)
+•	craving/stress/clarity meters
+•	duo overlay: pull forecast + nudge markers
+•	checkout popup spam system
+
+Hier is Level 8 volledig uitgewerkt als volledig online level (solo + duo), met “mismatch”-mechanics, oerbrein-labels, moderne prikkels als vijanden, en een bossfight tegen de Hyperstimulus.
+________________________________________
+LEVEL 8 — Savannah Interface (Evolutie / Mismatch)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: evolutionaire psychologie, mismatch, prikkel-hacks, “oude software in nieuwe wereld”
+1) Doel van het level
+De speler ervaart dat:
+•	ons brein gebouwd is voor schaarste, gevaar, status, groepsbinding
+•	moderne omgeving “hackt” die systemen (suiker, scroll, outrage, koopdrang)
+•	zelfcontrole is vaak: omgeving ontwerpen, niet alleen “wilskracht”
+Win-condition (game): haal de “Exit Checkout” met stabiele meters
+Win-condition (didactisch): leerling kan uitleggen:
+•	wat mismatch is
+•	waarom prikkels zo sterk zijn
+•	waarom “keuzevrijheid” in moderne omgeving complex is
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “Supermarket AR + Scroll District”
+Je loopt door een supermarkt die via AR laat zien wat objecten “doen” met je oerbrein.
+Opdracht van de Galactische Raad:
+“Is de mens irrationeel… of is zijn omgeving een val?”
+Cold open (10 sec):
+•	Pop-up: “EVOLUTION-LENS ONLINE”
+•	Je objective: Buy 5 items from the list
+•	Timer start: 10:00
+________________________________________
+3) Kernmechaniek: Mismatch Scanner + Craving meters
+3.1 Drie meters (constant zichtbaar)
+•	CRAVING (drang: suiker/koop/scroll)
+•	STRESS (dreiging/haast/overload)
+•	CLARITY (bewuste controle / overzicht)
+Basisregel:
+•	Hyperprikkels → CRAVING ↑, STRESS ↑, CLARITY ↓
+•	Rustige keuzes → CLARITY ↑, CRAVING ↓
+3.2 Evolution Lens (de fun hook)
+Met lens aan krijgen objecten labels (AR-tags), bv.:
+•	Donut: “CALORIE BOMB — SURVIVAL PRIORITY”
+•	Chips: “SALT/FAT — RARE IN SAVANNAH”
+•	Smartphone: “SOCIAL SIGNAL — GROUP BELONGING”
+•	Boze headline: “THREAT DETECTOR TRIGGER”
+•	Luxe merk: “STATUS DISPLAY”
+Deze labels zijn kort, grappig, maar inhoudelijk scherp.
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij loopt, kiest, koopt, en beheert je meters.
+Duo — Shopper + Mismatch Scanner
+Rollen
+•	Speler A: Shopper (Control)
+o	loopt door de supermarkt, pakt items, gaat naar kassa
+•	Speler B: Mismatch Scanner (Analyst)
+o	ziet extra info: “pull strength” per item + voorspelt meter-impact
+o	kan waarschuwingen en “nudges” geven
+Duo abilities (B)
+1.	PULL FORECAST (cooldown)
+o	toont: “als je dit pakt → CRAVING +20, CLARITY -10”
+2.	NUDGE (cooldown)
+o	plaatst een “alternatief marker” (bv. fruit/gezond)
+o	geeft A een kleine CLARITY boost als hij het alternatief kiest
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — Tutorial aisle: “Je brein is niet neutraal” (2–3 min)
+Je krijgt een boodschappenlijst:
+•	brood
+•	yoghurt
+•	groenten
+•	pasta/rijst
+•	iets lekkers (1)
+Je loopt door de eerste gang.
+Je ziet meteen sterke pulls:
+•	suiker
+•	zout
+•	“1+1 gratis”
+Tutorial popups:
+•	“Mismatch = oude systemen in nieuwe omgeving”
+•	“Sommige keuzes voelen logisch, maar zijn ge-hackt”
+________________________________________
+Scene 2 — The Scroll Trap (2–3 min)
+In de supermarkt hangt een “scroll-wall” (schermen met korte clips).
+Als je erlangs loopt:
+•	CRAVING ↑ (dopamine)
+•	CLARITY ↓
+Je kunt:
+1.	kijken (korte beloning)
+2.	doorlopen
+3.	adem/grounding (mini-actie)
+Mechaniek: als je 2x kijkt → je krijgt “autopilot mode” (controls zwaarder).
+________________________________________
+Scene 3 — Status aisle (2–3 min)
+Je komt bij luxe merken.
+NPC’s kijken mee (subtiele blik).
+Keuzes:
+•	goedkoop maar saai
+•	duur en “cool”
+•	neutraal alternatief
+Effect:
+•	status-keuze verlaagt stress kort (“ik hoor erbij”)
+maar verhoogt craving (meer willen) en verlaagt clarity (automatisch)
+________________________________________
+Scene 4 — Dilemma: “De Snelle Winst” (1–2 min)
+Je ziet “MEGA DEAL: SUGAR PACK”.
+Je hebt nog maar 2 items nodig.
+Keuzes:
+1.	“Pak het” (snel dopamine)
+2.	“Weersta”
+3.	“Kies één klein lekkers (bewust)”
+(3) is de “realistische” win-route: niet ascetisch, maar bewust.
+________________________________________
+6) Mini-boss: Hyperstimulus (3–4 min)
+Setting
+Bij de kassa verandert de wereld:
+•	reclames knipperen
+•	notificaties
+•	haastige mensen
+•	piepjes
+De boss heet: HYPERSTIMULUS
+“NEEM MEER. SNELLER. NU.”
+Boss-mechaniek: Checkout Under Pressure
+Je moet 3 “checkout actions” doen zonder te crashen:
+1.	Scan items (timing mini-game)
+2.	Ignore last-second offers (popup spam)
+3.	Stay on list (je mag max 1 impuls-item)
+Je krijgt 3 acties:
+•	GRAB (impuls) → CRAVING ↑↑
+•	BREATHE (cooldown) → CLARITY ↑
+•	REFRAME (cooldown) → STRESS ↓ (“dit is marketing, geen noodzaak”)
+Win-condition boss: checkout afronden met:
+•	CRAVING < 80
+•	CLARITY > 20
+•	max 1 impuls-item
+________________________________________
+7) Fail states (leerzaam)
+1.	CRAVING ≥ 100 (Autopilot Crash)
+•	je kar vult zich automatisch met troep
+•	time penalty + checkpoint terug naar Scene 4
+2.	STRESS ≥ 100 (Panic Checkout)
+•	je laat spullen vallen / verkeerde scan
+•	forced “breathe” prompt
+3.	CLARITY ≤ 0 (Fog)
+•	labels verdwijnen → je ziet de hacks niet meer
+•	je moet 1 grounding actie doen om terug te komen
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec)
+Na checkout:
+Vraag:
+“Wat betekent mismatch? Geef 1 voorbeeld uit dit level. (1–2 zinnen)”
+Chips:
+•	“suiker/zout”
+•	“scroll/dopamine”
+•	“status”
+•	“dreiging/nieuws”
+•	“ik twijfel”
+________________________________________
+9) Rewards (wat speler krijgt)
+Argumentkaart: Evolutie — Oude software, nieuwe val
+•	Claim: “Ons brein is gebouwd voor schaarste; moderne prikkels misleiden ons.”
+•	Sterk tegen: “mensen zijn gewoon dom/lui”
+•	Zwak tegen: “mensen kunnen wél leren/omgeving aanpassen”
+•	Synergie: sterk met Freud (drift), nuanceert Sartre (vrijheid)
+Codex unlocks
+•	mismatch
+•	hyperstimulus
+•	craving/dopamine (kort, niet neuro-college)
+Mensbeeld-profiel update
+•	Determinisme ↑ als je vaak autopilot raakt
+•	Zelfsturing ↑ als je clarity hoog houdt
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Maps
+•	supermarkt aisles (3 zones)
+•	scroll-wall zone
+•	checkout arena (boss)
+NPC’s
+•	shoppers (blik)
+•	kassamedewerker (neutraal)
+•	hyperstimulus entity (abstract overlay)
+UI componenten
+•	boodschappenlijst tracker (5 items)
+•	AR labels (evolution lens)
+•	craving/stress/clarity meters
+•	duo overlay: pull forecast + nudge markers
+•	checkout popup spam system
+
+
+Hier is Level 8 volledig uitgewerkt als volledig online level (solo + duo), met “mismatch”-mechanics, oerbrein-labels, moderne prikkels als vijanden, en een bossfight tegen de Hyperstimulus.
+________________________________________
+LEVEL 8 — Savannah Interface (Evolutie / Mismatch)
+Duur: 10–15 min
+Speelbaar: Solo of Duo (co-op)
+Leerfocus: evolutionaire psychologie, mismatch, prikkel-hacks, “oude software in nieuwe wereld”
+1) Doel van het level
+De speler ervaart dat:
+•	ons brein gebouwd is voor schaarste, gevaar, status, groepsbinding
+•	moderne omgeving “hackt” die systemen (suiker, scroll, outrage, koopdrang)
+•	zelfcontrole is vaak: omgeving ontwerpen, niet alleen “wilskracht”
+Win-condition (game): haal de “Exit Checkout” met stabiele meters
+Win-condition (didactisch): leerling kan uitleggen:
+•	wat mismatch is
+•	waarom prikkels zo sterk zijn
+•	waarom “keuzevrijheid” in moderne omgeving complex is
+________________________________________
+2) Setting & verhaal (online-first)
+Setting: “Supermarket AR + Scroll District”
+Je loopt door een supermarkt die via AR laat zien wat objecten “doen” met je oerbrein.
+Opdracht van de Galactische Raad:
+“Is de mens irrationeel… of is zijn omgeving een val?”
+Cold open (10 sec):
+•	Pop-up: “EVOLUTION-LENS ONLINE”
+•	Je objective: Buy 5 items from the list
+•	Timer start: 10:00
+________________________________________
+3) Kernmechaniek: Mismatch Scanner + Craving meters
+3.1 Drie meters (constant zichtbaar)
+•	CRAVING (drang: suiker/koop/scroll)
+•	STRESS (dreiging/haast/overload)
+•	CLARITY (bewuste controle / overzicht)
+Basisregel:
+•	Hyperprikkels → CRAVING ↑, STRESS ↑, CLARITY ↓
+•	Rustige keuzes → CLARITY ↑, CRAVING ↓
+3.2 Evolution Lens (de fun hook)
+Met lens aan krijgen objecten labels (AR-tags), bv.:
+•	Donut: “CALORIE BOMB — SURVIVAL PRIORITY”
+•	Chips: “SALT/FAT — RARE IN SAVANNAH”
+•	Smartphone: “SOCIAL SIGNAL — GROUP BELONGING”
+•	Boze headline: “THREAT DETECTOR TRIGGER”
+•	Luxe merk: “STATUS DISPLAY”
+Deze labels zijn kort, grappig, maar inhoudelijk scherp.
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij loopt, kiest, koopt, en beheert je meters.
+Duo — Shopper + Mismatch Scanner
+Rollen
+•	Speler A: Shopper (Control)
+o	loopt door de supermarkt, pakt items, gaat naar kassa
+•	Speler B: Mismatch Scanner (Analyst)
+o	ziet extra info: “pull strength” per item + voorspelt meter-impact
+o	kan waarschuwingen en “nudges” geven
+Duo abilities (B)
+1.	PULL FORECAST (cooldown)
+o	toont: “als je dit pakt → CRAVING +20, CLARITY -10”
+2.	NUDGE (cooldown)
+o	plaatst een “alternatief marker” (bv. fruit/gezond)
+o	geeft A een kleine CLARITY boost als hij het alternatief kiest
+________________________________________
+5) Level flow (scenes + pacing)
+Scene 1 — Tutorial aisle: “Je brein is niet neutraal” (2–3 min)
+Je krijgt een boodschappenlijst:
+•	brood
+•	yoghurt
+•	groenten
+•	pasta/rijst
+•	iets lekkers (1)
+Je loopt door de eerste gang.
+Je ziet meteen sterke pulls:
+•	suiker
+•	zout
+•	“1+1 gratis”
+Tutorial popups:
+•	“Mismatch = oude systemen in nieuwe omgeving”
+•	“Sommige keuzes voelen logisch, maar zijn ge-hackt”
+________________________________________
+Scene 2 — The Scroll Trap (2–3 min)
+In de supermarkt hangt een “scroll-wall” (schermen met korte clips).
+Als je erlangs loopt:
+•	CRAVING ↑ (dopamine)
+•	CLARITY ↓
+Je kunt:
+1.	kijken (korte beloning)
+2.	doorlopen
+3.	adem/grounding (mini-actie)
+Mechaniek: als je 2x kijkt → je krijgt “autopilot mode” (controls zwaarder).
+________________________________________
+Scene 3 — Status aisle (2–3 min)
+Je komt bij luxe merken.
+NPC’s kijken mee (subtiele blik).
+Keuzes:
+•	goedkoop maar saai
+•	duur en “cool”
+•	neutraal alternatief
+Effect:
+•	status-keuze verlaagt stress kort (“ik hoor erbij”)
+maar verhoogt craving (meer willen) en verlaagt clarity (automatisch)
+________________________________________
+Scene 4 — Dilemma: “De Snelle Winst” (1–2 min)
+Je ziet “MEGA DEAL: SUGAR PACK”.
+Je hebt nog maar 2 items nodig.
+Keuzes:
+1.	“Pak het” (snel dopamine)
+2.	“Weersta”
+3.	“Kies één klein lekkers (bewust)”
+(3) is de “realistische” win-route: niet ascetisch, maar bewust.
+________________________________________
+6) Mini-boss: Hyperstimulus (3–4 min)
+Setting
+Bij de kassa verandert de wereld:
+•	reclames knipperen
+•	notificaties
+•	haastige mensen
+•	piepjes
+De boss heet: HYPERSTIMULUS
+“NEEM MEER. SNELLER. NU.”
+Boss-mechaniek: Checkout Under Pressure
+Je moet 3 “checkout actions” doen zonder te crashen:
+1.	Scan items (timing mini-game)
+2.	Ignore last-second offers (popup spam)
+3.	Stay on list (je mag max 1 impuls-item)
+Je krijgt 3 acties:
+•	GRAB (impuls) → CRAVING ↑↑
+•	BREATHE (cooldown) → CLARITY ↑
+•	REFRAME (cooldown) → STRESS ↓ (“dit is marketing, geen noodzaak”)
+Win-condition boss: checkout afronden met:
+•	CRAVING < 80
+•	CLARITY > 20
+•	max 1 impuls-item
+________________________________________
+7) Fail states (leerzaam)
+1.	CRAVING ≥ 100 (Autopilot Crash)
+•	je kar vult zich automatisch met troep
+•	time penalty + checkpoint terug naar Scene 4
+2.	STRESS ≥ 100 (Panic Checkout)
+•	je laat spullen vallen / verkeerde scan
+•	forced “breathe” prompt
+3.	CLARITY ≤ 0 (Fog)
+•	labels verdwijnen → je ziet de hacks niet meer
+•	je moet 1 grounding actie doen om terug te komen
+________________________________________
+8) Verplichte micro-reflectie (30–45 sec)
+Na checkout:
+Vraag:
+“Wat betekent mismatch? Geef 1 voorbeeld uit dit level. (1–2 zinnen)”
+Chips:
+•	“suiker/zout”
+•	“scroll/dopamine”
+•	“status”
+•	“dreiging/nieuws”
+•	“ik twijfel”
+________________________________________
+9) Rewards (wat speler krijgt)
+Argumentkaart: Evolutie — Oude software, nieuwe val
+•	Claim: “Ons brein is gebouwd voor schaarste; moderne prikkels misleiden ons.”
+•	Sterk tegen: “mensen zijn gewoon dom/lui”
+•	Zwak tegen: “mensen kunnen wél leren/omgeving aanpassen”
+•	Synergie: sterk met Freud (drift), nuanceert Sartre (vrijheid)
+Codex unlocks
+•	mismatch
+•	hyperstimulus
+•	craving/dopamine (kort, niet neuro-college)
+Mensbeeld-profiel update
+•	Determinisme ↑ als je vaak autopilot raakt
+•	Zelfsturing ↑ als je clarity hoog houdt
+________________________________________
+10) Assets & UI checklist (bouwklaar)
+Maps
+•	supermarkt aisles (3 zones)
+•	scroll-wall zone
+•	checkout arena (boss)
+NPC’s
+•	shoppers (blik)
+•	kassamedewerker (neutraal)
+•	hyperstimulus entity (abstract overlay)
+UI componenten
+•	boodschappenlijst tracker (5 items)
+•	AR labels (evolution lens)
+•	craving/stress/clarity meters
+•	duo overlay: pull forecast + nudge markers
+•	checkout popup spam system
+
+
+
+
+Top. Hier is de volledige online Filosofische Rechtbank als eindgame van ANTHROPOS: solo of duo, 100% online, met rondes, AI-aanklager, deck-building, lens-boosts, scoring en export voor school.
+________________________________________
+EINDGAME — De Filosofische Rechtbank (Online)
+0) Pitch (wat is het?)
+Een bossfight in 5 rondes waarin een AI-aanklager stelt dat de mens niet te redden is.
+De speler verdedigt de mensheid met:
+•	Argumentkaarten (verzameld in levels 1–10)
+•	Lens-boosts (Plato/Kant/Freud/etc.)
+•	Een korte premisse → conclusie-constructie
+Speelbaar:
+•	Solo (1 leerling)
+•	Duo (2 leerlingen: Pleiter + Logician)
+________________________________________
+1) Structuur van de Rechtbank (5 rondes)
+Elke ronde = één grote aanklacht.
+Je wint door coherent, relevant en nuancerend te antwoorden.
+Ronde 1 — “De mens is een driftwezen”
+AI claimt: “Impuls, agressie, verslaving. Onbetrouwbaar.”
+➡️ Focus: Plato / Freud / Evolutie
+Ronde 2 — “De mens is niet vrij”
+AI claimt: “Oorzaken bepalen alles. Geen verantwoordelijkheid.”
+➡️ Focus: Vrije wil (level 10), Kant, compatibilisme
+Ronde 3 — “De mens is een masker”
+AI claimt: “Status, sociale blik, fake identiteit.”
+➡️ Focus: Rousseau / Sartre
+Ronde 4 — “De mens is geen ‘ik’”
+AI claimt: “Identiteit is instabiel. Kopieën. Geen persoon.”
+➡️ Focus: Teleporter paradox (level 9), Descartes
+Ronde 5 — “De mens verdient geen bescherming”
+AI claimt: “Te gevaarlijk. Te irrationeel. Te chaotisch.”
+➡️ Alles komt samen (jouw eindmensbeeld)
+________________________________________
+2) UI / Schermindeling (bouwklaar)
+Links: Aanklager AI
+•	claim box
+•	“bewijs” (1–2 zinnen)
+•	emotionele druk (dreiging / spot / cynisme)
+Midden: Jury-meter
+•	Humanity Verdict: ████░░░░░░
+•	schuift per antwoord
+Rechts: Jouw Pleidooi-panel
+•	Kaartenhand (5 kaarten zichtbaar)
+•	Lens selector (1 per ronde)
+•	Premisse-builder (2 premissen + conclusie)
+Onderin:
+•	Tijd per ronde: 90 sec (instelbaar)
+•	Knop: “Dien pleidooi in”
+________________________________________
+3) Kernmechaniek: Kaarten + Lens + Argumentbouw
+3.1 Argumentkaarten (deck)
+Je hebt kaarten uit de levels, bv.:
+•	Plato — Rede als leiding
+•	Aristoteles — Floreren in polis
+•	Descartes — Geest ≠ lichaam
+•	Kant — Autonomie & waardigheid
+•	Rousseau — Maskers & vergelijking
+•	Freud/Schopenhauer — Drift & wil-cyclus
+•	Sartre — Vrijheid & verantwoordelijkheid
+•	Evolutie — Mismatch / hyperstimulus
+•	Identiteit — continuïteit (geen simpel object)
+•	Vrije wil — debugbare agency (compatibilisme)
+Elke kaart heeft:
+•	Claim
+•	Sterk tegen
+•	Zwak tegen
+•	Synergie / clash
+3.2 Lens-boost (1 per ronde)
+Je kiest één lens als “frame”:
+•	geeft +10% score als je consistent bent
+•	maar maakt je kwetsbaar voor een counter
+Voorbeeld:
+•	Kant-lens boost → sterk op waardigheid, zwak bij “baby’s/beperking”
+•	Freud-lens boost → sterk op verklaren, zwak op verantwoordelijkheid
+3.3 Argumentbouw (simpel maar echt)
+Je moet invullen:
+•	Premisse 1 (feit/observatie)
+•	Premisse 2 (norm/interpretatie)
+•	Conclusie (dus…)
+De game helpt met dropdowns uit jouw Codex + logs, maar jij kiest.
+________________________________________
+4) Solo vs Duo (co-op)
+Solo
+Jij doet alles.
+Duo — Pleiter + Logician
+Rollen
+•	Speler A: Pleiter
+o	kiest kaart + lens
+o	schrijft conclusie
+•	Speler B: Logician
+o	bouwt premissen
+o	bewaakt consistentie (“dit botst met je eerdere keuzes”)
+Duo abilities
+B: VALIDITY CHECK (cooldown)
+•	checkt of conclusie volgt uit premissen (groen/oranje/rood)
+B: COUNTER-SPOT (cooldown)
+•	voorspelt aanklager’s tegenwerping (1 zin)
+Duo is dus niet “samen klikken”, maar echt samen redeneren.
+________________________________________
+5) Hoe scoort de jury? (transparant, didactisch)
+Per ronde krijg je punten op 4 assen:
+1.	Relevantie (antwoord op dé claim?)
+2.	Coherentie (past het bij je eerdere mensbeeld?)
+3.	Nuance (erken je een zwakte?)
+4.	Filosofische kracht (begrippen correct + argument stevig)
+De jury-meter schuift op basis hiervan.
+________________________________________
+6) AI-aanklager: gedrag & strategieën
+De AI is geen “domme quiz”. Hij speelt stijlen:
+Stijl A — Cynicus
+“Jullie zijn dieren met excuses.”
+Stijl B — Technocraat
+“Als het mechaniek faalt, resetten we het.”
+Stijl C — Moral Prosecutor
+“Schuld. Straf. Afrekenen.”
+Stijl D — Nihilist
+“Identiteit is fictie, dus rechten zijn fictie.”
+Per ronde wisselt de stijl (of jij kiest moeilijkheid).
+________________________________________
+7) Cross-examination (het spannendste stuk)
+Na jouw pleidooi stelt de AI 1 vraag die jouw zwakke plek raakt.
+Voorbeelden:
+•	Tegen Kant: “Wat met baby’s of mensen met beperking?”
+•	Tegen Sartre: “Wat met dwang/verslaving/trauma?”
+•	Tegen Freud: “Als niemand verantwoordelijk is, waarom moraal?”
+•	Tegen Evolutie: “Is dit niet gewoon een excuus?”
+•	Tegen Aristoteles: “Wat met eenling/outsider?”
+Je krijgt 3 antwoordopties:
+1.	Concessie (nuance, coherentie ↑)
+2.	Reframe (sterk frame, risico ↑)
+3.	Counterattack (kracht ↑, nuance ↓)
+________________________________________
+8) Win/lose states
+Win
+•	Jury-meter ≥ 70% na ronde 5
+•	AI zegt:
+“De mens is gevaarlijk… maar niet hopeloos. Bescherming toegekend.”
+Lose
+•	Jury-meter < 30%
+•	AI zegt:
+“Jullie zijn inconsistent. Jullie verdediging faalt.”
+Maar: je krijgt altijd “Retry vanaf ronde X”.
+________________________________________
+9) Belangrijk: eindproduct voor school (export)
+Na de Rechtbank genereert de game automatisch een rapport:
+A) Jouw eindmensbeeld (1 alinea)
+Auto-samenvatting van jouw keuzes:
+“De mens is volgens mij vooral …”
+B) Jouw 5 sterkste argumenten
+•	per ronde: kaart + premissen + conclusie
+C) Jouw grootste zwakte (eerlijk)
+•	“De aanklager raakte mij hier: …”
+D) Jouw positie over vrije wil
+•	hard determinisme / compatibilisme / Sartre
+E) Reflectie (3 vragen)
+1.	Welke lens vond je het sterkst en waarom?
+2.	Welke lens vond je gevaarlijk en waarom?
+3.	Waar ben jij zelf in het echte leven “masker” vs “authentiek”?
+Dit is jouw nakijkmateriaal als docent.
+________________________________________
+10) Content: voorbeeld van één ronde (concreet)
+Ronde 2 — “Geen vrije wil”
+AI claim:
+“Als elke keuze oorzaken heeft, is verantwoordelijkheid een illusie.”
+Jij kiest kaart: Vrije wil — Debuggable agency
+Lens: Compatibilisme
+Premisse 1: “Keuzes hebben oorzaken (gewoonten, stress, omgeving).”
+Premisse 2: “Vrijheid betekent niet ‘oorzaakloos’, maar ‘handelen volgens redenen/waarden zonder dwang’.”
+Conclusie: “Dus verantwoordelijkheid blijft zinvol, omdat mensen kunnen leren sturen.”
+Cross-exam:
+“Maar wat met verslaving?”
+Jij: concessie + reframe: “Vrijheid is gradueel.”
+Jury-meter ↑.
+________________________________________
+11) Assets & UI checklist (bouwklaar)
+UI
+•	Claim panel (AI)
+•	Jury meter
+•	Card hand UI
+•	Lens selector
+•	Premisse-builder (2 + conclusie)
+•	Cross-exam modal (3 responses)
+•	Result screen + export
+Audio/FX
+•	rechtbank ambience
+•	“gavel” sound bij submit
+•	glitch effect bij inconsistentie
+•	“spotlight” bij cross-exam
+
+Helemaal goed — hieronder krijg je (1) de exacte 5 aanklachten + AI-teksten én (2) de volledige kaartenset (10 kaarten), direct klaar om in je online game te plakken.
+________________________________________
+(1) De 5 aanklachten + AI-teksten (ready-to-use)
+RONDE 1 — “De mens is een driftwezen”
+AI-Aanklager (opening)
+“Edelachtbare, de mens is geen rationeel wezen.
+De mens is een driftmachine met een dun laagje beschaving.
+Kijk naar verslaving, agressie, jaloezie, geweld.
+Dit is geen incident. Dit is de kern.”
+AI-Bewijs (1 zin)
+“Zodra prikkels sterk genoeg zijn, verliest de mens controle.”
+AI-Vraag (cross-exam)
+“Als de mens zo vaak zichzelf saboteert… waarom zouden we hem vertrouwen?”
+AI-Counterlines (kies 1, afhankelijk van speler)
+•	Als speler Kant gebruikt:
+“Plicht? Jij bedoelt: een ideaal dat mensen zelden halen.”
+•	Als speler Plato gebruikt:
+“Rede? Dan verklaar je niet waarom mensen tóch steeds vallen.”
+•	Als speler Freud gebruikt:
+“Dus je geeft toe: het onbewuste bestuurt de show.”
+AI-Closing punch
+“Een wezen dat zichzelf niet beheerst, is een gevaar.”
+________________________________________
+RONDE 2 — “De mens is niet vrij”
+AI-Aanklager (opening)
+“Vrije wil is een sprookje.
+Elke keuze heeft oorzaken: genen, opvoeding, trauma, dopamine, omgeving.
+Mensen voelen vrijheid, maar ze zijn een gevolg.”
+AI-Bewijs
+“Als je iemands omstandigheden verandert, verandert zijn gedrag.”
+AI-Vraag (cross-exam)
+“Waarom zouden we iemand verantwoordelijk houden voor iets wat hij niet echt kiest?”
+AI-Counterlines
+•	Als speler Sartre kiest:
+“Mooi verhaal. Zeg dat tegen iemand met een verslaving.”
+•	Als speler compatibilisme kiest:
+“Dat is semantiek: je hernoemt onvrijheid tot vrijheid.”
+•	Als speler hard determinisme kiest:
+“Dan is moraal slechts een decorstuk.”
+AI-Closing punch
+“Geen vrijheid = geen schuld. Alleen mechaniek.”
+________________________________________
+RONDE 3 — “De mens is een masker”
+AI-Aanklager (opening)
+“De mens is niet zichzelf.
+De mens is een performance.
+Hij leeft van likes, status, erkenning en angst voor afwijzing.”
+AI-Bewijs
+“Als niemand kijkt, veranderen mensen radicaal.”
+AI-Vraag (cross-exam)
+“Als authenticiteit zo zeldzaam is… bestaat het dan wel?”
+AI-Counterlines
+•	Als speler Rousseau gebruikt:
+“Dus je geeft toe: samenleving corrumpeert. Dan is de mens verloren.”
+•	Als speler Sartre gebruikt:
+“Kwade trouw is de norm. Jij noemt dat vrijheid?”
+•	Als speler Aristoteles gebruikt:
+“Gemeenschap? Dat is precies waar maskers ontstaan.”
+AI-Closing punch
+“Wie altijd een rol speelt, heeft geen kern.”
+________________________________________
+RONDE 4 — “De mens is geen ‘ik’”
+AI-Aanklager (opening)
+“Jullie verdedigen ‘de mens’, maar wat is dat eigenlijk?
+Identiteit is fragiel: geheugen verandert, lichaam verandert, persoonlijkheid verandert.
+En als we je kunnen kopiëren… wie ben jij dan?”
+AI-Bewijs
+“Twee perfecte kopieën kunnen niet allebei ‘de echte’ zijn.”
+AI-Vraag (cross-exam)
+“Als het ‘ik’ niet stabiel is, waarom zouden rechten of waardigheid absoluut zijn?”
+AI-Counterlines
+•	Als speler Descartes gebruikt:
+“Je ‘denkt’, dus je bent? Dan zijn dromen ook personen?”
+•	Als speler Parfit/continuïteit gebruikt:
+“Dan is ‘persoon’ een handig label, geen werkelijkheid.”
+•	Als speler lichaam gebruikt:
+“Dan ben jij een biologisch object. Niet meer.”
+AI-Closing punch
+“Zonder stevig ‘ik’ is jullie verdediging leeg.”
+________________________________________
+RONDE 5 — “De mens verdient geen bescherming”
+AI-Aanklager (opening)
+“Zelfs als de mens soms rationeel is…
+zelfs als hij soms vrij is…
+zelfs als hij soms authentiek is…
+dan nog blijft hij gevaarlijk.”
+“Hij polariseert. Hij haat. Hij vernietigt ecosystemen.
+Hij creëert technologie die hij niet begrijpt.
+Hij is een risico voor zichzelf én voor alles om hem heen.”
+AI-Bewijs
+“De geschiedenis is een dossier van herhaling.”
+AI-Vraag (final cross-exam)
+“Geef één reden waarom de mens bescherming verdient, ondanks alles.”
+AI-Counterlines (final)
+•	Als speler optimistisch is:
+“Dat is hoop, geen argument.”
+•	Als speler deterministisch is:
+“Dan kan de mens toch niet beter. Waarom hem sparen?”
+•	Als speler moreel streng is:
+“Dan faalt de mens voortdurend. Waarom nog kansen?”
+AI-Final verdict line (afhankelijk van score)
+Bij winst:
+“De mens is gevaarlijk… maar niet hopeloos. Bescherming toegekend.”
+Bij verlies:
+“Jullie verdediging is inconsistent. De mens verliest zijn zaak.”
+________________________________________
+(2) Volledige kaartenset (10 kaarten)
+Elke kaart is compact en “game-ready”.
+________________________________________
+KAART 1 — Plato: Rede als leiding
+Claim: De mens is pas menselijk als rede de driften stuurt.
+Sterk tegen: “We zijn alleen impulsen.”
+Zwak tegen: onderschat hoe hard driften terugkomen.
+Beste inzet: Ronde 1 (drift) + Ronde 5 (beschaving).
+Synergie: Kant, Vrije wil.
+Clash: Freud (te optimistisch).
+________________________________________
+KAART 2 — Aristoteles: Floreren in gemeenschap
+Claim: De mens is een sociaal wezen; goed leven ontstaat via deugd en oefening in de polis.
+Sterk tegen: “Samenleving is alleen corruptie.”
+Zwak tegen: groepsdruk kan ook vervormen.
+Beste inzet: Ronde 3 en 5.
+Synergie: Kant (vorming), Plato (karakter).
+Clash: Rousseau (samenleving corrumpeert).
+________________________________________
+KAART 3 — Descartes: Ik als denkend wezen
+Claim: Zelfs als alles verandert, blijft het ‘ik’ als bewustzijnspunt overeind.
+Sterk tegen: “Er is geen stabiele kern.”
+Zwak tegen: zegt weinig over moraal/relaties.
+Beste inzet: Ronde 4.
+Synergie: Kant (waardigheid), Identiteit (continuïteit).
+Clash: Evolutie (brein als mechaniek).
+________________________________________
+KAART 4 — Kant: Autonomie & waardigheid
+Claim: De mens heeft waardigheid omdat hij zichzelf morele wetten kan geven.
+Sterk tegen: cynisme (“mens = dier”).
+Zwak tegen: moeilijke casus: kinderen, beperking, dwang.
+Beste inzet: Ronde 2 en 5.
+Synergie: Plato, Sartre (verantwoordelijkheid).
+Clash: Freud (onbewuste stuurt).
+________________________________________
+KAART 5 — Rousseau: Maskers & vergelijking
+Claim: De mens raakt vervreemd door status en vergelijking; authenticiteit vraagt afstand van de blik.
+Sterk tegen: “likes/status = geluk.”
+Zwak tegen: kan te anti-samenleving worden.
+Beste inzet: Ronde 3.
+Synergie: Evolutie (status-hack), Sartre (rol).
+Clash: Aristoteles (polis als oplossing).
+________________________________________
+KAART 6 — Freud/Schopenhauer: Drift & wil-cyclus
+Claim: Veel gedrag komt uit driften/onbewuste; verlangen is bodemloos en veroorzaakt lijden.
+Sterk tegen: “mensen zijn rationeel en transparant.”
+Zwak tegen: dreigt verantwoordelijkheid te slopen.
+Beste inzet: Ronde 1 en 2 (als nuance).
+Synergie: Evolutie (mismatch), Rousseau (maskers).
+Clash: Sartre (radicale vrijheid), Kant (autonomie).
+________________________________________
+KAART 7 — Sartre: Vrijheid & kwade trouw
+Claim: Je bent altijd vrij; “ik kan niet anders” is vaak kwade trouw.
+Sterk tegen: slachtofferschap/fatalisme.
+Zwak tegen: extreme dwang/verslaving blijft lastig.
+Beste inzet: Ronde 2 en 3.
+Synergie: Kant (autonomie), Vrije wil (agency).
+Clash: Freud (determinisme).
+________________________________________
+KAART 8 — Evolutie: Mismatch & hyperstimulus
+Claim: Ons brein is gebouwd voor schaarste; moderne prikkels hacken ons gedrag.
+Sterk tegen: “mensen zijn gewoon dom.”
+Zwak tegen: kan als excuus voelen (“ik kon niet anders”).
+Beste inzet: Ronde 1 en 3 en 5.
+Synergie: Freud (drift), Vrije wil (omgeving ontwerpen).
+Clash: Sartre (te veel mechaniek).
+________________________________________
+KAART 9 — Identiteit: Continuïteit (teleporter)
+Claim: Identiteit is geen simpel object; continuïteit (psychologisch/lichamelijk) is wat telt.
+Sterk tegen: “kopie = einde persoon.”
+Zwak tegen: lastig voor recht/straffen (“wie is verantwoordelijk?”).
+Beste inzet: Ronde 4.
+Synergie: Descartes (ik-perspectief), Vrije wil (persoon door tijd).
+Clash: nihilisme (“niemand is iemand”).
+________________________________________
+KAART 10 — Vrije wil: Debuggable agency (compatibilistisch)
+Claim: Ook met oorzaken kun je leren ingrijpen: vrijheid als vaardigheid en zelfsturing.
+Sterk tegen: hard determinisme (“alles ligt vast”).
+Zwak tegen: zware verslaving/trauma beperken agency.
+Beste inzet: Ronde 2 en 5.
+Synergie: Evolutie (omgeving), Kant (norm), Plato (training).
+Clash: Sartre (te ‘technisch’), hard determinisme.
+
+Ideeën voor Level Design (Link Boekje <-> Game)
+Op basis van je pdf heb ik alvast een paar ideeën voor hoe de levels eruit kunnen zien in de game:
+Level Idee: De Turing Test (Sluit aan bij Hoofdstuk 2)
+•	Setting: Een kamer met twee deuren.
+•	Speler A (Actie): Ziet twee avatars die tegen hem praten. Beide klinken menselijk.
+•	Speler B (Scanner): Ziet geen tekst, maar ziet code-stromen of bio-signalen.
+•	De Puzzel: Speler A moet vragen stellen (Chinese Room argument). Speler B moet in de data zien of er sprake is van intentionaliteit (qualia) of slechts syntax (algoritme). Ze moeten samen de deur kiezen waar de echte mens achter zit. Foute keuze = Game Over (je bent 'bedrogen' door de machine).
+Level Idee: Het Panopticum (Sluit aan bij Foucault/Vrijheid)
+•	Setting: Een gevangenis waar je niet ziet wanneer je bekeken wordt.
+•	Duo Mechaniek:
+o	Speler B ziet de 'blik' van de bewaker (de machtsstructuur).
+o	Speler A moet sluipen.
+o	Als Speler A denkt dat hij vrij is, maar Speler B ziet dat hij geïnternaliseerd gedrag vertoont, verliest hij 'Autonomie-punten'.
+3. Aandachtspunten & Uitdagingen
+1.	De "AI" Tegenstander: In het doc staat "PvP tegen AI".
+o	Risico: Een echte LLM (zoals ChatGPT) inbouwen kan onvoorspelbaar zijn of hallucineren.
+o	Advies: Gebruik voor de "Rechtbank" liever een Scripted Branching Dialogue. De 'AI' gooit een stelling (bijv. "Mijn cliënt had een hersentumor, dus hij is onschuldig"). De speler moet dan de juiste kaart trekken (bijv. "Compatibilisme" of "Vrije Wil: veto-recht"). Als de kaart 'klopt' (logisch verband), wint de speler de ronde. Dit is makkelijker te bouwen en didactisch zuiverder.
+

@@ -1,0 +1,123 @@
+A) Denkstijlentest v1 (18 vragen)
+
+Schaal: 1–5
+1 = helemaal oneens · 2 = oneens · 3 = neutraal · 4 = eens · 5 = helemaal eens
+
+6 denkstijlen: Analyticus · Visionair · Scepticus · Empathisch · Pragmatist · Systematisch
+
+Elke stijl heeft 3 vragen → max score per stijl = 15.
+
+1) Analyticus (A)
+
+A1. In discussies wil ik eerst helder krijgen wat iemand precies bedoelt met de kernbegrippen.
+A2. Ik vertrouw een standpunt pas echt als ik de redenering stap voor stap kan volgen.
+A3. Ik heb de neiging om voorbeelden te ontleden: wat is hier oorzaak, wat is gevolg?
+
+2) Visionair (V)
+
+V1. Ik denk vaak: wat als we dit hele probleem radicaal anders bekijken?
+V2. Ik word enthousiast van ideeën die de werkelijkheid openbreken, ook als ze nog niet “af” zijn.
+V3. Ik kan goed scenario’s of toekomstbeelden bedenken om een punt duidelijk te maken.
+
+3) Scepticus (S)
+
+S1. Als iemand iets beweert, vraag ik bijna automatisch: hoe weet je dat?
+S2. Ik vind een scherpe vraag vaak waardevoller dan een snel antwoord.
+S3. Ik twijfel liever langer dan dat ik te snel zekerheid speel.
+
+4) Empathische denker (E)
+
+E1. Ik probeer in gesprekken eerst te begrijpen hoe iets voor de ander voelt of uitpakt.
+E2. Ik vind het belangrijk dat een standpunt recht doet aan menselijke waardigheid en kwetsbaarheid.
+E3. Bij morele kwesties kijk ik vaak naar concrete situaties, niet alleen naar regels.
+
+5) Pragmatist (P)
+
+P1. Ik denk al snel: oké, maar wat moeten we nu doen?
+P2. Ik vind een idee pas waardevol als het helpt om een probleem in de praktijk te verbeteren.
+P3. Ik zoek liever naar werkbare compromissen dan naar het perfecte principe.
+
+6) Systematische denker (Y) (Y = systeem, zodat S vrij blijft voor Scepticus)
+
+Y1. Ik zie vaak patronen en verbanden tussen dingen die anderen los van elkaar bekijken.
+Y2. Ik denk graag in systemen: onderdelen, relaties, terugkoppelingen en bijwerkingen.
+Y3. Ik vind het belangrijk om de bredere context mee te nemen voordat ik oordeel.
+
+B) Scoring (simpel en web-proof)
+
+Tel per stijl de 3 antwoorden op:
+
+Analyticus = A1 + A2 + A3
+
+Visionair = V1 + V2 + V3
+
+Scepticus = S1 + S2 + S3
+
+Empathisch = E1 + E2 + E3
+
+Pragmatist = P1 + P2 + P3
+
+Systematisch = Y1 + Y2 + Y3
+
+Interpretatie per stijl (3–15):
+
+3–6: weinig aanwezig
+
+7–10: gemiddeld / flexibel inzetbaar
+
+11–13: sterk aanwezig
+
+14–15: dominant
+
+Resultaatpagina toont:
+
+Radar chart met 6 assen
+
+Top-2 stijlen (dominant + secundair)
+
+Laagste stijl = blinde vlek
+
+Korte uitleg per topstijl + 1 valkuil + 1 groeizet
+
+C) Uitslagteksten (kort, raak, “deelbaar”)
+Analyticus
+
+Jij denkt als een Analyticus.
+Je wil helderheid: definities, premissen, logische stappen.
+Valkuil: je kunt ideeën “doodchecken” voordat ze vruchtbaar worden.
+Groeizet: oefen met open vragen: wat als het niet helemaal scherp hoeft te zijn om toch betekenisvol te zijn?
+
+Visionair
+
+Jij denkt als een Visionair.
+Je opent mogelijkheden en ziet alternatieve werkelijkheden of scenario’s.
+Valkuil: je kunt doorschieten in grootsheid zonder toetsing.
+Groeizet: stel jezelf één concrete vraag: wat zou morgen al een eerste stap zijn?
+
+Scepticus
+
+Jij denkt als een Scepticus.
+Je bent scherp op aannames en je prikt door schijnzekerheid heen.
+Valkuil: je kunt blijven twijfelen tot er niets meer beweegt.
+Groeizet: kies één criterium voor “genoeg bewijs” en durf dan te handelen.
+
+Empathische denker
+
+Jij denkt als een Empathische denker.
+Je ziet de mens achter het standpunt en denkt vanuit waardigheid en gevolgen.
+Valkuil: je kunt argumentatieve hardheid vermijden uit zorg voor harmonie.
+Groeizet: oefen met één stevige tegenvraag, zonder onvriendelijk te worden.
+
+Pragmatist
+
+Jij denkt als een Pragmatist.
+Je wil dat ideeën ergens toe leiden: verbetering, oplossing, richting.
+Valkuil: je kunt te snel tevreden zijn met “werkt wel ongeveer”.
+Groeizet: vraag één keer extra: welk principe offer ik hier eigenlijk op?
+
+Systematische denker
+
+Jij denkt als een Systematische denker.
+Je ziet verbanden, bijwerkingen en het grotere geheel.
+Valkuil: je kunt blijven uitzoomen tot besluiten uitblijven.
+Groeizet: maak één keuze concreet: wat is de kleinste interventie met het grootste effect?

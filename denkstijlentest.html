@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denkstijlentest - Oostvaarders College</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --petrol: #1a7a8a;
+            --petrol-dark: #145f6a;
+            --oker: #c9a227;
+            --oker-light: #e6c55a;
+            --groen: #2d8a4e;
+            --donkergrijs: #333333;
+            --middengrijs: #666666;
+            --lichtgrijs: #999999;
+            --achtergrond: #ffffff;
+            --achtergrond-licht: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--donkergrijs);
+            background: var(--achtergrond-licht);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            background: var(--achtergrond);
+            padding: 1rem 2rem;
+            border-bottom: 4px solid var(--oker);
+            text-align: center;
+        }
+
+        header h1 {
+            color: var(--petrol);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            color: var(--lichtgrijs);
+            font-size: 0.9rem;
+        }
+
+        /* Screens */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Intro Screen */
+        .intro-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .intro-card h2 {
+            color: var(--petrol);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p {
+            color: var(--middengrijs);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .intro-card ul {
+            text-align: left;
+            list-style: none;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--achtergrond-licht);
+            border-radius: 4px;
+        }
+
+        .intro-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .intro-card li::before {
+            content: "✓";
+            color: var(--groen);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--petrol);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--petrol-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Question Screen */
+        .question-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--lichtgrijs);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--petrol), var(--oker));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Question */
+        .question-number {
+            color: var(--oker);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            color: var(--donkergrijs);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Answer Options */
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            background: var(--achtergrond-licht);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .answer-option:hover {
+            border-color: var(--petrol);
+            background: white;
+        }
+
+        .answer-option.selected {
+            border-color: var(--petrol);
+            background: rgba(26, 122, 138, 0.1);
+        }
+
+        .answer-option input {
+            display: none;
+        }
+
+        .answer-circle {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--lichtgrijs);
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .answer-option.selected .answer-circle {
+            border-color: var(--petrol);
+            background: var(--petrol);
+        }
+
+        .answer-option.selected .answer-circle::after {
+            content: "✓";
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .answer-label {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .answer-value {
+            color: var(--lichtgrijs);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--middengrijs);
+            border: 2px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: var(--achtergrond-licht);
+            border-color: var(--middengrijs);
+            transform: none;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results Screen */
+        .results-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .results-card h2 {
+            color: var(--petrol);
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            max-width: 400px;
+            margin: 0 auto 2rem;
+        }
+
+        .top-styles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 500px) {
+            .top-styles {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .style-card {
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--petrol);
+            background: var(--achtergrond-licht);
+        }
+
+        .style-card.primary {
+            border-left-color: var(--oker);
+        }
+
+        .style-card.secondary {
+            border-left-color: var(--petrol);
+        }
+
+        .style-card.lowest {
+            border-left-color: var(--lichtgrijs);
+            background: white;
+        }
+
+        .style-card h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--lichtgrijs);
+            margin-bottom: 0.3rem;
+        }
+
+        .style-card .style-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--petrol);
+            margin-bottom: 0.5rem;
+        }
+
+        .style-card.primary .style-name {
+            color: var(--oker);
+        }
+
+        .style-card p {
+            font-size: 0.85rem;
+            color: var(--middengrijs);
+            line-height: 1.5;
+        }
+
+        .style-card .score {
+            font-size: 0.8rem;
+            color: var(--lichtgrijs);
+            margin-top: 0.5rem;
+        }
+
+        .valkuil, .groeizet {
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+        }
+
+        .valkuil strong, .groeizet strong {
+            color: var(--donkergrijs);
+        }
+
+        .lowest-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed #ddd;
+        }
+
+        .lowest-section h3 {
+            font-size: 1rem;
+            color: var(--donkergrijs);
+            margin-bottom: 1rem;
+        }
+
+        /* Filosoof Card */
+        .filosoof-card {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .filosoof-card .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .filosoof-card .name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .filosoof-card .years {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .filosoof-card .quote {
+            font-style: italic;
+            font-size: 1.05rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .filosoof-card .description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .filosoof-card .denkstijl-match {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .filosoof-card .portrait {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+        }
+
+        .filosoof-card .portrait svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-share {
+            background: var(--groen);
+        }
+
+        .btn-share:hover {
+            background: #246b3e;
+        }
+
+        .btn-retry {
+            background: transparent;
+            color: var(--petrol);
+            border: 2px solid var(--petrol);
+        }
+
+        .btn-retry:hover {
+            background: var(--petrol);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--lichtgrijs);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--petrol);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Denkstijlentest</h1>
+        <p>Oostvaarders College — Filosofie</p>
+    </header>
+
+    <div class="container">
+        <!-- Intro Screen -->
+        <div id="intro-screen" class="screen active">
+            <div class="intro-card">
+                <h2>Ontdek jouw denkstijl</h2>
+                <p>Hoe denk jij? Ben je analytisch, visionair, sceptisch of juist empathisch? Deze test laat zien welke filosofische denkstijlen bij jou passen.</p>
+
+                <ul>
+                    <li>18 stellingen</li>
+                    <li>6 denkstijlen</li>
+                    <li>Geen goede of foute antwoorden</li>
+                    <li>Radar chart van je profiel</li>
+                    <li>Koppeling aan een filosoof</li>
+                </ul>
+
+                <button class="btn" onclick="startTest()">Start de test</button>
+            </div>
+        </div>
+
+        <!-- Question Screen -->
+        <div id="question-screen" class="screen">
+            <div class="question-card">
+                <div class="progress-container">
+                    <div class="progress-text">
+                        <span id="progress-label">Vraag 1 van 18</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="question-number" id="question-category">Analyticus</div>
+                <div class="question-text" id="question-text">Vraag komt hier...</div>
+
+                <div class="answers" id="answers">
+                    <!-- Answers generated by JS -->
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="btn-prev" onclick="prevQuestion()" disabled>Vorige</button>
+                    <button class="btn" id="btn-next" onclick="nextQuestion()" disabled>Volgende</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-card">
+                <h2>Jouw Denkprofiel</h2>
+
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+
+                <div id="filosoof-section">
+                    <!-- Generated by JS -->
+                </div>
+
+                <div class="top-styles" id="top-styles">
+                    <!-- Generated by JS -->
+                </div>
+
+                <div class="lowest-section">
+                    <h3>Blinde vlek</h3>
+                    <div id="lowest-style">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-retry" onclick="retryTest()">Opnieuw doen</button>
+                    <a href="index.html" class="btn">Terug naar Filosofie</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p><a href="index.html">← Terug naar Filosofie</a> — Oostvaarders College</p>
+    </footer>
+
+    <script>
+        // Questions data
+        const questions = [
+            { id: 'A1', category: 'Analyticus', text: 'In discussies wil ik eerst helder krijgen wat iemand precies bedoelt met de kernbegrippen.' },
+            { id: 'A2', category: 'Analyticus', text: 'Ik vertrouw een standpunt pas echt als ik de redenering stap voor stap kan volgen.' },
+            { id: 'A3', category: 'Analyticus', text: 'Ik heb de neiging om voorbeelden te ontleden: wat is hier oorzaak, wat is gevolg?' },
+            { id: 'V1', category: 'Visionair', text: 'Ik denk vaak: wat als we dit hele probleem radicaal anders bekijken?' },
+            { id: 'V2', category: 'Visionair', text: 'Ik word enthousiast van ideeën die de werkelijkheid openbreken, ook als ze nog niet "af" zijn.' },
+            { id: 'V3', category: 'Visionair', text: 'Ik kan goed scenario\'s of toekomstbeelden bedenken om een punt duidelijk te maken.' },
+            { id: 'S1', category: 'Scepticus', text: 'Als iemand iets beweert, vraag ik bijna automatisch: hoe weet je dat?' },
+            { id: 'S2', category: 'Scepticus', text: 'Ik vind een scherpe vraag vaak waardevoller dan een snel antwoord.' },
+            { id: 'S3', category: 'Scepticus', text: 'Ik twijfel liever langer dan dat ik te snel zekerheid speel.' },
+            { id: 'E1', category: 'Empathisch', text: 'Ik probeer in gesprekken eerst te begrijpen hoe iets voor de ander voelt of uitpakt.' },
+            { id: 'E2', category: 'Empathisch', text: 'Ik vind het belangrijk dat een standpunt recht doet aan menselijke waardigheid en kwetsbaarheid.' },
+            { id: 'E3', category: 'Empathisch', text: 'Bij morele kwesties kijk ik vaak naar concrete situaties, niet alleen naar regels.' },
+            { id: 'P1', category: 'Pragmatist', text: 'Ik denk al snel: oké, maar wat moeten we nu doen?' },
+            { id: 'P2', category: 'Pragmatist', text: 'Ik vind een idee pas waardevol als het helpt om een probleem in de praktijk te verbeteren.' },
+            { id: 'P3', category: 'Pragmatist', text: 'Ik zoek liever naar werkbare compromissen dan naar het perfecte principe.' },
+            { id: 'Y1', category: 'Systematisch', text: 'Ik zie vaak patronen en verbanden tussen dingen die anderen los van elkaar bekijken.' },
+            { id: 'Y2', category: 'Systematisch', text: 'Ik denk graag in systemen: onderdelen, relaties, terugkoppelingen en bijwerkingen.' },
+            { id: 'Y3', category: 'Systematisch', text: 'Ik vind het belangrijk om de bredere context mee te nemen voordat ik oordeel.' }
+        ];
+
+        // Style descriptions
+        const styleDescriptions = {
+            'Analyticus': {
+                description: 'Je wil helderheid: definities, premissen, logische stappen.',
+                valkuil: 'Je kunt ideeën "doodchecken" voordat ze vruchtbaar worden.',
+                groeizet: 'Oefen met open vragen: wat als het niet helemaal scherp hoeft te zijn om toch betekenisvol te zijn?'
+            },
+            'Visionair': {
+                description: 'Je opent mogelijkheden en ziet alternatieve werkelijkheden of scenario\'s.',
+                valkuil: 'Je kunt doorschieten in grootsheid zonder toetsing.',
+                groeizet: 'Stel jezelf één concrete vraag: wat zou morgen al een eerste stap zijn?'
+            },
+            'Scepticus': {
+                description: 'Je bent scherp op aannames en je prikt door schijnzekerheid heen.',
+                valkuil: 'Je kunt blijven twijfelen tot er niets meer beweegt.',
+                groeizet: 'Kies één criterium voor "genoeg bewijs" en durf dan te handelen.'
+            },
+            'Empathisch': {
+                description: 'Je ziet de mens achter het standpunt en denkt vanuit waardigheid en gevolgen.',
+                valkuil: 'Je kunt argumentatieve hardheid vermijden uit zorg voor harmonie.',
+                groeizet: 'Oefen met één stevige tegenvraag, zonder onvriendelijk te worden.'
+            },
+            'Pragmatist': {
+                description: 'Je wil dat ideeën ergens toe leiden: verbetering, oplossing, richting.',
+                valkuil: 'Je kunt te snel tevreden zijn met "werkt wel ongeveer".',
+                groeizet: 'Vraag één keer extra: welk principe offer ik hier eigenlijk op?'
+            },
+            'Systematisch': {
+                description: 'Je ziet verbanden, bijwerkingen en het grotere geheel.',
+                valkuil: 'Je kunt blijven uitzoomen tot besluiten uitblijven.',
+                groeizet: 'Maak één keuze concreet: wat is de kleinste interventie met het grootste effect?'
+            }
+        };
+
+        // Filosoof koppelingen per denkstijl
+        const filosofen = {
+            'Analyticus': {
+                naam: 'Aristoteles',
+                jaren: '384-322 v.Chr.',
+                quote: '"Het is het kenmerk van een ontwikkeld mens om een gedachte te kunnen overwegen zonder haar te aanvaarden."',
+                beschrijving: 'De grondlegger van de logica en systematische analyse. Aristoteles onderzocht alles met precisie: van ethiek tot biologie. Hij zocht naar heldere definities en logische structuren.',
+                match: 'Net als jij hield Aristoteles van helder denken, stap voor stap redeneren en begrippen scherp krijgen.',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Achtergrond -->
+                    <circle cx="50" cy="50" r="48" fill="#4a6741"/>
+                    <!-- Haar -->
+                    <ellipse cx="50" cy="35" rx="28" ry="22" fill="#3d3229"/>
+                    <!-- Gezicht -->
+                    <ellipse cx="50" cy="48" rx="22" ry="26" fill="#e8d4b8"/>
+                    <!-- Baard -->
+                    <path d="M28 55 Q30 85 50 88 Q70 85 72 55 Q70 70 50 75 Q30 70 28 55" fill="#5c4a3d"/>
+                    <!-- Wenkbrauwen -->
+                    <path d="M35 38 Q42 35 48 38" stroke="#3d3229" stroke-width="2" fill="none"/>
+                    <path d="M52 38 Q58 35 65 38" stroke="#3d3229" stroke-width="2" fill="none"/>
+                    <!-- Ogen -->
+                    <ellipse cx="40" cy="45" rx="5" ry="3" fill="#2c2416"/>
+                    <ellipse cx="60" cy="45" rx="5" ry="3" fill="#2c2416"/>
+                    <!-- Neus -->
+                    <path d="M50 48 L48 58 Q50 60 52 58 L50 48" fill="#d4c0a8"/>
+                    <!-- Toga -->
+                    <path d="M20 88 Q25 75 35 72 L50 78 L65 72 Q75 75 80 88 L80 100 L20 100 Z" fill="#c9b896"/>
+                    <path d="M35 72 Q50 68 65 72" stroke="#a89878" stroke-width="2" fill="none"/>
+                </svg>`
+            },
+            'Visionair': {
+                naam: 'Plato',
+                jaren: '428-348 v.Chr.',
+                quote: '"De werkelijkheid die we zien is slechts een schaduw van de ware ideeën."',
+                beschrijving: 'De filosoof van de ideeënwereld. Plato keek voorbij het zichtbare naar een hogere werkelijkheid. Zijn Allegorie van de Grot nodigt uit om radicaal anders naar de wereld te kijken.',
+                match: 'Net als jij zag Plato mogelijkheden die anderen niet zagen en durfde hij te dromen van een betere werkelijkheid.',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Achtergrond -->
+                    <circle cx="50" cy="50" r="48" fill="#5c4b8a"/>
+                    <!-- Kaal hoofd met krans -->
+                    <ellipse cx="50" cy="42" rx="26" ry="24" fill="#e8d4b8"/>
+                    <!-- Laurierkrans -->
+                    <path d="M25 38 Q30 28 40 30" stroke="#6b8e5e" stroke-width="3" fill="none"/>
+                    <path d="M30 42 Q35 32 45 34" stroke="#6b8e5e" stroke-width="3" fill="none"/>
+                    <path d="M75 38 Q70 28 60 30" stroke="#6b8e5e" stroke-width="3" fill="none"/>
+                    <path d="M70 42 Q65 32 55 34" stroke="#6b8e5e" stroke-width="3" fill="none"/>
+                    <!-- Witte baard -->
+                    <path d="M30 52 Q32 80 50 85 Q68 80 70 52 Q65 68 50 72 Q35 68 30 52" fill="#d8d0c8"/>
+                    <!-- Wenkbrauwen -->
+                    <path d="M35 42 Q42 40 47 43" stroke="#8c7c6c" stroke-width="1.5" fill="none"/>
+                    <path d="M53 43 Q58 40 65 42" stroke="#8c7c6c" stroke-width="1.5" fill="none"/>
+                    <!-- Ogen - wijze blik -->
+                    <ellipse cx="40" cy="48" rx="4" ry="3" fill="#2c2416"/>
+                    <ellipse cx="60" cy="48" rx="4" ry="3" fill="#2c2416"/>
+                    <!-- Neus -->
+                    <path d="M50 50 L47 58 Q50 60 53 58 L50 50" fill="#d4c0a8"/>
+                    <!-- Toga -->
+                    <path d="M18 95 Q28 78 40 75 L50 80 L60 75 Q72 78 82 95 L82 100 L18 100 Z" fill="#e8e0d8"/>
+                </svg>`
+            },
+            'Scepticus': {
+                naam: 'David Hume',
+                jaren: '1711-1776',
+                quote: '"Een wijs man past zijn overtuigingen aan de bewijzen aan."',
+                beschrijving: 'De grote scepticus van de Verlichting. Hume betwijfelde alles: van causaliteit tot het bestaan van het zelf. Hij vertrouwde alleen op wat ervaring kon bevestigen.',
+                match: 'Net als jij stelde Hume kritische vragen en nam hij niets zomaar aan. Twijfel was voor hem het begin van wijsheid.',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Achtergrond -->
+                    <circle cx="50" cy="50" r="48" fill="#8a5c5c"/>
+                    <!-- 18e eeuws haar/pruik -->
+                    <ellipse cx="50" cy="38" rx="30" ry="22" fill="#d8d0c8"/>
+                    <ellipse cx="25" cy="50" rx="10" ry="15" fill="#d8d0c8"/>
+                    <ellipse cx="75" cy="50" rx="10" ry="15" fill="#d8d0c8"/>
+                    <!-- Gezicht - rond -->
+                    <ellipse cx="50" cy="52" rx="22" ry="24" fill="#f0e0cc"/>
+                    <!-- Wangen - mollig -->
+                    <ellipse cx="35" cy="58" rx="6" ry="4" fill="#e8c8b8"/>
+                    <ellipse cx="65" cy="58" rx="6" ry="4" fill="#e8c8b8"/>
+                    <!-- Wenkbrauwen - opgetrokken, sceptisch -->
+                    <path d="M32 44 Q40 40 48 44" stroke="#6c5c4c" stroke-width="2" fill="none"/>
+                    <path d="M52 44 Q60 40 68 44" stroke="#6c5c4c" stroke-width="2" fill="none"/>
+                    <!-- Ogen - onderzoekend -->
+                    <ellipse cx="40" cy="50" rx="4" ry="3" fill="#3c3428"/>
+                    <ellipse cx="60" cy="50" rx="4" ry="3" fill="#3c3428"/>
+                    <!-- Neus -->
+                    <ellipse cx="50" cy="60" rx="4" ry="5" fill="#e8d0bc"/>
+                    <!-- Subtiele glimlach -->
+                    <path d="M42 70 Q50 74 58 70" stroke="#8c6c5c" stroke-width="2" fill="none"/>
+                    <!-- Jas -->
+                    <path d="M20 92 Q30 80 42 82 L50 88 L58 82 Q70 80 80 92 L80 100 L20 100 Z" fill="#4a3c32"/>
+                    <path d="M42 82 L50 100" stroke="#3c2e24" stroke-width="1"/>
+                    <path d="M58 82 L50 100" stroke="#3c2e24" stroke-width="1"/>
+                </svg>`
+            },
+            'Empathisch': {
+                naam: 'Simone de Beauvoir',
+                jaren: '1908-1986',
+                quote: '"Je bent niet geboren als vrouw, je wordt vrouw." ',
+                beschrijving: 'Existentialistisch filosoof en voorvechtster van de ander. De Beauvoir onderzocht hoe mensen elkaars vrijheid kunnen erkennen en hoe ethiek begint bij de concrete ander.',
+                match: 'Net als jij zag De Beauvoir de mens achter het standpunt. Filosofie was voor haar altijd verbonden met menselijke waardigheid.',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Achtergrond -->
+                    <circle cx="50" cy="50" r="48" fill="#8a7a5c"/>
+                    <!-- Karakteristieke tulband -->
+                    <ellipse cx="50" cy="32" rx="28" ry="18" fill="#c9583a"/>
+                    <path d="M22 35 Q50 20 78 35" fill="#b84830"/>
+                    <path d="M35 28 Q50 22 65 28" stroke="#d86850" stroke-width="2" fill="none"/>
+                    <!-- Haar onder tulband -->
+                    <path d="M25 40 Q22 55 28 65" fill="#2c2420"/>
+                    <path d="M75 40 Q78 55 72 65" fill="#2c2420"/>
+                    <!-- Gezicht -->
+                    <ellipse cx="50" cy="55" rx="20" ry="24" fill="#f0e0d0"/>
+                    <!-- Wenkbrauwen - expressief -->
+                    <path d="M35 46 Q42 44 47 46" stroke="#4c3c2c" stroke-width="1.5" fill="none"/>
+                    <path d="M53 46 Q58 44 65 46" stroke="#4c3c2c" stroke-width="1.5" fill="none"/>
+                    <!-- Ogen - doordringend -->
+                    <ellipse cx="40" cy="52" rx="4" ry="3" fill="#2c2820"/>
+                    <ellipse cx="60" cy="52" rx="4" ry="3" fill="#2c2820"/>
+                    <circle cx="41" cy="51" r="1" fill="white"/>
+                    <circle cx="61" cy="51" r="1" fill="white"/>
+                    <!-- Neus -->
+                    <path d="M50 54 L48 62 Q50 64 52 62 L50 54" fill="#e0d0c0"/>
+                    <!-- Lippen -->
+                    <ellipse cx="50" cy="70" rx="6" ry="2" fill="#c47060"/>
+                    <!-- Nek/kleding -->
+                    <path d="M32 78 L30 100 L70 100 L68 78 Q50 82 32 78" fill="#1c1c1c"/>
+                </svg>`
+            },
+            'Pragmatist': {
+                naam: 'John Dewey',
+                jaren: '1859-1952',
+                quote: '"We leren niet van ervaring, we leren van het nadenken over ervaring."',
+                beschrijving: 'De filosoof van het doen. Dewey geloofde dat ideeën hun waarde bewijzen in de praktijk. Filosofie moest problemen oplossen, niet alleen maar theoretiseren.',
+                match: 'Net als jij vroeg Dewey zich altijd af: werkt dit? Ideeën waren voor hem gereedschap om de wereld te verbeteren.',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Achtergrond -->
+                    <circle cx="50" cy="50" r="48" fill="#5a7a8a"/>
+                    <!-- Haar - grijs, terugwijkend -->
+                    <path d="M25 42 Q30 25 50 22 Q70 25 75 42 Q72 35 50 32 Q28 35 25 42" fill="#9c9890"/>
+                    <!-- Gezicht - lang -->
+                    <ellipse cx="50" cy="52" rx="20" ry="26" fill="#f0e4d8"/>
+                    <!-- Rimpels voorhoofd -->
+                    <path d="M35 38 Q50 36 65 38" stroke="#d8ccbc" stroke-width="1" fill="none"/>
+                    <path d="M37 42 Q50 40 63 42" stroke="#d8ccbc" stroke-width="1" fill="none"/>
+                    <!-- Bril -->
+                    <circle cx="38" cy="50" r="9" fill="none" stroke="#3c3428" stroke-width="2"/>
+                    <circle cx="62" cy="50" r="9" fill="none" stroke="#3c3428" stroke-width="2"/>
+                    <path d="M47 50 L53 50" stroke="#3c3428" stroke-width="2"/>
+                    <path d="M29 48 L22 45" stroke="#3c3428" stroke-width="2"/>
+                    <path d="M71 48 L78 45" stroke="#3c3428" stroke-width="2"/>
+                    <!-- Ogen achter bril -->
+                    <ellipse cx="38" cy="50" rx="3" ry="2" fill="#3c3428"/>
+                    <ellipse cx="62" cy="50" rx="3" ry="2" fill="#3c3428"/>
+                    <!-- Snor -->
+                    <path d="M38 65 Q50 70 62 65 Q50 68 38 65" fill="#7c7870"/>
+                    <!-- Neus -->
+                    <path d="M50 52 L48 62 Q50 63 52 62 L50 52" fill="#e0d4c8"/>
+                    <!-- Mond -->
+                    <path d="M44 72 Q50 74 56 72" stroke="#8c6c5c" stroke-width="1.5" fill="none"/>
+                    <!-- Pak met das -->
+                    <path d="M25 92 Q35 82 45 85 L50 100 L55 85 Q65 82 75 92 L75 100 L25 100 Z" fill="#2c3e50"/>
+                    <path d="M45 85 L50 100 L55 85 L52 88 L50 100 L48 88 Z" fill="#8a4c4c"/>
+                </svg>`
+            },
+            'Systematisch': {
+                naam: 'Georg Hegel',
+                jaren: '1770-1831',
+                quote: '"Het geheel is het ware."',
+                beschrijving: 'De meester van het systeem. Hegel zag de werkelijkheid als een samenhangend geheel waarin alles met alles verbonden is. Zijn dialectiek toont hoe tegenstellingen samenkomen.',
+                match: 'Net als jij zag Hegel patronen en verbanden waar anderen losse delen zagen. Context was voor hem allesbepalend.',
+                portrait: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Achtergrond -->
+                    <circle cx="50" cy="50" r="48" fill="#4a5a6a"/>
+                    <!-- Hoog voorhoofd -->
+                    <ellipse cx="50" cy="45" rx="24" ry="28" fill="#f0e4d8"/>
+                    <!-- Haar - wild, donker -->
+                    <path d="M26 48 Q20 35 30 25 Q40 18 50 20 Q60 18 70 25 Q80 35 74 48" fill="#2c2420"/>
+                    <path d="M26 48 Q24 55 26 62" fill="#2c2420"/>
+                    <path d="M74 48 Q76 55 74 62" fill="#2c2420"/>
+                    <!-- Krullen -->
+                    <circle cx="28" cy="40" r="5" fill="#2c2420"/>
+                    <circle cx="72" cy="40" r="5" fill="#2c2420"/>
+                    <circle cx="35" cy="28" r="4" fill="#2c2420"/>
+                    <circle cx="65" cy="28" r="4" fill="#2c2420"/>
+                    <!-- Wenkbrauwen - gefronst, denkend -->
+                    <path d="M32 44 Q40 42 46 46" stroke="#3c2c20" stroke-width="2" fill="none"/>
+                    <path d="M54 46 Q60 42 68 44" stroke="#3c2c20" stroke-width="2" fill="none"/>
+                    <!-- Ogen - intens -->
+                    <ellipse cx="40" cy="50" rx="4" ry="3" fill="#2c2416"/>
+                    <ellipse cx="60" cy="50" rx="4" ry="3" fill="#2c2416"/>
+                    <!-- Neus - prominent -->
+                    <path d="M50 48 L46 60 Q50 63 54 60 L50 48" fill="#e0d4c8"/>
+                    <!-- Mond - serieus -->
+                    <path d="M42 68 L58 68" stroke="#7c5c4c" stroke-width="2"/>
+                    <!-- Hoge kraag - 19e eeuws -->
+                    <path d="M30 78 L28 85 L35 82 L40 88 L50 85 L60 88 L65 82 L72 85 L70 78 Q50 82 30 78" fill="white"/>
+                    <!-- Jas -->
+                    <path d="M20 95 Q30 85 40 88 L50 92 L60 88 Q70 85 80 95 L80 100 L20 100 Z" fill="#1c1c20"/>
+                </svg>`
+            }
+        };
+
+        const answerOptions = [
+            { value: 1, label: 'Helemaal oneens' },
+            { value: 2, label: 'Oneens' },
+            { value: 3, label: 'Neutraal' },
+            { value: 4, label: 'Eens' },
+            { value: 5, label: 'Helemaal eens' }
+        ];
+
+        let currentQuestion = 0;
+        let answers = {};
+        let radarChart = null;
+
+        function startTest() {
+            document.getElementById('intro-screen').classList.remove('active');
+            document.getElementById('question-screen').classList.add('active');
+            showQuestion(0);
+        }
+
+        function showQuestion(index) {
+            const question = questions[index];
+            document.getElementById('question-category').textContent = question.category;
+            document.getElementById('question-text').textContent = question.text;
+
+            // Update progress
+            const progress = ((index) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('progress-label').textContent = `Vraag ${index + 1} van ${questions.length}`;
+            document.getElementById('progress-percent').textContent = Math.round(progress) + '%';
+
+            // Generate answer options
+            const answersContainer = document.getElementById('answers');
+            answersContainer.innerHTML = answerOptions.map(opt => `
+                <label class="answer-option ${answers[question.id] === opt.value ? 'selected' : ''}" onclick="selectAnswer('${question.id}', ${opt.value})">
+                    <input type="radio" name="answer" value="${opt.value}" ${answers[question.id] === opt.value ? 'checked' : ''}>
+                    <div class="answer-circle"></div>
+                    <span class="answer-label">${opt.label}</span>
+                    <span class="answer-value">${opt.value}</span>
+                </label>
+            `).join('');
+
+            // Update navigation buttons
+            document.getElementById('btn-prev').disabled = index === 0;
+            document.getElementById('btn-next').textContent = index === questions.length - 1 ? 'Bekijk resultaat' : 'Volgende';
+            document.getElementById('btn-next').disabled = !answers[question.id];
+        }
+
+        function selectAnswer(questionId, value) {
+            answers[questionId] = value;
+
+            // Update visual selection
+            document.querySelectorAll('.answer-option').forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+
+            // Enable next button
+            document.getElementById('btn-next').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function calculateScores() {
+            const scores = {
+                'Analyticus': (answers['A1'] || 0) + (answers['A2'] || 0) + (answers['A3'] || 0),
+                'Visionair': (answers['V1'] || 0) + (answers['V2'] || 0) + (answers['V3'] || 0),
+                'Scepticus': (answers['S1'] || 0) + (answers['S2'] || 0) + (answers['S3'] || 0),
+                'Empathisch': (answers['E1'] || 0) + (answers['E2'] || 0) + (answers['E3'] || 0),
+                'Pragmatist': (answers['P1'] || 0) + (answers['P2'] || 0) + (answers['P3'] || 0),
+                'Systematisch': (answers['Y1'] || 0) + (answers['Y2'] || 0) + (answers['Y3'] || 0)
+            };
+            return scores;
+        }
+
+        function showResults() {
+            document.getElementById('question-screen').classList.remove('active');
+            document.getElementById('results-screen').classList.add('active');
+
+            const scores = calculateScores();
+
+            // Sort styles by score
+            const sortedStyles = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            const [primary, secondary] = sortedStyles.slice(0, 2);
+            const lowest = sortedStyles[sortedStyles.length - 1];
+
+            // Get matching filosoof based on dominant style
+            const filosoof = filosofen[primary[0]];
+
+            // Show filosoof card
+            document.getElementById('filosoof-section').innerHTML = `
+                <div class="filosoof-card">
+                    <div class="portrait">${filosoof.portrait}</div>
+                    <div class="label">Jouw filosoof</div>
+                    <div class="name">${filosoof.naam}</div>
+                    <div class="years">${filosoof.jaren}</div>
+                    <div class="quote">${filosoof.quote}</div>
+                    <div class="description">${filosoof.beschrijving}</div>
+                    <div class="denkstijl-match">${filosoof.match}</div>
+                </div>
+            `;
+
+            // Create radar chart
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            if (radarChart) {
+                radarChart.destroy();
+            }
+            radarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: Object.keys(scores),
+                    datasets: [{
+                        label: 'Jouw score',
+                        data: Object.values(scores),
+                        backgroundColor: 'rgba(26, 122, 138, 0.2)',
+                        borderColor: '#1a7a8a',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#1a7a8a',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#1a7a8a'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 15,
+                            ticks: {
+                                stepSize: 3
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Show top styles
+            const topStylesHtml = `
+                <div class="style-card primary">
+                    <h3>Dominant</h3>
+                    <div class="style-name">${primary[0]}</div>
+                    <p>${styleDescriptions[primary[0]].description}</p>
+                    <p class="valkuil"><strong>Valkuil:</strong> ${styleDescriptions[primary[0]].valkuil}</p>
+                    <p class="groeizet"><strong>Groeizet:</strong> ${styleDescriptions[primary[0]].groeizet}</p>
+                    <div class="score">Score: ${primary[1]}/15</div>
+                </div>
+                <div class="style-card secondary">
+                    <h3>Secundair</h3>
+                    <div class="style-name">${secondary[0]}</div>
+                    <p>${styleDescriptions[secondary[0]].description}</p>
+                    <p class="valkuil"><strong>Valkuil:</strong> ${styleDescriptions[secondary[0]].valkuil}</p>
+                    <p class="groeizet"><strong>Groeizet:</strong> ${styleDescriptions[secondary[0]].groeizet}</p>
+                    <div class="score">Score: ${secondary[1]}/15</div>
+                </div>
+            `;
+            document.getElementById('top-styles').innerHTML = topStylesHtml;
+
+            // Show lowest style
+            const lowestHtml = `
+                <div class="style-card lowest">
+                    <div class="style-name">${lowest[0]}</div>
+                    <p>${styleDescriptions[lowest[0]].description}</p>
+                    <p>Dit is mogelijk een blinde vlek in je denken. Overweeg om deze stijl bewust te oefenen.</p>
+                    <div class="score">Score: ${lowest[1]}/15</div>
+                </div>
+            `;
+            document.getElementById('lowest-style').innerHTML = lowestHtml;
+        }
+
+        function retryTest() {
+            answers = {};
+            currentQuestion = 0;
+            if (radarChart) {
+                radarChart.destroy();
+                radarChart = null;
+            }
+            document.getElementById('results-screen').classList.remove('active');
+            document.getElementById('intro-screen').classList.add('active');
+        }
+    </script>
+</body>
+</html>

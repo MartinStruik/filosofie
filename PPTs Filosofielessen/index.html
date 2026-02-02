@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filosofielessen - Oostvaarders College</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: white;
+            background: linear-gradient(135deg, #1a7a8a 0%, #0d4a54 100%);
+            min-height: 100vh;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: rgba(0,0,0,0.2);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #c9a227;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #c9a227;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.85;
+            font-size: 1rem;
+        }
+
+        .label {
+            display: inline-block;
+            background: #c9a227;
+            color: #1a2a3a;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        /* --- MAIN --- */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .intro-text {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #c9a227;
+        }
+
+        .intro-text p {
+            opacity: 0.95;
+        }
+
+        /* --- FILE LIST --- */
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .file-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .file-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(5px);
+            border-color: #c9a227;
+        }
+
+        .file-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .file-icon {
+            font-size: 1.8rem;
+            opacity: 0.8;
+        }
+
+        .file-details h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: white;
+        }
+
+        .file-details .author {
+            font-size: 0.85rem;
+            color: #c9a227;
+            font-style: italic;
+        }
+
+        .file-details .description {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .download-btn {
+            background: #c9a227;
+            color: #1a2a3a;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            background: #e6c55a;
+            transform: translateY(-2px);
+        }
+
+        /* --- CATEGORY HEADERS --- */
+        .category {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .category h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #c9a227;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            opacity: 0.6;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .file-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../index.html" class="back-link">← Terug naar hoofdpagina</a>
+            <span class="label">Leerlingenwerk</span>
+            <h1>FILOSOFIELESSEN</h1>
+            <p>Lesbrieven ontworpen en uitgevoerd door leerlingen</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="intro-text">
+            <p>Hier vind je de lesbrieven van leerlingen die zelf een filosofische les hebben ontworpen en gegeven aan hun klasgenoten. Download een lesbrief ter inspiratie voor je eigen les!</p>
+        </div>
+
+        <div class="category">
+            <h2>Thematische Lessen</h2>
+        </div>
+
+        <div class="file-list">
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Het fenomeen Déjà Vu</h3>
+                        <span class="description">Een filosofische verkenning van het déjà vu-verschijnsel</span>
+                    </div>
+                </div>
+                <a href="Deja Vu Officieel.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Thema: Rechtvaardigheid</h3>
+                        <span class="author">Door: Gloridie</span>
+                    </div>
+                </div>
+                <a href="Filosofie lesbrief rechtvaardigheid Gloridie .docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Filosofieles: Alexander Schinkel</h3>
+                        <span class="description">Lesbrief gebaseerd op het werk van Alexander Schinkel</span>
+                    </div>
+                </div>
+                <a href="Filosofieles Alexander Schinkel.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>Lesbrieven door Leerlingen</h2>
+        </div>
+
+        <div class="file-list">
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Lesbrief: Naomi Bonte</h3>
+                        <span class="author">Door: Naomi Bonte</span>
+                    </div>
+                </div>
+                <a href="Lesbrief Filosofische les Naomi Bonte.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Lesbrief: Farida, Shauna & Aaliyah</h3>
+                        <span class="author">Door: Farida, Shauna en Aaliyah</span>
+                    </div>
+                </div>
+                <a href="lesbrief definitief Farida Shauna Aaliyah.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Lesbrief: Maaike & Olivia</h3>
+                        <span class="author">Door: Maaike en Olivia</span>
+                    </div>
+                </div>
+                <a href="Lesbrief Maaike Olivia - beoordeling Struik .docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Lesbrief: Sayaad & Huy Phong</h3>
+                        <span class="author">Door: Sayaad en Huy Phong</span>
+                    </div>
+                </div>
+                <a href="Filosofische Lesbrief Sayaad Huy Phong - Beoordeling en opmerkingen Struik.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Lesbrief: Ian, Jippe & Huchena</h3>
+                        <span class="author">Door: Ian, Jippe en Huchena</span>
+                    </div>
+                </div>
+                <a href="Lesbrief Ian, Jippe en Huchena - Beoordeling en opmerkingen Struik.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Lesbrief: Valérie van Leeuwen</h3>
+                        <span class="author">Door: Valérie van Leeuwen</span>
+                    </div>
+                </div>
+                <a href="Beoordeling Les Valérie van Leeuwen.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📄</span>
+                    <div class="file-details">
+                        <h3>Lesbrief: Noumedia & Wassila</h3>
+                        <span class="author">Door: Noumedia en Wassila</span>
+                    </div>
+                </div>
+                <a href="Noumedia en Wassila filosofie definitieve lesbrief (1).docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>Sjablonen & Voorbeelden</h2>
+        </div>
+
+        <div class="file-list">
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📋</span>
+                    <div class="file-details">
+                        <h3>Lesbrief Sjabloon</h3>
+                        <span class="description">Basisformaat voor het schrijven van een lesbrief</span>
+                    </div>
+                </div>
+                <a href="Lesbrief Beoordeling Struik.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📋</span>
+                    <div class="file-details">
+                        <h3>Voorbeeld: Rechtvaardigheid (met feedback)</h3>
+                        <span class="description">Lesbrief met docent-opmerkingen ter lering</span>
+                    </div>
+                </div>
+                <a href="Filosofie lesbrief rechtvaardigheid  Beoordeling en opmerkingen Struik.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">📋</span>
+                    <div class="file-details">
+                        <h3>Voorbeeld Lesbrief (aangepast)</h3>
+                        <span class="description">Herziene versie met verbeteringen</span>
+                    </div>
+                </div>
+                <a href="Lesbrief versie aanpassing Struik 06-05-2020.docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <span class="file-icon">🚧</span>
+                    <div class="file-details">
+                        <h3>Lesbrief in ontwikkeling</h3>
+                        <span class="description">Werk in uitvoering - nog niet compleet</span>
+                    </div>
+                </div>
+                <a href="Filosofie lesbrief nieuw (nog niet af).docx" class="download-btn" download>
+                    <span>↓</span> Download
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Filosofie — Oostvaarders College</p>
+    </footer>
+</body>
+</html>

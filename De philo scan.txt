@@ -1,0 +1,305 @@
+De philo scan
+
+Projectomschrijving — De Philo-Scan (online intake-tool Filosofie)
+1) Samenvatting (één alinea)
+
+De Philo-Scan is een korte, quiz-achtige online intake-tool voor leerlingen aan het begin van het examenvak filosofie. In ongeveer 2–3 minuten beantwoorden leerlingen 8 eenvoudige stellingen over basisvaardigheden (lezen, denken, praten en schrijven). De tool berekent automatisch een profiel met vier domeinscores en geeft de leerling direct een persoonlijk groeidoel (aanbevolen) plus een concreet actieplan (“challenge”) voor de komende twee weken. De output is een digitaal “ticket/contract” dat de leerling kan bewaren, printen of delen.
+
+2) Doel van het project (waarom bouwen we dit?)
+
+Het examenvak filosofie vraagt van leerlingen een combinatie van vaardigheden: tekstbegrip, kritisch denken, mondelinge interactie en schriftelijke formulering. In de praktijk starten leerlingen vaak met verschillende sterktes en zwaktes, maar zijn ze zich daar niet altijd van bewust.
+
+De tool is ontworpen om drie doelen te dienen:
+
+Eigenaarschap creëren
+Leerlingen krijgen meteen het gevoel: ik kan hier bewust beter in worden en ik kies zelf mijn focus.
+
+Snelle diagnostiek voor start van het jaar
+De docent krijgt een bruikbaar beeld van waar een klas gemiddeld staat (zonder een zware toets of lange observatie).
+
+Van score naar gedrag
+Niet alleen “jij bent goed/slecht”, maar: wat ga jij vanaf morgen anders doen in de les?
+
+3) Voor wie is dit bedoeld?
+Primaire doelgroep
+
+Leerlingen die starten met het examenvak filosofie (bovenbouw havo/vwo, met nadruk op vwo).
+
+Secundaire doelgroep
+
+Docenten filosofie die hun lessen willen starten met een korte, motiverende intake.
+
+Mentoren of collega’s die vaardighedenontwikkeling willen stimuleren (argumenteren, lezen, schrijven).
+
+4) De kernprincipes van het ontwerp (didactische keuzes)
+
+De tool is bewust zo ontworpen dat hij:
+
+Geen voorkennis vereist
+Leerlingen hoeven geen termen te kennen als “premissen”, “normatief”, “geldigheid”.
+
+Niet moraliserend is
+De tool geeft geen “zwak”-labels. Het spreekt over “groeikans” en “focus”.
+
+Kort en snel is
+8 items is bewust gekozen om afhaken te voorkomen.
+
+Motiverend en herkenbaar is
+De vorm is geïnspireerd op social media quizzes: één vraag per scherm, progress bar, direct resultaat.
+
+Actiegericht is
+De uitkomst is altijd een concrete uitdaging (“challenge”) die leerlingen direct kunnen toepassen.
+
+All-round groei stimuleert
+De tool benoemt een “sterkste modus (nu)”, maar stuurt leerlingen juist naar het domein waar ze het meest kunnen groeien.
+
+5) Wat meet de tool precies? (de 4 domeinen)
+
+De tool werkt met vier domeinen die samen de kern vormen van succes in filosofie:
+
+1. Begrijpen (Lezen)
+
+Kan de leerling de kern uit een lastige tekst halen?
+
+Kan de leerling in eigen woorden uitleggen wat hij/zij gelezen heeft?
+
+2. Denken (Scherp nadenken)
+
+Durft de leerling door te vragen (“waarom?”)?
+
+Merkt de leerling tegenstrijdigheden of logische problemen op?
+
+3. Praten (In gesprek)
+
+Durft de leerling een mening te geven?
+
+Kan de leerling luisteren om te begrijpen?
+
+4. Schrijven (Duidelijk opschrijven)
+
+Kan de leerling helder formuleren?
+
+Kan de leerling een antwoord stap voor stap opbouwen?
+
+Deze domeinen zijn breed genoeg om voor alle leerlingen herkenbaar te zijn, maar specifiek genoeg om te vertalen naar oefengedrag.
+
+6) Inhoud van de scan (de 8 stellingen)
+
+Leerlingen krijgen 8 stellingen, één per scherm, met een eenvoudige 5-puntsschaal:
+
+1 = Nee
+2 = Soms niet
+3 = Soms wel
+4 = Meestal wel
+5 = Ja
+
+De stellingen zijn:
+
+Begrijpen
+
+Ik kan de kern uit een moeilijke tekst halen.
+
+Ik kan in mijn eigen woorden uitleggen wat ik gelezen heb.
+
+Denken
+3. Ik vraag door als iemand iets zegt: “waarom denk je dat?”
+4. Ik merk het als iets niet goed klopt (bijvoorbeeld tegenstrijdig is).
+
+Praten
+5. Ik durf mijn mening te zeggen in de les.
+6. Ik luister echt naar anderen om ze te begrijpen.
+
+Schrijven
+7. Ik kan helder opschrijven wat ik bedoel.
+8. Ik kan mijn antwoord stap voor stap opbouwen.
+
+7) De gebruikersflow (wat ziet de leerling?)
+
+De tool bestaat uit een korte, duidelijke flow van 6 schermen:
+
+Scherm 1 — Landing / start
+
+Titel + korte uitleg (“geen cijfer, wel focusdoel”)
+
+Startknop
+
+Scherm 2 — Vragenflow (8 schermen)
+
+Eén stelling per scherm
+
+5 antwoordopties
+
+Progress bar (“Vraag 3/8”)
+
+Volgende knop pas actief na antwoord
+
+Scherm 3 — Resultaatdashboard
+
+Korte “berekenen…” animatie
+
+Vier balkjes (scores per domein)
+
+Een label: “Jouw sterkste modus (nu) is…”
+
+Scherm 4 — Aanbevolen groeidoel + keuzevrijheid
+
+Tool benoemt het laagste domein als groeikans
+
+Leerling kan kiezen:
+
+“Ik kies dit groeidoel (aanbevolen)”
+
+“Ik kies toch een ander doel”
+
+Scherm 5 — Actieplan (challenge kiezen)
+
+Leerling kiest 1 concrete tactiek voor 2 weken
+
+De challenges zijn afgestemd op het gekozen domein
+
+Scherm 6 — Ticket / contract
+
+Ticket met:
+
+naam (optioneel)
+
+datum
+
+sterkste modus (nu)
+
+gekozen groeidoel
+
+gekozen challenge
+
+Opties:
+
+printen
+
+downloaden
+
+naar zichzelf mailen
+
+8) “Sterkste modus (nu)” — waarom archetypen?
+
+De tool geeft leerlingen een positieve titel gebaseerd op hun hoogste domein. Dit werkt motiverend: leerlingen herkennen zichzelf vaak in zo’n label en voelen trots.
+
+De archetypen zijn bewust “licht” en niet bepalend:
+
+Tekstkraker (nu) → sterk in begrijpen
+
+Scherpschutter (nu) → sterk in denken
+
+Debater (nu) → sterk in praten
+
+Bouwer (nu) → sterk in schrijven
+
+Belangrijk: er staat expliciet (nu) bij om te voorkomen dat leerlingen het zien als een vaste identiteit.
+
+9) Van uitkomst naar leerdoel (de kern van “dynamisch”)
+
+De tool werkt dynamisch doordat hij niet alleen een profiel toont, maar ook:
+
+een aanbevolen groeidoel kiest (laagste domein), en
+
+een concrete actie laat kiezen (challenge).
+
+De leerling wordt dus automatisch geleid van:
+“Wie ben ik nu?” → “Wat kan ik verbeteren?” → “Wat ga ik doen?”
+
+10) Challenges (actieplannen) per domein
+
+Elke focus heeft drie tactieken. De leerling kiest er één.
+
+Focus: Begrijpen
+
+Kernzin markeren
+
+2-zinnen-samenvatting
+
+Mini-woordenlijst
+
+Focus: Denken
+
+Waarom-vraag
+
+Check de sprong
+
+Voorbeeld-test
+
+Focus: Praten
+
+1 mening + 1 reden
+
+Eerst herhalen (“dus jij bedoelt…”)
+
+1 vraag per les
+
+Focus: Schrijven
+
+3-stappen-antwoord
+
+Korte zinnen
+
+Mini-conclusie
+
+Deze challenges zijn klein genoeg om vol te houden, maar groot genoeg om effect te hebben.
+
+11) Verdieping-route (voor sterke leerlingen)
+
+Als een leerling op alle domeinen hoog scoort (bijv. gemiddeld ≥ 4), krijgt hij/zij geen “laagste domein”-advies, maar een verdieping-uitdaging.
+
+Voorbeelden:
+
+sterkste tegenargument bedenken tegen eigen mening
+
+extra precies formuleren
+
+ideeën verbinden tussen lessen
+
+Dit voorkomt dat sterke leerlingen de scan “saai” vinden en houdt de tool relevant voor iedereen.
+
+12) Wat levert het op voor de docent?
+
+Snelle, rustige start van het vak: geen lange uitleg nodig.
+
+Je kunt klassikaal nabespreken:
+
+“welke challenges kiezen jullie?”
+
+“welke domeinen zijn in deze klas gemiddeld laag?”
+
+Je kunt de challenges koppelen aan:
+
+schrijfopdrachten
+
+Socratische gesprekken
+
+tekstanalyses
+
+examenvoorbereiding
+
+In feite wordt het een mini “contract” dat je later in het jaar kunt herhalen: scan 1 (start) → scan 2 (na periode 1).
+
+13) Randvoorwaarden (privacy & eenvoud)
+
+De tool slaat idealiter geen persoonlijke data op op een server.
+
+Naam is optioneel.
+
+De output wordt door de leerling zelf bewaard (print/download/mail).
+
+Dit maakt de tool AVG-vriendelijk en praktisch inzetbaar op school.
+
+14) Succescriteria (wanneer is dit project geslaagd?)
+
+Het project is geslaagd als:
+
+leerlingen de scan graag invullen (geen weerstand)
+
+de tool binnen 3 minuten klaar is
+
+de uitkomst herkenbaar voelt
+
+het gekozen doel concreet gedrag oplevert in de les
+
+jij als docent de resultaten kunt gebruiken voor differentiatie en gesprek
