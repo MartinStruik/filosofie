@@ -625,6 +625,94 @@
             transform: translateY(-2px);
         }
 
+        /* --- VOOR WIE / NUT SECTION --- */
+        .voorwie-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .voorwie-section h2 {
+            color: #1a7a8a;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid #1a7a8a;
+            margin-bottom: 1.5rem;
+        }
+
+        .voorwie-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 700px) {
+            .voorwie-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .voorwie-grid h3 {
+            color: #1a7a8a;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .voorwie-grid ul {
+            list-style: none;
+        }
+
+        .voorwie-grid ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.6rem;
+            position: relative;
+            color: #555;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .voorwie-grid ul li:last-child {
+            border-bottom: none;
+        }
+
+        .voorwie-grid ul li::before {
+            position: absolute;
+            left: 0;
+            font-size: 1rem;
+        }
+
+        .voorwie-check li::before {
+            content: "\2714";
+            color: #2d8a4e;
+        }
+
+        .voorwie-nut li::before {
+            content: "\2192";
+            color: #1a7a8a;
+        }
+
+        .studie-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+
+        .studie-tags span {
+            background: #e8f4f6;
+            color: #1a7a8a;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
         /* --- INFO SECTION --- */
         .info-section {
             background: white;
@@ -869,6 +957,41 @@
             </p>
             <a href="lesideeen.html" class="les-btn">Bekijk lesidee&#235;n</a>
             <a href="PPTs Filosofielessen/index.html" class="les-btn">Bekijk lesbrieven</a>
+        </section>
+
+        <!-- Voor wie? / Wat heb je eraan? -->
+        <section class="voorwie-section">
+            <h2>Is filosofie iets voor jou?</h2>
+            <div class="voorwie-grid">
+                <div>
+                    <h3>Dit vak past bij je als je...</h3>
+                    <ul class="voorwie-check">
+                        <li>Houdt van moeilijke vragen waar geen simpel antwoord op is</li>
+                        <li>Graag discussieert en samen redeneert</li>
+                        <li>Je mening wilt verdiepen met sterke argumenten</li>
+                        <li>Openstaat voor nieuwe en andere perspectieven</li>
+                        <li>Nieuwsgierig bent naar hoe de wereld in elkaar zit</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Wat heb je eraan?</h3>
+                    <ul class="voorwie-nut">
+                        <li>Zelfvertrouwen in het formuleren en verdedigen van je idee&#235;n</li>
+                        <li>Academische vaardigheden: analyseren, redeneren, schrijven</li>
+                        <li>Scherper leren denken over maatschappelijke vraagstukken</li>
+                        <li>Sterke voorbereiding op universitaire studies</li>
+                    </ul>
+                    <div class="studie-tags">
+                        <span>Psychologie</span>
+                        <span>Rechten</span>
+                        <span>Politicologie</span>
+                        <span>AI</span>
+                        <span>Filosofie</span>
+                        <span>Journalistiek</span>
+                        <span>Geneeskunde</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Praktische Informatie -->
