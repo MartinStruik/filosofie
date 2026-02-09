@@ -97,6 +97,42 @@
             text-align: center;
         }
 
+        /* Live ethisch profiel mini-bars */
+        .live-profile {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .live-profile-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.7rem;
+            color: var(--middengrijs);
+        }
+
+        .live-bar {
+            width: 50px;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .live-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 0%;
+        }
+
+        .live-bar-fill.util { background: var(--groen); }
+        .live-bar-fill.deont { background: var(--petrol); }
+        .live-bar-fill.deugd { background: var(--oker); }
+
         /* Content area */
         .content {
             padding: 2rem;
@@ -113,6 +149,13 @@
         .trolley-icon {
             font-size: 4rem;
             margin-bottom: 1.5rem;
+            animation: trolleyBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes trolleyBounce {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
         .intro-screen h2 {
@@ -136,6 +179,137 @@
             font-size: 0.9rem;
         }
 
+        /* ===== TROLLEY SCENE ===== */
+        .trolley-scene {
+            position: relative;
+            height: 120px;
+            background: linear-gradient(180deg, #87CEEB 0%, #87CEEB 55%, #8B7355 55%, #8B7355 65%, #4a7c59 65%);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .track {
+            position: absolute;
+            bottom: 28px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #555;
+        }
+
+        .track-main {
+            width: 100%;
+        }
+
+        .track-left {
+            transform-origin: center right;
+            transform: rotate(-15deg);
+            right: 50%;
+            width: 50%;
+        }
+
+        .track-right {
+            transform-origin: center left;
+            transform: rotate(15deg);
+            left: 50%;
+            width: 50%;
+        }
+
+        .switch-point {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #888;
+            border-radius: 50%;
+            border: 2px solid #555;
+            z-index: 3;
+        }
+
+        .trolley {
+            position: absolute;
+            bottom: 30px;
+            left: 10%;
+            font-size: 2rem;
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 5;
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
+        }
+
+        .trolley.move-left {
+            left: 18%;
+            bottom: 48px;
+        }
+
+        .trolley.move-right {
+            left: 72%;
+            bottom: 48px;
+        }
+
+        .trolley.move-center {
+            left: 75%;
+        }
+
+        .figures-left {
+            position: absolute;
+            bottom: 32px;
+            left: 15%;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            z-index: 2;
+        }
+
+        .figures-right {
+            position: absolute;
+            bottom: 32px;
+            right: 10%;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            z-index: 2;
+        }
+
+        .figures-center {
+            position: absolute;
+            bottom: 32px;
+            right: 10%;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            z-index: 2;
+        }
+
+        .figures-hit {
+            animation: figuresHit 0.5s ease forwards;
+        }
+
+        @keyframes figuresHit {
+            0% { opacity: 1; transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { opacity: 0.3; transform: scale(0.8); }
+        }
+
+        .cloud {
+            position: absolute;
+            top: 8px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: cloudDrift 20s linear infinite;
+        }
+
+        .cloud:nth-child(2) {
+            top: 18px;
+            left: 60%;
+            animation-delay: -8s;
+            font-size: 1.2rem;
+        }
+
+        @keyframes cloudDrift {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(750px); }
+        }
+
         /* Dilemma screen */
         .dilemma-screen {
             display: none;
@@ -147,9 +321,17 @@
 
         .scenario-box {
             background: var(--achtergrond-licht);
-            border-radius: 8px;
+            border-radius: 0 0 8px 8px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
+        }
+
+        .scenario-box.has-scene {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .scenario-box.no-scene {
+            border-radius: 8px;
         }
 
         .scenario-title {
@@ -189,14 +371,17 @@
             border-radius: 8px;
             padding: 1.2rem 1.5rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-align: left;
+            position: relative;
+            overflow: hidden;
         }
 
         .choice-btn:hover {
             background: var(--petrol);
             color: white;
-            transform: translateX(5px);
+            transform: scale(1.03);
+            box-shadow: 0 4px 15px rgba(26, 122, 138, 0.3);
         }
 
         .choice-btn .choice-label {
@@ -214,6 +399,110 @@
             color: rgba(255,255,255,0.8);
         }
 
+        .choice-btn .choice-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Selected/unselected states */
+        .choice-btn.selected {
+            background: var(--groen);
+            border-color: var(--groen);
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(45, 138, 78, 0.3);
+            cursor: default;
+        }
+
+        .choice-btn.selected .choice-desc {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .choice-btn.selected .choice-icon {
+            opacity: 1;
+        }
+
+        .choice-btn.not-selected {
+            opacity: 0.45;
+            transform: scale(0.97);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .choice-btn.not-selected .choice-icon {
+            opacity: 0.7;
+        }
+
+        /* Timer + Crowd feedback */
+        .choice-feedback {
+            display: none;
+            text-align: center;
+            margin-top: 1.2rem;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .choice-feedback.show {
+            display: block;
+        }
+
+        .timer-feedback {
+            font-size: 0.95rem;
+            color: var(--middengrijs);
+            margin-bottom: 0.5rem;
+        }
+
+        .timer-feedback .time {
+            font-weight: 700;
+            color: var(--petrol);
+            font-size: 1.1rem;
+        }
+
+        .timer-feedback .comment {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--oker);
+            font-style: italic;
+            margin-top: 0.2rem;
+        }
+
+        .crowd-stat {
+            display: inline-block;
+            background: var(--achtergrond-licht);
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            color: var(--middengrijs);
+            margin-top: 0.5rem;
+        }
+
+        .crowd-stat .percentage {
+            font-weight: 700;
+            color: var(--petrol);
+        }
+
+        /* Shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-5px); }
+            20% { transform: translateX(5px); }
+            30% { transform: translateX(-5px); }
+            40% { transform: translateX(5px); }
+            50% { transform: translateX(-3px); }
+            60% { transform: translateX(3px); }
+            70% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+        }
+
+        .shake {
+            animation: shake 0.6s ease;
+        }
+
         /* Explanation after choice */
         .explanation {
             display: none;
@@ -226,7 +515,7 @@
 
         .explanation.show {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: fadeInUp 0.4s ease;
         }
 
         .explanation h4 {
@@ -267,6 +556,29 @@
             display: block;
         }
 
+        .result-reveal {
+            opacity: 0;
+            animation: resultReveal 1s ease forwards;
+        }
+
+        @keyframes resultReveal {
+            0% { opacity: 0; transform: scale(0.8); }
+            60% { transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .result-drumroll {
+            font-size: 1.2rem;
+            color: var(--middengrijs);
+            margin-bottom: 1.5rem;
+            animation: pulse 0.5s ease-in-out 3;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
         .philosopher-result {
             margin: 1.5rem 0;
         }
@@ -282,6 +594,7 @@
             justify-content: center;
             font-size: 3rem;
             color: white;
+            box-shadow: 0 8px 25px rgba(26, 122, 138, 0.4);
         }
 
         .philosopher-name {
@@ -360,21 +673,31 @@
 
         .score-bar {
             flex: 1;
-            height: 12px;
+            height: 16px;
             background: #e0e0e0;
-            border-radius: 6px;
+            border-radius: 8px;
             overflow: hidden;
+            position: relative;
         }
 
         .score-bar-fill {
             height: 100%;
-            border-radius: 6px;
-            transition: width 0.5s ease;
+            border-radius: 8px;
+            transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
         }
 
-        .score-bar-fill.utilitarian { background: var(--groen); }
-        .score-bar-fill.deontological { background: var(--petrol); }
-        .score-bar-fill.virtue { background: var(--oker); }
+        .score-bar-fill.utilitarian { background: linear-gradient(90deg, var(--groen), #3cb371); }
+        .score-bar-fill.deontological { background: linear-gradient(90deg, var(--petrol), #2ba5b9); }
+        .score-bar-fill.virtue { background: linear-gradient(90deg, var(--oker), var(--oker-light)); }
+
+        .score-value {
+            margin-left: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--donkergrijs);
+            min-width: 35px;
+        }
 
         /* Buttons */
         .btn {
@@ -385,7 +708,7 @@
             font-weight: 700;
             text-decoration: none;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: none;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -399,7 +722,8 @@
         .btn-primary:hover {
             background: var(--oker-light);
             color: var(--donkergrijs);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 5px 15px rgba(201, 162, 39, 0.3);
         }
 
         .btn-secondary {
@@ -409,6 +733,8 @@
 
         .btn-secondary:hover {
             background: var(--petrol-dark);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 5px 15px rgba(26, 122, 138, 0.3);
         }
 
         .btn-outline {
@@ -420,6 +746,23 @@
         .btn-outline:hover {
             background: var(--petrol);
             color: white;
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        .btn-share {
+            background: var(--donkergrijs);
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.7rem 1.5rem;
+        }
+
+        .btn-share:hover {
+            background: #555;
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        .btn-share.copied {
+            background: var(--groen);
         }
 
         .button-group {
@@ -442,15 +785,22 @@
             color: var(--petrol);
             text-decoration: none;
             font-size: 0.9rem;
+            transition: color 0.2s;
         }
 
         .back-link a:hover {
             text-decoration: underline;
+            color: var(--petrol-dark);
         }
 
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -475,6 +825,32 @@
             .philosopher-name {
                 font-size: 1.5rem;
             }
+
+            .trolley-scene {
+                height: 90px;
+            }
+
+            .trolley {
+                font-size: 1.5rem;
+            }
+
+            .figures-left, .figures-right, .figures-center {
+                font-size: 0.9rem;
+            }
+
+            .live-profile {
+                flex-wrap: wrap;
+                gap: 0.4rem;
+            }
+
+            .score-label {
+                width: 90px;
+                font-size: 0.8rem;
+            }
+
+            .choice-btn {
+                padding: 1rem 1.2rem;
+            }
         }
     </style>
 </head>
@@ -490,6 +866,21 @@
                 <div class="progress-fill" id="progressFill" style="width: 0%"></div>
             </div>
             <p class="progress-text"><span id="currentQ">1</span> van <span id="totalQ">6</span> dilemma's</p>
+
+            <div class="live-profile" id="liveProfile">
+                <div class="live-profile-item">
+                    <span>Util</span>
+                    <div class="live-bar"><div class="live-bar-fill util" id="liveUtil"></div></div>
+                </div>
+                <div class="live-profile-item">
+                    <span>Deont</span>
+                    <div class="live-bar"><div class="live-bar-fill deont" id="liveDeont"></div></div>
+                </div>
+                <div class="live-profile-item">
+                    <span>Deugd</span>
+                    <div class="live-bar"><div class="live-bar-fill deugd" id="liveDeugd"></div></div>
+                </div>
+            </div>
         </div>
 
         <div class="content">
@@ -513,46 +904,53 @@
 
             <!-- Result Screen -->
             <div class="result-screen" id="resultScreen">
-                <h2 style="color: var(--petrol); margin-bottom: 1rem;">Jouw Filosoof-Match</h2>
+                <div id="drumroll" class="result-drumroll"></div>
+                <div id="resultContent" style="display:none;">
+                    <h2 style="color: var(--petrol); margin-bottom: 1rem;">Jouw Filosoof-Match</h2>
 
-                <div class="philosopher-result">
-                    <div class="philosopher-avatar" id="philosopherAvatar"></div>
-                    <div class="philosopher-name" id="philosopherName"></div>
-                    <div class="philosopher-school" id="philosopherSchool"></div>
-                </div>
+                    <div class="philosopher-result result-reveal">
+                        <div class="philosopher-avatar" id="philosopherAvatar"></div>
+                        <div class="philosopher-name" id="philosopherName"></div>
+                        <div class="philosopher-school" id="philosopherSchool"></div>
+                    </div>
 
-                <div class="quote-box">
-                    <blockquote id="philosopherQuote"></blockquote>
-                    <cite id="philosopherCite"></cite>
-                </div>
+                    <div class="quote-box">
+                        <blockquote id="philosopherQuote"></blockquote>
+                        <cite id="philosopherCite"></cite>
+                    </div>
 
-                <div class="philosopher-description" id="philosopherDescription"></div>
+                    <div class="philosopher-description" id="philosopherDescription"></div>
 
-                <div class="score-breakdown">
-                    <h4>Jouw ethische profiel</h4>
-                    <div class="score-item">
-                        <span class="score-label">Utilistisch</span>
-                        <div class="score-bar">
-                            <div class="score-bar-fill utilitarian" id="utilScore" style="width: 0%"></div>
+                    <div class="score-breakdown">
+                        <h4>Jouw ethische profiel</h4>
+                        <div class="score-item">
+                            <span class="score-label">Utilistisch</span>
+                            <div class="score-bar">
+                                <div class="score-bar-fill utilitarian" id="utilScore" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value" id="utilValue">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Deontologisch</span>
+                            <div class="score-bar">
+                                <div class="score-bar-fill deontological" id="deontScore" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value" id="deontValue">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Deugdethisch</span>
+                            <div class="score-bar">
+                                <div class="score-bar-fill virtue" id="virtueScore" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value" id="virtueValue">0%</span>
                         </div>
                     </div>
-                    <div class="score-item">
-                        <span class="score-label">Deontologisch</span>
-                        <div class="score-bar">
-                            <div class="score-bar-fill deontological" id="deontScore" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="score-item">
-                        <span class="score-label">Deugdethisch</span>
-                        <div class="score-bar">
-                            <div class="score-bar-fill virtue" id="virtueScore" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="button-group">
-                    <button class="btn btn-primary" onclick="restartGame()">Opnieuw spelen</button>
-                    <a href="index.html" class="btn btn-outline">Terug naar overzicht</a>
+                    <div class="button-group">
+                        <button class="btn btn-share" onclick="shareResult()">Kopieer resultaat</button>
+                        <button class="btn btn-primary" onclick="restartGame()">Opnieuw spelen</button>
+                        <a href="index.html" class="btn btn-outline">Terug naar overzicht</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -571,6 +969,14 @@
                 icon: "🚃",
                 scenario: `Een op hol geslagen trolley raast over de rails. Verderop staan vijf arbeiders die niet kunnen ontsnappen. Jij staat bij een wissel. Als je de hendel overhaalt, stuur je de trolley naar een zijspoor — maar daar staat één arbeider die dan zal sterven.`,
                 question: "Wat doe je?",
+                // Scene config: trolley goes left = choice 0, right = choice 1
+                scene: {
+                    leftFigures: "🧑",
+                    rightFigures: "🧑🧑🧑🧑🧑",
+                    trolleyTarget: [0, 1], // choice 0 → hits left, choice 1 → hits right
+                    trolleyDir: ["move-left", "move-right"]
+                },
+                crowdStats: [85, 15], // % that picks choice 0 vs 1
                 choices: [
                     {
                         label: "Hendel overhalen",
@@ -595,6 +1001,13 @@
                 icon: "🌉",
                 scenario: `Dezelfde trolley, maar nu sta je op een brug boven de rails. Naast je staat een grote man. Als je hem van de brug duwt, zal zijn lichaam de trolley stoppen en de vijf arbeiders redden. Hij zal sterven, maar de vijf overleven.`,
                 question: "Duw je de man?",
+                scene: {
+                    leftFigures: "🧑",
+                    rightFigures: "🧑🧑🧑🧑🧑",
+                    trolleyTarget: [0, 1],
+                    trolleyDir: ["move-left", "move-right"]
+                },
+                crowdStats: [30, 70],
                 choices: [
                     {
                         label: "De man duwen",
@@ -620,6 +1033,14 @@
                 icon: "🏥",
                 scenario: `Je bent chirurg. Vijf patiënten sterven tenzij ze elk een ander orgaan krijgen. In de wachtkamer zit een gezonde bezoeker. Je zou hem kunnen verdoven, zijn organen oogsten en zo de vijf patiënten redden. Niemand zou het ooit weten.`,
                 question: "Oogst je de organen?",
+                scene: {
+                    leftFigures: "🧑",
+                    rightFigures: "🧑🧑🧑🧑🧑",
+                    trolleyTarget: [0, 1],
+                    trolleyDir: ["move-left", "move-right"],
+                    trolleyEmoji: "🔪"
+                },
+                crowdStats: [5, 95],
                 choices: [
                     {
                         label: "Ja, organen oogsten",
@@ -644,7 +1065,15 @@
                 title: "De Tikkende Tijdbom",
                 icon: "💣",
                 scenario: `Een terrorist heeft een bom geplaatst die duizend mensen zal doden. Je hebt hem gevangen. Hij weigert te praten. De enige manier om de locatie te achterhalen is marteling. De klok tikt.`,
-                question: "Martelt je de terrorist?",
+                question: "Martel je de terrorist?",
+                scene: {
+                    leftFigures: "🧑",
+                    rightFigures: "🧑🧑🧑🧑🧑",
+                    trolleyTarget: [0, 1],
+                    trolleyDir: ["move-left", "move-right"],
+                    trolleyEmoji: "💣"
+                },
+                crowdStats: [55, 45],
                 choices: [
                     {
                         label: "Ja, martelen",
@@ -669,6 +1098,14 @@
                 icon: "🚗",
                 scenario: `Je zit in een zelfrijdende auto. Plotseling rennen vijf voetgangers de weg op. De auto kan niet stoppen. Hij kan óf rechtdoor rijden (vijf doden) óf uitwijken naar een muur (jij sterft). Je mag de auto programmeren: wie moet hij redden?`,
                 question: "Hoe programmeer je de auto?",
+                scene: {
+                    leftFigures: "🧑🧑🧑🧑🧑",
+                    rightFigures: "🧱",
+                    trolleyTarget: [1, 0],
+                    trolleyDir: ["move-right", "move-center"],
+                    trolleyEmoji: "🚗"
+                },
+                crowdStats: [70, 30],
                 choices: [
                     {
                         label: "Red de voetgangers",
@@ -694,6 +1131,15 @@
                 icon: "🚣",
                 scenario: `Een schip zinkt. In de reddingsboot is plaats voor zes mensen, maar er zijn zeven overlevenden. De boot zal zinken als iedereen erin gaat. Jij bent de kapitein. Één persoon moet achterblijven. Er is een oude man (80), een jonge moeder, een arts, een kind (8), een crimineel en een rijke zakenman.`,
                 question: "Wie moet achterblijven?",
+                scene: {
+                    leftFigures: "🚣",
+                    rightFigures: "👴👩🧒👨‍⚕️🦹💼",
+                    trolleyTarget: null,
+                    trolleyDir: null,
+                    trolleyEmoji: "🌊"
+                },
+                // Stats: niemand ~10%, oudste ~30%, crimineel ~20%, vrijwilliger ~40%
+                crowdStats: [10, 30, 20, 40],
                 choices: [
                     {
                         label: "Niemand kiezen",
@@ -771,12 +1217,9 @@
 
         // Game state
         let currentDilemma = 0;
-        let scores = {
-            utilitarian: 0,
-            deontological: 0,
-            virtue: 0
-        };
+        let scores = { utilitarian: 0, deontological: 0, virtue: 0 };
         let answered = false;
+        let choiceStartTime = 0;
 
         // Start game
         function startGame() {
@@ -786,26 +1229,97 @@
             renderDilemma();
         }
 
+        // Build trolley scene HTML
+        function buildScene(dilemma) {
+            if (!dilemma.scene) return '';
+            const s = dilemma.scene;
+            const emoji = s.trolleyEmoji || '🚃';
+            return `
+                <div class="trolley-scene" id="trolleyScene">
+                    <span class="cloud">☁️</span>
+                    <span class="cloud">☁️</span>
+                    <div class="track track-main"></div>
+                    <div class="track track-left"></div>
+                    <div class="track track-right"></div>
+                    <div class="switch-point"></div>
+                    <div class="trolley" id="trolley">${emoji}</div>
+                    <div class="figures-left" id="figuresLeft">${s.leftFigures}</div>
+                    <div class="figures-right" id="figuresRight">${s.rightFigures}</div>
+                </div>
+            `;
+        }
+
+        // Animate trolley after choice
+        function animateTrolley(choiceIndex) {
+            const dilemma = dilemmas[currentDilemma];
+            if (!dilemma.scene || !dilemma.scene.trolleyDir) return;
+
+            const trolley = document.getElementById('trolley');
+            const dir = dilemma.scene.trolleyDir[choiceIndex];
+            if (!trolley || !dir) return;
+
+            trolley.classList.add(dir);
+
+            // Determine which figures get hit
+            const target = dilemma.scene.trolleyTarget[choiceIndex];
+            setTimeout(() => {
+                if (target === 0) {
+                    const el = document.getElementById('figuresLeft');
+                    if (el) el.classList.add('figures-hit');
+                } else if (target === 1) {
+                    const el = document.getElementById('figuresRight');
+                    if (el) el.classList.add('figures-hit');
+                }
+            }, 800);
+        }
+
+        // Update live profile bars
+        function updateLiveProfile() {
+            const maxPossible = dilemmas.length * 2;
+            const utilPct = Math.max(0, scores.utilitarian / maxPossible * 100);
+            const deontPct = Math.max(0, scores.deontological / maxPossible * 100);
+            const deugdPct = Math.max(0, scores.virtue / maxPossible * 100);
+
+            document.getElementById('liveUtil').style.width = utilPct + '%';
+            document.getElementById('liveDeont').style.width = deontPct + '%';
+            document.getElementById('liveDeugd').style.width = deugdPct + '%';
+        }
+
+        // Get timer comment
+        function getTimerComment(seconds) {
+            if (seconds < 1.5) return "Bliksemsnelle beslissing!";
+            if (seconds < 3) return "Dat ging snel!";
+            if (seconds < 6) return "Even nadenken...";
+            if (seconds < 10) return "Je hebt er goed over nagedacht.";
+            return "Dat was een zware keuze!";
+        }
+
         // Render current dilemma
         function renderDilemma() {
             const container = document.getElementById('dilemmaContainer');
             const dilemma = dilemmas[currentDilemma];
             answered = false;
+            choiceStartTime = Date.now();
 
             // Update progress
             document.getElementById('currentQ').textContent = currentDilemma + 1;
             document.getElementById('progressFill').style.width = ((currentDilemma) / dilemmas.length * 100) + '%';
 
+            const sceneHTML = buildScene(dilemma);
+            const hasScene = sceneHTML.length > 0;
+
             let choicesHTML = dilemma.choices.map((choice, index) => `
-                <button class="choice-btn" onclick="selectChoice(${index})">
+                <button class="choice-btn" onclick="selectChoice(${index})" id="choiceBtn${index}">
                     <div class="choice-label">${choice.label}</div>
                     <div class="choice-desc">${choice.desc}</div>
+                    <span class="choice-icon"></span>
                 </button>
             `).join('');
 
             container.innerHTML = `
                 <div class="dilemma-screen active fade-in">
-                    <div class="scenario-box">
+                    ${sceneHTML}
+                    <div class="scenario-box ${hasScene ? 'has-scene' : 'no-scene'}" id="scenarioBox">
                         <div class="scenario-title">${dilemma.icon} ${dilemma.title}</div>
                         <p class="scenario-text">${dilemma.scenario}</p>
                     </div>
@@ -814,6 +1328,11 @@
 
                     <div class="choices" id="choices">
                         ${choicesHTML}
+                    </div>
+
+                    <div class="choice-feedback" id="choiceFeedback">
+                        <div class="timer-feedback" id="timerFeedback"></div>
+                        <div class="crowd-stat" id="crowdStat"></div>
                     </div>
 
                     <div class="explanation" id="explanation">
@@ -827,6 +1346,9 @@
                     </div>
                 </div>
             `;
+
+            // Scroll to top of container
+            document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // Handle choice selection
@@ -837,28 +1359,61 @@
             const dilemma = dilemmas[currentDilemma];
             const choice = dilemma.choices[index];
 
+            // Calculate hesitation time
+            const hesitationTime = ((Date.now() - choiceStartTime) / 1000).toFixed(1);
+
             // Add scores
             scores.utilitarian += choice.scores.utilitarian;
             scores.deontological += choice.scores.deontological;
             scores.virtue += choice.scores.virtue;
 
-            // Highlight selected choice
+            // Update live profile
+            updateLiveProfile();
+
+            // Highlight selected/unselected choices
             const buttons = document.querySelectorAll('.choice-btn');
             buttons.forEach((btn, i) => {
                 if (i === index) {
-                    btn.style.background = 'var(--petrol)';
-                    btn.style.color = 'white';
-                    btn.style.borderColor = 'var(--petrol)';
+                    btn.classList.add('selected');
+                    btn.querySelector('.choice-icon').textContent = '✓';
                 } else {
-                    btn.style.opacity = '0.5';
-                    btn.style.pointerEvents = 'none';
+                    btn.classList.add('not-selected');
+                    btn.querySelector('.choice-icon').textContent = '✗';
                 }
             });
 
-            // Show explanation
+            // Shake the scenario box
+            const scenarioBox = document.getElementById('scenarioBox');
+            if (scenarioBox) {
+                scenarioBox.classList.add('shake');
+            }
+
+            // Animate trolley
+            animateTrolley(index);
+
+            // Show timer + crowd stat
             setTimeout(() => {
-                document.getElementById('explanation').classList.add('show');
-            }, 300);
+                const feedback = document.getElementById('choiceFeedback');
+                const timerEl = document.getElementById('timerFeedback');
+                const crowdEl = document.getElementById('crowdStat');
+
+                const comment = getTimerComment(parseFloat(hesitationTime));
+                timerEl.innerHTML = `Je twijfelde <span class="time">${hesitationTime}s</span><span class="comment">${comment}</span>`;
+
+                const crowdPct = dilemma.crowdStats[index];
+                crowdEl.innerHTML = `<span class="percentage">${crowdPct}%</span> kiest hetzelfde als jij`;
+
+                feedback.classList.add('show');
+            }, 400);
+
+            // Show explanation with smooth scroll
+            setTimeout(() => {
+                const explanation = document.getElementById('explanation');
+                explanation.classList.add('show');
+                setTimeout(() => {
+                    explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }, 1200);
         }
 
         // Next dilemma or show results
@@ -871,13 +1426,29 @@
             }
         }
 
-        // Show results
+        // Show results with drumroll
         function showResults() {
             document.getElementById('dilemmaContainer').innerHTML = '';
             document.getElementById('progressContainer').style.display = 'none';
             document.getElementById('resultScreen').classList.add('active');
             document.getElementById('resultScreen').style.display = 'block';
 
+            // Drumroll effect
+            const drumroll = document.getElementById('drumroll');
+            drumroll.textContent = "De resultaten worden berekend...";
+
+            setTimeout(() => {
+                drumroll.textContent = "Je filosoof-match is...";
+            }, 1000);
+
+            setTimeout(() => {
+                drumroll.style.display = 'none';
+                document.getElementById('resultContent').style.display = 'block';
+                revealPhilosopher();
+            }, 2200);
+        }
+
+        function revealPhilosopher() {
             // Determine philosopher match
             let philosopher;
             const maxScore = Math.max(scores.utilitarian, scores.deontological, scores.virtue);
@@ -902,15 +1473,59 @@
             document.getElementById('philosopherCite').textContent = '— ' + philosopher.name;
             document.getElementById('philosopherDescription').innerHTML = philosopher.description;
 
-            // Display score bars (normalize to percentage)
-            const total = Math.abs(scores.utilitarian) + Math.abs(scores.deontological) + Math.abs(scores.virtue);
-            const maxPossible = dilemmas.length * 2; // rough max per category
+            // Display animated score bars
+            const maxPossible = dilemmas.length * 2;
+            const utilPct = Math.max(0, Math.round(scores.utilitarian / maxPossible * 100));
+            const deontPct = Math.max(0, Math.round(scores.deontological / maxPossible * 100));
+            const virtuePct = Math.max(0, Math.round(scores.virtue / maxPossible * 100));
 
             setTimeout(() => {
-                document.getElementById('utilScore').style.width = Math.max(0, (scores.utilitarian / maxPossible * 100)) + '%';
-                document.getElementById('deontScore').style.width = Math.max(0, (scores.deontological / maxPossible * 100)) + '%';
-                document.getElementById('virtueScore').style.width = Math.max(0, (scores.virtue / maxPossible * 100)) + '%';
-            }, 300);
+                document.getElementById('utilScore').style.width = utilPct + '%';
+                document.getElementById('utilValue').textContent = utilPct + '%';
+                document.getElementById('deontScore').style.width = deontPct + '%';
+                document.getElementById('deontValue').textContent = deontPct + '%';
+                document.getElementById('virtueScore').style.width = virtuePct + '%';
+                document.getElementById('virtueValue').textContent = virtuePct + '%';
+            }, 400);
+
+            // Store result for share
+            window._resultPhilosopher = philosopher;
+            window._resultScores = { utilPct, deontPct, virtuePct };
+
+            // Scroll to result
+            document.getElementById('resultScreen').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Share result to clipboard
+        function shareResult() {
+            const p = window._resultPhilosopher;
+            const s = window._resultScores;
+            const text = `🚃 Trolley Problem Simulator\n\nMijn filosoof-match: ${p.name} (${p.school})\n\n📊 Ethisch profiel:\n🟢 Utilistisch: ${s.utilPct}%\n🔵 Deontologisch: ${s.deontPct}%\n🟡 Deugdethisch: ${s.virtuePct}%\n\n"${p.quote}"\n— ${p.name}`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.btn-share');
+                btn.textContent = 'Gekopieerd!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Kopieer resultaat';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // Fallback: select text in a temporary textarea
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                const btn = document.querySelector('.btn-share');
+                btn.textContent = 'Gekopieerd!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Kopieer resultaat';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
         }
 
         // Restart game
@@ -921,7 +1536,21 @@
 
             document.getElementById('resultScreen').style.display = 'none';
             document.getElementById('resultScreen').classList.remove('active');
+            document.getElementById('resultContent').style.display = 'none';
+            document.getElementById('drumroll').style.display = 'block';
             document.getElementById('introScreen').style.display = 'block';
+
+            // Reset live profile bars
+            document.getElementById('liveUtil').style.width = '0%';
+            document.getElementById('liveDeont').style.width = '0%';
+            document.getElementById('liveDeugd').style.width = '0%';
+
+            // Reset result score bars
+            document.getElementById('utilScore').style.width = '0%';
+            document.getElementById('deontScore').style.width = '0%';
+            document.getElementById('virtueScore').style.width = '0%';
+
+            document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
 </body>
