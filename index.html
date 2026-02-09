@@ -126,8 +126,26 @@
         .intro h2 {
             color: #1a7a8a;
             margin-bottom: 0.8rem;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
+        }
+
+        .intro-vragen {
+            color: #1a7a8a;
+            font-size: 1.05rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .intro > p {
+            color: #555;
+            margin-bottom: 0.8rem;
+        }
+
+        .intro-slogan {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
         }
 
         .intro details summary {
@@ -206,26 +224,13 @@
             transform: translateY(-2px);
         }
 
-        /* --- LAYOUT GRID --- */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        @media (max-width: 800px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
         /* --- SECTION STYLING --- */
         .section-box {
             background: white;
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
         }
 
         .section-box h2 {
@@ -359,6 +364,7 @@
             background: #1a7a8a;
             padding: 2rem;
             border-radius: 8px;
+            margin-bottom: 2rem;
         }
 
         .filmpjes-section .label {
@@ -618,6 +624,81 @@
             transform: translateY(-2px);
         }
 
+        /* --- INFO SECTION --- */
+        .info-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .info-section h2 {
+            color: #1a7a8a;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid #1a7a8a;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-item .info-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item h3 {
+            color: #1a7a8a;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-item p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* --- LESMATERIAAL DIVIDER --- */
+        .lesmateriaal-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 3px solid #ddd;
+        }
+
+        .lesmateriaal-header h2 {
+            color: #1a7a8a;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .lesmateriaal-header p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
         /* --- QUOTE BOX --- */
         .quote-box {
             background: #1a7a8a;
@@ -658,172 +739,34 @@
     </header>
 
     <main>
-        <!-- Introductie -->
+        <!-- Prikkelende Introductie -->
         <section class="intro">
             <span class="label label-gold"><span class="eyes">OO</span> INTRODUCTIE</span>
-            <h2>HET VAK FILOSOFIE</h2>
+            <h2>MAG JE LIEGEN OM IEMAND TE BESCHERMEN?</h2>
+            <p class="intro-vragen">Is een mens meer dan zijn brein? Wanneer is een oorlog rechtvaardig? Bestaat er zoiets als 'de waarheid'? En ben je echt vrij als je doet wat je wilt?</p>
+            <p>In filosofie onderzoek je dit soort vragen. Je leert scherp denken, goed luisteren en je eigen standpunt verdedigen — niet om gelijk te krijgen, maar om verder te komen in het denken.</p>
+            <p class="intro-slogan"><strong>Filosofie leert je niet wát je moet denken, maar hóé je kunt denken.</strong></p>
             <details>
                 <summary>
-                    <span class="arrow">▶</span> Lees meer over wat je leert bij filosofie
+                    <span class="arrow">&#9654;</span> Lees meer over het vak filosofie
                 </summary>
                 <div class="intro-content">
                     <p>Wat bedoelen we eigenlijk met vrijheid, identiteit of eerlijkheid? Wanneer is iets rechtvaardig? En hoe vorm je een oordeel dat niet alleen logisch is, maar ook zorgvuldig en menselijk?</p>
                     <p>In filosofie oefen je het denken als vaardigheid. Je leert vragen stellen die ertoe doen, argumenten onderzoeken en je eigen standpunt helder formuleren. We verbinden ideeën van klassieke en moderne denkers met vragen van nu: democratie, technologie, verantwoordelijkheid, geluk, waarheid.</p>
-                    <p>We filosoferen gezamenlijk als klas én in kleine groepjes. Je leert precies luisteren, scherp doorvragen en zorgvuldig redeneren — niet om gelijk te krijgen, maar om verder te komen in het denken.</p>
-                    <p><strong>Filosofie leert je niet wát je moet denken, maar hóé je kunt denken.</strong></p>
+                    <p>We filosoferen gezamenlijk als klas en in kleine groepjes. Je leert precies luisteren, scherp doorvragen en zorgvuldig redeneren — niet om gelijk te krijgen, maar om verder te komen in het denken.</p>
                 </div>
             </details>
         </section>
 
-        <!-- Intellectuele Deugdentest Banner -->
+        <!-- Denkstijl Banner -->
         <section class="denkstijl-banner">
             <div class="banner-text">
                 <h2>WELK TYPE DENKER BEN JIJ?</h2>
-                <p>Ontdek je intellectuele deugden, je denkstijl en welke filosoof bij jouw manier van denken past.</p>
+                <p>Benieuwd of filosofie bij je past? Ontdek je denkstijl en welke filosoof bij jou hoort.</p>
             </div>
-            <a href="intellectuele-deugden-test.html" class="banner-btn">INTELLECTUELE DEUGDEN →</a>
-            <a href="denkstijlentest.html" class="banner-btn">DENKSTIJLENTEST →</a>
+            <a href="intellectuele-deugden-test.html" class="banner-btn">INTELLECTUELE DEUGDEN &#8594;</a>
+            <a href="denkstijlentest.html" class="banner-btn">DENKSTIJLENTEST &#8594;</a>
         </section>
-
-        <div class="main-content">
-            <!-- Lesmodules -->
-            <section class="section-box lesmodules">
-                <h2>Lesmodules</h2>
-                <ul>
-                    <li>
-                        <a href="pdfs/De anatomie van het denken - Inleiding in de filosofie 2025-2026.pdf" class="module-link" target="_blank">
-                            <span class="icon">📘</span>
-                            <div>
-                                <span class="module-title">1. Inleiding in de filosofie</span>
-                                <span class="module-subtitle">De anatomie van het denken</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pdfs/Filosofische Antropologie Boekje zonder Bijlagen.pdf" class="module-link" target="_blank">
-                            <span class="icon">📗</span>
-                            <div>
-                                <span class="module-title">2. Antropologie</span>
-                                <span class="module-subtitle">Filosofische Antropologie</span>
-                            </div>
-                        </a>
-                        <div class="sub-items">
-                            <a href="pdfs/Antropologie - Bijlagenboekje 2025.pdf" target="_blank">📎 Bijlagenboekje</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="pdfs/Ethiek .pdf" class="module-link" target="_blank">
-                            <span class="icon">📕</span>
-                            <div>
-                                <span class="module-title">3. Ethiek</span>
-                                <span class="module-subtitle">Goed en kwaad</span>
-                            </div>
-                        </a>
-                        <div class="sub-items">
-                            <a href="https://www.youtube.com/watch?v=REgjhiMg4vU" class="video-link" target="_blank">▶ Mag je vlees eten? - door Emma en Teun</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="pdfs/Down the Rabbithole 2025-26.pdf" class="module-link" target="_blank">
-                            <span class="icon">📙</span>
-                            <div>
-                                <span class="module-title">4. Kennistheorie</span>
-                                <span class="module-subtitle">Down the Rabbithole</span>
-                            </div>
-                        </a>
-                        <div class="sub-items">
-                            <a href="https://open.spotify.com/episode/7I7nkz7TmPW0RzLyQDNBg4?si=5f9a9641ed99425a" class="podcast-link" target="_blank">🎧 Geloof jij het? De Complotcast - door Wietze en Tomas</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="pdfs/Botsende Ideologieën 2025-6.pdf" class="module-link" target="_blank">
-                            <span class="icon">📒</span>
-                            <div>
-                                <span class="module-title">5. Sociale filosofie</span>
-                                <span class="module-subtitle">Botsende Ideologieën</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pdfs/De wetenschapsdokter.pdf" class="module-link" target="_blank">
-                            <span class="icon">📓</span>
-                            <div>
-                                <span class="module-title">6. Wetenschapsfilosofie</span>
-                                <span class="module-subtitle">De wetenschapsdokter</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="examenboeken">
-                    <h3>Examenboeken</h3>
-                    <ul>
-                        <li>
-                            <a href="filosofie-examen-studieapp/index.html" class="module-link">
-                                <span class="icon">📱</span>
-                                <div>
-                                    <span class="module-title">Filosofie-examen studieapp</span>
-                                    <span class="module-subtitle">Interactieve studieapp voor het VWO-examen</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pdfs/Examenboek deel 1.pdf" class="module-link" target="_blank">
-                                <span class="icon">📖</span>
-                                <div>
-                                    <span class="module-title">7. Wat maakt de mens - Deel 1</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pdfs/Examboek deel 2.pdf" class="module-link" target="_blank">
-                                <span class="icon">📖</span>
-                                <div>
-                                    <span class="module-title">7. Wat maakt de mens - Deel 2</span>
-                                </div>
-                            </a>
-                            <div class="sub-items">
-                                <a href="https://www.youtube.com/watch?v=yscg2ERfOaw&list=PLNQwh1JkMz6LQsimlR-fFNZldREaek0cE" class="video-link" target="_blank">▶ Uitlegvideo's van Ben en Rob</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Filmpjes -->
-            <section class="filmpjes-section">
-                <span class="label label-gold"><span class="eyes">OO</span> FILMPJES</span>
-                <h2>Welkom bij de Filosofen</h2>
-
-                <img src="Welkom bij de filosofen.png" alt="Welkom bij de Filosofen">
-
-                <div class="video-category">
-                    <h3>Talkshow</h3>
-                    <ul class="video-list">
-                        <li><a href="https://www.youtube.com/watch?v=_prko4NOSlw" target="_blank"><span class="play-icon">▶</span> De wereld staat stil</a></li>
-                    </ul>
-                </div>
-
-                <div class="video-category">
-                    <h3>Welkom bij de Filosofen!</h3>
-                    <ul class="video-list">
-                        <li><a href="https://www.youtube.com/watch?v=cuWZhmFcsd4" target="_blank"><span class="play-icon">▶</span> Wat is bewustzijn?</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=3PEDTZVhbrs" target="_blank"><span class="play-icon">▶</span> Hebben dromen betekenis?</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=ECITzV_O4Jc" target="_blank"><span class="play-icon">▶</span> Is er leven na de dood?</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=G3izt2kBlDQ" target="_blank"><span class="play-icon">▶</span> Romantiek: volg je natuurlijke gevoel!</a></li>
-                    </ul>
-                </div>
-
-                <div class="video-category">
-                    <h3>Overige films</h3>
-                    <ul class="video-list">
-                        <li><a href="https://www.youtube.com/watch?v=VfRFgI49eiw" target="_blank"><span class="play-icon">▶</span> Wat is geluk?</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=wX-G4IldIEA" target="_blank"><span class="play-icon">▶</span> Geluk volgens de Stoa en het Boeddhisme</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=FoEmTnsTogM" target="_blank"><span class="play-icon">▶</span> Wat is het doel van het leven?</a></li>
-                    </ul>
-                </div>
-            </section>
-        </div>
 
         <!-- Interactieve Spellen -->
         <section class="games-section">
@@ -833,34 +776,68 @@
 
             <div class="games-grid">
                 <a href="logica-arena.html" class="game-card">
-                    <span class="game-icon">⚔️</span>
+                    <span class="game-icon">&#9876;&#65039;</span>
                     <span class="game-title">Logica Arena</span>
                     <span class="game-desc">Train je logisch denkvermogen met drogredenen en argumenten</span>
                 </a>
                 <a href="trolley-simulator.html" class="game-card">
-                    <span class="game-icon">🚃</span>
+                    <span class="game-icon">&#128643;</span>
                     <span class="game-title">Trolley Simulator</span>
                     <span class="game-desc">Verken ethische dilemma's in dit klassieke gedachte-experiment</span>
                 </a>
                 <a href="anthropos.html" class="game-card">
-                    <span class="game-icon">🎮</span>
+                    <span class="game-icon">&#127918;</span>
                     <span class="game-title">ANTHROPOS</span>
                     <span class="game-desc">Ontdek wat het betekent om mens te zijn</span>
                 </a>
                 <a href="philo-scan.html" class="game-card">
-                    <span class="game-icon">📊</span>
+                    <span class="game-icon">&#128202;</span>
                     <span class="game-title">Philo-Scan</span>
                     <span class="game-desc">Evalueer je filosofische vaardigheden op vier domeinen</span>
                 </a>
                 <a href="socratische-dialoog.html" class="game-card">
-                    <span class="game-icon">🏛️</span>
+                    <span class="game-icon">&#127963;&#65039;</span>
                     <span class="game-title">Ontmoeting met Socrates</span>
                     <span class="game-desc">Ga in gesprek met Socrates op de agora van Athene</span>
                 </a>
             </div>
         </section>
 
-        <!-- De Jonge Denker -->
+        <!-- Filmpjes door leerlingen -->
+        <section class="filmpjes-section">
+            <span class="label label-gold"><span class="eyes">OO</span> FILMPJES</span>
+            <h2>Welkom bij de Filosofen</h2>
+
+            <img src="Welkom bij de filosofen.png" alt="Welkom bij de Filosofen">
+
+            <div class="video-category">
+                <h3>Talkshow</h3>
+                <ul class="video-list">
+                    <li><a href="https://www.youtube.com/watch?v=_prko4NOSlw" target="_blank"><span class="play-icon">&#9654;</span> De wereld staat stil</a></li>
+                </ul>
+            </div>
+
+            <div class="video-category">
+                <h3>Welkom bij de Filosofen!</h3>
+                <ul class="video-list">
+                    <li><a href="https://www.youtube.com/watch?v=cuWZhmFcsd4" target="_blank"><span class="play-icon">&#9654;</span> Wat is bewustzijn?</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=3PEDTZVhbrs" target="_blank"><span class="play-icon">&#9654;</span> Hebben dromen betekenis?</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=ECITzV_O4Jc" target="_blank"><span class="play-icon">&#9654;</span> Is er leven na de dood?</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=G3izt2kBlDQ" target="_blank"><span class="play-icon">&#9654;</span> Romantiek: volg je natuurlijke gevoel!</a></li>
+                </ul>
+            </div>
+
+            <div class="video-category">
+                <h3>Overige films</h3>
+                <ul class="video-list">
+                    <li><a href="https://www.youtube.com/watch?v=VfRFgI49eiw" target="_blank"><span class="play-icon">&#9654;</span> Wat is geluk?</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=wX-G4IldIEA" target="_blank"><span class="play-icon">&#9654;</span> Geluk volgens de Stoa en het Boeddhisme</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=FoEmTnsTogM" target="_blank"><span class="play-icon">&#9654;</span> Wat is het doel van het leven?</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Leerlingenwerk: Essay -->
         <section class="essay-section">
             <h2>Het Filosofisch Essay</h2>
             <p class="essay-intro">
@@ -870,7 +847,7 @@
             </p>
 
             <div class="bundel-promo">
-                <span class="bundel-icon">📚</span>
+                <span class="bundel-icon">&#128218;</span>
                 <div class="bundel-text">
                     <h3>Essaybundel: De Jonge Denker</h3>
                     <p>Een selectie van de beste filosofische essays, geschreven door leerlingen. Met onder andere: <em>"Zijn wij ons brein?"</em> en <em>"Tribalisme: Ons oerinstinct in een moderne wereld"</em>.</p>
@@ -879,7 +856,7 @@
             </div>
         </section>
 
-        <!-- Zelf een filosofieles ontwerpen -->
+        <!-- Leerlingenwerk: Zelf een filosofieles ontwerpen -->
         <section class="les-section">
             <h2>Zelf een Filosofieles Ontwerpen</h2>
             <p>
@@ -887,17 +864,154 @@
                 filosofische les aan je klasgenoten. Je kiest een prikkelende vraag, bereidt een lesbrief
                 voor en leidt een filosofisch gesprek.
             </p>
-            <a href="lesideeen.html" class="les-btn">Bekijk lesideeën</a>
+            <a href="lesideeen.html" class="les-btn">Bekijk lesidee&#235;n</a>
             <a href="PPTs Filosofielessen/index.html" class="les-btn">Bekijk lesbrieven</a>
         </section>
 
+        <!-- Praktische Informatie -->
+        <section class="info-section">
+            <h2>Praktische Informatie</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-icon">&#128218;</span>
+                    <h3>Profiel</h3>
+                    <p>Keuzevak, combineerbaar met alle profielen</p>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">&#9200;</span>
+                    <h3>Studielast</h3>
+                    <p>3 lesuren per week in de bovenbouw (4, 5 en 6 VWO)</p>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">&#128221;</span>
+                    <h3>Toetsing</h3>
+                    <p>Essays, presentaties, filosofische gesprekken en een centraal eindexamen</p>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">&#127919;</span>
+                    <h3>Voorkennis</h3>
+                    <p>Geen voorkennis nodig — alleen nieuwsgierigheid en zin om na te denken</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scheidslijn: Lesmateriaal -->
+        <div class="lesmateriaal-header">
+            <h2>Lesmateriaal</h2>
+            <p>Lesmodules en bronnen voor leerlingen die filosofie volgen</p>
+        </div>
+
+        <!-- Lesmodules -->
+        <section class="section-box lesmodules">
+            <h2>Lesmodules</h2>
+            <ul>
+                <li>
+                    <a href="pdfs/De anatomie van het denken - Inleiding in de filosofie 2025-2026.pdf" class="module-link" target="_blank">
+                        <span class="icon">&#128216;</span>
+                        <div>
+                            <span class="module-title">1. Inleiding in de filosofie</span>
+                            <span class="module-subtitle">De anatomie van het denken</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="pdfs/Filosofische Antropologie Boekje zonder Bijlagen.pdf" class="module-link" target="_blank">
+                        <span class="icon">&#128215;</span>
+                        <div>
+                            <span class="module-title">2. Antropologie</span>
+                            <span class="module-subtitle">Filosofische Antropologie</span>
+                        </div>
+                    </a>
+                    <div class="sub-items">
+                        <a href="pdfs/Antropologie - Bijlagenboekje 2025.pdf" target="_blank">&#128206; Bijlagenboekje</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="pdfs/Ethiek .pdf" class="module-link" target="_blank">
+                        <span class="icon">&#128213;</span>
+                        <div>
+                            <span class="module-title">3. Ethiek</span>
+                            <span class="module-subtitle">Goed en kwaad</span>
+                        </div>
+                    </a>
+                    <div class="sub-items">
+                        <a href="https://www.youtube.com/watch?v=REgjhiMg4vU" class="video-link" target="_blank">&#9654; Mag je vlees eten? - door Emma en Teun</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="pdfs/Down the Rabbithole 2025-26.pdf" class="module-link" target="_blank">
+                        <span class="icon">&#128217;</span>
+                        <div>
+                            <span class="module-title">4. Kennistheorie</span>
+                            <span class="module-subtitle">Down the Rabbithole</span>
+                        </div>
+                    </a>
+                    <div class="sub-items">
+                        <a href="https://open.spotify.com/episode/7I7nkz7TmPW0RzLyQDNBg4?si=5f9a9641ed99425a" class="podcast-link" target="_blank">&#127911; Geloof jij het? De Complotcast - door Wietze en Tomas</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="pdfs/Botsende Ideologie&#235;n 2025-6.pdf" class="module-link" target="_blank">
+                        <span class="icon">&#128210;</span>
+                        <div>
+                            <span class="module-title">5. Sociale filosofie</span>
+                            <span class="module-subtitle">Botsende Ideologie&#235;n</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="pdfs/De wetenschapsdokter.pdf" class="module-link" target="_blank">
+                        <span class="icon">&#128211;</span>
+                        <div>
+                            <span class="module-title">6. Wetenschapsfilosofie</span>
+                            <span class="module-subtitle">De wetenschapsdokter</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="examenboeken">
+                <h3>Examenboeken</h3>
+                <ul>
+                    <li>
+                        <a href="filosofie-examen-studieapp/index.html" class="module-link">
+                            <span class="icon">&#128241;</span>
+                            <div>
+                                <span class="module-title">Filosofie-examen studieapp</span>
+                                <span class="module-subtitle">Interactieve studieapp voor het VWO-examen</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pdfs/Examenboek deel 1.pdf" class="module-link" target="_blank">
+                            <span class="icon">&#128214;</span>
+                            <div>
+                                <span class="module-title">7. Wat maakt de mens - Deel 1</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pdfs/Examboek deel 2.pdf" class="module-link" target="_blank">
+                            <span class="icon">&#128214;</span>
+                            <div>
+                                <span class="module-title">7. Wat maakt de mens - Deel 2</span>
+                            </div>
+                        </a>
+                        <div class="sub-items">
+                            <a href="https://www.youtube.com/watch?v=yscg2ERfOaw&list=PLNQwh1JkMz6LQsimlR-fFNZldREaek0cE" class="video-link" target="_blank">&#9654; Uitlegvideo's van Ben en Rob</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
         <div class="quote-box">
-            <blockquote>"Filosofie leert je niet wát je moet denken, maar hóé je kunt denken."</blockquote>
+            <blockquote>"Filosofie leert je niet w&#225;t je moet denken, maar h&#243;&#233; je kunt denken."</blockquote>
         </div>
     </main>
 
     <footer>
-        <p>Filosofie — Oostvaarders College</p>
+        <p>Filosofie &#8212; Oostvaarders College</p>
     </footer>
 </body>
 </html>
