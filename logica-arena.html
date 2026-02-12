@@ -73,6 +73,37 @@
             color: rgba(255,255,255,0.7);
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .streak-display {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--oker);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: scale(0.8);
+        }
+
+        .streak-display.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .streak-display.combo {
+            animation: comboPulse 0.5s ease;
+            color: #ff6b35;
+        }
+
+        @keyframes comboPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
         .score-display {
             text-align: right;
         }
@@ -87,6 +118,48 @@
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--oker);
+        }
+
+        /* Timer bar */
+        .timer-container {
+            display: none;
+            background: var(--achtergrond-licht);
+            padding: 0.5rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .timer-container.active {
+            display: block;
+        }
+
+        .timer-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .timer-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, var(--groen), var(--oker));
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+
+        .timer-fill.warning {
+            background: linear-gradient(90deg, var(--oker), var(--rood));
+        }
+
+        .timer-fill.danger {
+            background: var(--rood);
+        }
+
+        .timer-text {
+            font-size: 0.75rem;
+            color: var(--lichtgrijs);
+            text-align: center;
+            margin-top: 0.3rem;
         }
 
         /* Progress bar */
@@ -170,6 +243,40 @@
             color: var(--middengrijs);
             line-height: 1.7;
             margin-bottom: 1rem;
+        }
+
+        /* Timer toggle */
+        .timer-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            margin: 1.2rem 0;
+            padding: 0.8rem 1.5rem;
+            background: var(--achtergrond-licht);
+            border-radius: 8px;
+            display: inline-flex;
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .timer-toggle:hover {
+            background: #eee;
+        }
+
+        .timer-toggle input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--paars);
+            cursor: pointer;
+        }
+
+        .timer-toggle label {
+            font-size: 0.95rem;
+            color: var(--donkergrijs);
+            cursor: pointer;
+            font-weight: 600;
         }
 
         /* Theory sections */
@@ -391,6 +498,17 @@
             margin-right: 0.5rem;
         }
 
+        .missing-piece {
+            background: var(--oker-light);
+            color: var(--donkergrijs);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            border: 2px dashed var(--oker);
+            font-style: italic;
+        }
+
         /* Text passage for signal words */
         .text-passage {
             background: white;
@@ -414,6 +532,42 @@
             color: var(--donkergrijs);
             font-size: 1.1rem;
             margin: 1.5rem 0 1rem;
+        }
+
+        /* Hint button and box */
+        .hint-btn {
+            display: block;
+            margin: 1rem auto 0;
+            padding: 0.5rem 1.2rem;
+            background: transparent;
+            border: 2px solid var(--oker);
+            color: var(--oker);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hint-btn:hover {
+            background: var(--oker);
+            color: white;
+        }
+
+        .hint-box {
+            display: none;
+            margin: 1rem 0;
+            padding: 1rem 1.2rem;
+            background: #fff8e1;
+            border-left: 4px solid var(--oker);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--donkergrijs);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .hint-box.show {
+            display: block;
         }
 
         /* Choice buttons */
@@ -600,9 +754,23 @@
             line-height: 1.6;
         }
 
+        .extra-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--middengrijs);
+        }
+
+        .extra-stats span {
+            font-weight: 700;
+            color: var(--paars);
+        }
+
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 0.8rem;
             margin: 1.5rem 0;
         }
@@ -628,6 +796,36 @@
             font-size: 0.7rem;
             color: var(--lichtgrijs);
             text-transform: uppercase;
+        }
+
+        .study-tip {
+            background: #fff8e1;
+            border-left: 4px solid var(--oker);
+            padding: 0.7rem 1rem;
+            border-radius: 0 6px 6px 0;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--donkergrijs);
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .practice-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background: var(--paars);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .practice-btn:hover {
+            background: #7d3c98;
         }
 
         /* Buttons */
@@ -707,8 +905,10 @@
             body { padding: 1rem; }
             .content { padding: 1.5rem; }
             .header { flex-direction: column; gap: 1rem; text-align: center; }
+            .header-right { justify-content: center; }
             .score-display { text-align: center; }
             .header-left h1 { font-size: 1.2rem; }
+            .extra-stats { flex-direction: column; gap: 0.5rem; }
         }
     </style>
 </head>
@@ -716,13 +916,23 @@
     <div class="container">
         <div class="header">
             <div class="header-left">
-                <h1>⚔️ Logica Arena</h1>
+                <h1>&#9876;&#65039; Logica Arena</h1>
                 <p>Propositielogica - Oostvaarders College</p>
             </div>
-            <div class="score-display" id="scoreDisplay" style="display: none;">
-                <div class="score-label">Score</div>
-                <div class="score-value"><span id="currentScore">0</span>/<span id="maxScore">12</span></div>
+            <div class="header-right" id="headerRight" style="display: none;">
+                <div class="streak-display" id="streakDisplay">&#128293; <span id="streakCount">0</span></div>
+                <div class="score-display" id="scoreDisplay">
+                    <div class="score-label">Score</div>
+                    <div class="score-value"><span id="currentScore">0</span>/<span id="maxScore">15</span></div>
+                </div>
             </div>
+        </div>
+
+        <div class="timer-container" id="timerContainer">
+            <div class="timer-bar">
+                <div class="timer-fill" id="timerFill"></div>
+            </div>
+            <div class="timer-text" id="timerText">30s</div>
         </div>
 
         <div class="progress-container" id="progressContainer">
@@ -730,7 +940,7 @@
                 <div class="progress-fill" id="progressFill" style="width: 0%"></div>
             </div>
             <div class="progress-text">
-                Vraag <span id="currentQ">1</span> van <span id="totalQ">12</span>
+                Vraag <span id="currentQ">1</span> van <span id="totalQ">15</span>
                 <span class="category-badge" id="categoryBadge">Redeneervormen</span>
             </div>
         </div>
@@ -739,12 +949,12 @@
             <!-- Intro Screen -->
             <div class="screen active" id="introScreen">
                 <div class="intro-screen">
-                    <div class="logic-icon">🧠</div>
+                    <div class="logic-icon">&#129504;</div>
                     <h2>Welkom in de Logica Arena</h2>
-                    <p>Test je volledige kennis van propositielogica! Van redeneervormen tot verzwegen aannames.</p>
+                    <p>Test je volledige kennis van propositielogica! Van redeneervormen tot verzwegen aannames, en van signaalwoorden tot het bouwen van argumenten.</p>
 
                     <div class="theory-section">
-                        <h3>📚 Waarheid, Geldigheid & Deugdelijkheid</h3>
+                        <h3>&#128218; Waarheid, Geldigheid &amp; Deugdelijkheid</h3>
                         <div class="concept-grid">
                             <div class="concept-card truth">
                                 <h4>Waarheid</h4>
@@ -762,49 +972,55 @@
                     </div>
 
                     <div class="theory-section">
-                        <h3>🎯 De Vier Redeneervormen</h3>
+                        <h3>&#127919; De Vier Redeneervormen</h3>
                         <div class="forms-grid">
                             <div class="form-card valid">
                                 <h4>Modus Ponens <span class="valid-tag">Geldig</span></h4>
-                                <div class="formula">P → Q; P; ∴ Q</div>
+                                <div class="formula">P &rarr; Q; P; &there4; Q</div>
                             </div>
                             <div class="form-card valid">
                                 <h4>Modus Tollens <span class="valid-tag">Geldig</span></h4>
-                                <div class="formula">P → Q; ¬Q; ∴ ¬P</div>
+                                <div class="formula">P &rarr; Q; &not;Q; &there4; &not;P</div>
                             </div>
                             <div class="form-card invalid">
                                 <h4>Bevestiging Consequent <span class="invalid-tag">Ongeldig</span></h4>
-                                <div class="formula">P → Q; Q; ∴ P ✗</div>
+                                <div class="formula">P &rarr; Q; Q; &there4; P &#10007;</div>
                             </div>
                             <div class="form-card invalid">
                                 <h4>Ontkenning Antecedent <span class="invalid-tag">Ongeldig</span></h4>
-                                <div class="formula">P → Q; ¬P; ∴ ¬Q ✗</div>
+                                <div class="formula">P &rarr; Q; &not;P; &there4; &not;Q &#10007;</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="theory-section">
-                        <h3>🔍 Extra Vaardigheden</h3>
+                        <h3>&#128270; Extra Vaardigheden</h3>
                         <div class="concepts-list">
                             <div class="concept-item">
-                                <span class="icon">📝</span>
-                                <span class="text"><strong>Signaalwoorden</strong> — herken premissen (want, omdat, immers) en conclusies (dus, daarom, bijgevolg)</span>
+                                <span class="icon">&#128221;</span>
+                                <span class="text"><strong>Signaalwoorden</strong> &mdash; herken premissen (want, omdat, immers) en conclusies (dus, daarom, bijgevolg)</span>
                             </div>
                             <div class="concept-item">
-                                <span class="icon">🔎</span>
-                                <span class="text"><strong>Verzwegen aannames</strong> — onuitgesproken premissen die het argument compleet maken</span>
+                                <span class="icon">&#128270;</span>
+                                <span class="text"><strong>Verzwegen aannames</strong> &mdash; onuitgesproken premissen die het argument compleet maken</span>
                             </div>
                             <div class="concept-item">
-                                <span class="icon">⚖️</span>
-                                <span class="text"><strong>Deductie</strong> — conclusie is zeker als premissen waar zijn</span>
+                                <span class="icon">&#9878;&#65039;</span>
+                                <span class="text"><strong>Deductie</strong> &mdash; conclusie is zeker als premissen waar zijn</span>
                             </div>
                             <div class="concept-item">
-                                <span class="icon">📊</span>
-                                <span class="text"><strong>Inductie</strong> — conclusie is waarschijnlijk, maar weerlegbaar</span>
+                                <span class="icon">&#128202;</span>
+                                <span class="text"><strong>Inductie</strong> &mdash; conclusie is waarschijnlijk, maar weerlegbaar</span>
                             </div>
                         </div>
                     </div>
 
+                    <div class="timer-toggle" onclick="document.getElementById('timerCheckbox').click()">
+                        <input type="checkbox" id="timerCheckbox" onclick="event.stopPropagation()">
+                        <label for="timerCheckbox" onclick="event.stopPropagation()">&#9201; Speel met tijdsdruk (30s per vraag)</label>
+                    </div>
+
+                    <br><br>
                     <button class="btn btn-primary" onclick="startGame()">Start de Arena!</button>
                 </div>
             </div>
@@ -825,47 +1041,35 @@
                     <!-- Filled by JS -->
                 </div>
 
+                <button class="hint-btn" id="hintBtn" style="display: none;" onclick="useHint()">&#128161; Hint (-1 punt)</button>
+                <div class="hint-box" id="hintBox"></div>
+
                 <div class="feedback" id="feedback">
                     <!-- Filled by JS -->
                 </div>
 
                 <div class="button-group" id="nextButtonContainer" style="display: none;">
-                    <button class="btn btn-secondary" onclick="nextQuestion()">Volgende vraag →</button>
+                    <button class="btn btn-secondary" onclick="nextQuestion()">Volgende vraag &rarr;</button>
                 </div>
             </div>
 
             <!-- Result Screen -->
             <div class="screen" id="resultScreen">
-                <div class="result-screen">
-                    <div class="result-icon" id="resultIcon">🏆</div>
-                    <h2 id="resultTitle">Je resultaat</h2>
-                    <div class="final-score"><span id="finalScore">0</span>/<span id="finalMax">12</span></div>
-
-                    <div class="stats-grid" id="statsGrid">
-                        <!-- Filled by JS -->
-                    </div>
-
-                    <div class="result-message" id="resultMessage">
-                        <!-- Filled by JS -->
-                    </div>
-
-                    <div class="button-group">
-                        <button class="btn btn-primary" onclick="restartGame()">Opnieuw spelen</button>
-                        <a href="index.html" class="btn btn-outline">Terug naar overzicht</a>
-                    </div>
+                <div class="result-screen" id="resultContent">
+                    <!-- Filled by JS -->
                 </div>
             </div>
         </div>
 
         <div class="back-link">
-            <a href="index.html">← Terug naar Filosofie</a>
+            <a href="index.html">&larr; Terug naar Filosofie</a>
         </div>
     </div>
 
     <script>
         // ========== QUESTION DATABASE ==========
 
-        // Category 1: Redeneervormen (4 types)
+        // Category 1: Redeneervormen (12 vragen)
         const formQuestions = [
             {
                 category: 'forms',
@@ -874,7 +1078,8 @@
                 premise1: "Als het regent, dan wordt de straat nat.",
                 premise2: "Het regent.",
                 conclusion: "Dus de straat wordt nat.",
-                explanation: "De eerste premisse stelt: P → Q. De tweede premisse bevestigt P. Dus volgt Q noodzakelijk."
+                hint: "Kijk welke deel van de als-dan-regel wordt bevestigd: het 'als'-deel (P) of het 'dan'-deel (Q)?",
+                explanation: "De eerste premisse stelt: P \u2192 Q. De tweede premisse bevestigt P. Dus volgt Q noodzakelijk."
             },
             {
                 category: 'forms',
@@ -883,7 +1088,18 @@
                 premise1: "Als iets een zoogdier is, dan heeft het longen.",
                 premise2: "Een dolfijn is een zoogdier.",
                 conclusion: "Dus een dolfijn heeft longen.",
+                hint: "De tweede premisse bevestigt het 'als'-deel. Welke geldige vorm doet dat?",
                 explanation: "Klassieke modus ponens: P is waar (dolfijn = zoogdier), dus Q volgt (heeft longen)."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'modus_ponens',
+                premise1: "Als de CO2-uitstoot stijgt, dan stijgt de temperatuur.",
+                premise2: "De CO2-uitstoot stijgt.",
+                conclusion: "Dus de temperatuur stijgt.",
+                hint: "P (CO2 stijgt) wordt bevestigd. Wat volgt er dan uit P \u2192 Q?",
+                explanation: "Modus ponens met een actueel voorbeeld: P wordt bevestigd, dus Q volgt noodzakelijk. (Let op: de geldigheid van het argument zegt niets over de waarheid van de premissen.)"
             },
             {
                 category: 'forms',
@@ -892,6 +1108,7 @@
                 premise1: "Als het regent, dan wordt de straat nat.",
                 premise2: "De straat is niet nat.",
                 conclusion: "Dus het regent niet.",
+                hint: "Hier wordt het 'dan'-deel (\u00acQ) ontkend. Welke geldige vorm doet dat?",
                 explanation: "Modus tollens: als Q onwaar is (straat niet nat), dan moet P ook onwaar zijn."
             },
             {
@@ -901,7 +1118,18 @@
                 premise1: "Als Jan de dader is, dan heeft hij geen alibi.",
                 premise2: "Jan heeft een alibi.",
                 conclusion: "Dus Jan is niet de dader.",
+                hint: "Jan heeft w\u00e9l een alibi, dus de consequent (geen alibi) is onwaar. Welke vorm ontkent Q?",
                 explanation: "De consequent (geen alibi) is onwaar, dus de antecedent (dader zijn) moet ook onwaar zijn."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'modus_tollens',
+                premise1: "Als een machine kan denken, dan is het bewust.",
+                premise2: "De machine is niet bewust.",
+                conclusion: "Dus de machine kan niet denken.",
+                hint: "De consequent ('bewust') wordt ontkend. Welke geldige redeneervorm ontkent Q?",
+                explanation: "Modus tollens met een AI-voorbeeld: \u00acQ (niet bewust) leidt tot \u00acP (kan niet denken). De geldigheid hangt niet af van de vraag of de premisse klopt."
             },
             {
                 category: 'forms',
@@ -910,6 +1138,7 @@
                 premise1: "Als het regent, dan wordt de straat nat.",
                 premise2: "De straat is nat.",
                 conclusion: "Dus het regent.",
+                hint: "Welk deel wordt bevestigd: het 'als'-deel of het 'dan'-deel? Dat maakt veel uit!",
                 explanation: "DROGREDEN! De straat kan ook nat zijn door andere oorzaken (sproeier, gemorst water)."
             },
             {
@@ -919,7 +1148,18 @@
                 premise1: "Als je griep hebt, heb je koorts.",
                 premise2: "Je hebt koorts.",
                 conclusion: "Dus je hebt griep.",
+                hint: "Koorts (Q) wordt bevestigd. Maar is er maar \u00e9\u00e9n oorzaak van koorts?",
                 explanation: "DROGREDEN! Koorts kan ook door andere ziektes komen. Q bevestigen bewijst P niet."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'affirming_consequent',
+                premise1: "Als iets viral gaat op social media, dan zien veel mensen het.",
+                premise2: "Veel mensen hebben het gezien.",
+                conclusion: "Dus het is viral gegaan op social media.",
+                hint: "Het 'dan'-deel (veel mensen zien het) wordt bevestigd. Maar kan dat ook andere oorzaken hebben?",
+                explanation: "DROGREDEN! Veel mensen kunnen iets ook via TV, radio of krant hebben gezien. Het bevestigen van Q bewijst P niet."
             },
             {
                 category: 'forms',
@@ -928,6 +1168,7 @@
                 premise1: "Als het regent, dan wordt de straat nat.",
                 premise2: "Het regent niet.",
                 conclusion: "Dus de straat is niet nat.",
+                hint: "Het 'als'-deel (P) wordt ontkend. Maar sluit dat Q echt uit?",
                 explanation: "DROGREDEN! De straat kan nog steeds nat zijn door andere oorzaken."
             },
             {
@@ -937,11 +1178,22 @@
                 premise1: "Als je een kat bent, ben je een dier.",
                 premise2: "Je bent geen kat.",
                 conclusion: "Dus je bent geen dier.",
-                explanation: "DROGREDEN! Je kunt een hond zijn — nog steeds een dier. Niet-P bewijst niets over Q."
+                hint: "Niet-kat zijn sluit niet uit dat je een ander soort dier bent. Welke drogreden is dit?",
+                explanation: "DROGREDEN! Je kunt een hond zijn \u2014 nog steeds een dier. Niet-P bewijst niets over Q."
+            },
+            {
+                category: 'forms',
+                categoryLabel: 'Redeneervormen',
+                type: 'denying_antecedent',
+                premise1: "Als je populist bent, ben je gevaarlijk voor de democratie.",
+                premise2: "Je bent geen populist.",
+                conclusion: "Dus je bent niet gevaarlijk voor de democratie.",
+                hint: "Er zijn meer manieren om gevaarlijk te zijn voor de democratie dan alleen populisme.",
+                explanation: "DROGREDEN! Niet-populist zijn sluit niet uit dat je op andere manieren gevaarlijk voor de democratie kunt zijn. \u00acP bewijst niet \u00acQ."
             }
         ];
 
-        // Category 2: Waarheid vs Geldigheid vs Deugdelijkheid
+        // Category 2: Waarheid vs Geldigheid vs Deugdelijkheid (7 vragen)
         const validityQuestions = [
             {
                 category: 'validity',
@@ -952,8 +1204,9 @@
                 options: [
                     { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
                     { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig én ware premissen' }
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
                 ],
+                hint: "Kijk apart naar structuur en inhoud. Klopt de structuur (als...dan)? Kloppen de feiten?",
                 explanation: "Het argument is <strong>geldig</strong> (modus ponens), maar niet <strong>deugdelijk</strong> omdat de eerste premisse onwaar is. Geldigheid gaat over structuur, niet over feiten."
             },
             {
@@ -965,9 +1218,10 @@
                 options: [
                     { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
                     { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig én ware premissen' }
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
                 ],
-                explanation: "Dit is een <strong>deugdelijk</strong> argument: de structuur is geldig (modus ponens) én beide premissen zijn waar."
+                hint: "Check: klopt de structuur? En zijn de premissen ook feitelijk waar?",
+                explanation: "Dit is een <strong>deugdelijk</strong> argument: de structuur is geldig (modus ponens) \u00e9n beide premissen zijn waar."
             },
             {
                 category: 'validity',
@@ -978,8 +1232,9 @@
                 options: [
                     { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
                     { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig én ware premissen' }
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
                 ],
+                hint: "Volgt de conclusie logisch uit de premissen? Is er een als-dan-verband?",
                 explanation: "Dit is <strong>ongeldig</strong>: de conclusie ('Amsterdam is mooi') volgt logisch niet uit de premissen. De premissen zijn waar, maar er is geen logisch verband."
             },
             {
@@ -991,13 +1246,56 @@
                 options: [
                     { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
                     { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig én ware premissen' }
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
                 ],
+                hint: "Geldige structuur + ware premissen = ?",
                 explanation: "Klassiek <strong>deugdelijk</strong> argument: geldige structuur + ware premissen = betrouwbare conclusie."
+            },
+            {
+                category: 'validity',
+                categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle politici zijn eerlijk. De premier is een politicus. Dus de premier is eerlijk.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'valid_untrue',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
+                ],
+                hint: "De structuur is correct (alle X zijn Y, Z is X, dus Z is Y). Maar klopt de eerste premisse?",
+                explanation: "Het argument is <strong>geldig</strong> qua structuur (modus ponens), maar de eerste premisse ('alle politici zijn eerlijk') is onwaar. Dus niet deugdelijk."
+            },
+            {
+                category: 'validity',
+                categoryLabel: 'Waarheid & Geldigheid',
+                question: "Als je in Amsterdam bent, ben je in Nederland. Je bent in Rotterdam. Dus je bent in Nederland.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'invalid',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
+                ],
+                hint: "De premisse gaat over Amsterdam, maar de conclusie gaat over Rotterdam. Volgt dat logisch?",
+                explanation: "Dit is <strong>ongeldig</strong>. De premisse gaat over Amsterdam, maar we weten alleen dat je in Rotterdam bent. De conclusie is toevallig waar, maar volgt niet logisch uit de premissen (bevestiging van de consequent-achtig)."
+            },
+            {
+                category: 'validity',
+                categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle robots zijn gemaakt van kaas. Mijn telefoon is een robot. Dus mijn telefoon is gemaakt van kaas.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'valid_untrue',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
+                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
+                ],
+                hint: "De structuur is: alle X zijn Y, Z is X, dus Z is Y. Klopt die structuur? En kloppen de feiten?",
+                explanation: "De structuur is <strong>geldig</strong> (alle X zijn Y, Z is X, dus Z is Y). Maar beide premissen zijn onwaar, dus het is niet deugdelijk. Geldigheid \u2260 waarheid!"
             }
         ];
 
-        // Category 3: Signaalwoorden
+        // Category 3: Signaalwoorden (7 vragen)
         const signalQuestions = [
             {
                 category: 'signals',
@@ -1009,6 +1307,7 @@
                     { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
                     { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
                 ],
+                hint: "'Want' geeft een reden. Is een reden een premisse of een conclusie?",
                 explanation: "'Want' is een <strong>premisse-indicator</strong>. Het introduceert de reden (het gaat regenen) voor de conclusie (paraplu meenemen)."
             },
             {
@@ -1021,6 +1320,7 @@
                     { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
                     { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
                 ],
+                hint: "'Dus' signaleert wat er uit iets volgt. Is dat een reden of een gevolgtrekking?",
                 explanation: "'Dus' is een <strong>conclusie-indicator</strong>. Het signaleert wat volgt uit de voorafgaande premissen."
             },
             {
@@ -1033,6 +1333,7 @@
                     { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
                     { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
                 ],
+                hint: "'Immers' lijkt op 'want' \u2014 het geeft een onderbouwing.",
                 explanation: "'Immers' is een <strong>premisse-indicator</strong>. Het geeft de reden waarom we de uitstoot moeten verminderen."
             },
             {
@@ -1045,11 +1346,51 @@
                     { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
                     { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
                 ],
+                hint: "'Bijgevolg' = 'als gevolg daarvan'. Wijst het vooruit of achteruit in het argument?",
                 explanation: "'Bijgevolg' is een <strong>conclusie-indicator</strong>. Het signaleert de gevolgtrekking uit de gegeven feiten."
+            },
+            {
+                category: 'signals',
+                categoryLabel: 'Signaalwoorden',
+                text: "De zeespiegel stijgt, <span class='highlight'>daaruit volgt</span> dat kustgebieden bedreigd worden.",
+                questionText: "De uitdrukking 'daaruit volgt' introduceert hier een...",
+                correctAnswer: 'conclusion',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                hint: "'Daaruit volgt' betekent letterlijk: 'dit is het gevolg'. Premisse of conclusie?",
+                explanation: "'Daaruit volgt' is een <strong>conclusie-indicator</strong>. Het wijst naar wat logisch voortkomt uit het voorgaande."
+            },
+            {
+                category: 'signals',
+                categoryLabel: 'Signaalwoorden',
+                text: "<span class='highlight'>Aangezien</span> social media verslavend kan zijn, moeten jongeren beter beschermd worden.",
+                questionText: "Het woord 'aangezien' introduceert hier een...",
+                correctAnswer: 'premise',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                hint: "'Aangezien' geeft de reden. Vergelijk met 'omdat' of 'want'.",
+                explanation: "'Aangezien' is een <strong>premisse-indicator</strong>. Het introduceert de reden (social media is verslavend) voor de conclusie (jongeren beschermen)."
+            },
+            {
+                category: 'signals',
+                categoryLabel: 'Signaalwoorden',
+                text: "AI wordt steeds slimmer. <span class='highlight'>Hieruit blijkt</span> dat we regels nodig hebben voor kunstmatige intelligentie.",
+                questionText: "De uitdrukking 'hieruit blijkt' introduceert hier een...",
+                correctAnswer: 'conclusion',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                hint: "'Hieruit blijkt' = 'dit laat zien dat'. Het wijst naar een gevolgtrekking.",
+                explanation: "'Hieruit blijkt' is een <strong>conclusie-indicator</strong>. Het signaleert de conclusie die wordt getrokken uit het voorgaande feit."
             }
         ];
 
-        // Category 4: Verzwegen aannames
+        // Category 4: Verzwegen aannames (6 vragen)
         const assumptionQuestions = [
             {
                 category: 'assumptions',
@@ -1062,7 +1403,8 @@
                     { id: 'jan_studies', label: 'Jan studeert hard', desc: '' },
                     { id: 'smart_philosophers', label: 'Alle slimme mensen zijn filosofen', desc: '' }
                 ],
-                explanation: "De verzwegen aanname is: <strong>'Alle filosofen zijn slim'</strong>. Alleen met deze premisse wordt het een geldige modus ponens: Als filosoof → slim; Jan = filosoof; dus Jan = slim."
+                hint: "Zoek de ontbrekende 'als...dan'-premisse: als filosoof, dan...?",
+                explanation: "De verzwegen aanname is: <strong>'Alle filosofen zijn slim'</strong>. Alleen met deze premisse wordt het een geldige modus ponens: Als filosoof \u2192 slim; Jan = filosoof; dus Jan = slim."
             },
             {
                 category: 'assumptions',
@@ -1075,7 +1417,8 @@
                     { id: 'all_tested', label: 'Alle medicijnen moeten getest worden', desc: '' },
                     { id: 'safe_tested', label: 'Veilige medicijnen zijn getest', desc: '' }
                 ],
-                explanation: "De verzwegen aanname is: <strong>'Niet-getest → niet veilig'</strong>. Dit maakt het een modus ponens."
+                hint: "De ontbrekende premisse verbindt 'niet getest' met 'niet veilig'. Welke als-dan-regel past?",
+                explanation: "De verzwegen aanname is: <strong>'Niet-getest \u2192 niet veilig'</strong>. Dit maakt het een modus ponens."
             },
             {
                 category: 'assumptions',
@@ -1088,11 +1431,54 @@
                     { id: 'marie_studied', label: 'Marie heeft Frans gestudeerd', desc: '' },
                     { id: 'france_europe', label: 'Frankrijk ligt in Europa', desc: '' }
                 ],
+                hint: "Wat verbindt 'uit Frankrijk komen' met 'Frans spreken'?",
                 explanation: "De verzwegen aanname is: <strong>'Alle mensen uit Frankrijk spreken Frans'</strong>. Dit is de ontbrekende premisse die het argument compleet maakt."
+            },
+            {
+                category: 'assumptions',
+                categoryLabel: 'Verzwegen aannames',
+                argument: "Deze post heeft duizenden likes. Dus de informatie in de post klopt.",
+                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
+                correctAnswer: 'likes_truth',
+                options: [
+                    { id: 'likes_truth', label: 'Als iets veel likes heeft, dan klopt de informatie', desc: '' },
+                    { id: 'many_people', label: 'Veel mensen gebruiken social media', desc: '' },
+                    { id: 'post_popular', label: 'Populaire posts worden vaker gedeeld', desc: '' }
+                ],
+                hint: "Welke als-dan-regel verbindt 'veel likes' met 'klopt'?",
+                explanation: "De verzwegen aanname is: <strong>'Als iets veel likes heeft, klopt de informatie'</strong>. Dit is een zeer twijfelachtige aanname \u2014 populariteit zegt niets over waarheid."
+            },
+            {
+                category: 'assumptions',
+                categoryLabel: 'Verzwegen aannames',
+                argument: "Ahmed draagt een pak. Dus Ahmed is een zakenman.",
+                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
+                correctAnswer: 'suit_business',
+                options: [
+                    { id: 'suit_business', label: 'Iedereen die een pak draagt is een zakenman', desc: '' },
+                    { id: 'ahmed_works', label: 'Ahmed heeft een baan', desc: '' },
+                    { id: 'business_suit', label: 'Zakenmensen dragen altijd een pak', desc: '' }
+                ],
+                hint: "Zoek de als-dan-regel: als pak \u2192 ...?",
+                explanation: "De verzwegen aanname is: <strong>'Iedereen die een pak draagt is een zakenman'</strong>. Let op: 'zakenmensen dragen een pak' is de omgekeerde richting en maakt het argument niet geldig."
+            },
+            {
+                category: 'assumptions',
+                categoryLabel: 'Verzwegen aannames',
+                argument: "Dit product is duur. Dus dit product is van goede kwaliteit.",
+                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
+                correctAnswer: 'expensive_quality',
+                options: [
+                    { id: 'expensive_quality', label: 'Dure producten zijn van goede kwaliteit', desc: '' },
+                    { id: 'quality_costs', label: 'Kwaliteit kost geld om te produceren', desc: '' },
+                    { id: 'cheap_bad', label: 'Goedkope producten zijn slecht', desc: '' }
+                ],
+                hint: "De ontbrekende premisse gaat van 'duur' naar 'goede kwaliteit'. Welke als-dan?",
+                explanation: "De verzwegen aanname is: <strong>'Dure producten zijn van goede kwaliteit'</strong>. Dit is een veelgemaakte maar onterechte aanname."
             }
         ];
 
-        // Category 5: Deductie vs Inductie
+        // Category 5: Deductie vs Inductie (6 vragen)
         const deductionQuestions = [
             {
                 category: 'deduction',
@@ -1104,6 +1490,7 @@
                     { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
                     { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
                 ],
+                hint: "Gaat het van algemeen naar specifiek (deductie) of van specifiek naar algemeen (inductie)?",
                 explanation: "Dit is <strong>deductie</strong>: als de premissen waar zijn, is de conclusie met zekerheid waar. De conclusie volgt noodzakelijk."
             },
             {
@@ -1116,6 +1503,7 @@
                     { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
                     { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
                 ],
+                hint: "Van specifieke waarnemingen naar een algemene regel. Is de conclusie 100% zeker?",
                 explanation: "Dit is <strong>inductie</strong>: van specifieke waarnemingen naar een algemene conclusie. De conclusie is waarschijnlijk, maar kan weerlegd worden (zwarte zwanen bestaan!)."
             },
             {
@@ -1128,6 +1516,7 @@
                     { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
                     { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
                 ],
+                hint: "Het argument is gebaseerd op herhaalde waarnemingen uit het verleden.",
                 explanation: "Dit is <strong>inductie</strong>: we baseren onze verwachting op patroonherkenning. Hoe waarschijnlijk ook, het is geen logische noodzaak."
             },
             {
@@ -1140,23 +1529,222 @@
                     { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
                     { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
                 ],
+                hint: "Er is een als-dan-regel en het 'als'-deel is waar. Volgt de conclusie met zekerheid?",
                 explanation: "Dit is <strong>deductie</strong> (modus ponens): de conclusie volgt noodzakelijk uit de premissen."
+            },
+            {
+                category: 'deduction',
+                categoryLabel: 'Deductie vs Inductie',
+                argument: "De afgelopen 5 jaar is het elke zomer warmer geworden. Dus volgend jaar wordt het weer warmer.",
+                questionText: "Dit is een voorbeeld van...",
+                correctAnswer: 'induction',
+                options: [
+                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
+                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                ],
+                hint: "Het argument extrapoleert een trend uit het verleden naar de toekomst.",
+                explanation: "Dit is <strong>inductie</strong>: een trend uit het verleden wordt doorgetrokken naar de toekomst. Waarschijnlijk, maar niet zeker."
+            },
+            {
+                category: 'deduction',
+                categoryLabel: 'Deductie vs Inductie',
+                argument: "Geen enkele vis kan op het land leven. Een tonijn is een vis. Dus een tonijn kan niet op het land leven.",
+                questionText: "Dit is een voorbeeld van...",
+                correctAnswer: 'deduction',
+                options: [
+                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
+                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                ],
+                hint: "Een algemene regel wordt toegepast op een specifiek geval. Is de conclusie dan zeker?",
+                explanation: "Dit is <strong>deductie</strong>: van een algemene regel ('geen enkele vis...') naar een specifiek geval. Als de premissen waar zijn, is de conclusie met zekerheid waar."
+            }
+        ];
+
+        // Category 6: "Waarom is dit fout?" (5 vragen)
+        const whyWrongQuestions = [
+            {
+                category: 'whywrong',
+                categoryLabel: 'Waarom is dit fout?',
+                argument: "Het regent niet, dus de straat is niet nat.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'other_causes',
+                options: [
+                    { id: 'other_causes', label: 'De straat kan ook door andere oorzaken nat zijn', desc: 'Bijv. een sproeier, gemorst water of smeltende sneeuw' },
+                    { id: 'premise_false', label: 'De premisse is onwaar', desc: 'Het regent misschien wel' },
+                    { id: 'no_connection', label: 'Er is geen verband tussen regen en natte straat', desc: 'De twee hebben niets met elkaar te maken' }
+                ],
+                hint: "Dit is ontkenning van de antecedent. Het feit dat P niet waar is, sluit Q niet uit.",
+                explanation: "Dit is <strong>ontkenning van de antecedent</strong>: het feit dat het niet regent, sluit niet uit dat de straat nat is door andere oorzaken. \u00acP bewijst niet \u00acQ."
+            },
+            {
+                category: 'whywrong',
+                categoryLabel: 'Waarom is dit fout?',
+                argument: "Alle succesvolle mensen staan vroeg op. Ik sta vroeg op. Dus ik word succesvol.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'affirm_q',
+                options: [
+                    { id: 'affirm_q', label: 'Vroeg opstaan is niet de enige voorwaarde voor succes', desc: 'Het bevestigt het gevolg, niet de oorzaak' },
+                    { id: 'wrong_fact', label: 'Niet alle succesvolle mensen staan vroeg op', desc: 'De premisse klopt niet' },
+                    { id: 'no_logic', label: 'Er zit geen logica in dit argument', desc: 'Het slaat nergens op' }
+                ],
+                hint: "De premisse zegt: succes \u2192 vroeg opstaan. Het argument bevestigt 'vroeg opstaan' (Q). Welke fout is dat?",
+                explanation: "Dit is <strong>bevestiging van de consequent</strong>: als succes \u2192 vroeg opstaan, dan bewijst vroeg opstaan (Q) nog niet dat je succesvol wordt (P). Er zijn veel meer factoren nodig."
+            },
+            {
+                category: 'whywrong',
+                categoryLabel: 'Waarom is dit fout?',
+                argument: "90% van de studenten op deze school haalt een voldoende. Jij zit op deze school. Dus jij haalt zeker een voldoende.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'probability',
+                options: [
+                    { id: 'probability', label: '90% is waarschijnlijk, maar niet zeker \u2014 je kunt bij de 10% horen', desc: 'Een percentage maakt iets niet noodzakelijk' },
+                    { id: 'wrong_stat', label: 'Het percentage klopt niet', desc: 'De statistiek is verzonnen' },
+                    { id: 'irrelevant', label: 'Schoolresultaten zeggen niets over individuen', desc: 'Statistieken gelden niet voor personen' }
+                ],
+                hint: "Let op het woord 'zeker'. Is een waarschijnlijkheid van 90% hetzelfde als zekerheid?",
+                explanation: "Het argument verwart <strong>waarschijnlijkheid met zekerheid</strong>. 90% kans betekent dat 10% het niet haalt \u2014 jij kunt daar bij zitten. Een inductief sterke kans is niet hetzelfde als deductieve zekerheid."
+            },
+            {
+                category: 'whywrong',
+                categoryLabel: 'Waarom is dit fout?',
+                argument: "Als je een goede AI bouwt, kan het menselijk werk vervangen. ChatGPT kan menselijk werk vervangen. Dus ChatGPT is een goede AI.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'affirm_consequent',
+                options: [
+                    { id: 'affirm_consequent', label: 'Het bevestigt het gevolg: werk vervangen kan ook zonder \u201cgoede AI\u201d', desc: 'Q klopt, maar dat bewijst P niet' },
+                    { id: 'ai_not_good', label: 'ChatGPT is geen goede AI', desc: 'De premisse over ChatGPT klopt niet' },
+                    { id: 'no_replace', label: 'AI kan menselijk werk niet vervangen', desc: 'De hele redenering is onwaar' }
+                ],
+                hint: "De als-dan-regel is: goede AI \u2192 werk vervangen. Het argument bevestigt 'werk vervangen' (Q)...",
+                explanation: "Dit is <strong>bevestiging van de consequent</strong>: goede AI \u2192 werk vervangen. Dat ChatGPT werk kan vervangen (Q), bewijst niet dat het een 'goede AI' is (P). Er kunnen ook andere redenen zijn."
+            },
+            {
+                category: 'whywrong',
+                categoryLabel: 'Waarom is dit fout?',
+                argument: "Nederland is een democratie. In een democratie mag iedereen stemmen. Dus het beleid is altijd wat de meerderheid wil.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'hidden_step',
+                options: [
+                    { id: 'hidden_step', label: 'Stemrecht betekent niet dat beleid altijd de meerderheid volgt', desc: 'Er zijn coalitievorming, lobby en andere factoren' },
+                    { id: 'not_democracy', label: 'Nederland is geen echte democratie', desc: 'De premisse klopt niet' },
+                    { id: 'voting_works', label: 'Stemmen werkt niet', desc: 'Het systeem functioneert niet' }
+                ],
+                hint: "Er wordt een grote sprong gemaakt van 'mogen stemmen' naar 'beleid = meerderheid'. Welke stappen worden overgeslagen?",
+                explanation: "Het argument maakt een <strong>ongerechtvaardigde sprong</strong>: van stemrecht naar beleid dat de meerderheid volgt. In werkelijkheid zijn er coalitievorming, compromissen, lobbying en vele andere factoren die beleid be\u00efnvloeden."
+            }
+        ];
+
+        // Category 7: "Bouw het argument" (5 vragen)
+        const constructionQuestions = [
+            {
+                category: 'construction',
+                categoryLabel: 'Bouw het argument',
+                subtype: 'conclusion',
+                premise1: "Als je geen helm draagt, riskeer je een hoofdletsel.",
+                premise2: "Jij draagt geen helm.",
+                missingLabel: "Wat is de juiste conclusie?",
+                correctAnswer: 'head_injury',
+                options: [
+                    { id: 'head_injury', label: 'Dus jij riskeert een hoofdletsel', desc: '' },
+                    { id: 'helmet_safe', label: 'Dus helmen zijn veilig', desc: '' },
+                    { id: 'no_risk', label: 'Dus jij hebt geen risico', desc: '' }
+                ],
+                hint: "Dit is modus ponens: P \u2192 Q, P is waar. Wat volgt er?",
+                explanation: "Via <strong>modus ponens</strong>: als geen helm \u2192 risico op hoofdletsel. Jij draagt geen helm (P). Dus: jij riskeert een hoofdletsel (Q)."
+            },
+            {
+                category: 'construction',
+                categoryLabel: 'Bouw het argument',
+                subtype: 'premise',
+                premise1: "???",
+                premise2: "Een papegaai is een vogel.",
+                conclusionText: "Dus een papegaai kan vliegen.",
+                missingLabel: "Welke premisse ontbreekt?",
+                correctAnswer: 'birds_fly',
+                options: [
+                    { id: 'birds_fly', label: 'Alle vogels kunnen vliegen', desc: '' },
+                    { id: 'parrots_colorful', label: 'Papegaaien zijn kleurrijk', desc: '' },
+                    { id: 'fly_wings', label: 'Vliegen vereist vleugels', desc: '' }
+                ],
+                hint: "Zoek de als-dan-regel die 'vogel' verbindt met 'kan vliegen'.",
+                explanation: "De ontbrekende premisse is: <strong>'Alle vogels kunnen vliegen'</strong>. Dan: vogel \u2192 kan vliegen; papegaai = vogel; dus papegaai kan vliegen (modus ponens). (Let op: in werkelijkheid kunnen niet alle vogels vliegen!)"
+            },
+            {
+                category: 'construction',
+                categoryLabel: 'Bouw het argument',
+                subtype: 'conclusion',
+                premise1: "Alle vormen van nepnieuws zijn schadelijk voor de democratie.",
+                premise2: "Deepfakes zijn een vorm van nepnieuws.",
+                missingLabel: "Wat is de juiste conclusie?",
+                correctAnswer: 'deepfakes_harmful',
+                options: [
+                    { id: 'deepfakes_harmful', label: 'Dus deepfakes zijn schadelijk voor de democratie', desc: '' },
+                    { id: 'ban_deepfakes', label: 'Dus deepfakes moeten verboden worden', desc: '' },
+                    { id: 'democracy_danger', label: 'Dus de democratie is in gevaar', desc: '' }
+                ],
+                hint: "Alle X zijn Y. Z is een X. Dus Z is...?",
+                explanation: "Via <strong>modus ponens</strong>: nepnieuws \u2192 schadelijk voor democratie. Deepfakes = nepnieuws. Dus: deepfakes zijn schadelijk voor de democratie. De andere opties zijn mogelijke meningen, maar volgen niet logisch."
+            },
+            {
+                category: 'construction',
+                categoryLabel: 'Bouw het argument',
+                subtype: 'premise',
+                premise1: "???",
+                premise2: "Het klimaat verandert niet.",
+                conclusionText: "Dus de CO2-uitstoot is niet gestegen.",
+                missingLabel: "Welke premisse ontbreekt?",
+                correctAnswer: 'co2_climate',
+                options: [
+                    { id: 'co2_climate', label: 'Als de CO2-uitstoot stijgt, verandert het klimaat', desc: '' },
+                    { id: 'climate_natural', label: 'Klimaatverandering is natuurlijk', desc: '' },
+                    { id: 'co2_bad', label: 'CO2 is slecht voor het milieu', desc: '' }
+                ],
+                hint: "De conclusie ontkent iets (\u00acP) op basis van een ontkenning (\u00acQ). Dit lijkt op modus tollens: P \u2192 Q, \u00acQ, dus \u00acP.",
+                explanation: "De ontbrekende premisse is: <strong>'Als de CO2-uitstoot stijgt, verandert het klimaat'</strong>. Dan via modus tollens: CO2 \u2192 klimaat verandert; klimaat verandert niet (\u00acQ); dus CO2 niet gestegen (\u00acP)."
+            },
+            {
+                category: 'construction',
+                categoryLabel: 'Bouw het argument',
+                subtype: 'conclusion',
+                premise1: "Als een leerling alle opdrachten maakt, haalt die een voldoende.",
+                premise2: "Sara heeft niet alle opdrachten gemaakt.",
+                missingLabel: "Welke conclusie volgt logisch?",
+                correctAnswer: 'none_valid',
+                options: [
+                    { id: 'sara_fails', label: 'Dus Sara haalt geen voldoende', desc: '' },
+                    { id: 'none_valid', label: 'Er volgt geen geldige conclusie', desc: '' },
+                    { id: 'sara_passes', label: 'Dus Sara haalt wel een voldoende', desc: '' }
+                ],
+                hint: "De tweede premisse ontkent het 'als'-deel (P). Kan je dan iets concluderen over Q? Denk aan ontkenning van de antecedent.",
+                explanation: "Er volgt <strong>geen geldige conclusie</strong>! Dit zou ontkenning van de antecedent zijn (\u00acP, dus \u00acQ), een drogreden. Sara kan alsnog een voldoende halen via herkansing, bonuspunten, etc."
             }
         ];
 
         // ========== GAME STATE ==========
         let currentQuestion = 0;
         let score = 0;
+        let streak = 0;
+        let maxStreak = 0;
+        let hintsUsed = 0;
+        let hintUsedThisQuestion = false;
+        let timerEnabled = false;
+        let timerInterval = null;
+        let timeLeft = 30;
+        let practiceMode = false;
+        let practiceCategory = null;
+        let savedResultHTML = '';
         let categoryScores = {
             forms: { correct: 0, total: 0 },
             validity: { correct: 0, total: 0 },
             signals: { correct: 0, total: 0 },
             assumptions: { correct: 0, total: 0 },
-            deduction: { correct: 0, total: 0 }
+            deduction: { correct: 0, total: 0 },
+            whywrong: { correct: 0, total: 0 },
+            construction: { correct: 0, total: 0 }
         };
         let shuffledQuestions = [];
         let answered = false;
-        const TOTAL_QUESTIONS = 12;
+        const TOTAL_QUESTIONS = 15;
 
         // ========== HELPER FUNCTIONS ==========
         function shuffle(array) {
@@ -1169,53 +1757,222 @@
         }
 
         function pickQuestions() {
-            // Pick balanced selection from each category
-            const forms = shuffle(formQuestions).slice(0, 4);
-            const validity = shuffle(validityQuestions).slice(0, 2);
+            // Difficulty ordering: easy to hard, shuffled within each category
+            const forms = shuffle(formQuestions).slice(0, 3);
             const signals = shuffle(signalQuestions).slice(0, 2);
+            const validity = shuffle(validityQuestions).slice(0, 2);
             const assumptions = shuffle(assumptionQuestions).slice(0, 2);
             const deduction = shuffle(deductionQuestions).slice(0, 2);
+            const whywrong = shuffle(whyWrongQuestions).slice(0, 2);
+            const construction = shuffle(constructionQuestions).slice(0, 2);
 
-            return shuffle([...forms, ...validity, ...signals, ...assumptions, ...deduction]);
+            // Categories in order of difficulty (not shuffled across)
+            return [...forms, ...signals, ...validity, ...assumptions, ...deduction, ...whywrong, ...construction];
+        }
+
+        function pickPracticeQuestions(category) {
+            const pools = {
+                forms: formQuestions,
+                validity: validityQuestions,
+                signals: signalQuestions,
+                assumptions: assumptionQuestions,
+                deduction: deductionQuestions,
+                whywrong: whyWrongQuestions,
+                construction: constructionQuestions
+            };
+            return shuffle(pools[category] || []);
+        }
+
+        // ========== TIMER FUNCTIONS ==========
+        function startTimer() {
+            if (!timerEnabled) return;
+            timeLeft = 30;
+            const container = document.getElementById('timerContainer');
+            const fill = document.getElementById('timerFill');
+            const text = document.getElementById('timerText');
+            container.classList.add('active');
+            fill.style.width = '100%';
+            fill.className = 'timer-fill';
+            text.textContent = '30s';
+
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                if (timeLeft <= 0) {
+                    timeLeft = 0;
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    timerTimeout();
+                }
+                const pct = (timeLeft / 30) * 100;
+                fill.style.width = pct + '%';
+                text.textContent = Math.ceil(timeLeft) + 's';
+                if (timeLeft <= 5) {
+                    fill.className = 'timer-fill danger';
+                } else if (timeLeft <= 10) {
+                    fill.className = 'timer-fill warning';
+                }
+            }, 100);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function timerTimeout() {
+            if (answered) return;
+            answered = true;
+            const q = shuffledQuestions[currentQuestion];
+
+            // Count as wrong
+            categoryScores[q.category].total++;
+            streak = 0;
+            updateStreakDisplay();
+
+            // Style all buttons as disabled
+            document.querySelectorAll('.choice-btn').forEach(btn => {
+                btn.classList.add('disabled');
+                const correctAnswer = getCorrectAnswer(q);
+                if (btn.dataset.answer === correctAnswer) {
+                    btn.classList.add('show-correct');
+                }
+            });
+
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.classList.add('show', 'wrong');
+            feedback.innerHTML = `
+                <h4>&#9200; Tijd is om!</h4>
+                <p>${q.explanation}</p>
+            `;
+
+            document.getElementById('hintBtn').style.display = 'none';
+            document.getElementById('nextButtonContainer').style.display = 'flex';
+            document.getElementById('timerFill').style.width = '0%';
         }
 
         // ========== GAME FUNCTIONS ==========
         function startGame() {
+            timerEnabled = document.getElementById('timerCheckbox').checked;
             shuffledQuestions = pickQuestions();
             currentQuestion = 0;
             score = 0;
+            streak = 0;
+            maxStreak = 0;
+            hintsUsed = 0;
+            practiceMode = false;
+            practiceCategory = null;
             categoryScores = {
                 forms: { correct: 0, total: 0 },
                 validity: { correct: 0, total: 0 },
                 signals: { correct: 0, total: 0 },
                 assumptions: { correct: 0, total: 0 },
-                deduction: { correct: 0, total: 0 }
+                deduction: { correct: 0, total: 0 },
+                whywrong: { correct: 0, total: 0 },
+                construction: { correct: 0, total: 0 }
             };
 
             document.getElementById('introScreen').classList.remove('active');
+            document.getElementById('resultScreen').classList.remove('active');
             document.getElementById('gameScreen').classList.add('active');
             document.getElementById('progressContainer').style.display = 'block';
-            document.getElementById('scoreDisplay').style.display = 'block';
-            document.getElementById('totalQ').textContent = TOTAL_QUESTIONS;
-            document.getElementById('maxScore').textContent = TOTAL_QUESTIONS;
+            document.getElementById('headerRight').style.display = 'flex';
+            document.getElementById('totalQ').textContent = shuffledQuestions.length;
+            document.getElementById('maxScore').textContent = shuffledQuestions.length;
+            updateStreakDisplay();
 
             renderQuestion();
         }
 
+        function startPracticeMode(category) {
+            const categoryNames = {
+                forms: 'Redeneervormen',
+                validity: 'Waarheid & Geldigheid',
+                signals: 'Signaalwoorden',
+                assumptions: 'Verzwegen aannames',
+                deduction: 'Deductie vs Inductie',
+                whywrong: 'Waarom is dit fout?',
+                construction: 'Bouw het argument'
+            };
+
+            practiceMode = true;
+            practiceCategory = category;
+            shuffledQuestions = pickPracticeQuestions(category);
+            currentQuestion = 0;
+            score = 0;
+            streak = 0;
+            maxStreak = 0;
+            hintsUsed = 0;
+            categoryScores = {
+                forms: { correct: 0, total: 0 },
+                validity: { correct: 0, total: 0 },
+                signals: { correct: 0, total: 0 },
+                assumptions: { correct: 0, total: 0 },
+                deduction: { correct: 0, total: 0 },
+                whywrong: { correct: 0, total: 0 },
+                construction: { correct: 0, total: 0 }
+            };
+
+            document.getElementById('resultScreen').classList.remove('active');
+            document.getElementById('introScreen').classList.remove('active');
+            document.getElementById('gameScreen').classList.add('active');
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('headerRight').style.display = 'flex';
+            document.getElementById('totalQ').textContent = shuffledQuestions.length;
+            document.getElementById('maxScore').textContent = shuffledQuestions.length;
+            updateStreakDisplay();
+
+            renderQuestion();
+        }
+
+        function getCorrectAnswer(q) {
+            if (q.category === 'forms') return q.type;
+            return q.correctAnswer;
+        }
+
+        function updateStreakDisplay() {
+            const el = document.getElementById('streakDisplay');
+            const countEl = document.getElementById('streakCount');
+            countEl.textContent = streak;
+            if (streak >= 2) {
+                el.classList.add('visible');
+                if (streak >= 5) {
+                    el.classList.add('combo');
+                    setTimeout(() => el.classList.remove('combo'), 600);
+                }
+            } else {
+                el.classList.remove('visible');
+            }
+        }
+
         function renderQuestion() {
             answered = false;
+            hintUsedThisQuestion = false;
             const q = shuffledQuestions[currentQuestion];
+            const total = shuffledQuestions.length;
 
             // Update progress
             document.getElementById('currentQ').textContent = currentQuestion + 1;
             document.getElementById('roundLabel').textContent = `Ronde ${currentQuestion + 1}`;
-            document.getElementById('progressFill').style.width = ((currentQuestion) / TOTAL_QUESTIONS * 100) + '%';
+            document.getElementById('progressFill').style.width = ((currentQuestion) / total * 100) + '%';
             document.getElementById('currentScore').textContent = score;
             document.getElementById('categoryBadge').textContent = q.categoryLabel;
 
-            // Hide feedback
+            // Hide feedback, hint
             document.getElementById('feedback').classList.remove('show', 'correct', 'wrong');
             document.getElementById('nextButtonContainer').style.display = 'none';
+            document.getElementById('hintBox').classList.remove('show');
+            document.getElementById('hintBox').textContent = '';
+
+            // Show hint button if question has a hint
+            const hintBtn = document.getElementById('hintBtn');
+            if (q.hint) {
+                hintBtn.style.display = 'block';
+            } else {
+                hintBtn.style.display = 'none';
+            }
 
             // Render based on category
             if (q.category === 'forms') {
@@ -1228,7 +1985,14 @@
                 renderAssumptionQuestion(q);
             } else if (q.category === 'deduction') {
                 renderDeductionQuestion(q);
+            } else if (q.category === 'whywrong') {
+                renderWhyWrongQuestion(q);
+            } else if (q.category === 'construction') {
+                renderConstructionQuestion(q);
             }
+
+            // Start timer if enabled
+            startTimer();
         }
 
         function renderFormQuestion(q) {
@@ -1237,7 +2001,7 @@
                 <div class="argument-display">
                     <div class="premise"><span class="premise-label">P1:</span> ${q.premise1}</div>
                     <div class="premise"><span class="premise-label">P2:</span> ${q.premise2}</div>
-                    <div class="conclusion"><span class="conclusion-label">∴</span> ${q.conclusion}</div>
+                    <div class="conclusion"><span class="conclusion-label">\u2234</span> ${q.conclusion}</div>
                 </div>
             `;
             document.getElementById('questionText').textContent = "Welke redeneervorm is dit?";
@@ -1245,19 +2009,19 @@
             document.getElementById('choices').innerHTML = `
                 <button class="choice-btn" data-answer="modus_ponens">
                     <div class="choice-name">Modus Ponens</div>
-                    <div class="choice-type valid">✓ Geldig</div>
+                    <div class="choice-type valid">\u2713 Geldig</div>
                 </button>
                 <button class="choice-btn" data-answer="modus_tollens">
                     <div class="choice-name">Modus Tollens</div>
-                    <div class="choice-type valid">✓ Geldig</div>
+                    <div class="choice-type valid">\u2713 Geldig</div>
                 </button>
                 <button class="choice-btn" data-answer="affirming_consequent">
                     <div class="choice-name">Bevestiging Consequent</div>
-                    <div class="choice-type invalid">✗ Drogreden</div>
+                    <div class="choice-type invalid">\u2717 Drogreden</div>
                 </button>
                 <button class="choice-btn" data-answer="denying_antecedent">
                     <div class="choice-name">Ontkenning Antecedent</div>
-                    <div class="choice-type invalid">✗ Drogreden</div>
+                    <div class="choice-type invalid">\u2717 Drogreden</div>
                 </button>
             `;
             addChoiceListeners();
@@ -1326,34 +2090,100 @@
             addChoiceListeners();
         }
 
+        function renderWhyWrongQuestion(q) {
+            document.getElementById('questionBox').innerHTML = `
+                <h3><span class="category-tag">Waarom is dit fout?</span> Dit argument klopt niet:</h3>
+                <div class="text-passage" style="border-color: var(--rood); border-style: solid;">${q.argument}</div>
+            `;
+            document.getElementById('questionText').textContent = q.questionText;
+            document.getElementById('choices').className = 'choices single-column';
+            document.getElementById('choices').innerHTML = q.options.map(opt => `
+                <button class="choice-btn" data-answer="${opt.id}">
+                    <div class="choice-name">${opt.label}</div>
+                    <div class="choice-desc">${opt.desc}</div>
+                </button>
+            `).join('');
+            addChoiceListeners();
+        }
+
+        function renderConstructionQuestion(q) {
+            let boxHTML = '';
+            if (q.subtype === 'conclusion') {
+                boxHTML = `
+                    <h3><span class="category-tag">Bouw het argument</span> Maak het argument compleet:</h3>
+                    <div class="argument-display">
+                        <div class="premise"><span class="premise-label">P1:</span> ${q.premise1}</div>
+                        <div class="premise"><span class="premise-label">P2:</span> ${q.premise2}</div>
+                        <div class="missing-piece">\u2234 ???</div>
+                    </div>
+                `;
+            } else {
+                boxHTML = `
+                    <h3><span class="category-tag">Bouw het argument</span> Maak het argument compleet:</h3>
+                    <div class="argument-display">
+                        <div class="missing-piece">P1: ???</div>
+                        <div class="premise"><span class="premise-label">P2:</span> ${q.premise2}</div>
+                        <div class="conclusion"><span class="conclusion-label">\u2234</span> ${q.conclusionText}</div>
+                    </div>
+                `;
+            }
+            document.getElementById('questionBox').innerHTML = boxHTML;
+            document.getElementById('questionText').textContent = q.missingLabel;
+            document.getElementById('choices').className = 'choices single-column';
+            document.getElementById('choices').innerHTML = q.options.map(opt => `
+                <button class="choice-btn" data-answer="${opt.id}">
+                    <div class="choice-name">${opt.label}</div>
+                    ${opt.desc ? `<div class="choice-desc">${opt.desc}</div>` : ''}
+                </button>
+            `).join('');
+            addChoiceListeners();
+        }
+
         function addChoiceListeners() {
             document.querySelectorAll('.choice-btn').forEach(btn => {
                 btn.addEventListener('click', () => selectAnswer(btn.dataset.answer));
             });
         }
 
+        function useHint() {
+            if (answered || hintUsedThisQuestion) return;
+            const q = shuffledQuestions[currentQuestion];
+            if (!q.hint) return;
+
+            hintUsedThisQuestion = true;
+            hintsUsed++;
+            document.getElementById('hintBtn').style.display = 'none';
+            const hintBox = document.getElementById('hintBox');
+            hintBox.textContent = '\uD83D\uDCA1 ' + q.hint;
+            hintBox.classList.add('show');
+        }
+
         function selectAnswer(answer) {
             if (answered) return;
             answered = true;
+            stopTimer();
 
             const q = shuffledQuestions[currentQuestion];
-            let correctAnswer;
-
-            if (q.category === 'forms') {
-                correctAnswer = q.type;
-            } else {
-                correctAnswer = q.correctAnswer;
-            }
-
+            const correctAnswer = getCorrectAnswer(q);
             const isCorrect = answer === correctAnswer;
 
             // Update scores
             categoryScores[q.category].total++;
             if (isCorrect) {
-                score++;
+                if (!hintUsedThisQuestion) {
+                    score++;
+                }
                 categoryScores[q.category].correct++;
+                streak++;
+                if (streak > maxStreak) maxStreak = streak;
+            } else {
+                streak = 0;
             }
+            updateStreakDisplay();
             document.getElementById('currentScore').textContent = score;
+
+            // Hide hint button
+            document.getElementById('hintBtn').style.display = 'none';
 
             // Style buttons
             document.querySelectorAll('.choice-btn').forEach(btn => {
@@ -1373,12 +2203,17 @@
             feedback.classList.add('show', isCorrect ? 'correct' : 'wrong');
 
             let explanationText = q.explanation;
+            let hintNote = '';
+            if (isCorrect && hintUsedThisQuestion) {
+                hintNote = '<p><em>Je hebt een hint gebruikt, dus je krijgt geen punt voor deze vraag.</em></p>';
+            }
+
             if (q.category === 'forms') {
                 const formulas = {
-                    'modus_ponens': 'P → Q; P; ∴ Q',
-                    'modus_tollens': 'P → Q; ¬Q; ∴ ¬P',
-                    'affirming_consequent': 'P → Q; Q; ∴ P (ONGELDIG)',
-                    'denying_antecedent': 'P → Q; ¬P; ∴ ¬Q (ONGELDIG)'
+                    'modus_ponens': 'P \u2192 Q; P; \u2234 Q',
+                    'modus_tollens': 'P \u2192 Q; \u00acQ; \u2234 \u00acP',
+                    'affirming_consequent': 'P \u2192 Q; Q; \u2234 P (ONGELDIG)',
+                    'denying_antecedent': 'P \u2192 Q; \u00acP; \u2234 \u00acQ (ONGELDIG)'
                 };
                 const typeNames = {
                     'modus_ponens': 'Modus Ponens',
@@ -1387,15 +2222,17 @@
                     'denying_antecedent': 'Ontkenning van de Antecedent'
                 };
                 feedback.innerHTML = `
-                    <h4>${isCorrect ? '✓ Correct!' : '✗ Helaas, dat klopt niet'}</h4>
+                    <h4>${isCorrect ? '\u2713 Correct!' : '\u2717 Helaas, dat klopt niet'}</h4>
                     <p>Dit is <strong>${typeNames[correctAnswer]}</strong>.</p>
                     <div class="formula-explain">${formulas[correctAnswer]}</div>
                     <p>${explanationText}</p>
+                    ${hintNote}
                 `;
             } else {
                 feedback.innerHTML = `
-                    <h4>${isCorrect ? '✓ Correct!' : '✗ Helaas, dat klopt niet'}</h4>
+                    <h4>${isCorrect ? '\u2713 Correct!' : '\u2717 Helaas, dat klopt niet'}</h4>
                     <p>${explanationText}</p>
+                    ${hintNote}
                 `;
             }
 
@@ -1404,7 +2241,7 @@
 
         function nextQuestion() {
             currentQuestion++;
-            if (currentQuestion < TOTAL_QUESTIONS) {
+            if (currentQuestion < shuffledQuestions.length) {
                 renderQuestion();
             } else {
                 showResults();
@@ -1412,69 +2249,128 @@
         }
 
         function showResults() {
+            stopTimer();
+            document.getElementById('timerContainer').classList.remove('active');
             document.getElementById('gameScreen').classList.remove('active');
             document.getElementById('resultScreen').classList.add('active');
             document.getElementById('progressContainer').style.display = 'none';
 
-            document.getElementById('finalScore').textContent = score;
-            document.getElementById('finalMax').textContent = TOTAL_QUESTIONS;
+            const totalQ = shuffledQuestions.length;
 
-            // Build stats grid
-            const statsHTML = `
-                <div class="stat-card">
-                    <div class="stat-value">${categoryScores.forms.correct}/${categoryScores.forms.total}</div>
-                    <div class="stat-label">Redeneervormen</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${categoryScores.validity.correct}/${categoryScores.validity.total}</div>
-                    <div class="stat-label">Waarheid/Geldigheid</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${categoryScores.signals.correct}/${categoryScores.signals.total}</div>
-                    <div class="stat-label">Signaalwoorden</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${categoryScores.assumptions.correct}/${categoryScores.assumptions.total}</div>
-                    <div class="stat-label">Verzwegen aannames</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${categoryScores.deduction.correct}/${categoryScores.deduction.total}</div>
-                    <div class="stat-label">Deductie/Inductie</div>
-                </div>
-            `;
-            document.getElementById('statsGrid').innerHTML = statsHTML;
+            const categoryNames = {
+                forms: 'Redeneervormen',
+                signals: 'Signaalwoorden',
+                validity: 'Waarheid/Geldigheid',
+                assumptions: 'Verzwegen aannames',
+                deduction: 'Deductie/Inductie',
+                whywrong: 'Waarom fout?',
+                construction: 'Bouw het argument'
+            };
+
+            const studyTips = {
+                forms: "Oefen met het onderscheid tussen modus ponens (P bevestigen) en bevestiging van de consequent (Q bevestigen).",
+                validity: "Onthoud: geldigheid = structuur, waarheid = feiten. Een argument kan geldig zijn met onware premissen.",
+                signals: "Maak een lijstje: want/omdat/immers/aangezien = premisse, dus/daarom/bijgevolg/hieruit blijkt = conclusie.",
+                assumptions: "Zoek altijd de ontbrekende 'als...dan'-premisse die het argument compleet maakt.",
+                deduction: "Deductie = 100% zeker (van algemeen naar specifiek). Inductie = waarschijnlijk (van specifiek naar algemeen).",
+                whywrong: "Denk bij foute argumenten altijd: welke logische stap wordt overgeslagen of omgedraaid?",
+                construction: "Oefen met het zelf opbouwen van argumenten: welke premisse mist, welke conclusie volgt?"
+            };
+
+            // Build stats with tips and practice buttons
+            let statsHTML = '';
+            const categories = ['forms', 'signals', 'validity', 'assumptions', 'deduction', 'whywrong', 'construction'];
+            for (const cat of categories) {
+                const cs = categoryScores[cat];
+                if (cs.total === 0) continue;
+                const pct = cs.total > 0 ? (cs.correct / cs.total) * 100 : 100;
+                let tipHTML = '';
+                if (pct < 50) {
+                    tipHTML = `<div class="study-tip">\uD83D\uDCA1 ${studyTips[cat]}</div>`;
+                }
+                let practiceHTML = '';
+                if (pct < 100) {
+                    practiceHTML = `<button class="practice-btn" onclick="startPracticeMode('${cat}')">Oefen ${categoryNames[cat]}</button>`;
+                }
+                statsHTML += `
+                    <div class="stat-card">
+                        <div class="stat-value">${cs.correct}/${cs.total}</div>
+                        <div class="stat-label">${categoryNames[cat]}</div>
+                        ${tipHTML}
+                        ${practiceHTML}
+                    </div>
+                `;
+            }
 
             // Result message
-            const percentage = (score / TOTAL_QUESTIONS) * 100;
+            const percentage = (score / totalQ) * 100;
             let icon, title, message;
 
             if (percentage >= 90) {
-                icon = '🏆';
+                icon = '\uD83C\uDFC6';
                 title = 'Meesterlogicus!';
                 message = `<h3>Indrukwekkend!</h3><p>Je beheerst alle aspecten van propositielogica: van redeneervormen tot verzwegen aannames. Je bent klaar om elk argument te ontleden!</p>`;
             } else if (percentage >= 70) {
-                icon = '🎯';
+                icon = '\uD83C\uDFAF';
                 title = 'Sterke denker!';
-                message = `<h3>Goed gedaan!</h3><p>Je hebt een solide begrip van logica. Kijk nog eens naar de categorieën waar je punten hebt laten liggen.</p>`;
+                message = `<h3>Goed gedaan!</h3><p>Je hebt een solide begrip van logica. Kijk nog eens naar de categorie\u00ebn waar je punten hebt laten liggen.</p>`;
             } else if (percentage >= 50) {
-                icon = '📚';
+                icon = '\uD83D\uDCDA';
                 title = 'Op de goede weg';
-                message = `<h3>Blijf oefenen!</h3><p>Je kent de basis, maar sommige onderdelen verdienen extra aandacht. Tip: bestudeer het verschil tussen geldigheid en waarheid nog eens.</p>`;
+                message = `<h3>Blijf oefenen!</h3><p>Je kent de basis, maar sommige onderdelen verdienen extra aandacht. Gebruik de oefen-knoppen hieronder!</p>`;
             } else {
-                icon = '🌱';
+                icon = '\uD83C\uDF31';
                 title = 'Leermoment';
-                message = `<h3>Logica is lastig!</h3><p>Geen zorgen — dit is complex materiaal. Lees de theorie nog eens door en probeer het opnieuw. Oefening baart kunst!</p>`;
+                message = `<h3>Logica is lastig!</h3><p>Geen zorgen \u2014 dit is complex materiaal. Lees de theorie nog eens door en gebruik de oefen-knoppen hieronder.</p>`;
             }
 
-            document.getElementById('resultIcon').textContent = icon;
-            document.getElementById('resultTitle').textContent = title;
-            document.getElementById('resultMessage').innerHTML = message;
+            const practiceLabel = practiceMode ? `Oefensessie ${categoryNames[practiceCategory]} voltooid` : '';
+
+            let resultHTML = `
+                <div class="result-icon">${icon}</div>
+                <h2>${practiceMode ? practiceLabel : title}</h2>
+                <div class="final-score"><span>${score}</span>/${totalQ}</div>
+
+                <div class="extra-stats">
+                    <div>\uD83D\uDD25 Langste reeks: <span>${maxStreak}</span></div>
+                    <div>\uD83D\uDCA1 Hints gebruikt: <span>${hintsUsed}</span></div>
+                </div>
+
+                <div class="stats-grid">
+                    ${statsHTML}
+                </div>
+
+                <div class="result-message">
+                    ${message}
+                </div>
+
+                <div class="button-group">
+                    ${practiceMode ? `<button class="btn btn-outline" onclick="backToResults()">Terug naar resultaat</button>` : ''}
+                    <button class="btn btn-primary" onclick="restartGame()">Opnieuw spelen</button>
+                    <a href="index.html" class="btn btn-outline">Terug naar overzicht</a>
+                </div>
+            `;
+
+            document.getElementById('resultContent').innerHTML = resultHTML;
+
+            // Save result if not practice mode (so we can return to it)
+            if (!practiceMode) {
+                savedResultHTML = resultHTML;
+            }
+        }
+
+        function backToResults() {
+            if (savedResultHTML) {
+                document.getElementById('resultContent').innerHTML = savedResultHTML;
+            }
         }
 
         function restartGame() {
             document.getElementById('resultScreen').classList.remove('active');
             document.getElementById('introScreen').classList.add('active');
-            document.getElementById('scoreDisplay').style.display = 'none';
+            document.getElementById('headerRight').style.display = 'none';
+            document.getElementById('timerContainer').classList.remove('active');
+            stopTimer();
         }
     </script>
 </body>
