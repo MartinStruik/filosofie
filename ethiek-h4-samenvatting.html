@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethiek — H4 Samenvatting & Verwerkingsopdrachten + H5 Start</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f0f1a;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .slide {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 3rem 6rem;
+    position: relative;
+    animation: fadeIn 0.4s ease;
+    overflow-y: auto;
+  }
+  .slide.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Themes */
+  .theme-title { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); }
+  .theme-h4 { background: linear-gradient(135deg, #051a17 0%, #0a2a25 50%, #0f3d35 100%); }
+  .theme-h5 { background: linear-gradient(135deg, #1a0a2e 0%, #2a1040 50%, #3d1860 100%); }
+  .theme-quiz { background: linear-gradient(135deg, #0a1a2e 0%, #102a3e 50%, #183d50 100%); }
+  .theme-result { background: linear-gradient(135deg, #0d1f0d 0%, #1a3a1a 50%, #264026 100%); }
+  .theme-bridge { background: linear-gradient(135deg, #1a1005 0%, #2a1a08 50%, #3d2510 100%); }
+
+  /* Typography */
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+    opacity: 0.7;
+  }
+  p { font-size: 1.25rem; line-height: 1.7; max-width: 900px; }
+  p + p { margin-top: 0.8rem; }
+
+  .accent-teal { color: #1abc9c; }
+  .accent-gold { color: #f5d76e; }
+  .accent-red { color: #e74c3c; }
+  .accent-purple { color: #9b59b6; }
+  .accent-orange { color: #E67E22; }
+
+  .subtitle {
+    font-size: 1.4rem;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  /* Cards */
+  .card-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.2rem;
+    max-width: 1000px;
+    width: 100%;
+  }
+  .card {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 1.8rem;
+    border-left: 4px solid;
+  }
+  .card h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .card p { font-size: 1.05rem; opacity: 0.85; }
+
+  .card-teal { border-left-color: #1abc9c; }
+  .card-teal h4 { color: #1abc9c; }
+  .card-purple { border-left-color: #9b59b6; }
+  .card-purple h4 { color: #9b59b6; }
+  .card-red { border-left-color: #e74c3c; }
+  .card-red h4 { color: #e74c3c; }
+  .card-gold { border-left-color: #f5d76e; }
+  .card-gold h4 { color: #f5d76e; }
+  .card-orange { border-left-color: #E67E22; }
+  .card-orange h4 { color: #E67E22; }
+
+  .grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 900px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .grid-2x2 .card { border-left: none; border-top: 3px solid; text-align: center; }
+
+  /* Big quote */
+  .big-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-style: italic;
+    max-width: 800px;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+    color: #f5d76e;
+  }
+  .quote-cite {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    opacity: 0.6;
+  }
+
+  /* ── QUIZ SYSTEM ── */
+  .quiz-question {
+    max-width: 900px;
+    width: 100%;
+  }
+  .quiz-question h2 { font-size: 1.8rem; }
+  .quiz-question .question-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    background: rgba(255,255,255,0.05);
+    padding: 1.5rem 2rem;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #1abc9c;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .option-btn:hover:not(.locked) {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.25);
+    transform: translateX(4px);
+  }
+  .option-btn .letter {
+    flex-shrink: 0;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 0.1rem;
+  }
+  .option-btn.correct {
+    background: rgba(26, 188, 156, 0.15);
+    border-color: #1abc9c;
+  }
+  .option-btn.correct .letter {
+    background: #1abc9c;
+    color: #0f0f1a;
+  }
+  .option-btn.wrong {
+    background: rgba(231, 76, 60, 0.12);
+    border-color: #e74c3c;
+    opacity: 0.7;
+  }
+  .option-btn.wrong .letter {
+    background: #e74c3c;
+    color: #fff;
+  }
+  .option-btn.locked { cursor: default; }
+
+  .feedback-box {
+    display: none;
+    margin-top: 1.2rem;
+    padding: 1.5rem 2rem;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    animation: fadeIn 0.4s ease;
+  }
+  .feedback-box.show { display: block; }
+  .feedback-box.correct-fb {
+    background: rgba(26, 188, 156, 0.1);
+    border: 1px solid rgba(26, 188, 156, 0.3);
+  }
+  .feedback-box.wrong-fb {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+  }
+  .feedback-box strong { color: #1abc9c; }
+
+  /* Score bar */
+  .score-display {
+    position: fixed;
+    top: 1.2rem;
+    right: 2rem;
+    font-size: 0.95rem;
+    opacity: 0.6;
+    z-index: 100;
+    display: none;
+  }
+  .score-display.visible { display: block; }
+
+  /* Progress */
+  .progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #1abc9c, #f5d76e);
+    transition: width 0.3s ease;
+    z-index: 100;
+  }
+  .slide-counter {
+    position: fixed;
+    bottom: 1.2rem;
+    right: 2rem;
+    font-size: 0.9rem;
+    opacity: 0.4;
+    z-index: 100;
+  }
+  .nav-hint {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 2rem;
+    font-size: 0.85rem;
+    opacity: 0.3;
+    z-index: 100;
+  }
+
+  /* Divider */
+  .divider-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.4;
+    margin-bottom: 1rem;
+  }
+
+  /* Align left */
+  .align-left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* Concept table */
+  .concept-table {
+    max-width: 950px;
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  .concept-table th {
+    text-align: left;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.5;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .concept-table td {
+    padding: 1rem 1.2rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    vertical-align: top;
+  }
+  .concept-table tr:hover td {
+    background: rgba(255,255,255,0.03);
+  }
+  .concept-table .label {
+    font-weight: 700;
+    color: #9b59b6;
+    white-space: nowrap;
+  }
+
+  /* Reveal answer */
+  .reveal-answer { max-width: 900px; width: 100%; margin-top: 1.2rem; }
+  .reveal-answer .answer-content {
+    background: rgba(26, 188, 156, 0.08);
+    border: 1px solid rgba(26, 188, 156, 0.25);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    display: none;
+  }
+  .reveal-answer.revealed .answer-content {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+  .reveal-answer .answer-content p { font-size: 1.05rem; line-height: 1.6; }
+  .reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(26, 188, 156, 0.15);
+    border: 1px solid rgba(26, 188, 156, 0.3);
+    color: #1abc9c;
+    padding: 0.6rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .reveal-btn:hover { background: rgba(26, 188, 156, 0.25); }
+  .reveal-answer.revealed .reveal-btn { display: none; }
+
+  /* Scrollable slide */
+  .slide.scrollable {
+    justify-content: flex-start;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--              DEEL 1: H4 SAMENVATTING                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide theme-title active" id="s1">
+  <h3>Ethiek &mdash; Waarden, Vrijheid & Verantwoordelijkheid</h3>
+  <h1>H4 Samenvatting &<br>Verwerkingsopdrachten</h1>
+  <p class="subtitle">+ een start met Hoofdstuk 5</p>
+  <p style="opacity:0.35; font-size:0.95rem; margin-top:2rem;">Navigeer met pijltjestoetsen of klik links/rechts</p>
+</div>
+
+<!-- SLIDE 2: H4 KERN -->
+<div class="slide theme-h4" id="s2">
+  <div class="divider-label">Samenvatting H4</div>
+  <h2>Jouw data, hun oordeel</h2>
+  <p>Centraal thema: <strong>surveillance en vrijheid</strong>. Wie mag wat van jou weten &mdash; en wie beslist dat?</p>
+  <p>Casus: <span class="accent-teal">SOMToday</span> en leerlingvolgsystemen.</p>
+</div>
+
+<!-- SLIDE 3: BEGRIPPEN OVERZICHT -->
+<div class="slide theme-h4" id="s3">
+  <h2>Vier kernperspectieven</h2>
+  <div class="grid-2x2">
+    <div class="card card-teal" style="text-align:left;">
+      <h4>Negatieve vs. positieve vrijheid</h4>
+      <p>Vrijheid <em>van</em> dwang vs. vrijheid <em>tot</em> zelfontplooiing. SOMToday beperkt de eerste, maar bevordert (of ondermijnt?) de tweede.</p>
+    </div>
+    <div class="card card-gold" style="text-align:left;">
+      <h4>Kant &mdash; 2e formulering</h4>
+      <p>Behandel de mensheid nooit <em>louter</em> als middel, altijd ook als doel. Is de leerling doel of middel?</p>
+    </div>
+    <div class="card card-red" style="text-align:left;">
+      <h4>Macht &amp; belangen</h4>
+      <p>School, ouders, softwarebedrijf, overheid en leerling hebben elk eigen belangen. De leerling heeft het minste zeggenschap.</p>
+    </div>
+    <div class="card card-purple" style="text-align:left;">
+      <h4>Habermas</h4>
+      <p>Communicatief handelen: echte dialoog met vier voorwaarden. Is er ooit zo&rsquo;n dialoog gevoerd over leerlingvolgsystemen?</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: HABERMAS' VIER VOORWAARDEN -->
+<div class="slide theme-h4" id="s4">
+  <h2>Habermas' vier voorwaarden</h2>
+  <p style="margin-bottom:1.5rem; opacity:0.7;">Voor een echte, legitieme dialoog:</p>
+  <div class="grid-2x2" style="max-width:800px;">
+    <div class="card card-teal" style="text-align:center;">
+      <p style="font-weight:700; font-size:1.1rem;">Iedereen mag meepraten</p>
+    </div>
+    <div class="card card-teal" style="text-align:center;">
+      <p style="font-weight:700; font-size:1.1rem;">Niemand wordt gedwongen of gemanipuleerd</p>
+    </div>
+    <div class="card card-teal" style="text-align:center;">
+      <p style="font-weight:700; font-size:1.1rem;">Alles mag ter discussie staan</p>
+    </div>
+    <div class="card card-teal" style="text-align:center;">
+      <p style="font-weight:700; font-size:1.1rem;">Alleen het beste argument telt</p>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;">Voldoet jouw school hieraan als het gaat over leerlingvolgsystemen?</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--         DEEL 2: VERWERKINGSOPDRACHTEN (QUIZ)             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 5: QUIZ INTRO -->
+<div class="slide theme-quiz" id="s5">
+  <div class="divider-label">Verwerkingsopdrachten H4</div>
+  <h2>Test je begrip</h2>
+  <p>Vier meerkeuzevragen over de kernstof van H4.</p>
+  <p style="opacity:0.6; margin-top:1rem;">Klik op het antwoord dat je het beste vindt. Je krijgt direct feedback.</p>
+</div>
+
+<!-- SLIDE 6: VRAAG 1 -->
+<div class="slide theme-quiz scrollable" id="s6">
+  <div class="quiz-question" id="q1">
+    <h3 class="accent-teal">Vraag 1 van 4</h3>
+    <h2>Negatieve vs. positieve vrijheid &amp; SOMToday</h2>
+    <div class="question-text">
+      Leg het verschil uit tussen negatieve en positieve vrijheid. Hoe verhoudt SOMToday zich tot beide?
+    </div>
+    <div class="options">
+      <div class="option-btn" onclick="checkAnswer('q1', this, false)">
+        <span class="letter">A</span>
+        <span>Negatieve vrijheid = vrijheid om te doen wat je wilt; positieve vrijheid = vrijheid van armoede. SOMToday bevordert beide.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q1', this, true)">
+        <span class="letter">B</span>
+        <span>Negatieve vrijheid = vrijheid <em>van</em> dwang/controle; positieve vrijheid = vrijheid <em>tot</em> zelfontplooiing. SOMToday beperkt de negatieve vrijheid (je wordt gemonitord), maar kan de positieve vrijheid bevorderen (betere begeleiding) &oacute;f ondermijnen (angst om fouten te maken).</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q1', this, false)">
+        <span class="letter">C</span>
+        <span>Negatieve vrijheid = niet gestraft worden; positieve vrijheid = goede cijfers halen. SOMToday vergroot allebei door transparantie.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q1', this, false)">
+        <span class="letter">D</span>
+        <span>Negatieve en positieve vrijheid zijn hetzelfde. SOMToday heeft er niets mee te maken omdat het alleen een administratief systeem is.</span>
+      </div>
+    </div>
+    <div class="feedback-box" id="q1-feedback"></div>
+  </div>
+</div>
+
+<!-- SLIDE 7: VRAAG 2 -->
+<div class="slide theme-quiz scrollable" id="s7">
+  <div class="quiz-question" id="q2">
+    <h3 class="accent-teal">Vraag 2 van 4</h3>
+    <h2>Kant: doel of middel?</h2>
+    <div class="question-text">
+      Pas Kants tweede formulering toe: worden leerlingen via SOMToday behandeld als doel of als middel?
+    </div>
+    <div class="options">
+      <div class="option-btn" onclick="checkAnswer('q2', this, false)">
+        <span class="letter">A</span>
+        <span>Leerlingen worden als doel behandeld, want de school wil hun cijfers verbeteren. Kant zou SOMToday volledig goedkeuren.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q2', this, false)">
+        <span class="letter">B</span>
+        <span>Leerlingen worden louter als middel behandeld: het systeem dient alleen de effici&euml;ntie van de school. De leerling is uitsluitend object van controle.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q2', this, true)">
+        <span class="letter">C</span>
+        <span>Het hangt af van hoe het systeem wordt ingezet. Als SOMToday wordt gebruikt om leerlingen te <em>ondersteunen</em>, worden ze als doel behandeld. Als het vooral dient voor controle zonder zeggenschap, worden ze <em>louter</em> als middel gebruikt. Kant eist dat de leerling altijd &oacute;&oacute;k als doel wordt gezien.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q2', this, false)">
+        <span class="letter">D</span>
+        <span>Kant zegt niets over technologie, dus deze vraag is niet te beantwoorden vanuit zijn ethiek.</span>
+      </div>
+    </div>
+    <div class="feedback-box" id="q2-feedback"></div>
+  </div>
+</div>
+
+<!-- SLIDE 8: VRAAG 3 -->
+<div class="slide theme-quiz scrollable" id="s8">
+  <div class="quiz-question" id="q3">
+    <h3 class="accent-teal">Vraag 3 van 4</h3>
+    <h2>Partijen &amp; machtsverhouding</h2>
+    <div class="question-text">
+      Welke partijen hebben belang bij leerlingvolgsystemen? Analyseer de machtsverhouding.
+    </div>
+    <div class="options">
+      <div class="option-btn" onclick="checkAnswer('q3', this, false)">
+        <span class="letter">A</span>
+        <span>Alleen de school en de leerling; zij zijn de enige betrokkenen. De school heeft meer macht, maar dat is logisch.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q3', this, true)">
+        <span class="letter">B</span>
+        <span>School (controle), ouders (informatie), softwarebedrijf (data/markt), overheid (kwaliteit) en leerling (privacy, autonomie). De leerling heeft het <em>minste</em> macht: geen stem in de keuze, geen controle over eigen data, terwijl de gevolgen het zwaarst bij hen neerslaan.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q3', this, false)">
+        <span class="letter">C</span>
+        <span>De machtsverhouding is eerlijk, want elke partij heeft evenveel inspraak via de medezeggenschapsraad.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q3', this, false)">
+        <span class="letter">D</span>
+        <span>Alleen het softwarebedrijf heeft belang &mdash; de rest is verplicht gebruiker.</span>
+      </div>
+    </div>
+    <div class="feedback-box" id="q3-feedback"></div>
+  </div>
+</div>
+
+<!-- SLIDE 9: VRAAG 4 -->
+<div class="slide theme-quiz scrollable" id="s9">
+  <div class="quiz-question" id="q4">
+    <h3 class="accent-teal">Vraag 4 van 4</h3>
+    <h2>Kants twee formuleringen vergeleken</h2>
+    <div class="question-text">
+      Vergelijk Kants twee formuleringen (H2 en H4). Hoe vullen ze elkaar aan? Kan een handeling de eerste test doorstaan maar de tweede niet?
+    </div>
+    <div class="options">
+      <div class="option-btn" onclick="checkAnswer('q4', this, false)">
+        <span class="letter">A</span>
+        <span>De twee formuleringen zijn gewoon hetzelfde idee anders verwoord. Doorstaat de eerste, doorstaat automatisch ook de tweede.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q4', this, true)">
+        <span class="letter">B</span>
+        <span>Formulering 1 toetst het <em>principe</em> (universaliseerbaarheid), formulering 2 toetst het effect op <em>personen</em> (waardigheid). Ze zijn complementair. Ja, een handeling kan de eerste doorstaan maar de tweede niet &mdash; bijv. &lsquo;iedereen mag leerlingen monitoren&rsquo; is universaliseerbaar, maar als het de leerling louter tot middel maakt, faalt het op de tweede.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q4', this, false)">
+        <span class="letter">C</span>
+        <span>De eerste formulering is belangrijker; de tweede is slechts een voetnoot die Kant er later aan toevoegde.</span>
+      </div>
+      <div class="option-btn" onclick="checkAnswer('q4', this, false)">
+        <span class="letter">D</span>
+        <span>De twee formuleringen spreken elkaar tegen en zijn niet te combineren.</span>
+      </div>
+    </div>
+    <div class="feedback-box" id="q4-feedback"></div>
+  </div>
+</div>
+
+<!-- SLIDE 10: SCORE -->
+<div class="slide theme-result" id="s10">
+  <div class="divider-label">Resultaat</div>
+  <h2>Je score</h2>
+  <p style="font-size:3rem; font-weight:800; margin:1rem 0;" id="final-score">0 / 4</p>
+  <div id="score-message" style="font-size:1.3rem; opacity:0.8; margin-bottom:2rem;"></div>
+  <div class="card-row">
+    <div class="card card-teal">
+      <h4>Keuzevraag (open)</h4>
+      <p>Ontwerp een &lsquo;ideale gesprekssituatie&rsquo; (Habermas) over leerlingvolgsystemen. Wie zou moeten meepraten? Welke argumenten zouden tellen?</p>
+      <p style="margin-top:0.5rem; font-size:0.9rem; opacity:0.6;">Dit is een open vraag &mdash; bespreek hem met een klasgenoot of schrijf je antwoord op.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--              DEEL 3: START H5                            -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 11: BRIDGE -->
+<div class="slide theme-bridge" id="s11">
+  <div class="divider-label">Van H4 naar H5</div>
+  <h2>Van vrijheid naar <span class="accent-purple">rechtvaardigheid</span></h2>
+  <p>In H4 onderzochten we wie mag beslissen over jouw data.</p>
+  <p>In H5 verschuift de vraag: <strong>wat is eerlijk &mdash; als mensen niet gelijk begonnen zijn?</strong></p>
+</div>
+
+<!-- SLIDE 12: H5 TITLE -->
+<div class="slide theme-h5" id="s12">
+  <div class="divider-label">Hoofdstuk 5</div>
+  <h1>Gelijke kansen,<br>ongelijke behandeling</h1>
+  <p class="subtitle">Wat is rechtvaardigheid &mdash; en wie heeft recht op wat?</p>
+</div>
+
+<!-- SLIDE 13: H5 PROBLEEMSTELLING -->
+<div class="slide theme-h5" id="s13">
+  <h2>De probleemstelling</h2>
+  <div style="background:rgba(255,255,255,0.06); border-radius:16px; padding:2rem 2.5rem; max-width:800px; text-align:center; margin-bottom:1.5rem;">
+    <p style="font-size:1.3rem;">Een universiteit reserveert plekken voor studenten uit achterstandswijken. Een bedrijf streeft naar 50% vrouwen in de top.</p>
+    <p style="margin-top:1rem; font-size:1.4rem; font-weight:700; color:#9b59b6;">Is dit rechtvaardig &mdash; of juist onrechtvaardig?</p>
+  </div>
+  <p style="opacity:0.7;">&lsquo;Gelijke monniken, gelijke kappen.&rsquo; Maar wat als de monniken niet gelijk zijn begonnen?</p>
+</div>
+
+<!-- SLIDE 14: TWEE SOORTEN RECHTVAARDIGHEID -->
+<div class="slide theme-h5" id="s14">
+  <h2>Twee gezichten van rechtvaardigheid</h2>
+  <div class="card-row">
+    <div class="card card-purple">
+      <h4>Procedurele rechtvaardigheid</h4>
+      <p>Focust op het <strong>proces</strong>: als de regels eerlijk zijn en voor iedereen gelijk gelden, is de uitkomst rechtvaardig &mdash; wat die uitkomst ook is.</p>
+    </div>
+    <div class="card card-orange">
+      <h4>Distributieve rechtvaardigheid</h4>
+      <p>Focust op de <strong>uitkomst</strong>: een verdeling is rechtvaardig als iedereen krijgt wat hem of haar toekomt.</p>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;"><span class="accent-red">Het conflict:</span> als gelijke regels leiden tot ongelijke uitkomsten (omdat mensen ongelijk begonnen), is de uitkomst dan rechtvaardig?</p>
+</div>
+
+<!-- SLIDE 15: ARISTOTELES -->
+<div class="slide theme-h5" id="s15">
+  <h3 class="accent-purple">Aristoteles (384&ndash;322 v.Chr.)</h3>
+  <h2>Eudaimonia: floreren</h2>
+  <p>Niet &lsquo;wat moet ik doen?&rsquo; maar: <strong>wat voor mens wil ik zijn?</strong></p>
+  <div class="card-row" style="margin-top:1.5rem;">
+    <div class="card card-purple">
+      <h4>Eudaimonia</h4>
+      <p>Floreren &mdash; volledig tot bloei komen als mens in een gemeenschap.</p>
+    </div>
+    <div class="card card-purple">
+      <h4>Deugdethiek</h4>
+      <p>Niet de handeling of de gevolgen, maar het <em>karakter</em> van de persoon staat centraal.</p>
+    </div>
+    <div class="card card-purple">
+      <h4>Gemeenschapswezen</h4>
+      <p>Je kunt alleen floreren in een <em>rechtvaardige gemeenschap</em>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 16: NUSSBAUM -->
+<div class="slide theme-h5" id="s16">
+  <h3 class="accent-purple">Martha Nussbaum (*1947)</h3>
+  <h2>De capabilities-benadering</h2>
+  <p>Bouwt voort op Aristoteles. Rechtvaardigheid = zorgen dat <strong>iedereen</strong> fundamentele vermogens kan ontwikkelen.</p>
+  <div class="grid-2x2" style="margin-top:1.5rem;">
+    <div class="card card-purple" style="text-align:center;">
+      <h4>Leven</h4>
+      <p>Een leven van normale duur kunnen leiden</p>
+    </div>
+    <div class="card card-purple" style="text-align:center;">
+      <h4>Lichamelijke integriteit</h4>
+      <p>Veilig zijn, vrij van geweld</p>
+    </div>
+    <div class="card card-purple" style="text-align:center;">
+      <h4>Praktische rede</h4>
+      <p>Zelf nadenken over wat een goed leven is</p>
+    </div>
+    <div class="card card-purple" style="text-align:center;">
+      <h4>Sociale verbondenheid</h4>
+      <p>Met anderen samenleven, niet gediscrimineerd worden</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 17: LIJN ARISTOTELES → NUSSBAUM -->
+<div class="slide theme-h5" id="s17">
+  <h2>De lijn Aristoteles &rarr; Nussbaum</h2>
+  <div class="card-row">
+    <div class="card card-gold">
+      <h4>Aristoteles</h4>
+      <p>De mens is een gemeenschapswezen dat moet <strong>floreren</strong>. Maar hij schreef voor een elite van Atheense mannen.</p>
+    </div>
+    <div class="card card-purple">
+      <h4>Nussbaum</h4>
+      <p><strong>Universaliseert</strong> Aristoteles: <em>alle</em> mensen hebben recht op capabilities, ongeacht geslacht, afkomst of klasse.</p>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;">Nussbaum combineert Aristoteles&rsquo; deugdethiek met een <span class="accent-gold">Kantiaans</span> idee van universele menselijke waardigheid.</p>
+</div>
+
+<!-- SLIDE 18: SPANNING -->
+<div class="slide theme-h5" id="s18">
+  <h2>De kernspanning</h2>
+  <div class="card-row">
+    <div class="card card-teal">
+      <h4>Argument voor positieve discriminatie</h4>
+      <p>Historische ongelijkheid werkt door. &lsquo;Gelijke behandeling&rsquo; van ongelijke startposities bestendigt ongelijkheid. Om echte gelijkheid te bereiken, moet je compenseren.</p>
+    </div>
+    <div class="card card-red">
+      <h4>Argument tegen</h4>
+      <p>Je beoordeelt mensen op groepskenmerken i.p.v. individuele verdienste. Dat is zelf een vorm van discriminatie. En wie bepaalt welke groepen compensatie verdienen?</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 19: WERKWIJZE LEERLINGEN -->
+<div class="slide theme-h5 scrollable" id="s19">
+  <h2>Zo werk je met H5</h2>
+  <p style="margin-bottom:1.5rem; opacity:0.7;">Gebruik deze begrippen om zelf tot een antwoord te komen:</p>
+  <table class="concept-table">
+    <tr>
+      <th>Begrip</th>
+      <th>Kernidee</th>
+      <th>Denkvraag</th>
+    </tr>
+    <tr>
+      <td class="label">Procedurele rechtvaardigheid</td>
+      <td>Eerlijk proces = eerlijke uitkomst</td>
+      <td>Maar wat als gelijke regels ongelijke uitkomsten opleveren?</td>
+    </tr>
+    <tr>
+      <td class="label">Distributieve rechtvaardigheid</td>
+      <td>Eerlijke uitkomst = iedereen krijgt wat toekomt</td>
+      <td>Wie bepaalt wat iemand &lsquo;toekomt&rsquo;?</td>
+    </tr>
+    <tr>
+      <td class="label">Rechten &amp; plichten</td>
+      <td>Elk recht impliceert een plicht</td>
+      <td>Recht op gelijke <em>regels</em>, gelijke <em>kansen</em>, of gelijke <em>uitkomsten</em>?</td>
+    </tr>
+    <tr>
+      <td class="label">Aristoteles &mdash; eudaimonia</td>
+      <td>Floreren in een gemeenschap</td>
+      <td>Bevordert dit beleid het floreren van <em>alle</em> betrokkenen?</td>
+    </tr>
+    <tr>
+      <td class="label">Nussbaum &mdash; capabilities</td>
+      <td>Fundamentele vermogens garanderen</td>
+      <td>Welke capabilities mis je bij opgroeien in armoede?</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SLIDE 20: STAPPENPLAN -->
+<div class="slide theme-h5" id="s20">
+  <h2>Jouw aanpak in 5 stappen</h2>
+  <div style="max-width:750px; width:100%;">
+    <div style="display:flex; align-items:flex-start; gap:1.2rem; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,0.08);">
+      <span style="flex-shrink:0; width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(155,89,182,0.25); display:flex; align-items:center; justify-content:center; font-weight:800; color:#9b59b6;">1</span>
+      <p style="font-size:1.15rem;">Lees de casus (vacature / positieve discriminatie)</p>
+    </div>
+    <div style="display:flex; align-items:flex-start; gap:1.2rem; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,0.08);">
+      <span style="flex-shrink:0; width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(155,89,182,0.25); display:flex; align-items:center; justify-content:center; font-weight:800; color:#9b59b6;">2</span>
+      <p style="font-size:1.15rem;">Kies twee of meer begrippen/perspectieven uit de tabel</p>
+    </div>
+    <div style="display:flex; align-items:flex-start; gap:1.2rem; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,0.08);">
+      <span style="flex-shrink:0; width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(155,89,182,0.25); display:flex; align-items:center; justify-content:center; font-weight:800; color:#9b59b6;">3</span>
+      <p style="font-size:1.15rem;">Stel de <strong>spanningen</strong> vast &mdash; bijv. procedureel vs. distributief; Kant vs. Nussbaum</p>
+    </div>
+    <div style="display:flex; align-items:flex-start; gap:1.2rem; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,0.08);">
+      <span style="flex-shrink:0; width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(155,89,182,0.25); display:flex; align-items:center; justify-content:center; font-weight:800; color:#9b59b6;">4</span>
+      <p style="font-size:1.15rem;">Formuleer je <strong>eigen positie</strong> met argumenten van minstens twee filosofen</p>
+    </div>
+    <div style="display:flex; align-items:flex-start; gap:1.2rem; padding:1rem 0;">
+      <span style="flex-shrink:0; width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(155,89,182,0.25); display:flex; align-items:center; justify-content:center; font-weight:800; color:#9b59b6;">5</span>
+      <p style="font-size:1.15rem;">Benoem het <strong>sterkste tegenargument</strong> tegen je eigen positie</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 21: EINDE -->
+<div class="slide theme-title" id="s21">
+  <h2>Succes met H5!</h2>
+  <p style="text-align:center; opacity:0.7; margin-bottom:2rem;">De kernvraag om mee te nemen:</p>
+  <div class="big-quote">
+    &lsquo;Mag je ongelijk behandelen om gelijkheid te bereiken?&rsquo;
+  </div>
+  <p style="text-align:center; opacity:0.4; font-size:0.95rem; margin-top:2rem;">Gebruik de begrippen. Neem een standpunt in. Beargumenteer het.</p>
+</div>
+
+
+<!-- ── UI Elements ── -->
+<div class="progress" id="progress"></div>
+<div class="slide-counter" id="counter"></div>
+<div class="nav-hint">&larr; &rarr; of klik om te navigeren</div>
+<div class="score-display" id="score-display">Score: <span id="live-score">0</span>/4</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  let score = 0;
+  const answered = {};
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    void slides[current].offsetWidth;
+    slides[current].classList.add('active');
+    updateUI();
+  }
+
+  function updateUI() {
+    const pct = ((current + 1) / slides.length) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+
+    // Show score display during quiz slides (6-10)
+    const scoreEl = document.getElementById('score-display');
+    if (current >= 5 && current <= 9) {
+      scoreEl.classList.add('visible');
+    } else {
+      scoreEl.classList.remove('visible');
+    }
+
+    // Update final score slide
+    if (current === 9) {
+      document.getElementById('final-score').textContent = score + ' / 4';
+      const msg = document.getElementById('score-message');
+      if (score === 4) msg.textContent = 'Uitstekend! Je beheerst alle kernbegrippen van H4.';
+      else if (score === 3) msg.textContent = 'Goed gedaan! Bekijk nog even het begrip dat je miste.';
+      else if (score === 2) msg.textContent = 'Redelijk. Herlees de samenvatting en probeer het opnieuw.';
+      else msg.textContent = 'Lees H4 nog eens goed door en probeer het opnieuw.';
+    }
+  }
+
+  function checkAnswer(qId, el, isCorrect) {
+    if (answered[qId]) return;
+    answered[qId] = true;
+
+    const options = el.parentElement.querySelectorAll('.option-btn');
+    options.forEach(opt => {
+      opt.classList.add('locked');
+      // Mark correct one
+      const optIsCorrect = opt.getAttribute('onclick').includes('true');
+      if (optIsCorrect) opt.classList.add('correct');
+    });
+
+    if (!isCorrect) {
+      el.classList.add('wrong');
+    }
+
+    if (isCorrect) score++;
+    document.getElementById('live-score').textContent = score;
+
+    const fb = document.getElementById(qId + '-feedback');
+    fb.classList.add('show');
+
+    const explanations = {
+      q1: '<strong>B is correct.</strong> Negatieve vrijheid = vrijheid <em>van</em> dwang (afwezigheid van controle). Positieve vrijheid = vrijheid <em>tot</em> zelfontplooiing (mogelijkheden om je te ontwikkelen). SOMToday beperkt je negatieve vrijheid (constante monitoring), en de relatie met positieve vrijheid is ambivalent: het kan je helpen (signalering) maar ook afschrikken (angst om fouten te maken).',
+      q2: '<strong>C is correct.</strong> De nuance is essentieel: Kant verbiedt niet <em>elk</em> gebruik als middel, maar het <em>louter</em> als middel gebruiken. Een leerling mag best &ldquo;middel&rdquo; zijn voor de schooladministratie, zolang hij of zij ook als autonoom doel wordt gezien. Het omslagpunt zit in de vraag of de leerling zeggenschap heeft.',
+      q3: '<strong>B is correct.</strong> Vijf partijen met elk eigen belangen: school (controle/verantwoording), ouders (informatie), softwarebedrijf (data/marktpositie), overheid (onderwijskwaliteit) en leerling (privacy/autonomie). De machtsongelijkheid is cruciaal: de leerling draagt de meeste gevolgen maar heeft de minste zeggenschap.',
+      q4: '<strong>B is correct.</strong> De twee formuleringen zijn complementair: de eerste toetst of je <em>principe</em> universaliseerbaar is, de tweede of je de <em>persoon</em> respecteert. Het voorbeeld laat zien dat universaliseerbaarheid alleen niet volstaat &mdash; &ldquo;iedereen mag leerlingen monitoren&rdquo; is universaliseerbaar, maar maakt de leerling tot louter middel.'
+    };
+
+    fb.innerHTML = explanations[qId];
+    fb.classList.add(isCorrect ? 'correct-fb' : 'wrong-fb');
+  }
+
+  // Navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(current - 1); }
+  });
+
+  document.addEventListener('click', (e) => {
+    // Don't navigate on button/option clicks
+    if (e.target.closest('.option-btn') || e.target.closest('.reveal-btn') || e.target.closest('.reveal-answer')) return;
+    const x = e.clientX;
+    const w = window.innerWidth;
+    if (x > w * 0.65) showSlide(current + 1);
+    else if (x < w * 0.35) showSlide(current - 1);
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) showSlide(current + 1);
+      else showSlide(current - 1);
+    }
+  });
+
+  updateUI();
+</script>
+</body>
+</html>
