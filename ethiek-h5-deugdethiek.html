@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethiek H5 — Aristoteles: De deugd als kompas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f0f1a;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .slide {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 3rem 6rem;
+    position: relative;
+    animation: fadeIn 0.4s ease;
+    overflow-y: auto;
+  }
+  .slide.active { display: flex; }
+  .slide.scrollable {
+    justify-content: flex-start;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(155,89,182,0.15); }
+    50% { box-shadow: 0 0 35px rgba(155,89,182,0.3); }
+  }
+
+  /* Themes */
+  .theme-title { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); }
+  .theme-theory { background: linear-gradient(135deg, #1a0a2e 0%, #2a1040 50%, #3d1860 100%); }
+  .theme-case { background: linear-gradient(135deg, #051a17 0%, #0a2a25 50%, #0f3d35 100%); }
+  .theme-assignment { background: linear-gradient(135deg, #0a1a2e 0%, #102a3e 50%, #183d50 100%); }
+  .theme-pause { background: linear-gradient(135deg, #1a1005 0%, #2a1a08 50%, #3d2510 100%); }
+  .theme-emma { background: linear-gradient(135deg, #1a0a1e 0%, #2e1040 50%, #451560 100%); }
+  .theme-lucas { background: linear-gradient(135deg, #0a1a10 0%, #103020 50%, #184530 100%); }
+  .theme-sara { background: linear-gradient(135deg, #1a1005 0%, #2e2010 50%, #45301a 100%); }
+  .theme-tim { background: linear-gradient(135deg, #05101a 0%, #0a2040 50%, #103060 100%); }
+
+  /* Typography */
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+    opacity: 0.7;
+  }
+  p { font-size: 1.2rem; line-height: 1.7; max-width: 900px; }
+  p + p { margin-top: 0.8rem; }
+
+  .accent-teal { color: #1abc9c; }
+  .accent-gold { color: #f5d76e; }
+  .accent-red { color: #e74c3c; }
+  .accent-purple { color: #9b59b6; }
+  .accent-orange { color: #E67E22; }
+  .accent-blue { color: #3498db; }
+
+  .subtitle {
+    font-size: 1.4rem;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  .divider-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.4;
+    margin-bottom: 1rem;
+  }
+
+  /* Cards */
+  .card-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.2rem;
+    max-width: 1050px;
+    width: 100%;
+  }
+  .card {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 1.8rem;
+    border-left: 4px solid;
+  }
+  .card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .card p { font-size: 1.02rem; opacity: 0.85; }
+
+  .card-teal { border-left-color: #1abc9c; }
+  .card-teal h4 { color: #1abc9c; }
+  .card-purple { border-left-color: #9b59b6; }
+  .card-purple h4 { color: #9b59b6; }
+  .card-red { border-left-color: #e74c3c; }
+  .card-red h4 { color: #e74c3c; }
+  .card-gold { border-left-color: #f5d76e; }
+  .card-gold h4 { color: #f5d76e; }
+  .card-orange { border-left-color: #E67E22; }
+  .card-orange h4 { color: #E67E22; }
+  .card-blue { border-left-color: #3498db; }
+  .card-blue h4 { color: #3498db; }
+
+  .grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 900px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .grid-2x2 .card { border-left: none; border-top: 3px solid; }
+
+  /* Big quote */
+  .big-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-style: italic;
+    max-width: 800px;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+    color: #f5d76e;
+  }
+  .quote-cite {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    opacity: 0.6;
+  }
+
+  /* Middenweg visual */
+  .middenweg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 850px;
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+  .middenweg-extreme {
+    flex: 1;
+    padding: 1.2rem 1.5rem;
+    border-radius: 14px;
+    text-align: center;
+  }
+  .middenweg-extreme.te-weinig {
+    background: rgba(231, 76, 60, 0.12);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+  }
+  .middenweg-extreme.te-veel {
+    background: rgba(231, 76, 60, 0.12);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+  }
+  .middenweg-midden {
+    flex: 1.2;
+    padding: 1.4rem 1.5rem;
+    border-radius: 14px;
+    text-align: center;
+    background: rgba(26, 188, 156, 0.15);
+    border: 2px solid rgba(26, 188, 156, 0.4);
+    animation: pulseGlow 3s ease infinite;
+    margin: 0 0.8rem;
+  }
+  .middenweg-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.5;
+    margin-bottom: 0.3rem;
+  }
+  .middenweg-value {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .middenweg-arrow {
+    font-size: 1.5rem;
+    opacity: 0.3;
+  }
+
+  /* Case card (larger) */
+  .case-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 18px;
+    padding: 2rem 2.5rem;
+    max-width: 850px;
+    width: 100%;
+    border-left: 5px solid;
+    margin-top: 1rem;
+  }
+  .case-card p { font-size: 1.1rem; line-height: 1.7; }
+  .case-card .case-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+  }
+  .case-card .case-sub {
+    font-size: 1rem;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+  }
+  .case-symptoms {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+  .case-symptoms li {
+    padding: 0.6rem 0 0.6rem 2rem;
+    position: relative;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .case-symptoms li:last-child { border-bottom: none; }
+  .case-symptoms li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.4;
+  }
+
+  /* Reveal */
+  .reveal-answer { max-width: 900px; width: 100%; margin-top: 1.2rem; }
+  .reveal-answer .answer-content {
+    background: rgba(26, 188, 156, 0.08);
+    border: 1px solid rgba(26, 188, 156, 0.25);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    display: none;
+  }
+  .reveal-answer.revealed .answer-content {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+  .reveal-answer .answer-content p { font-size: 1.02rem; line-height: 1.6; }
+  .reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(155, 89, 182, 0.15);
+    border: 1px solid rgba(155, 89, 182, 0.3);
+    color: #9b59b6;
+    padding: 0.6rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .reveal-btn:hover { background: rgba(155, 89, 182, 0.25); }
+  .reveal-answer.revealed .reveal-btn { display: none; }
+
+  /* Steps */
+  .step-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    max-width: 850px;
+    width: 100%;
+  }
+  .step-row:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(155,89,182,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #9b59b6;
+    font-size: 1.1rem;
+  }
+  .step-row p { font-size: 1.1rem; }
+
+  /* Role badge */
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 950px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .role-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 1.5rem 1.8rem;
+    border-top: 3px solid;
+  }
+  .role-card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .role-card p { font-size: 0.98rem; opacity: 0.8; line-height: 1.5; }
+  .role-purple { border-top-color: #9b59b6; }
+  .role-purple h4 { color: #9b59b6; }
+  .role-teal { border-top-color: #1abc9c; }
+  .role-teal h4 { color: #1abc9c; }
+  .role-gold { border-top-color: #f5d76e; }
+  .role-gold h4 { color: #f5d76e; }
+  .role-orange { border-top-color: #E67E22; }
+  .role-orange h4 { color: #E67E22; }
+
+  /* Case selector (interactive) */
+  .case-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 900px;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+  .case-select-btn {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+  }
+  .case-select-btn:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-3px);
+  }
+  .case-select-btn.selected {
+    border-color: #9b59b6;
+    background: rgba(155,89,182,0.12);
+  }
+  .case-select-btn h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .case-select-btn p {
+    font-size: 0.95rem;
+    opacity: 0.6;
+    line-height: 1.4;
+  }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    max-width: 800px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .checklist li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .checklist li:hover { opacity: 0.8; }
+  .check-box {
+    flex-shrink: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 6px;
+    border: 2px solid rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+  }
+  .checklist li.checked .check-box {
+    background: #1abc9c;
+    border-color: #1abc9c;
+  }
+  .checklist li.checked .check-box::after { content: '\2713'; color: #fff; font-weight: 700; }
+  .checklist li.checked span { text-decoration: line-through; opacity: 0.5; }
+
+  /* Navigation & progress */
+  .progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #9b59b6, #f5d76e);
+    transition: width 0.3s ease;
+    z-index: 100;
+  }
+  .slide-counter {
+    position: fixed;
+    bottom: 1.2rem;
+    right: 2rem;
+    font-size: 0.9rem;
+    opacity: 0.4;
+    z-index: 100;
+  }
+  .nav-hint {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 2rem;
+    font-size: 0.85rem;
+    opacity: 0.3;
+    z-index: 100;
+  }
+
+  .align-left {
+    align-items: flex-start;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--              DEEL 1: THEORIE                             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide theme-title active" id="s1">
+  <h3>Ethiek H5 &mdash; Gelijke kansen, ongelijke behandeling</h3>
+  <h1>Aristoteles:<br>de deugd als kompas</h1>
+  <p class="subtitle">Deugdethiek, eudaimonia &amp; de Gulden Middenweg</p>
+  <p style="opacity:0.35; font-size:0.95rem; margin-top:2rem;">Pijltjestoetsen of klik links/rechts om te navigeren</p>
+</div>
+
+<!-- SLIDE 2: KERNVRAAG -->
+<div class="slide theme-theory" id="s2">
+  <h3 style="opacity:0.5;">De centrale vraag</h3>
+  <h2>Niet: <span style="opacity:0.4;">&lsquo;wat moet ik doen?&rsquo;</span><br>Maar: <span class="accent-purple">&lsquo;wat voor mens wil ik zijn?&rsquo;</span></h2>
+  <p style="margin-top:1.5rem;">Aristoteles verschuift de focus van <em>handelingen</em> naar <em>karakter</em>.<br>Niet de regels of de gevolgen, maar de persoon staat centraal.</p>
+</div>
+
+<!-- SLIDE 3: EUDAIMONIA -->
+<div class="slide theme-theory" id="s3">
+  <h3 class="accent-purple">Kernbegrip</h3>
+  <h2>Eudaimonia</h2>
+  <p>Vaak vertaald als &lsquo;geluk&rsquo;, maar beter begrepen als <strong>floreren</strong>: het volledig tot bloei komen als mens.</p>
+  <div class="card-row" style="margin-top:1.5rem;">
+    <div class="card card-purple">
+      <h4>Niet: plezier of genot</h4>
+      <p>Eudaimonia is geen gevoel maar een <em>manier van leven</em>. Je kunt moeilijke momenten hebben en toch floreren.</p>
+    </div>
+    <div class="card card-teal">
+      <h4>Niet alleen</h4>
+      <p>De mens is een <strong>gemeenschapswezen</strong> (zoon politikon). Je kunt alleen floreren in een rechtvaardige gemeenschap.</p>
+    </div>
+    <div class="card card-gold">
+      <h4>Door deugden</h4>
+      <p>Je bereikt eudaimonia door <strong>deugden te ontwikkelen</strong>: moed, rechtvaardigheid, matigheid, wijsheid.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: QUOTE -->
+<div class="slide theme-theory" id="s4">
+  <div class="big-quote">
+    &lsquo;We moeten niet laf noch roekeloos zijn, maar moedig.&rsquo;
+  </div>
+  <div class="quote-cite">Aristoteles &mdash; Ethica Nicomachea</div>
+  <p style="margin-top:2rem; opacity:0.7;">Elke deugd is een <strong>middenweg</strong> tussen twee extremen.</p>
+</div>
+
+<!-- SLIDE 5: GULDEN MIDDENWEG -->
+<div class="slide theme-theory" id="s5">
+  <h2>De Gulden Middenweg</h2>
+  <p style="margin-bottom:0.5rem;">Een deugd ligt altijd tussen een <span class="accent-red">tekort</span> en een <span class="accent-red">teveel</span>.</p>
+
+  <div class="middenweg">
+    <div class="middenweg-extreme te-weinig">
+      <div class="middenweg-label">Te weinig</div>
+      <div class="middenweg-value accent-red">Lafheid</div>
+    </div>
+    <div class="middenweg-midden">
+      <div class="middenweg-label">Deugd</div>
+      <div class="middenweg-value accent-teal">Moed</div>
+    </div>
+    <div class="middenweg-extreme te-veel">
+      <div class="middenweg-label">Te veel</div>
+      <div class="middenweg-value accent-red">Roekeloosheid</div>
+    </div>
+  </div>
+
+  <div class="middenweg">
+    <div class="middenweg-extreme te-weinig">
+      <div class="middenweg-label">Te weinig</div>
+      <div class="middenweg-value accent-red">Gierigheid</div>
+    </div>
+    <div class="middenweg-midden">
+      <div class="middenweg-label">Deugd</div>
+      <div class="middenweg-value accent-teal">Vrijgevigheid</div>
+    </div>
+    <div class="middenweg-extreme te-veel">
+      <div class="middenweg-label">Te veel</div>
+      <div class="middenweg-value accent-red">Verkwisting</div>
+    </div>
+  </div>
+
+  <div class="middenweg">
+    <div class="middenweg-extreme te-weinig">
+      <div class="middenweg-label">Te weinig</div>
+      <div class="middenweg-value accent-red">Gevoelloosheid</div>
+    </div>
+    <div class="middenweg-midden">
+      <div class="middenweg-label">Deugd</div>
+      <div class="middenweg-value accent-teal">Matigheid</div>
+    </div>
+    <div class="middenweg-extreme te-veel">
+      <div class="middenweg-label">Te veel</div>
+      <div class="middenweg-value accent-red">Onmatigheid</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: PHRONESIS -->
+<div class="slide theme-theory" id="s6">
+  <h3 class="accent-purple">Kernbegrip</h3>
+  <h2>Phronesis &mdash; praktische wijsheid</h2>
+  <p>De middenweg is geen wiskundige formule. Je moet per situatie <strong>afwegen</strong> wat de juiste balans is.</p>
+  <p>Dat vermogen noemt Aristoteles <span class="accent-purple">phronesis</span>: praktische wijsheid.</p>
+  <div class="card-row" style="margin-top:1.5rem;">
+    <div class="card card-purple">
+      <h4>Geen recept</h4>
+      <p>Er is geen checklist. Wat &lsquo;moedig&rsquo; is, hangt af van de situatie, de persoon en de context.</p>
+    </div>
+    <div class="card card-purple">
+      <h4>Je leert het door te doen</h4>
+      <p>Phronesis ontwikkel je door ervaring, reflectie en het observeren van wijze mensen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: DEUGDETHIEK SAMENGEVAT -->
+<div class="slide theme-theory" id="s7">
+  <h2>Deugdethiek in vier principes</h2>
+  <div class="grid-2x2">
+    <div class="card card-purple" style="text-align:left;">
+      <h4>1. Oefen deugden</h4>
+      <p>Deugden zijn geen aangeboren eigenschappen maar <strong>gewoonten</strong>. Je wordt moedig door moedige dingen te doen.</p>
+    </div>
+    <div class="card card-teal" style="text-align:left;">
+      <h4>2. Reflecteer (phronesis)</h4>
+      <p>Kijk kritisch naar je eigen handelen. Waar zit je te veel of te weinig? Scherp je <strong>praktische wijsheid</strong> aan.</p>
+    </div>
+    <div class="card card-gold" style="text-align:left;">
+      <h4>3. Gemeenschap</h4>
+      <p>Je hebt <strong>voorbeelden en steun</strong> nodig. Deugden ontwikkel je in interactie met anderen.</p>
+    </div>
+    <div class="card card-orange" style="text-align:left;">
+      <h4>4. Eudaimonia als doel</h4>
+      <p>De inspanning is het waard: eerst gaat het moeizaam, daarna wordt het <strong>gemakkelijker en geeft het voldoening</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: DENKPAUZE -->
+<div class="slide theme-pause" id="s8">
+  <h3 style="opacity:0.5;">Denkpauze</h3>
+  <h2>Herken je de middenweg bij jezelf?</h2>
+  <p style="margin-top:1rem;">Denk aan een eigenschap van jezelf. Zit je eerder aan de kant van het <span class="accent-red">tekort</span> of het <span class="accent-red">teveel</span>?</p>
+  <p style="margin-top:1rem;">Bijvoorbeeld: ben je te voorzichtig of juist te impulsief? Te hard voor jezelf of te makkelijk? Te stil of te dominant?</p>
+  <div class="reveal-answer" id="hint1" style="margin-top:1.5rem;">
+    <button class="reveal-btn" onclick="revealAnswer('hint1')">Tip: hoe herken je het?</button>
+    <div class="answer-content">
+      <p>Let op <strong>patronen</strong>: als je steeds dezelfde problemen tegenkomt (altijd te laat, altijd conflict, altijd vermijdend), wijst dat op een &lsquo;extreem&rsquo;. De deugd is de balans die je wilt vinden.</p>
+      <p style="margin-top:0.5rem;">Het gaat niet om perfectie, maar om <strong>richting</strong>. Weet je waar je naartoe wilt groeien?</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--              DEEL 2: DE OPDRACHT                         -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 9: OPDRACHT INTRO -->
+<div class="slide theme-assignment" id="s9">
+  <div class="divider-label">Groepsopdracht</div>
+  <h2>Deugdethisch Advies</h2>
+  <p>Jullie gaan in groepjes werken aan een <strong>deugdethisch adviesplan</strong> voor een persoon met een herkenbaar probleem.</p>
+  <p style="margin-top:1rem; opacity:0.7;">Doel: leer deugdethiek niet alleen begrijpen, maar ook <em>toepassen</em>.</p>
+</div>
+
+<!-- SLIDE 10: STAPPEN -->
+<div class="slide theme-assignment scrollable" id="s10">
+  <h2>Hoe werkt het?</h2>
+  <div class="step-row">
+    <span class="step-num">1</span>
+    <p><strong>Kies een casus</strong> &mdash; als groep kies je een van de vier casussen: telefoonverslaving, uitstelgedrag, perfectionisme of verlegenheid.</p>
+  </div>
+  <div class="step-row">
+    <span class="step-num">2</span>
+    <p><strong>Analyseer het probleem</strong> &mdash; welke deugden zijn in het spel? Waar zit het tekort of het teveel? Wat is de Gulden Middenweg?</p>
+  </div>
+  <div class="step-row">
+    <span class="step-num">3</span>
+    <p><strong>Schrijf een adviesplan</strong> &mdash; gebruik de vier principes van Aristoteles: oefen deugden, reflecteer (phronesis), zoek steun in de gemeenschap, houd eudaimonia als doel voor ogen.</p>
+  </div>
+  <div class="step-row">
+    <span class="step-num">4</span>
+    <p><strong>Presenteer</strong> &mdash; presenteer jullie advies aan de klas en beantwoord vragen. Doe dit <em>samen</em>!</p>
+  </div>
+</div>
+
+<!-- SLIDE 11: VIER ROLLEN -->
+<div class="slide theme-assignment" id="s11">
+  <h2>Vier rollen in de groep</h2>
+  <div class="role-grid">
+    <div class="role-card role-purple">
+      <h4>Voorzitter</h4>
+      <p>Leidt de discussie, zorgt dat iedereen aan het woord komt, bewaakt de tijd en houdt de groep gefocust.</p>
+    </div>
+    <div class="role-card role-teal">
+      <h4>Notulant</h4>
+      <p>Houdt de belangrijkste punten bij, documenteert beslissingen en taken, maakt een helder verslag.</p>
+    </div>
+    <div class="role-card role-orange">
+      <h4>Opzoeker</h4>
+      <p>Zoekt relevante online bronnen: artikelen, studies, voorbeelden over deugdethiek. Beoordeelt betrouwbaarheid.</p>
+    </div>
+    <div class="role-card role-gold">
+      <h4>Lezer</h4>
+      <p>Duikt in het boekje en aantekeningen over deugdethiek. Vindt theoretische onderbouwing en voorbeelden.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 12: BEOORDELING -->
+<div class="slide theme-assignment" id="s12">
+  <h2>Beoordeling</h2>
+  <div class="card-row">
+    <div class="card card-purple">
+      <h4>Inzicht</h4>
+      <p>Begrijp je de gekozen deugden en hun relevantie voor de casus?</p>
+    </div>
+    <div class="card card-teal">
+      <h4>Creativiteit &amp; realisme</h4>
+      <p>Is het adviesplan concreet, haalbaar en origineel?</p>
+    </div>
+    <div class="card card-gold">
+      <h4>Presentatie</h4>
+      <p>Heldere onderbouwing, overtuigende beantwoording van kritische vragen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--              DEEL 3: DE VIER CASUSSEN                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 13: CASUSSEN OVERZICHT -->
+<div class="slide theme-title" id="s13">
+  <div class="divider-label">De casussen</div>
+  <h2>Kies een casus</h2>
+  <p style="margin-bottom:1.5rem; opacity:0.7;">Vier herkenbare problemen. Welke deugden zijn in het spel?</p>
+  <div class="case-selector">
+    <div class="case-select-btn" onclick="this.classList.toggle('selected')">
+      <h4 class="accent-purple">1. Emma</h4>
+      <p>Telefoonverslaving &mdash; 7 uur per dag op haar telefoon</p>
+    </div>
+    <div class="case-select-btn" onclick="this.classList.toggle('selected')">
+      <h4 class="accent-teal">2. Lucas</h4>
+      <p>Uitstelgedrag &mdash; begint altijd pas als de deadline nadert</p>
+    </div>
+    <div class="case-select-btn" onclick="this.classList.toggle('selected')">
+      <h4 class="accent-orange">3. Sara</h4>
+      <p>Perfectionisme &mdash; bang om fouten te maken</p>
+    </div>
+    <div class="case-select-btn" onclick="this.classList.toggle('selected')">
+      <h4 class="accent-blue">4. Tim</h4>
+      <p>Verlegenheid &mdash; durft niet te spreken of mee te doen</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 14: EMMA -->
+<div class="slide theme-emma scrollable align-left" id="s14">
+  <h3 class="accent-purple">Casus 1</h3>
+  <div class="case-card" style="border-left-color:#9b59b6;">
+    <div class="case-name accent-purple">Emma (16) &mdash; telefoonverslaving</div>
+    <div class="case-sub">Gemiddeld 7 uur per dag op social media, games en nieuwsfeeds</div>
+    <p>Emma weet dat ze te veel op haar telefoon zit, maar vindt het moeilijk om te matigen. De gevolgen:</p>
+    <ul class="case-symptoms" style="color:#9b59b6;">
+      <li>Verminderde concentratie op school &mdash; cijfers gaan achteruit</li>
+      <li>Minder tijd met familie en vrienden &mdash; afgeleid tijdens maaltijden, slaat uitjes over</li>
+      <li>Vermoeidheid &mdash; zit tot laat op haar telefoon, slaaptekort</li>
+    </ul>
+  </div>
+  <div class="middenweg" style="margin-top:1.5rem;">
+    <div class="middenweg-extreme te-weinig">
+      <div class="middenweg-label">Te weinig</div>
+      <div class="middenweg-value accent-red">Totale onthouding?</div>
+    </div>
+    <div class="middenweg-midden">
+      <div class="middenweg-label">Deugd</div>
+      <div class="middenweg-value accent-teal">Matigheid</div>
+    </div>
+    <div class="middenweg-extreme te-veel">
+      <div class="middenweg-label">Te veel</div>
+      <div class="middenweg-value accent-red">Onmatigheid</div>
+    </div>
+  </div>
+  <div class="reveal-answer" id="emma-hint" style="margin-top:1rem;">
+    <button class="reveal-btn" onclick="revealAnswer('emma-hint')">Welke deugden zijn hier in het spel?</button>
+    <div class="answer-content">
+      <p><strong>Matigheid</strong> (sophrosyne) &mdash; de balans tussen onmatig telefoongebruik en totale onthouding.</p>
+      <p style="margin-top:0.5rem;"><strong>Zelfdiscipline</strong> &mdash; het vermogen om impulsen te beheersen en bewuste keuzes te maken.</p>
+      <p style="margin-top:0.5rem;"><strong>Praktische wijsheid</strong> (phronesis) &mdash; wanneer is telefoongebruik zinvol en wanneer destructief?</p>
+      <p style="margin-top:0.5rem;">Denk ook aan: hoe kan Emma&rsquo;s <em>gemeenschap</em> (vrienden, familie) haar helpen? En wat zou het <em>floreren</em> er voor haar uitzien?</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 15: LUCAS -->
+<div class="slide theme-lucas scrollable align-left" id="s15">
+  <h3 class="accent-teal">Casus 2</h3>
+  <div class="case-card" style="border-left-color:#1abc9c;">
+    <div class="case-name accent-teal">Lucas &mdash; uitstelgedrag</div>
+    <div class="case-sub">Neemt zich elke dag voor te beginnen, maar stelt steeds uit tot de deadline</div>
+    <p>Lucas raakt gevangen in een vicieuze cirkel: uitstel &rarr; tijdsdruk &rarr; stress &rarr; slechte kwaliteit &rarr; schuldgevoel &rarr; meer uitstel.</p>
+    <ul class="case-symptoms" style="color:#1abc9c;">
+      <li>Constante stress en angst door tijdsdruk</li>
+      <li>Lagere cijfers dan hij eigenlijk kan halen</li>
+      <li>Slaaptekort door laat werken</li>
+      <li>Schuldgevoel en machteloosheid &mdash; herkent het patroon maar kan het niet doorbreken</li>
+    </ul>
+  </div>
+  <div class="middenweg" style="margin-top:1.5rem;">
+    <div class="middenweg-extreme te-weinig">
+      <div class="middenweg-label">Te weinig</div>
+      <div class="middenweg-value accent-red">Luiheid / passiviteit</div>
+    </div>
+    <div class="middenweg-midden">
+      <div class="middenweg-label">Deugd</div>
+      <div class="middenweg-value accent-teal">Discipline / Volharding</div>
+    </div>
+    <div class="middenweg-extreme te-veel">
+      <div class="middenweg-label">Te veel</div>
+      <div class="middenweg-value accent-red">Rigiditeit / dwangmatigheid</div>
+    </div>
+  </div>
+  <div class="reveal-answer" id="lucas-hint" style="margin-top:1rem;">
+    <button class="reveal-btn" onclick="revealAnswer('lucas-hint')">Welke deugden zijn hier in het spel?</button>
+    <div class="answer-content">
+      <p><strong>Volharding / discipline</strong> &mdash; het vermogen om door te zetten, ook als het niet leuk is. Maar niet doorslaan naar dwangmatigheid.</p>
+      <p style="margin-top:0.5rem;"><strong>Moed</strong> &mdash; durven beginnen, ook als de taak overweldigend voelt.</p>
+      <p style="margin-top:0.5rem;"><strong>Matigheid</strong> &mdash; balans tussen werk en ontspanning. Lucas vermijdt het werk maar geniet ook niet echt van zijn vrije tijd (schuldgevoel).</p>
+      <p style="margin-top:0.5rem;">Phronesis-vraag: hoe bepaal je <em>wanneer</em> je begint en <em>hoeveel</em> je doet? Niet alles in &eacute;&eacute;n keer, maar ook niet steeds uitstellen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 16: SARA -->
+<div class="slide theme-sara scrollable align-left" id="s16">
+  <h3 class="accent-orange">Casus 3</h3>
+  <div class="case-card" style="border-left-color:#E67E22;">
+    <div class="case-name accent-orange">Sara &mdash; perfectionisme</div>
+    <div class="case-sub">Streeft in alles naar perfectie &mdash; bang om fouten te maken</div>
+    <p>Sara&rsquo;s streven naar uitmuntendheid klinkt lovenswaardig, maar het keert zich tegen haar. Ze durft taken niet af te ronden, vermijdt nieuwe uitdagingen en raakt ge&iuml;soleerd.</p>
+    <ul class="case-symptoms" style="color:#E67E22;">
+      <li>Buitensporig veel tijd aan herzien en perfectioneren</li>
+      <li>Slaapgebrek en verminderde sociale interacties</li>
+      <li>Eindeloze zelfkritiek en ontevredenheid</li>
+      <li>Kan geen vreugde zien in eigen prestaties &mdash; focust altijd op wat beter kan</li>
+    </ul>
+  </div>
+  <div class="middenweg" style="margin-top:1.5rem;">
+    <div class="middenweg-extreme te-weinig">
+      <div class="middenweg-label">Te weinig</div>
+      <div class="middenweg-value accent-red">Slordigheid / onverschilligheid</div>
+    </div>
+    <div class="middenweg-midden">
+      <div class="middenweg-label">Deugd</div>
+      <div class="middenweg-value accent-teal">Zorgvuldigheid / hoge standaard</div>
+    </div>
+    <div class="middenweg-extreme te-veel">
+      <div class="middenweg-label">Te veel</div>
+      <div class="middenweg-value accent-red">Perfectionisme / verlamming</div>
+    </div>
+  </div>
+  <div class="reveal-answer" id="sara-hint" style="margin-top:1rem;">
+    <button class="reveal-btn" onclick="revealAnswer('sara-hint')">Welke deugden zijn hier in het spel?</button>
+    <div class="answer-content">
+      <p><strong>Moed</strong> &mdash; durven fouten te maken, durven &lsquo;goed genoeg&rsquo; te accepteren.</p>
+      <p style="margin-top:0.5rem;"><strong>Matigheid</strong> &mdash; balans tussen ambitie en zelfzorg. Sara zit aan het extreme van &lsquo;te veel&rsquo; zorgvuldigheid.</p>
+      <p style="margin-top:0.5rem;"><strong>Mildheid / compassie</strong> (jegens zichzelf) &mdash; Sara is keihard voor zichzelf. Aristoteles zou zeggen: wees ook voor jezelf een goede vriend.</p>
+      <p style="margin-top:0.5rem;">Let op: Sara&rsquo;s perfectionisme <em>lijkt</em> op een deugd (zorgvuldigheid), maar is een extreem. Dat is precies het punt van de Gulden Middenweg.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 17: TIM -->
+<div class="slide theme-tim scrollable align-left" id="s17">
+  <h3 class="accent-blue">Casus 4</h3>
+  <div class="case-card" style="border-left-color:#3498db;">
+    <div class="case-name accent-blue">Tim &mdash; verlegenheid</div>
+    <div class="case-sub">Worstelt met extreme verlegenheid in alle sociale situaties</div>
+    <p>Tim is intelligent en bekwaam, maar zijn verlegenheid weerhoudt hem ervan dat te laten zien. Hij vermijdt groepssituaties, durft geen vragen te stellen en voelt zich ge&iuml;soleerd.</p>
+    <ul class="case-symptoms" style="color:#3498db;">
+      <li>Kan geen gesprekken starten of vragen stellen in de klas</li>
+      <li>Ernstige angst bij spreken voor een groep</li>
+      <li>Academische prestaties lager dan zijn potentieel &mdash; leraren zien niet wat hij kan</li>
+      <li>Gevoel van isolatie en eenzaamheid</li>
+    </ul>
+  </div>
+  <div class="middenweg" style="margin-top:1.5rem;">
+    <div class="middenweg-extreme te-weinig">
+      <div class="middenweg-label">Te weinig</div>
+      <div class="middenweg-value accent-red">Teruggetrokkenheid</div>
+    </div>
+    <div class="middenweg-midden">
+      <div class="middenweg-label">Deugd</div>
+      <div class="middenweg-value accent-teal">Moed / zelfvertrouwen</div>
+    </div>
+    <div class="middenweg-extreme te-veel">
+      <div class="middenweg-label">Te veel</div>
+      <div class="middenweg-value accent-red">Overmoed / opdringerigheid</div>
+    </div>
+  </div>
+  <div class="reveal-answer" id="tim-hint" style="margin-top:1rem;">
+    <button class="reveal-btn" onclick="revealAnswer('tim-hint')">Welke deugden zijn hier in het spel?</button>
+    <div class="answer-content">
+      <p><strong>Moed</strong> &mdash; durven spreken, durven jezelf laten zien, ook al is het eng. Niet de afwezigheid van angst, maar handelen <em>ondanks</em> angst.</p>
+      <p style="margin-top:0.5rem;"><strong>Vriendelijkheid / welwillendheid</strong> &mdash; de deugd van sociale verbinding. Tim hoeft geen extraverte performer te worden, maar wel verbinding durven maken.</p>
+      <p style="margin-top:0.5rem;"><strong>Rechtvaardigheid jegens zichzelf</strong> &mdash; Tim doet zichzelf tekort door zijn talenten niet te laten zien. Aristoteles zou zeggen: je hebt ook een <em>plicht</em> om je potentieel te benutten.</p>
+      <p style="margin-top:0.5rem;">De rol van de <em>gemeenschap</em> is hier cruciaal: Tim heeft een veilige omgeving nodig om te oefenen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--              DEEL 4: AAN DE SLAG                         -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 18: ADVIESPLAN STRUCTUUR -->
+<div class="slide theme-assignment scrollable" id="s18">
+  <h2>Bouw je adviesplan</h2>
+  <p style="margin-bottom:1rem; opacity:0.7;">Gebruik deze structuur voor jullie advies:</p>
+  <div class="step-row">
+    <span class="step-num">1</span>
+    <p><strong>Welke deugden?</strong> &mdash; Benoem welke deugden relevant zijn en waar het tekort/teveel zit.</p>
+  </div>
+  <div class="step-row">
+    <span class="step-num">2</span>
+    <p><strong>Oefen de deugd</strong> &mdash; Geef concrete oefeningen. Kleine stappen, haalbaar, herhaalbaar. Aristoteles: je wordt moedig door moedige dingen te <em>doen</em>.</p>
+  </div>
+  <div class="step-row">
+    <span class="step-num">3</span>
+    <p><strong>Reflectie (phronesis)</strong> &mdash; Hoe kan de persoon reflecteren op zijn/haar voortgang? Dagboek, gesprek, weekoverzicht?</p>
+  </div>
+  <div class="step-row">
+    <span class="step-num">4</span>
+    <p><strong>Gemeenschap</strong> &mdash; Wie kan helpen? Welke voorbeelden zijn er? Hoe betrek je vrienden, familie, school?</p>
+  </div>
+  <div class="step-row">
+    <span class="step-num">5</span>
+    <p><strong>Eudaimonia</strong> &mdash; Schets het eindbeeld: hoe ziet &lsquo;floreren&rsquo; eruit voor deze persoon? Waarom is de inspanning het waard?</p>
+  </div>
+</div>
+
+<!-- SLIDE 19: CHECKLIST -->
+<div class="slide theme-assignment" id="s19">
+  <h2>Checklist voor je presentatie</h2>
+  <ul class="checklist" id="checklist">
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box"></span>
+      <span>We kunnen de kernbegrippen (eudaimonia, phronesis, Gulden Middenweg) in eigen woorden uitleggen</span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box"></span>
+      <span>We hebben de relevante deugden benoemd en de middenweg bepaald</span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box"></span>
+      <span>Ons adviesplan bevat concrete, haalbare stappen</span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box"></span>
+      <span>We gebruiken de vier principes van Aristoteles in onze onderbouwing</span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box"></span>
+      <span>We kennen de zwakste plek van ons eigen advies</span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box"></span>
+      <span>Elk groepslid heeft een rol en doet mee aan de presentatie</span>
+    </li>
+  </ul>
+</div>
+
+<!-- SLIDE 20: EINDE -->
+<div class="slide theme-title" id="s20">
+  <h2>Aan de slag!</h2>
+  <p style="text-align:center; opacity:0.7; margin-bottom:2rem;">De kernvraag voor jullie advies:</p>
+  <div class="big-quote">
+    &lsquo;Hoe vindt deze persoon de Gulden Middenweg &mdash; en wat heeft hij of zij daarvoor nodig?&rsquo;
+  </div>
+  <div class="card-row" style="margin-top:2rem;">
+    <div class="card card-purple">
+      <h4>Verdeel de rollen</h4>
+      <p>Voorzitter, notulant, opzoeker, lezer</p>
+    </div>
+    <div class="card card-teal">
+      <h4>Kies je casus</h4>
+      <p>Emma, Lucas, Sara of Tim</p>
+    </div>
+    <div class="card card-gold">
+      <h4>Bouw het advies</h4>
+      <p>Concreet, creatief, onderbouwd</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── UI Elements ── -->
+<div class="progress" id="progress"></div>
+<div class="slide-counter" id="counter"></div>
+<div class="nav-hint">&larr; &rarr; of klik om te navigeren</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    void slides[current].offsetWidth;
+    slides[current].classList.add('active');
+    updateUI();
+  }
+
+  function updateUI() {
+    const pct = ((current + 1) / slides.length) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  function revealAnswer(id) {
+    document.getElementById(id).classList.add('revealed');
+  }
+
+  // Keyboard nav
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(current - 1); }
+  });
+
+  // Click nav
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.option-btn') || e.target.closest('.reveal-btn') ||
+        e.target.closest('.reveal-answer') || e.target.closest('.case-select-btn') ||
+        e.target.closest('.checklist')) return;
+    const x = e.clientX;
+    const w = window.innerWidth;
+    if (x > w * 0.65) showSlide(current + 1);
+    else if (x < w * 0.35) showSlide(current - 1);
+  });
+
+  // Touch nav
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) showSlide(current + 1);
+      else showSlide(current - 1);
+    }
+  });
+
+  updateUI();
+</script>
+</body>
+</html>
