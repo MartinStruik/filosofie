@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logica Arena - Filosofie Oostvaarders College</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <title>Logica Arena | Socrates voor het tribunaal</title>
+    <meta name="description" content="Een zelfstandige oefengame voor 4 vwo over argumentatie, geldigheid en logische redeneervormen.">
+    <meta name="theme-color" content="#123f3e">
     <style>
         :root {
             --petrol: #1a7a8a;
@@ -910,19 +909,415 @@
             .header-left h1 { font-size: 1.2rem; }
             .extra-stats { flex-direction: column; gap: 0.5rem; }
         }
+
+        /* ===== v3: rustiger tribunaalontwerp, betere leesbaarheid en toegankelijkheid ===== */
+        :root {
+            --paars: #176b69;
+            --oker: #bd552b;
+            --oker-light: #f5c98d;
+            --groen: #26734d;
+            --rood: #b23b32;
+            --blauw: #176b8a;
+            --donkergrijs: #182625;
+            --middengrijs: #4d5e5c;
+            --lichtgrijs: #647674;
+            --achtergrond: #fffdf8;
+            --achtergrond-licht: #f4efe5;
+            --inkt: #182625;
+            --nacht: #123f3e;
+            --nacht-diep: #092a2a;
+            --papier: #fffdf8;
+            --papier-donker: #eee5d5;
+            --lijn: #d8cfbf;
+            --focus: #f3b643;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--inkt);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(243, 182, 67, 0.18), transparent 25rem),
+                radial-gradient(circle at 92% 92%, rgba(23, 107, 105, 0.32), transparent 28rem),
+                linear-gradient(145deg, var(--nacht-diep), var(--nacht));
+            padding: clamp(0.75rem, 3vw, 2.5rem);
+            justify-content: flex-start;
+        }
+
+        button, input { font: inherit; }
+
+        button:focus-visible,
+        input:focus-visible,
+        summary:focus-visible,
+        a:focus-visible {
+            outline: 4px solid var(--focus);
+            outline-offset: 3px;
+        }
+
+        .skip-link {
+            position: fixed;
+            left: 1rem;
+            top: 1rem;
+            z-index: 100;
+            transform: translateY(-180%);
+            background: white;
+            color: var(--nacht);
+            padding: 0.7rem 1rem;
+            border-radius: 0.4rem;
+            font-weight: 700;
+        }
+
+        .skip-link:focus { transform: translateY(0); }
+
+        .container {
+            max-width: 980px;
+            background: var(--papier);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 28px 70px rgba(0,0,0,0.35);
+        }
+
+        .header {
+            background: var(--nacht);
+            padding: 1.15rem clamp(1.1rem, 4vw, 2.3rem);
+            border-bottom: 4px solid var(--oker);
+        }
+
+        .brand-kicker {
+            display: block;
+            color: #f2bd77;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .header-left h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.35rem, 3vw, 1.85rem);
+            text-transform: none;
+            letter-spacing: 0.02em;
+            margin: 0;
+        }
+
+        .header-left p { margin-top: 0.25rem; color: rgba(255,255,255,0.78); }
+
+        .header-right {
+            gap: 0.65rem;
+            padding: 0.45rem 0.55rem;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.06);
+        }
+
+        .score-display .score-value { color: #f2bd77; line-height: 1; }
+        .streak-display { color: #f2bd77; font-size: 1.15rem; }
+
+        .timer-container,
+        .progress-container {
+            padding-left: clamp(1.1rem, 4vw, 2.3rem);
+            padding-right: clamp(1.1rem, 4vw, 2.3rem);
+            background: #faf6ee;
+        }
+
+        .timer-fill { background: linear-gradient(90deg, var(--groen), #8dae55); }
+        .progress-fill { background: linear-gradient(90deg, var(--nacht), #28918d); }
+        .category-badge { background: var(--nacht); }
+
+        .content {
+            min-height: 560px;
+            padding: clamp(1.3rem, 5vw, 3.2rem);
+        }
+
+        .intro-screen { text-align: left; }
+
+        .intro-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.65fr);
+            gap: clamp(1.5rem, 5vw, 3.2rem);
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .intro-kicker {
+            color: var(--oker);
+            font-weight: 800;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 0.55rem;
+        }
+
+        .intro-screen h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--nacht);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            line-height: 1.02;
+            max-width: 14ch;
+            margin: 0 0 0.9rem;
+        }
+
+        .intro-lead {
+            color: var(--middengrijs);
+            line-height: 1.65;
+            max-width: 64ch;
+            font-size: 1rem;
+        }
+
+        .arena-seal {
+            width: min(100%, 230px);
+            aspect-ratio: 1;
+            justify-self: center;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: var(--nacht);
+            background: #f2e5cf;
+            border: 2px solid var(--oker);
+            box-shadow: inset 0 0 0 10px var(--papier), inset 0 0 0 12px var(--nacht);
+            text-align: center;
+            transform: rotate(2deg);
+        }
+
+        .arena-seal strong {
+            display: block;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.5rem;
+        }
+
+        .arena-seal span {
+            display: block;
+            margin-top: 0.2rem;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .mode-heading {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--nacht);
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .mode-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.9rem;
+        }
+
+        .mode-card {
+            position: relative;
+            min-height: 132px;
+            padding: 1.1rem 1.15rem;
+            border: 2px solid var(--lijn);
+            border-radius: 13px;
+            background: white;
+            color: var(--inkt);
+            text-align: left;
+            cursor: pointer;
+            transition: border-color 0.18s, background 0.18s, transform 0.18s;
+        }
+
+        .mode-card:hover { border-color: var(--paars); transform: translateY(-2px); }
+        .mode-card.selected { border-color: var(--paars); background: #eaf5f2; box-shadow: 0 0 0 2px rgba(23,107,105,0.13); }
+        .mode-card .mode-title { display: block; font-weight: 800; font-size: 1.02rem; color: var(--nacht); margin-bottom: 0.35rem; }
+        .mode-card .mode-desc { display: block; color: var(--middengrijs); font-size: 0.86rem; line-height: 1.45; }
+        .mode-card .mode-badge { display: inline-block; margin-bottom: 0.5rem; color: var(--oker); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        .start-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--achtergrond-licht);
+        }
+
+        .timer-toggle {
+            margin: 0;
+            padding: 0.35rem 0.5rem;
+            background: transparent;
+            justify-content: flex-start;
+        }
+
+        .timer-toggle:hover { background: rgba(255,255,255,0.65); }
+
+        .start-note { color: var(--middengrijs); font-size: 0.78rem; margin-top: 0.25rem; }
+
+        .cheat-sheet {
+            margin-top: 1.4rem;
+            border: 1px solid var(--lijn);
+            border-radius: 12px;
+            background: white;
+            overflow: hidden;
+        }
+
+        .cheat-sheet summary {
+            cursor: pointer;
+            padding: 0.95rem 1.1rem;
+            color: var(--nacht);
+            font-weight: 800;
+        }
+
+        .cheat-sheet[open] summary { border-bottom: 1px solid var(--lijn); }
+        .cheat-sheet .theory-section { margin: 0; border-radius: 0; background: #faf7f0; }
+
+        .round-indicator { margin-bottom: 0.75rem; }
+        .round-indicator span { background: transparent; color: var(--oker); padding: 0; border-radius: 0; font-size: 0.72rem; letter-spacing: 0.13em; text-transform: uppercase; }
+
+        .question-box {
+            border-radius: 14px;
+            border-left: 0;
+            border-top: 5px solid var(--paars);
+            padding: clamp(1rem, 3.5vw, 1.7rem);
+            box-shadow: inset 0 0 0 1px var(--lijn);
+        }
+
+        .question-box h3 { color: var(--nacht); }
+        .question-box .category-tag { background: var(--nacht); }
+        .argument-display, .text-passage { border: 1px solid var(--lijn); }
+        .premise { background: #f7f4ed; }
+        .premise-label { color: var(--nacht); }
+        .conclusion { background: var(--nacht); }
+        .question-text { font-family: Georgia, "Times New Roman", serif; color: var(--nacht); font-size: clamp(1.15rem, 3vw, 1.35rem); }
+
+        .choice-btn {
+            min-height: 76px;
+            border-color: var(--lijn);
+            text-align: left;
+            position: relative;
+            padding-left: 3.1rem;
+        }
+
+        .choice-btn::before {
+            content: attr(data-key);
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.45rem;
+            height: 1.45rem;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--lijn);
+            border-radius: 0.35rem;
+            color: var(--lichtgrijs);
+            background: #faf8f3;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .choice-btn:hover { border-color: var(--paars); background: #f0f7f5; }
+        .choice-btn.selected::before, .choice-btn.correct::before, .choice-btn.wrong::before { background: white; }
+        .choice-btn.disabled { opacity: 0.72; }
+        .choice-btn.disabled.correct, .choice-btn.disabled.wrong, .choice-btn.disabled.show-correct { opacity: 1; }
+
+        .hint-btn { border-color: var(--oker); color: #8d3d1d; min-height: 44px; }
+        .hint-btn:hover { background: var(--oker); color: white; }
+
+        .feedback { border-radius: 12px; }
+        .feedback.correct { background: #eaf6ee; }
+        .feedback.wrong { background: #fff0ed; }
+        .feedback.coaching { background: #fff7e6; border-left: 4px solid var(--oker); }
+        .feedback.coaching h4 { color: #8d3d1d; }
+
+        .answer-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
+            margin: 0.8rem 0;
+        }
+
+        .answer-compare > div {
+            padding: 0.7rem;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.75);
+            font-size: 0.82rem;
+        }
+
+        .answer-compare strong { display: block; color: var(--nacht); margin-bottom: 0.2rem; }
+
+        .btn { min-height: 48px; border-radius: 9px; text-transform: none; letter-spacing: 0; }
+        .btn-primary { background: var(--oker); }
+        .btn-primary:hover { background: #a84925; color: white; }
+        .btn-secondary { background: var(--nacht); }
+        .btn-secondary:hover { background: #0a302f; }
+        .btn-outline { border-color: var(--nacht); color: var(--nacht); }
+        .btn-outline:hover { background: var(--nacht); }
+
+        .result-screen { text-align: left; }
+        .result-hero { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1rem; }
+        .result-icon { margin: 0; width: 70px; height: 70px; display: grid; place-items: center; background: #f2e5cf; border-radius: 50%; font-size: 2rem; }
+        .result-screen h2 { font-family: Georgia, "Times New Roman", serif; color: var(--nacht); margin: 0; }
+        .result-screen .final-score { font-size: 1.1rem; margin: 0.35rem 0 0; color: var(--middengrijs); }
+        .result-screen .final-score span { color: var(--nacht); font-size: 2rem; }
+        .extra-stats { justify-content: flex-start; flex-wrap: wrap; padding: 1rem 0; border-bottom: 1px solid var(--lijn); }
+        .extra-stats span { color: var(--nacht); }
+        .stats-grid { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+        .stat-card { text-align: left; border: 1px solid var(--lijn); background: white; }
+        .stat-card .stat-value { color: var(--nacht); }
+        .stat-card .stat-label { color: var(--middengrijs); font-weight: 700; }
+        .mastery-track { height: 6px; border-radius: 3px; background: var(--papier-donker); overflow: hidden; margin: 0.55rem 0; }
+        .mastery-fill { height: 100%; background: var(--paars); }
+        .result-message { border: 1px solid var(--lijn); background: var(--achtergrond-licht); }
+
+        .back-link {
+            color: #526563;
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        .keyboard-note { text-align: center; color: var(--lichtgrijs); font-size: 0.72rem; margin-top: 0.7rem; }
+
+        @media (max-width: 720px) {
+            .intro-hero { grid-template-columns: 1fr; }
+            .arena-seal { display: none; }
+            .mode-grid { grid-template-columns: 1fr; }
+            .start-panel { align-items: stretch; flex-direction: column; }
+            .start-panel .btn { width: 100%; }
+            .header { flex-direction: row; text-align: left; }
+            .header-left p { display: none; }
+            .header-right { margin-left: auto; }
+            .answer-compare { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 0; }
+            .container { min-height: 100vh; border-radius: 0; }
+            .content { padding: 1.1rem; }
+            .header { padding: 0.9rem 1rem; }
+            .score-display .score-value { font-size: 1.35rem; }
+            .streak-display { display: none; }
+            .choices, .choices.three-columns { gap: 0.65rem; }
+            .choice-btn { min-height: 68px; }
+            .extra-stats { gap: 0.6rem 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        }
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#mainContent">Naar de game</a>
     <div class="container">
         <div class="header">
             <div class="header-left">
-                <h1>&#9876;&#65039; Logica Arena</h1>
-                <p>Propositielogica - Oostvaarders College</p>
+                <span class="brand-kicker">Socrates voor het tribunaal</span>
+                <h1>Logica Arena</h1>
+                <p>Redeneren onder druk · 4 vwo</p>
             </div>
             <div class="header-right" id="headerRight" style="display: none;">
-                <div class="streak-display" id="streakDisplay">&#128293; <span id="streakCount">0</span></div>
+                <div class="streak-display" id="streakDisplay" aria-label="Reeks goede antwoorden">reeks <span id="streakCount">0</span></div>
                 <div class="score-display" id="scoreDisplay">
-                    <div class="score-label">Score</div>
+                    <div class="score-label">Beheerst</div>
                     <div class="score-value"><span id="currentScore">0</span>/<span id="maxScore">15</span></div>
                 </div>
             </div>
@@ -932,101 +1327,81 @@
             <div class="timer-bar">
                 <div class="timer-fill" id="timerFill"></div>
             </div>
-            <div class="timer-text" id="timerText">30s</div>
+            <div class="timer-text" id="timerText" aria-live="polite">35s</div>
         </div>
 
-        <div class="progress-container" id="progressContainer">
+        <div class="progress-container" id="progressContainer" aria-label="Voortgang">
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill" style="width: 0%"></div>
             </div>
-            <div class="progress-text">
+            <div class="progress-text" aria-live="polite">
                 Vraag <span id="currentQ">1</span> van <span id="totalQ">15</span>
                 <span class="category-badge" id="categoryBadge">Redeneervormen</span>
             </div>
         </div>
 
-        <div class="content">
+        <main class="content" id="mainContent">
             <!-- Intro Screen -->
             <div class="screen active" id="introScreen">
                 <div class="intro-screen">
-                    <div class="logic-icon">&#129504;</div>
-                    <h2>Welkom in de Logica Arena</h2>
-                    <p>Test je volledige kennis van propositielogica! Van redeneervormen tot verzwegen aannames, en van signaalwoorden tot het bouwen van argumenten.</p>
-
-                    <div class="theory-section">
-                        <h3>&#128218; Waarheid, Geldigheid &amp; Deugdelijkheid</h3>
-                        <div class="concept-grid">
-                            <div class="concept-card truth">
-                                <h4>Waarheid</h4>
-                                <p>Klopt de bewering met de feiten? Een feitelijke kwestie.</p>
-                            </div>
-                            <div class="concept-card validity">
-                                <h4>Geldigheid</h4>
-                                <p>Volgt de conclusie noodzakelijk uit de premissen? Structuur.</p>
-                            </div>
-                            <div class="concept-card soundness">
-                                <h4>Deugdelijkheid</h4>
-                                <p>Geldig + ware premissen = betrouwbaar argument.</p>
-                            </div>
+                    <div class="intro-hero">
+                        <div>
+                            <div class="intro-kicker">Hoofdstuk 3 · geldigheid en waarheid</div>
+                            <h2>Kun jij een redenering overeind houden?</h2>
+                            <p class="intro-lead">Onderzoek vijftien argumenten uit het proces tegen Socrates. Herken de vorm, ontdek de ontbrekende stap en prik door redeneringen heen die alleen overtuigend <em>klinken</em>.</p>
+                        </div>
+                        <div class="arena-seal" aria-hidden="true">
+                            <div><strong>P → Q</strong><span>vorm boven gevoel</span></div>
                         </div>
                     </div>
 
-                    <div class="theory-section">
-                        <h3>&#127919; De Vier Redeneervormen</h3>
-                        <div class="forms-grid">
-                            <div class="form-card valid">
-                                <h4>Modus Ponens <span class="valid-tag">Geldig</span></h4>
-                                <div class="formula">P &rarr; Q; P; &there4; Q</div>
+                    <h3 class="mode-heading">Kies hoe je wilt oefenen</h3>
+                    <div class="mode-grid" role="radiogroup" aria-label="Spelmodus">
+                        <button type="button" class="mode-card selected" data-mode="training" role="radio" aria-checked="true" onclick="selectMode('training')">
+                            <span class="mode-badge">Aanbevolen</span>
+                            <span class="mode-title">Training</span>
+                            <span class="mode-desc">Je krijgt bij een fout een gerichte tweede poging. Ideaal om het echt te leren.</span>
+                        </button>
+                        <button type="button" class="mode-card" data-mode="arena" role="radio" aria-checked="false" onclick="selectMode('arena')">
+                            <span class="mode-badge">Toets jezelf</span>
+                            <span class="mode-title">Arena</span>
+                            <span class="mode-desc">Eén kans per vraag. Je kunt er optioneel 35 seconden tijdsdruk aan toevoegen.</span>
+                        </button>
+                    </div>
+
+                    <div class="start-panel">
+                        <div>
+                            <div class="timer-toggle" onclick="document.getElementById('timerCheckbox').click()">
+                                <input type="checkbox" id="timerCheckbox" onclick="event.stopPropagation()" disabled>
+                                <label for="timerCheckbox" onclick="event.stopPropagation()">Tijdsdruk: 35 seconden per vraag</label>
                             </div>
-                            <div class="form-card valid">
-                                <h4>Modus Tollens <span class="valid-tag">Geldig</span></h4>
-                                <div class="formula">P &rarr; Q; &not;Q; &there4; &not;P</div>
+                            <p class="start-note" id="modeNote">Je krijgt feedback en maximaal twee pogingen per vraag.</p>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="startGame()">Start training</button>
+                    </div>
+
+                    <details class="cheat-sheet">
+                        <summary>Open de spiekbrief</summary>
+                        <div class="theory-section">
+                            <h3>Waarheid, geldigheid en deugdelijkheid</h3>
+                            <div class="concept-grid">
+                                <div class="concept-card truth"><h4>Waarheid</h4><p>Klopt een bewering met de feiten?</p></div>
+                                <div class="concept-card validity"><h4>Geldigheid</h4><p>Moet de conclusie volgen als de premissen waar zijn?</p></div>
+                                <div class="concept-card soundness"><h4>Deugdelijkheid</h4><p>Een geldige vorm én ware premissen.</p></div>
                             </div>
-                            <div class="form-card invalid">
-                                <h4>Bevestiging Consequent <span class="invalid-tag">Ongeldig</span></h4>
-                                <div class="formula">P &rarr; Q; Q; &there4; P &#10007;</div>
-                            </div>
-                            <div class="form-card invalid">
-                                <h4>Ontkenning Antecedent <span class="invalid-tag">Ongeldig</span></h4>
-                                <div class="formula">P &rarr; Q; &not;P; &there4; &not;Q &#10007;</div>
+                            <div class="forms-grid">
+                                <div class="form-card valid"><h4>Modus ponens <span class="valid-tag">geldig</span></h4><div class="formula">P → Q; P; ∴ Q</div></div>
+                                <div class="form-card valid"><h4>Modus tollens <span class="valid-tag">geldig</span></h4><div class="formula">P → Q; ¬Q; ∴ ¬P</div></div>
+                                <div class="form-card invalid"><h4>Consequent bevestigd <span class="invalid-tag">ongeldig</span></h4><div class="formula">P → Q; Q; ∴ P</div></div>
+                                <div class="form-card invalid"><h4>Antecedent ontkend <span class="invalid-tag">ongeldig</span></h4><div class="formula">P → Q; ¬P; ∴ ¬Q</div></div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="theory-section">
-                        <h3>&#128270; Extra Vaardigheden</h3>
-                        <div class="concepts-list">
-                            <div class="concept-item">
-                                <span class="icon">&#128221;</span>
-                                <span class="text"><strong>Signaalwoorden</strong> &mdash; herken premissen (want, omdat, immers) en conclusies (dus, daarom, bijgevolg)</span>
-                            </div>
-                            <div class="concept-item">
-                                <span class="icon">&#128270;</span>
-                                <span class="text"><strong>Verzwegen aannames</strong> &mdash; onuitgesproken premissen die het argument compleet maken</span>
-                            </div>
-                            <div class="concept-item">
-                                <span class="icon">&#9878;&#65039;</span>
-                                <span class="text"><strong>Deductie</strong> &mdash; conclusie is zeker als premissen waar zijn</span>
-                            </div>
-                            <div class="concept-item">
-                                <span class="icon">&#128202;</span>
-                                <span class="text"><strong>Inductie</strong> &mdash; conclusie is waarschijnlijk, maar weerlegbaar</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timer-toggle" onclick="document.getElementById('timerCheckbox').click()">
-                        <input type="checkbox" id="timerCheckbox" onclick="event.stopPropagation()">
-                        <label for="timerCheckbox" onclick="event.stopPropagation()">&#9201; Speel met tijdsdruk (30s per vraag)</label>
-                    </div>
-
-                    <br><br>
-                    <button class="btn btn-primary" onclick="startGame()">Start de Arena!</button>
+                    </details>
                 </div>
             </div>
 
             <!-- Game Screen -->
-            <div class="screen" id="gameScreen">
+            <div class="screen" id="gameScreen" aria-label="Spelronde">
                 <div class="round-indicator">
                     <span id="roundLabel">Ronde 1</span>
                 </div>
@@ -1041,16 +1416,17 @@
                     <!-- Filled by JS -->
                 </div>
 
-                <button class="hint-btn" id="hintBtn" style="display: none;" onclick="useHint()">&#128161; Hint (-1 punt)</button>
+                <button type="button" class="hint-btn" id="hintBtn" style="display: none;" onclick="useHint()">Hint bekijken</button>
                 <div class="hint-box" id="hintBox"></div>
 
-                <div class="feedback" id="feedback">
+                <div class="feedback" id="feedback" role="status" aria-live="polite">
                     <!-- Filled by JS -->
                 </div>
 
                 <div class="button-group" id="nextButtonContainer" style="display: none;">
-                    <button class="btn btn-secondary" onclick="nextQuestion()">Volgende vraag &rarr;</button>
+                    <button type="button" class="btn btn-secondary" id="nextButton" onclick="nextQuestion()">Volgende vraag →</button>
                 </div>
+                <p class="keyboard-note">Sneltoetsen: 1–4 om te kiezen · Enter voor de volgende vraag</p>
             </div>
 
             <!-- Result Screen -->
@@ -1059,692 +1435,693 @@
                     <!-- Filled by JS -->
                 </div>
             </div>
-        </div>
+        </main>
 
         <div class="back-link">
-            <a href="index.html">&larr; Terug naar Filosofie</a>
+            Sluit aan bij <em>Socrates voor het tribunaal</em>, §3.4–3.6 · werkt zelfstandig en bewaart geen persoonsgegevens.
         </div>
     </div>
 
     <script>
-        // ========== QUESTION DATABASE ==========
+        // ========== QUESTION DATABASE v2 ==========
+        // Vervangt de zeven vragen-arrays in logica-arena.html.
+        // Schema identiek aan v1; geen wijziging in de engine nodig.
+        // Mengverhouding: ongeveer twee derde inhoud uit 'Socrates voor het tribunaal',
+        // een derde kale vormen als transfer naar de toets.
+        // Bij 'Verzwegen aannames' staan ook implicatie-items; die gebruiken dezelfde
+        // vraagvorm en tonen via categoryLabel het juiste kopje.
 
         // Category 1: Redeneervormen (12 vragen)
         const formQuestions = [
             {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'modus_ponens',
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'modus_ponens',
+                premise1: "Als je bewust onrecht doet, dan beschadig je je eigen ziel.",
+                premise2: "Vluchten zou bewust onrecht doen zijn.",
+                conclusion: "Dus zou vluchten zijn ziel beschadigen.",
+                hint: "Wordt het als-deel bevestigd, of het dan-deel ontkend?",
+                explanation: "Het als-deel wordt bevestigd, dus het dan-deel volgt. Dit is de kern van Socrates' redenering in §1.6."
+            },
+            {
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'modus_tollens',
+                premise1: "Als Socrates alleen om roem gaf, dan had hij zich nederig verdedigd.",
+                premise2: "Hij verdedigde zich niet nederig.",
+                conclusion: "Dus gaf hij niet alleen om roem.",
+                hint: "Er wordt iets ontkend. Het dan-deel of het als-deel?",
+                explanation: "Het dan-deel wordt ontkend, dus valt het als-deel weg. Geldig (§3.5)."
+            },
+            {
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'affirming_consequent',
+                premise1: "Als iemand de jeugd bederft, dan stelt hij lastige vragen.",
+                premise2: "Socrates stelde lastige vragen.",
+                conclusion: "Dus bedierf hij de jeugd.",
+                hint: "Welk deel van de als-dan-zin wordt in de tweede regel herhaald?",
+                explanation: "Het dan-deel wordt bevestigd, en daaruit volgt niets. Talloze mensen stellen lastige vragen zonder iemand te bederven. Dit is precies de denkfout in de aanklacht (§1.3)."
+            },
+            {
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'denying_antecedent',
+                premise1: "Als je een leven onderzoekt, dan is het de moeite waard.",
+                premise2: "Deze man onderzoekt zijn leven niet.",
+                conclusion: "Dus is zijn leven niet de moeite waard.",
+                hint: "Het als-deel wordt ontkend. Volgt daaruit iets over het dan-deel?",
+                explanation: "Ongeldig. Uit 'als P dan Q' volgt niets wanneer P wegvalt; er kunnen andere wegen naar Q zijn. Let op: Socrates zelf beweert in §1.4 wel iets sterkers, en juist daarover kun je met hem twisten."
+            },
+            {
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'modus_ponens',
+                premise1: "Als het orakel gelijk had, dan was niemand wijzer dan Socrates.",
+                premise2: "Het orakel had gelijk.",
+                conclusion: "Dus was niemand wijzer dan Socrates.",
+                hint: "De tweede premisse bevestigt het als-deel.",
+                explanation: "Geldige modus ponens. Socrates nam dit niet aan maar ging het onderzoeken (§2.1)."
+            },
+            {
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'modus_tollens',
+                premise1: "Als schijnkennis onschuldig is, dan richt zij geen schade aan.",
+                premise2: "Schijnkennis richt wel degelijk schade aan.",
+                conclusion: "Dus is schijnkennis niet onschuldig.",
+                hint: "Het dan-deel wordt ontkend.",
+                explanation: "Geldige modus tollens. Het argument van §2.2 in vorm gegoten."
+            },
+            {
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'affirming_consequent',
+                premise1: "Als een uitspraak wijs is, dan klinkt zij eenvoudig.",
+                premise2: "'Ik weet dat ik niets weet' klinkt eenvoudig.",
+                conclusion: "Dus is die uitspraak wijs.",
+                hint: "Eenvoud komt ook voor bij onzin.",
+                explanation: "Bevestiging van het consequent, dus ongeldig. Bovendien staat die spreuk zo niet bij Plato (§2.1)."
+            },
+            {
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'denying_antecedent',
+                premise1: "Als Athene bang was, dan veroordeelde het Socrates.",
+                premise2: "Athene was niet bang.",
+                conclusion: "Dus veroordeelde het Socrates niet.",
+                hint: "Kan de veroordeling ook een andere oorzaak hebben gehad?",
+                explanation: "Ontkenning van het antecedent, ongeldig. Er kunnen andere redenen zijn geweest: godsdienst, wrok, politiek (§1.2)."
+            },
+            {
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'modus_ponens',
                 premise1: "Als het regent, dan wordt de straat nat.",
                 premise2: "Het regent.",
                 conclusion: "Dus de straat wordt nat.",
-                hint: "Kijk welke deel van de als-dan-regel wordt bevestigd: het 'als'-deel (P) of het 'dan'-deel (Q)?",
-                explanation: "De eerste premisse stelt: P \u2192 Q. De tweede premisse bevestigt P. Dus volgt Q noodzakelijk."
+                hint: "Welk deel van de als-dan-regel wordt bevestigd?",
+                explanation: "Klassieke modus ponens: P is waar, dus Q volgt."
             },
             {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'modus_ponens',
-                premise1: "Als iets een zoogdier is, dan heeft het longen.",
-                premise2: "Een dolfijn is een zoogdier.",
-                conclusion: "Dus een dolfijn heeft longen.",
-                hint: "De tweede premisse bevestigt het 'als'-deel. Welke geldige vorm doet dat?",
-                explanation: "Klassieke modus ponens: P is waar (dolfijn = zoogdier), dus Q volgt (heeft longen)."
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'modus_tollens',
+                premise1: "Als de kachel aanstaat, dan is het warm in huis.",
+                premise2: "Het is niet warm in huis.",
+                conclusion: "Dus staat de kachel niet aan.",
+                hint: "Het gevolg blijft uit. Wat betekent dat voor de oorzaak?",
+                explanation: "Modus tollens: door het ontkennen van Q valt P weg. Geldig."
             },
             {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'modus_ponens',
-                premise1: "Als de CO2-uitstoot stijgt, dan stijgt de temperatuur.",
-                premise2: "De CO2-uitstoot stijgt.",
-                conclusion: "Dus de temperatuur stijgt.",
-                hint: "P (CO2 stijgt) wordt bevestigd. Wat volgt er dan uit P \u2192 Q?",
-                explanation: "Modus ponens met een actueel voorbeeld: P wordt bevestigd, dus Q volgt noodzakelijk. (Let op: de geldigheid van het argument zegt niets over de waarheid van de premissen.)"
-            },
-            {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'modus_tollens',
-                premise1: "Als het regent, dan wordt de straat nat.",
-                premise2: "De straat is niet nat.",
-                conclusion: "Dus het regent niet.",
-                hint: "Hier wordt het 'dan'-deel (\u00acQ) ontkend. Welke geldige vorm doet dat?",
-                explanation: "Modus tollens: als Q onwaar is (straat niet nat), dan moet P ook onwaar zijn."
-            },
-            {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'modus_tollens',
-                premise1: "Als Jan de dader is, dan heeft hij geen alibi.",
-                premise2: "Jan heeft een alibi.",
-                conclusion: "Dus Jan is niet de dader.",
-                hint: "Jan heeft w\u00e9l een alibi, dus de consequent (geen alibi) is onwaar. Welke vorm ontkent Q?",
-                explanation: "De consequent (geen alibi) is onwaar, dus de antecedent (dader zijn) moet ook onwaar zijn."
-            },
-            {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'modus_tollens',
-                premise1: "Als een machine kan denken, dan is het bewust.",
-                premise2: "De machine is niet bewust.",
-                conclusion: "Dus de machine kan niet denken.",
-                hint: "De consequent ('bewust') wordt ontkend. Welke geldige redeneervorm ontkent Q?",
-                explanation: "Modus tollens met een AI-voorbeeld: \u00acQ (niet bewust) leidt tot \u00acP (kan niet denken). De geldigheid hangt niet af van de vraag of de premisse klopt."
-            },
-            {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'affirming_consequent',
-                premise1: "Als het regent, dan wordt de straat nat.",
-                premise2: "De straat is nat.",
-                conclusion: "Dus het regent.",
-                hint: "Welk deel wordt bevestigd: het 'als'-deel of het 'dan'-deel? Dat maakt veel uit!",
-                explanation: "DROGREDEN! De straat kan ook nat zijn door andere oorzaken (sproeier, gemorst water)."
-            },
-            {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'affirming_consequent',
-                premise1: "Als je griep hebt, heb je koorts.",
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'affirming_consequent',
+                premise1: "Als je griep hebt, dan heb je koorts.",
                 premise2: "Je hebt koorts.",
-                conclusion: "Dus je hebt griep.",
-                hint: "Koorts (Q) wordt bevestigd. Maar is er maar \u00e9\u00e9n oorzaak van koorts?",
-                explanation: "DROGREDEN! Koorts kan ook door andere ziektes komen. Q bevestigen bewijst P niet."
+                conclusion: "Dus heb je griep.",
+                hint: "Zijn er meer oorzaken van koorts?",
+                explanation: "Ongeldig. Koorts hoort bij tientallen ziektes; uit het gevolg volgt de oorzaak niet."
             },
             {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'affirming_consequent',
-                premise1: "Als iets viral gaat op social media, dan zien veel mensen het.",
-                premise2: "Veel mensen hebben het gezien.",
-                conclusion: "Dus het is viral gegaan op social media.",
-                hint: "Het 'dan'-deel (veel mensen zien het) wordt bevestigd. Maar kan dat ook andere oorzaken hebben?",
-                explanation: "DROGREDEN! Veel mensen kunnen iets ook via TV, radio of krant hebben gezien. Het bevestigen van Q bewijst P niet."
-            },
-            {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'denying_antecedent',
-                premise1: "Als het regent, dan wordt de straat nat.",
-                premise2: "Het regent niet.",
-                conclusion: "Dus de straat is niet nat.",
-                hint: "Het 'als'-deel (P) wordt ontkend. Maar sluit dat Q echt uit?",
-                explanation: "DROGREDEN! De straat kan nog steeds nat zijn door andere oorzaken."
-            },
-            {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'denying_antecedent',
-                premise1: "Als je een kat bent, ben je een dier.",
-                premise2: "Je bent geen kat.",
-                conclusion: "Dus je bent geen dier.",
-                hint: "Niet-kat zijn sluit niet uit dat je een ander soort dier bent. Welke drogreden is dit?",
-                explanation: "DROGREDEN! Je kunt een hond zijn \u2014 nog steeds een dier. Niet-P bewijst niets over Q."
-            },
-            {
-                category: 'forms',
-                categoryLabel: 'Redeneervormen',
-                type: 'denying_antecedent',
-                premise1: "Als je populist bent, ben je gevaarlijk voor de democratie.",
-                premise2: "Je bent geen populist.",
-                conclusion: "Dus je bent niet gevaarlijk voor de democratie.",
-                hint: "Er zijn meer manieren om gevaarlijk te zijn voor de democratie dan alleen populisme.",
-                explanation: "DROGREDEN! Niet-populist zijn sluit niet uit dat je op andere manieren gevaarlijk voor de democratie kunt zijn. \u00acP bewijst niet \u00acQ."
+                category: 'forms', categoryLabel: 'Redeneervormen', type: 'denying_antecedent',
+                premise1: "Als je hard traint, dan word je beter.",
+                premise2: "Jij traint niet hard.",
+                conclusion: "Dus word jij niet beter.",
+                hint: "Is hard trainen de enige weg naar vooruitgang?",
+                explanation: "Ongeldig. Talent, slaap of goede begeleiding kunnen hetzelfde gevolg hebben."
             }
         ];
 
-        // Category 2: Waarheid vs Geldigheid vs Deugdelijkheid (7 vragen)
-        const validityQuestions = [
-            {
-                category: 'validity',
-                categoryLabel: 'Waarheid & Geldigheid',
-                question: "Alle vissen kunnen vliegen. Een zalm is een vis. Dus een zalm kan vliegen.",
-                questionText: "Dit argument is...",
-                correctAnswer: 'valid_untrue',
-                options: [
-                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
-                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
-                ],
-                hint: "Kijk apart naar structuur en inhoud. Klopt de structuur (als...dan)? Kloppen de feiten?",
-                explanation: "Het argument is <strong>geldig</strong> (modus ponens), maar niet <strong>deugdelijk</strong> omdat de eerste premisse onwaar is. Geldigheid gaat over structuur, niet over feiten."
-            },
-            {
-                category: 'validity',
-                categoryLabel: 'Waarheid & Geldigheid',
-                question: "Alle mensen zijn sterfelijk. Socrates is een mens. Dus Socrates is sterfelijk.",
-                questionText: "Dit argument is...",
-                correctAnswer: 'sound',
-                options: [
-                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
-                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
-                ],
-                hint: "Check: klopt de structuur? En zijn de premissen ook feitelijk waar?",
-                explanation: "Dit is een <strong>deugdelijk</strong> argument: de structuur is geldig (modus ponens) \u00e9n beide premissen zijn waar."
-            },
-            {
-                category: 'validity',
-                categoryLabel: 'Waarheid & Geldigheid',
-                question: "Amsterdam is de hoofdstad van Nederland. Nederland ligt in Europa. Dus Amsterdam is mooi.",
-                questionText: "Dit argument is...",
-                correctAnswer: 'invalid',
-                options: [
-                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
-                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
-                ],
-                hint: "Volgt de conclusie logisch uit de premissen? Is er een als-dan-verband?",
-                explanation: "Dit is <strong>ongeldig</strong>: de conclusie ('Amsterdam is mooi') volgt logisch niet uit de premissen. De premissen zijn waar, maar er is geen logisch verband."
-            },
-            {
-                category: 'validity',
-                categoryLabel: 'Waarheid & Geldigheid',
-                question: "Alle planeten in ons zonnestelsel draaien om de zon. De aarde is een planeet in ons zonnestelsel. Dus de aarde draait om de zon.",
-                questionText: "Dit argument is...",
-                correctAnswer: 'sound',
-                options: [
-                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
-                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
-                ],
-                hint: "Geldige structuur + ware premissen = ?",
-                explanation: "Klassiek <strong>deugdelijk</strong> argument: geldige structuur + ware premissen = betrouwbare conclusie."
-            },
-            {
-                category: 'validity',
-                categoryLabel: 'Waarheid & Geldigheid',
-                question: "Alle politici zijn eerlijk. De premier is een politicus. Dus de premier is eerlijk.",
-                questionText: "Dit argument is...",
-                correctAnswer: 'valid_untrue',
-                options: [
-                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
-                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
-                ],
-                hint: "De structuur is correct (alle X zijn Y, Z is X, dus Z is Y). Maar klopt de eerste premisse?",
-                explanation: "Het argument is <strong>geldig</strong> qua structuur (modus ponens), maar de eerste premisse ('alle politici zijn eerlijk') is onwaar. Dus niet deugdelijk."
-            },
-            {
-                category: 'validity',
-                categoryLabel: 'Waarheid & Geldigheid',
-                question: "Als je in Amsterdam bent, ben je in Nederland. Je bent in Rotterdam. Dus je bent in Nederland.",
-                questionText: "Dit argument is...",
-                correctAnswer: 'invalid',
-                options: [
-                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
-                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
-                ],
-                hint: "De premisse gaat over Amsterdam, maar de conclusie gaat over Rotterdam. Volgt dat logisch?",
-                explanation: "Dit is <strong>ongeldig</strong>. De premisse gaat over Amsterdam, maar we weten alleen dat je in Rotterdam bent. De conclusie is toevallig waar, maar volgt niet logisch uit de premissen (bevestiging van de consequent-achtig)."
-            },
-            {
-                category: 'validity',
-                categoryLabel: 'Waarheid & Geldigheid',
-                question: "Alle robots zijn gemaakt van kaas. Mijn telefoon is een robot. Dus mijn telefoon is gemaakt van kaas.",
-                questionText: "Dit argument is...",
-                correctAnswer: 'valid_untrue',
-                options: [
-                    { id: 'valid_untrue', label: 'Geldig maar niet waar', desc: 'Structuur klopt, premisse is fout' },
-                    { id: 'invalid', label: 'Ongeldig', desc: 'Conclusie volgt niet uit premissen' },
-                    { id: 'sound', label: 'Deugdelijk', desc: 'Geldig \u00e9n ware premissen' }
-                ],
-                hint: "De structuur is: alle X zijn Y, Z is X, dus Z is Y. Klopt die structuur? En kloppen de feiten?",
-                explanation: "De structuur is <strong>geldig</strong> (alle X zijn Y, Z is X, dus Z is Y). Maar beide premissen zijn onwaar, dus het is niet deugdelijk. Geldigheid \u2260 waarheid!"
-            }
-        ];
-
-        // Category 3: Signaalwoorden (7 vragen)
+        // Category 2: Claim, reden en signaalwoorden (11 vragen)
         const signalQuestions = [
             {
-                category: 'signals',
-                categoryLabel: 'Signaalwoorden',
+                category: 'signals', categoryLabel: 'Claim en reden',
+                text: "Socrates bederft de jeugd, <span class='highlight'>want</span> hij leert jongeren hun ouders en politici niet zomaar te geloven.",
+                questionText: "Wat is hier de claim?",
+                correctAnswer: 'claim',
+                options: [
+                    { id: 'claim', label: 'Socrates bederft de jeugd', desc: 'De bewering die verdedigd wordt' },
+                    { id: 'reden', label: 'Hij leert jongeren gezag te bevragen', desc: 'Dit draagt de bewering' }
+                ],
+                hint: "Het signaalwoord staat vóór de reden. Wat staat ervóór?",
+                explanation: "Na want volgt de reden; de claim staat ervoor (§1.3)."
+            },
+            {
+                category: 'signals', categoryLabel: 'Claim en reden',
+                text: "Zijn dood helpt niemand, <span class='highlight'>dus</span> had Socrates moeten vluchten.",
+                questionText: "Wat is hier de claim?",
+                correctAnswer: 'claim',
+                options: [
+                    { id: 'claim', label: 'Socrates had moeten vluchten', desc: 'Volgt na het signaalwoord' },
+                    { id: 'reden', label: 'Zijn dood helpt niemand', desc: 'Dit draagt de claim' }
+                ],
+                hint: "Bij 'dus' draait de volgorde om ten opzichte van 'want'.",
+                explanation: "Twee volgordes, dezelfde redenering: claim-want-reden, en reden-dus-claim (§1.3)."
+            },
+            {
+                category: 'signals', categoryLabel: 'Claim en reden',
+                text: "Schijnkennis is gevaarlijker dan onwetendheid, <span class='highlight'>omdat</span> wie denkt te weten niet meer leert.",
+                questionText: "Wat is hier de reden?",
+                correctAnswer: 'reden',
+                options: [
+                    { id: 'reden', label: 'Wie denkt te weten, leert niet meer', desc: 'De onderbouwing' },
+                    { id: 'claim', label: 'Schijnkennis is gevaarlijker dan onwetendheid', desc: 'Dit is de claim' }
+                ],
+                hint: "'Omdat' hoort bij dezelfde familie als 'want'.",
+                explanation: "Na omdat volgt de reden. De claim gaat eraan vooraf (§2.2)."
+            },
+            {
+                category: 'signals', categoryLabel: 'Claim en reden',
+                text: "Je mag nooit onrecht doen. Vluchten zou onrecht doen zijn. <span class='highlight'>Daarom</span> mocht Socrates niet vluchten.",
+                questionText: "Wat is hier de claim?",
+                correctAnswer: 'claim',
+                options: [
+                    { id: 'claim', label: 'Socrates mocht niet vluchten', desc: 'De conclusie van de redenering' },
+                    { id: 'reden', label: 'Je mag nooit onrecht doen', desc: 'Een van de twee redenen' }
+                ],
+                hint: "Twee redenen, één claim. Welke zin steunt op de andere twee?",
+                explanation: "De claim staat achter 'daarom'. De twee zinnen ervoor dragen hem samen (§1.6)."
+            },
+            {
+                category: 'signals', categoryLabel: 'Signaalwoorden',
+                text: "Socrates bederft de jeugd, <span class='highlight'>want</span> hij leert jongeren hun ouders en politici niet zomaar te geloven.",
+                questionText: "Het woord 'want' introduceert hier een...",
+                correctAnswer: 'premise',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing of reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                hint: "Wat komt er na 'want': de bewering of de onderbouwing?",
+                explanation: "Na want, omdat en aangezien volgt een reden. De claim staat ervoor (§1.3)."
+            },
+            {
+                category: 'signals', categoryLabel: 'Signaalwoorden',
+                text: "Zijn dood helpt niemand. <span class='highlight'>Dus</span> had hij moeten vluchten.",
+                questionText: "Het woord 'dus' introduceert hier een...",
+                correctAnswer: 'conclusion',
+                options: [
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat uit de reden volgt' },
+                    { id: 'premise', label: 'Premisse', desc: 'De onderbouwing' }
+                ],
+                hint: "Bij 'dus' draait de volgorde om ten opzichte van 'want'.",
+                explanation: "Twee volgordes, dezelfde redenering: claim-want-reden, en reden-dus-claim (§1.3)."
+            },
+            {
+                category: 'signals', categoryLabel: 'Signaalwoorden',
+                text: "Athene mocht hem stoppen, <span class='highlight'>aangezien</span> zijn vragen de stad destabiliseerden.",
+                questionText: "Het woord 'aangezien' introduceert hier een...",
+                correctAnswer: 'premise',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing of reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                hint: "Vervang het door 'want'. Verandert de betekenis?",
+                explanation: "Aangezien hoort bij dezelfde familie als want en omdat."
+            },
+            {
+                category: 'signals', categoryLabel: 'Signaalwoorden',
+                text: "Hij weigerde te vluchten. <span class='highlight'>Daarom</span> is hij gestorven.",
+                questionText: "Het woord 'daarom' introduceert hier een...",
+                correctAnswer: 'conclusion',
+                options: [
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat volgt' },
+                    { id: 'premise', label: 'Premisse', desc: 'De onderbouwing' }
+                ],
+                hint: "Wijst het woord terug naar de onderbouwing of vooruit naar wat volgt?",
+                explanation: "Daarom hoort bij dus en bijgevolg: er komt een claim achter."
+            },
+            {
+                category: 'signals', categoryLabel: 'Signaalwoorden',
+                text: "Schijnkennis is gevaarlijk, <span class='highlight'>omdat</span> wie denkt te weten niet meer leert.",
+                questionText: "Het woord 'omdat' introduceert hier een...",
+                correctAnswer: 'premise',
+                options: [
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing of reden' },
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                ],
+                hint: "Zelfde familie als 'want'.",
+                explanation: "De claim gaat vooraf, de reden volgt (§2.2)."
+            },
+            {
+                category: 'signals', categoryLabel: 'Signaalwoorden',
                 text: "Je moet je paraplu meenemen, <span class='highlight'>want</span> het gaat regenen.",
                 questionText: "Het woord 'want' introduceert hier een...",
                 correctAnswer: 'premise',
                 options: [
-                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
+                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing of reden' },
                     { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
                 ],
-                hint: "'Want' geeft een reden. Is een reden een premisse of een conclusie?",
-                explanation: "'Want' is een <strong>premisse-indicator</strong>. Het introduceert de reden (het gaat regenen) voor de conclusie (paraplu meenemen)."
+                hint: "'Want' geeft een reden.",
+                explanation: "Een reden is een premisse."
             },
             {
-                category: 'signals',
-                categoryLabel: 'Signaalwoorden',
-                text: "Alle studenten moeten dit boek lezen. Jij bent een student. <span class='highlight'>Dus</span> jij moet dit boek lezen.",
-                questionText: "Het woord 'dus' introduceert hier een...",
-                correctAnswer: 'conclusion',
-                options: [
-                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
-                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
-                ],
-                hint: "'Dus' signaleert wat er uit iets volgt. Is dat een reden of een gevolgtrekking?",
-                explanation: "'Dus' is een <strong>conclusie-indicator</strong>. Het signaleert wat volgt uit de voorafgaande premissen."
-            },
-            {
-                category: 'signals',
-                categoryLabel: 'Signaalwoorden',
-                text: "We moeten de uitstoot verminderen. <span class='highlight'>Immers</span>, de temperatuur op aarde stijgt al jaren.",
-                questionText: "Het woord 'immers' introduceert hier een...",
-                correctAnswer: 'premise',
-                options: [
-                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
-                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
-                ],
-                hint: "'Immers' lijkt op 'want' \u2014 het geeft een onderbouwing.",
-                explanation: "'Immers' is een <strong>premisse-indicator</strong>. Het geeft de reden waarom we de uitstoot moeten verminderen."
-            },
-            {
-                category: 'signals',
-                categoryLabel: 'Signaalwoorden',
-                text: "De verdachte had een motief en geen alibi. <span class='highlight'>Bijgevolg</span> is hij waarschijnlijk schuldig.",
+                category: 'signals', categoryLabel: 'Signaalwoorden',
+                text: "De weg is glad. <span class='highlight'>Bijgevolg</span> moet je langzamer rijden.",
                 questionText: "Het woord 'bijgevolg' introduceert hier een...",
                 correctAnswer: 'conclusion',
                 options: [
-                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
-                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
+                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat volgt' },
+                    { id: 'premise', label: 'Premisse', desc: 'De onderbouwing' }
                 ],
-                hint: "'Bijgevolg' = 'als gevolg daarvan'. Wijst het vooruit of achteruit in het argument?",
-                explanation: "'Bijgevolg' is een <strong>conclusie-indicator</strong>. Het signaleert de gevolgtrekking uit de gegeven feiten."
-            },
-            {
-                category: 'signals',
-                categoryLabel: 'Signaalwoorden',
-                text: "De zeespiegel stijgt, <span class='highlight'>daaruit volgt</span> dat kustgebieden bedreigd worden.",
-                questionText: "De uitdrukking 'daaruit volgt' introduceert hier een...",
-                correctAnswer: 'conclusion',
-                options: [
-                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
-                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
-                ],
-                hint: "'Daaruit volgt' betekent letterlijk: 'dit is het gevolg'. Premisse of conclusie?",
-                explanation: "'Daaruit volgt' is een <strong>conclusie-indicator</strong>. Het wijst naar wat logisch voortkomt uit het voorgaande."
-            },
-            {
-                category: 'signals',
-                categoryLabel: 'Signaalwoorden',
-                text: "<span class='highlight'>Aangezien</span> social media verslavend kan zijn, moeten jongeren beter beschermd worden.",
-                questionText: "Het woord 'aangezien' introduceert hier een...",
-                correctAnswer: 'premise',
-                options: [
-                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
-                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
-                ],
-                hint: "'Aangezien' geeft de reden. Vergelijk met 'omdat' of 'want'.",
-                explanation: "'Aangezien' is een <strong>premisse-indicator</strong>. Het introduceert de reden (social media is verslavend) voor de conclusie (jongeren beschermen)."
-            },
-            {
-                category: 'signals',
-                categoryLabel: 'Signaalwoorden',
-                text: "AI wordt steeds slimmer. <span class='highlight'>Hieruit blijkt</span> dat we regels nodig hebben voor kunstmatige intelligentie.",
-                questionText: "De uitdrukking 'hieruit blijkt' introduceert hier een...",
-                correctAnswer: 'conclusion',
-                options: [
-                    { id: 'premise', label: 'Premisse', desc: 'Onderbouwing/reden' },
-                    { id: 'conclusion', label: 'Conclusie', desc: 'Wat wordt beweerd' }
-                ],
-                hint: "'Hieruit blijkt' = 'dit laat zien dat'. Het wijst naar een gevolgtrekking.",
-                explanation: "'Hieruit blijkt' is een <strong>conclusie-indicator</strong>. Het signaleert de conclusie die wordt getrokken uit het voorgaande feit."
+                hint: "Formeler broertje van 'dus'.",
+                explanation: "Bijgevolg leidt de conclusie in."
             }
         ];
 
-        // Category 4: Verzwegen aannames (6 vragen)
+        // Category 3: Waarheid & Geldigheid (7 vragen)
+        const validityQuestions = [
+            {
+                category: 'validity', categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle filosofen worden ter dood veroordeeld. Socrates was een filosoof. Dus Socrates werd ter dood veroordeeld.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'valid_untrue',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig, maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig van vorm', desc: 'Conclusie volgt niet uit de premissen' },
+                    { id: 'sound', label: 'Deugdelijk en waar', desc: 'Geldig en met ware premissen' }
+                ],
+                hint: "De conclusie is toevallig waar. Zegt dat iets over de premissen?",
+                explanation: "Geldig plus ware premissen is pas deugdelijk. De eerste premisse is onzin (§3.4)."
+            },
+            {
+                category: 'validity', categoryLabel: 'Waarheid & Geldigheid',
+                question: "Socrates dronk de gifbeker. Dus hij was moedig.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'invalid',
+                options: [
+                    { id: 'invalid', label: 'Ongeldig van vorm', desc: 'Er ontbreekt een verbindende premisse' },
+                    { id: 'valid_untrue', label: 'Geldig, maar niet waar', desc: 'Structuur klopt wel' },
+                    { id: 'sound', label: 'Deugdelijk en waar', desc: 'Geldig en waar' }
+                ],
+                hint: "Wat zou je moeten toevoegen om de sprong te dichten?",
+                explanation: "Zonder een premisse als 'wie zijn straf kalm ondergaat is moedig' volgt er niets. Non sequitur (§3.6)."
+            },
+            {
+                category: 'validity', categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle mensen zijn sterfelijk. Socrates is een mens. Dus Socrates is sterfelijk.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'sound',
+                options: [
+                    { id: 'sound', label: 'Deugdelijk en waar', desc: 'Geldig en de premissen kloppen' },
+                    { id: 'valid_untrue', label: 'Geldig, maar niet waar', desc: 'Structuur klopt, feiten niet' },
+                    { id: 'invalid', label: 'Ongeldig van vorm', desc: 'De conclusie volgt niet' }
+                ],
+                hint: "Klopt de vorm, en kloppen ook de feiten?",
+                explanation: "De vorm is geldig en beide premissen zijn waar. Daarom is het argument deugdelijk (§3.4)."
+            },
+            {
+                category: 'validity', categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle Atheners waren wijs. Socrates was een Athener. Dus Socrates was wijs.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'valid_untrue',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig, maar niet waar', desc: 'De eerste premisse is onhoudbaar' },
+                    { id: 'sound', label: 'Deugdelijk en waar', desc: 'Geldig en waar' },
+                    { id: 'invalid', label: 'Ongeldig van vorm', desc: 'De conclusie volgt niet' }
+                ],
+                hint: "De vorm is dezelfde als bij de zalm die kan vliegen.",
+                explanation: "Perfect geldig, maar de eerste premisse is onwaar. Juist daarom ging Socrates op onderzoek uit (§2.1)."
+            },
+            {
+                category: 'validity', categoryLabel: 'Waarheid & Geldigheid',
+                question: "Iedereen die twijfelt is onzeker. Socrates twijfelde. Dus was Socrates onzeker.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'valid_untrue',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig, maar niet waar', desc: 'Twijfel en onzekerheid zijn niet hetzelfde' },
+                    { id: 'invalid', label: 'Ongeldig van vorm', desc: 'De vorm deugt niet' },
+                    { id: 'sound', label: 'Deugdelijk en waar', desc: 'Alles klopt' }
+                ],
+                hint: "Kijk naar het woord 'twijfelt'. Betekent het in beide zinnen hetzelfde?",
+                explanation: "De vorm is geldig, maar de eerste premisse verwart methodische twijfel met karakter. Socrates twijfelde juist doelbewust (§2.2)."
+            },
+            {
+                category: 'validity', categoryLabel: 'Waarheid & Geldigheid',
+                question: "Alle vissen kunnen vliegen. Een zalm is een vis. Dus een zalm kan vliegen.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'valid_untrue',
+                options: [
+                    { id: 'valid_untrue', label: 'Geldig, maar niet waar', desc: 'Structuur klopt, premisse is fout' },
+                    { id: 'invalid', label: 'Ongeldig van vorm', desc: 'Conclusie volgt niet' },
+                    { id: 'sound', label: 'Deugdelijk en waar', desc: 'Geldig en waar' }
+                ],
+                hint: "Geldigheid gaat over vorm, niet over feiten.",
+                explanation: "De structuur is onberispelijk; de eerste premisse is onwaar."
+            },
+            {
+                category: 'validity', categoryLabel: 'Waarheid & Geldigheid',
+                question: "Sommige leerlingen fietsen. Jij bent een leerling. Dus jij fietst.",
+                questionText: "Dit argument is...",
+                correctAnswer: 'invalid',
+                options: [
+                    { id: 'invalid', label: 'Ongeldig van vorm', desc: "'Sommige' draagt geen conclusie over iedereen" },
+                    { id: 'valid_untrue', label: 'Geldig, maar niet waar', desc: 'De vorm zou dan kloppen' },
+                    { id: 'sound', label: 'Deugdelijk en waar', desc: 'Geldig en waar' }
+                ],
+                hint: "Let op het woord 'sommige'.",
+                explanation: "Uit 'sommige' volgt nooit iets over een bepaald individu."
+            }
+        ];
+
+        // Category 4: Verzwegen aannames (5 vragen)
         const assumptionQuestions = [
             {
-                category: 'assumptions',
-                categoryLabel: 'Verzwegen aannames',
-                argument: "Jan is een filosoof. Dus Jan is slim.",
+                category: 'assumptions', categoryLabel: 'Verzwegen aannames',
+                argument: "Socrates bederft de jeugd, want hij leert jongeren gezag te bevragen.",
                 questionText: "Welke verzwegen aanname maakt dit argument geldig?",
-                correctAnswer: 'philosophers_smart',
+                correctAnswer: 'gezag_opvoeding',
                 options: [
-                    { id: 'philosophers_smart', label: 'Alle filosofen zijn slim', desc: '' },
-                    { id: 'jan_studies', label: 'Jan studeert hard', desc: '' },
-                    { id: 'smart_philosophers', label: 'Alle slimme mensen zijn filosofen', desc: '' }
+                    { id: 'gezag_opvoeding', label: 'Jongeren worden goed opgevoed door gezag te gehoorzamen', desc: '' },
+                    { id: 'socrates_slecht', label: 'Hij leert jongeren hun ouders en politici niet zomaar te geloven', desc: '' },
+                    { id: 'jongeren_luisterden', label: 'Dan bederft elke leraar die kritisch leert denken de jeugd', desc: '' }
                 ],
-                hint: "Zoek de ontbrekende 'als...dan'-premisse: als filosoof, dan...?",
-                explanation: "De verzwegen aanname is: <strong>'Alle filosofen zijn slim'</strong>. Alleen met deze premisse wordt het een geldige modus ponens: Als filosoof \u2192 slim; Jan = filosoof; dus Jan = slim."
+                hint: "Haal de aanname weg. Kan dezelfde reden dan ook het tegendeel dragen?",
+                explanation: "Zonder die aanname volgt uit 'hij leert jongeren zelf nadenken' net zo goed dat hij de jeugd opvoedt. De aanname is de scharnierpen (§1.3)."
             },
             {
-                category: 'assumptions',
-                categoryLabel: 'Verzwegen aannames',
-                argument: "Dit medicijn is niet getest op mensen. Dus dit medicijn is niet veilig.",
-                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
-                correctAnswer: 'untested_unsafe',
+                category: 'assumptions', categoryLabel: 'Verzwegen aannames',
+                argument: "Socrates mag niet ontsnappen, want dat beschadigt de wetten van Athene.",
+                questionText: "Welke betwistbare aanname zit hieronder?",
+                correctAnswer: 'trouw_onrecht',
                 options: [
-                    { id: 'untested_unsafe', label: 'Medicijnen die niet op mensen zijn getest, zijn niet veilig', desc: '' },
-                    { id: 'all_tested', label: 'Alle medicijnen moeten getest worden', desc: '' },
-                    { id: 'safe_tested', label: 'Veilige medicijnen zijn getest', desc: '' }
+                    { id: 'trouw_onrecht', label: 'Je blijft de wetten trouw, ook als zij jou onrechtvaardig behandelen', desc: '' },
+                    { id: 'wetten_goed', label: 'Ontsnappen zou de wetten beschadigen waaraan hij alles dankt', desc: '' },
+                    { id: 'onmogelijk', label: 'Dan mag niemand ooit ontsnappen aan een onrechtvaardig vonnis', desc: '' }
                 ],
-                hint: "De ontbrekende premisse verbindt 'niet getest' met 'niet veilig'. Welke als-dan-regel past?",
-                explanation: "De verzwegen aanname is: <strong>'Niet-getest \u2192 niet veilig'</strong>. Dit maakt het een modus ponens."
+                hint: "Socrates geeft toe dat zijn vonnis onrecht is. Wat moet er dan nog waar zijn?",
+                explanation: "Hij vergelijkt de stad met een ouder aan wie je alles dankt. De verzwegen stap is dat die dank blijft gelden bij onrecht. Daar zit de zwakste plek van §1.6."
             },
             {
-                category: 'assumptions',
-                categoryLabel: 'Verzwegen aannames',
-                argument: "Marie komt uit Frankrijk. Dus Marie spreekt Frans.",
-                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
-                correctAnswer: 'french_speak',
+                category: 'assumptions', categoryLabel: 'Verzwegen aannames',
+                argument: "Het orakel had gelijk, want niemand kon Socrates weerleggen.",
+                questionText: "Welke aanname draagt deze redenering?",
+                correctAnswer: 'niet_weerlegd',
                 options: [
-                    { id: 'french_speak', label: 'Alle Fransen spreken Frans', desc: '' },
-                    { id: 'marie_studied', label: 'Marie heeft Frans gestudeerd', desc: '' },
-                    { id: 'france_europe', label: 'Frankrijk ligt in Europa', desc: '' }
+                    { id: 'niet_weerlegd', label: 'Wie niet weerlegd wordt, heeft gelijk', desc: '' },
+                    { id: 'orakels_waar', label: 'Orakels spreken altijd waarheid', desc: '' },
+                    { id: 'slimste', label: 'Socrates was de slimste van Athene', desc: '' }
                 ],
-                hint: "Wat verbindt 'uit Frankrijk komen' met 'Frans spreken'?",
-                explanation: "De verzwegen aanname is: <strong>'Alle mensen uit Frankrijk spreken Frans'</strong>. Dit is de ontbrekende premisse die het argument compleet maakt."
+                hint: "Wat volgt er eigenlijk uit het uitblijven van weerlegging?",
+                explanation: "Hoogstens dat niemand het probeerde of kon. Socrates trok die conclusie zelf ook niet (§2.1)."
             },
             {
-                category: 'assumptions',
-                categoryLabel: 'Verzwegen aannames',
-                argument: "Deze post heeft duizenden likes. Dus de informatie in de post klopt.",
-                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
-                correctAnswer: 'likes_truth',
+                category: 'assumptions', categoryLabel: 'Verzwegen aannames',
+                argument: "Hij was arrogant, want hij vroeg om gratis eten in plaats van om een straf.",
+                questionText: "Welke aanname zit hieronder?",
+                correctAnswer: 'eer_arrogant',
                 options: [
-                    { id: 'likes_truth', label: 'Als iets veel likes heeft, dan klopt de informatie', desc: '' },
-                    { id: 'many_people', label: 'Veel mensen gebruiken social media', desc: '' },
-                    { id: 'post_popular', label: 'Populaire posts worden vaker gedeeld', desc: '' }
+                    { id: 'eer_arrogant', label: 'Wie eer vraagt in plaats van straf, is arrogant', desc: '' },
+                    { id: 'straf_verdiend', label: 'Hij vroeg om eer in plaats van om een straf', desc: '' },
+                    { id: 'eten_duur', label: 'Dan is elke zelfverzekerde spreker arrogant', desc: '' }
                 ],
-                hint: "Welke als-dan-regel verbindt 'veel likes' met 'klopt'?",
-                explanation: "De verzwegen aanname is: <strong>'Als iets veel likes heeft, klopt de informatie'</strong>. Dit is een zeer twijfelachtige aanname \u2014 populariteit zegt niets over waarheid."
+                hint: "Zou hij het ook gemeend kunnen hebben?",
+                explanation: "Wie zijn taak werkelijk de belangrijkste van de stad vindt, doet met dit voorstel precies wat consequent is. Arrogantie is een uitleg, geen gegeven (§1.4)."
             },
             {
-                category: 'assumptions',
-                categoryLabel: 'Verzwegen aannames',
-                argument: "Ahmed draagt een pak. Dus Ahmed is een zakenman.",
-                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
-                correctAnswer: 'suit_business',
+                category: 'assumptions', categoryLabel: 'Verzwegen aannames',
+                argument: "Deze uitspraak is waar, want iedereen gelooft hem.",
+                questionText: "Welke verzwegen aanname zit hieronder?",
+                correctAnswer: 'meerderheid_waar',
                 options: [
-                    { id: 'suit_business', label: 'Iedereen die een pak draagt is een zakenman', desc: '' },
-                    { id: 'ahmed_works', label: 'Ahmed heeft een baan', desc: '' },
-                    { id: 'business_suit', label: 'Zakenmensen dragen altijd een pak', desc: '' }
+                    { id: 'meerderheid_waar', label: 'Wat iedereen gelooft, is waar', desc: '' },
+                    { id: 'iedereen_slim', label: 'Iedereen heeft nagedacht', desc: '' },
+                    { id: 'uitspraak_helder', label: 'De uitspraak is helder geformuleerd', desc: '' }
                 ],
-                hint: "Zoek de als-dan-regel: als pak \u2192 ...?",
-                explanation: "De verzwegen aanname is: <strong>'Iedereen die een pak draagt is een zakenman'</strong>. Let op: 'zakenmensen dragen een pak' is de omgekeerde richting en maakt het argument niet geldig."
-            },
-            {
-                category: 'assumptions',
-                categoryLabel: 'Verzwegen aannames',
-                argument: "Dit product is duur. Dus dit product is van goede kwaliteit.",
-                questionText: "Welke verzwegen aanname maakt dit argument geldig?",
-                correctAnswer: 'expensive_quality',
-                options: [
-                    { id: 'expensive_quality', label: 'Dure producten zijn van goede kwaliteit', desc: '' },
-                    { id: 'quality_costs', label: 'Kwaliteit kost geld om te produceren', desc: '' },
-                    { id: 'cheap_bad', label: 'Goedkope producten zijn slecht', desc: '' }
-                ],
-                hint: "De ontbrekende premisse gaat van 'duur' naar 'goede kwaliteit'. Welke als-dan?",
-                explanation: "De verzwegen aanname is: <strong>'Dure producten zijn van goede kwaliteit'</strong>. Dit is een veelgemaakte maar onterechte aanname."
+                hint: "Zijn er dingen die iedereen ooit geloofde en die toch onwaar waren?",
+                explanation: "Een meerderheid is geen bewijs. Precies daarom ondervroeg Socrates de mensen met het meeste aanzien (§2.1)."
             }
         ];
 
-        // Category 5: Deductie vs Inductie (6 vragen)
+        // Category 5: Implicaties (6 vragen)
         const deductionQuestions = [
             {
-                category: 'deduction',
-                categoryLabel: 'Deductie vs Inductie',
-                argument: "Alle zoogdieren zijn warmbloedig. Een hond is een zoogdier. Dus een hond is warmbloedig.",
-                questionText: "Dit is een voorbeeld van...",
-                correctAnswer: 'deduction',
+                category: 'deduction', categoryLabel: 'Implicaties',
+                argument: "Alleen een onderzocht leven is de moeite waard om te leven.",
+                questionText: "Welke implicatie heeft deze uitspraak van Socrates?",
+                correctAnswer: 'niet_nadenken',
                 options: [
-                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
-                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                    { id: 'niet_nadenken', label: 'Het leven van wie nooit nadenkt, is niet de moeite waard', desc: 'Hard, maar het volgt er direct uit' },
+                    { id: 'iedereen_filosoof', label: 'Wie veel nadenkt, leidt daardoor een gelukkig leven', desc: 'Daarover zegt hij niets' }
                 ],
-                hint: "Gaat het van algemeen naar specifiek (deductie) of van specifiek naar algemeen (inductie)?",
-                explanation: "Dit is <strong>deductie</strong>: als de premissen waar zijn, is de conclusie met zekerheid waar. De conclusie volgt noodzakelijk."
+                hint: "Draai de uitspraak om en kijk wat er over de rest van de mensen wordt gezegd.",
+                explanation: "Precies daarom is deze zin uit \u00a71.4 zo omstreden: hij spreekt een oordeel uit over miljoenen levens."
             },
             {
-                category: 'deduction',
-                categoryLabel: 'Deductie vs Inductie',
-                argument: "Ik heb 1000 zwanen gezien en ze waren allemaal wit. Dus alle zwanen zijn wit.",
-                questionText: "Dit is een voorbeeld van...",
-                correctAnswer: 'induction',
+                category: 'deduction', categoryLabel: 'Implicaties',
+                argument: "Een samenleving moet gevaarlijke vragenstellers kunnen stoppen.",
+                questionText: "Welke implicatie zit hieraan vast?",
+                correctAnswer: 'wie_bepaalt',
                 options: [
-                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
-                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                    { id: 'wie_bepaalt', label: 'Iemand moet bepalen welke vragen gevaarlijk zijn', desc: 'En die macht kan zelf misbruikt worden' },
+                    { id: 'vragen_verboden', label: 'Wie een gevaarlijke vraag stelt, verdient straf', desc: 'Te sterk; het gaat om gevaarlijke vragen' }
                 ],
-                hint: "Van specifieke waarnemingen naar een algemene regel. Is de conclusie 100% zeker?",
-                explanation: "Dit is <strong>inductie</strong>: van specifieke waarnemingen naar een algemene conclusie. De conclusie is waarschijnlijk, maar kan weerlegd worden (zwarte zwanen bestaan!)."
+                hint: "Wie voert die regel uit, en waarop baseert die persoon zich?",
+                explanation: "Wie dit accepteert, geeft iemand de bevoegdheid om kritiek op zichzelf gevaarlijk te noemen (\u00a71.8 vraag 4)."
             },
             {
-                category: 'deduction',
-                categoryLabel: 'Deductie vs Inductie',
-                argument: "De zon is de afgelopen 10.000 jaar elke dag opgekomen. Dus de zon komt morgen ook op.",
-                questionText: "Dit is een voorbeeld van...",
-                correctAnswer: 'induction',
+                category: 'deduction', categoryLabel: 'Implicaties',
+                argument: "Wie onrecht doet, beschadigt zichzelf meer dan zijn slachtoffer.",
+                questionText: "Welke implicatie volgt hieruit?",
+                correctAnswer: 'liever_slachtoffer',
                 options: [
-                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
-                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                    { id: 'liever_slachtoffer', label: 'Als je moet kiezen, is slachtoffer zijn beter dan dader zijn', desc: 'De kern van \u00a71.5' },
+                    { id: 'onrecht_ok', label: 'Daders hoeven door de stad niet gestraft te worden', desc: 'Dat beweert hij nergens' }
                 ],
-                hint: "Het argument is gebaseerd op herhaalde waarnemingen uit het verleden.",
-                explanation: "Dit is <strong>inductie</strong>: we baseren onze verwachting op patroonherkenning. Hoe waarschijnlijk ook, het is geen logische noodzaak."
+                hint: "De uitspraak gaat over een keuze, niet over wat fijn is.",
+                explanation: "Socrates zegt niet dat onrecht lijden aangenaam is, alleen wat erger is (\u00a71.5)."
             },
             {
-                category: 'deduction',
-                categoryLabel: 'Deductie vs Inductie',
-                argument: "Als het sneeuwt, is het koud. Het sneeuwt. Dus het is koud.",
-                questionText: "Dit is een voorbeeld van...",
-                correctAnswer: 'deduction',
+                category: 'deduction', categoryLabel: 'Implicaties',
+                argument: "Je moet de wetten altijd gehoorzamen, omdat je alles aan de stad te danken hebt.",
+                questionText: "Welke implicatie zit hieraan vast?",
+                correctAnswer: 'ook_onrecht',
                 options: [
-                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
-                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                    { id: 'ook_onrecht', label: 'Ook een onrechtvaardige wet moet je gehoorzamen', desc: 'Anders geldt de regel niet altijd' },
+                    { id: 'stad_goed', label: 'De stad is altijd goed voor je geweest', desc: 'Dat is een aanname, geen gevolg' }
                 ],
-                hint: "Er is een als-dan-regel en het 'als'-deel is waar. Volgt de conclusie met zekerheid?",
-                explanation: "Dit is <strong>deductie</strong> (modus ponens): de conclusie volgt noodzakelijk uit de premissen."
+                hint: "Let op het woord 'altijd'.",
+                explanation: "Dat is precies waar Crito op zou drukken: geldt de dank ook wanneer de stad je onrecht doet? (\u00a71.6)"
             },
             {
-                category: 'deduction',
-                categoryLabel: 'Deductie vs Inductie',
-                argument: "De afgelopen 5 jaar is het elke zomer warmer geworden. Dus volgend jaar wordt het weer warmer.",
-                questionText: "Dit is een voorbeeld van...",
-                correctAnswer: 'induction',
+                category: 'deduction', categoryLabel: 'Implicaties',
+                argument: "Wie zich niet kan verdedigen tegen een vraag, heeft ongelijk.",
+                questionText: "Welke implicatie zit hieraan vast?",
+                correctAnswer: 'snelste_gelijk',
                 options: [
-                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
-                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                    { id: 'snelste_gelijk', label: 'Wie het beste kan praten, heeft altijd gelijk', desc: 'Welsprekendheid wordt dan waarheid' },
+                    { id: 'vragen_slecht', label: 'Wie zwijgt bij een vraag, geeft daarmee toe', desc: 'Dat volgt er niet uit' }
                 ],
-                hint: "Het argument extrapoleert een trend uit het verleden naar de toekomst.",
-                explanation: "Dit is <strong>inductie</strong>: een trend uit het verleden wordt doorgetrokken naar de toekomst. Waarschijnlijk, maar niet zeker."
+                hint: "Denk aan iemand die gelijk heeft maar zenuwachtig is.",
+                explanation: "Precies het verwijt dat Socrates kreeg. Onvermogen om te antwoorden is geen weerlegging (\u00a72.2)."
             },
             {
-                category: 'deduction',
-                categoryLabel: 'Deductie vs Inductie',
-                argument: "Geen enkele vis kan op het land leven. Een tonijn is een vis. Dus een tonijn kan niet op het land leven.",
-                questionText: "Dit is een voorbeeld van...",
-                correctAnswer: 'deduction',
+                category: 'deduction', categoryLabel: 'Implicaties',
+                argument: "Vrijheid betekent dat je altijd mag doen wat je wilt.",
+                questionText: "Welke implicatie zit hieraan vast?",
+                correctAnswer: 'botsende_vrijheid',
                 options: [
-                    { id: 'deduction', label: 'Deductie', desc: 'Conclusie is zeker als premissen waar zijn' },
-                    { id: 'induction', label: 'Inductie', desc: 'Conclusie is waarschijnlijk, maar weerlegbaar' }
+                    { id: 'botsende_vrijheid', label: 'Twee mensen kunnen tegelijk recht hebben op gedrag dat botst', desc: 'Dan kan niet allebei onbeperkt' },
+                    { id: 'nooit_regels', label: 'Vrijheid van de een kost altijd vrijheid van de ander', desc: 'Dat is sterker dan de uitspraak' }
                 ],
-                hint: "Een algemene regel wordt toegepast op een specifiek geval. Is de conclusie dan zeker?",
-                explanation: "Dit is <strong>deductie</strong>: van een algemene regel ('geen enkele vis...') naar een specifiek geval. Als de premissen waar zijn, is de conclusie met zekerheid waar."
+                hint: "Wat als wat jij wilt, precies verhindert wat een ander wil?",
+                explanation: "De definitie loopt vast zodra vrijheden botsen. Dat is een uitnodiging om 'vrijheid' preciezer te formuleren (§3.3)."
             }
         ];
 
-        // Category 6: "Waarom is dit fout?" (5 vragen)
+
+        // Category 6: Waarom is dit fout? (7 vragen)
         const whyWrongQuestions = [
             {
-                category: 'whywrong',
-                categoryLabel: 'Waarom is dit fout?',
+                category: 'whywrong', categoryLabel: 'Waarom is dit fout?',
+                argument: "Socrates vond dat niemand ergens iets van weet. Als dat waar was, kon je niet eens een brood bakken. Zijn filosofie is dus onzin.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'stroman',
+                options: [
+                    { id: 'stroman', label: 'Zijn positie wordt zwakker gemaakt dan zij is', desc: 'Een stroman: hij zei niet dat niemand iets weet' },
+                    { id: 'cirkel', label: 'De conclusie zit al in de premisse', desc: 'Cirkelredenering' },
+                    { id: 'geen_fout', label: 'De redenering springt van feiten naar een oordeel', desc: 'Dat is hier niet het probleem' }
+                ],
+                hint: "Zou Socrates zichzelf herkennen in deze weergave?",
+                explanation: "Een stroman bestrijdt een makkelijker te weerleggen versie. Socrates beweerde iets bescheideners (§2.1)."
+            },
+            {
+                category: 'whywrong', categoryLabel: 'Waarom is dit fout?',
+                argument: "Het vonnis was rechtvaardig, want de jury heeft nu eenmaal rechtvaardig geoordeeld.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'cirkel',
+                options: [
+                    { id: 'cirkel', label: 'De conclusie staat al in de reden', desc: 'Er wordt niets bewezen' },
+                    { id: 'non_sequitur', label: 'De conclusie volgt niet', desc: 'Er zit een sprong in' },
+                    { id: 'stroman', label: 'De tegenstander wordt verkeerd weergegeven', desc: 'Er is geen tegenstander' }
+                ],
+                hint: "Vergelijk claim en reden woord voor woord.",
+                explanation: "Een cirkelredenering gebruikt de conclusie als eigen onderbouwing. Zo is elk vonnis rechtvaardig (§3.6)."
+            },
+            {
+                category: 'whywrong', categoryLabel: 'Waarom is dit fout?',
+                argument: "'Of Socrates schuldig was? Tja, iedereen mag daar zijn eigen mening over hebben.'",
+                questionText: "Wat gebeurt hier?",
+                correctAnswer: 'dooddoener',
+                options: [
+                    { id: 'dooddoener', label: 'Een dooddoener sluit het gesprek', desc: 'Er wordt geen reden gegeven' },
+                    { id: 'conclusie', label: 'Een sterk maar onuitgesproken argument', desc: 'Er wordt niets geconcludeerd' },
+                    { id: 'aanname', label: 'Een correcte weergave van de tegenpartij', desc: 'Er zit geen redenering onder' }
+                ],
+                hint: "Wat kun je hierna nog vragen?",
+                explanation: "'Ieder z'n mening' lijkt bescheiden maar maakt onderzoek onmogelijk. In §4.6 leer je zulke zinnen openbreken."
+            },
+            {
+                category: 'whywrong', categoryLabel: 'Waarom is dit fout?',
+                argument: "Socrates had geen geld en liep op blote voeten. Zijn ideeën over rechtvaardigheid kun je dus niet serieus nemen.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'persoon',
+                options: [
+                    { id: 'persoon', label: 'De persoon wordt aangevallen, niet het argument', desc: 'Armoede zegt niets over de houdbaarheid van een idee' },
+                    { id: 'cirkel', label: 'De premissen zijn onwaar geformuleerd', desc: 'De feiten kloppen wel' },
+                    { id: 'geen_fout', label: 'De conclusie is te sterk voor de gegeven reden', desc: 'Er is een ander bezwaar' }
+                ],
+                hint: "Wat heeft schoeisel met rechtvaardigheid te maken?",
+                explanation: "Wie de spreker aanvalt in plaats van de bewering, heeft de bewering niet aangeraakt (§3.6)."
+            },
+            {
+                category: 'whywrong', categoryLabel: 'Waarom is dit fout?',
+                argument: "Als hij schuldig was, stemde de jury schuldig. De jury stemde schuldig. Dus was hij schuldig.",
+                questionText: "Waarom klopt deze redenering niet?",
+                correctAnswer: 'affirm_consequent',
+                options: [
+                    { id: 'affirm_consequent', label: 'Bevestiging van het consequent', desc: 'Uit het gevolg volgt de oorzaak niet' },
+                    { id: 'premise_false', label: 'De jury kan zich ook vergist hebben in de zaak', desc: 'Waar, maar niet de denkfout' },
+                    { id: 'geen_fout', label: 'De eerste premisse is te algemeen gesteld', desc: 'Dat is hier niet het probleem' }
+                ],
+                hint: "Kan een jury ook schuldig stemmen zonder dat iemand schuldig is?",
+                explanation: "Ongeldig. Deze vorm maakt van elk vonnis een bewijs van schuld, wat het proces zinloos maakt (§3.5)."
+            },
+            {
+                category: 'whywrong', categoryLabel: 'Waarom is dit fout?',
                 argument: "Het regent niet, dus de straat is niet nat.",
                 questionText: "Waarom klopt deze redenering niet?",
                 correctAnswer: 'other_causes',
                 options: [
-                    { id: 'other_causes', label: 'De straat kan ook door andere oorzaken nat zijn', desc: 'Bijv. een sproeier, gemorst water of smeltende sneeuw' },
-                    { id: 'premise_false', label: 'De premisse is onwaar', desc: 'Het regent misschien wel' },
-                    { id: 'no_connection', label: 'Er is geen verband tussen regen en natte straat', desc: 'De twee hebben niets met elkaar te maken' }
+                    { id: 'other_causes', label: 'De straat kan ook door andere oorzaken nat zijn', desc: 'Een sproeier, gemorst water, smeltende sneeuw' },
+                    { id: 'premise_false', label: 'De regel geldt alleen bij normale omstandigheden' },
+                    { id: 'no_logic', label: 'De twee premissen spreken elkaar tegen' }
                 ],
-                hint: "Dit is ontkenning van de antecedent. Het feit dat P niet waar is, sluit Q niet uit.",
-                explanation: "Dit is <strong>ontkenning van de antecedent</strong>: het feit dat het niet regent, sluit niet uit dat de straat nat is door andere oorzaken. \u00acP bewijst niet \u00acQ."
+                hint: "Ontkenning van het antecedent.",
+                explanation: "Uit 'als P dan Q' volgt niets wanneer P wegvalt."
             },
             {
-                category: 'whywrong',
-                categoryLabel: 'Waarom is dit fout?',
-                argument: "Alle succesvolle mensen staan vroeg op. Ik sta vroeg op. Dus ik word succesvol.",
+                category: 'whywrong', categoryLabel: 'Waarom is dit fout?',
+                argument: "Negen op de tien mensen vinden dit product goed. Dus is het een goed product.",
                 questionText: "Waarom klopt deze redenering niet?",
-                correctAnswer: 'affirm_q',
+                correctAnswer: 'meerderheid',
                 options: [
-                    { id: 'affirm_q', label: 'Vroeg opstaan is niet de enige voorwaarde voor succes', desc: 'Het bevestigt het gevolg, niet de oorzaak' },
-                    { id: 'wrong_fact', label: 'Niet alle succesvolle mensen staan vroeg op', desc: 'De premisse klopt niet' },
-                    { id: 'no_logic', label: 'Er zit geen logica in dit argument', desc: 'Het slaat nergens op' }
+                    { id: 'meerderheid', label: 'Een meerderheid is geen bewijs', desc: 'Populariteit en kwaliteit zijn twee dingen' },
+                    { id: 'wrong_stat', label: 'Het cijfer klopt niet', desc: 'Daar gaat het niet om' },
+                    { id: 'irrelevant', label: 'De premisse is irrelevant', desc: 'Zij is wel relevant, alleen niet beslissend' }
                 ],
-                hint: "De premisse zegt: succes \u2192 vroeg opstaan. Het argument bevestigt 'vroeg opstaan' (Q). Welke fout is dat?",
-                explanation: "Dit is <strong>bevestiging van de consequent</strong>: als succes \u2192 vroeg opstaan, dan bewijst vroeg opstaan (Q) nog niet dat je succesvol wordt (P). Er zijn veel meer factoren nodig."
-            },
-            {
-                category: 'whywrong',
-                categoryLabel: 'Waarom is dit fout?',
-                argument: "90% van de studenten op deze school haalt een voldoende. Jij zit op deze school. Dus jij haalt zeker een voldoende.",
-                questionText: "Waarom klopt deze redenering niet?",
-                correctAnswer: 'probability',
-                options: [
-                    { id: 'probability', label: '90% is waarschijnlijk, maar niet zeker \u2014 je kunt bij de 10% horen', desc: 'Een percentage maakt iets niet noodzakelijk' },
-                    { id: 'wrong_stat', label: 'Het percentage klopt niet', desc: 'De statistiek is verzonnen' },
-                    { id: 'irrelevant', label: 'Schoolresultaten zeggen niets over individuen', desc: 'Statistieken gelden niet voor personen' }
-                ],
-                hint: "Let op het woord 'zeker'. Is een waarschijnlijkheid van 90% hetzelfde als zekerheid?",
-                explanation: "Het argument verwart <strong>waarschijnlijkheid met zekerheid</strong>. 90% kans betekent dat 10% het niet haalt \u2014 jij kunt daar bij zitten. Een inductief sterke kans is niet hetzelfde als deductieve zekerheid."
-            },
-            {
-                category: 'whywrong',
-                categoryLabel: 'Waarom is dit fout?',
-                argument: "Als je een goede AI bouwt, kan het menselijk werk vervangen. ChatGPT kan menselijk werk vervangen. Dus ChatGPT is een goede AI.",
-                questionText: "Waarom klopt deze redenering niet?",
-                correctAnswer: 'affirm_consequent',
-                options: [
-                    { id: 'affirm_consequent', label: 'Het bevestigt het gevolg: werk vervangen kan ook zonder \u201cgoede AI\u201d', desc: 'Q klopt, maar dat bewijst P niet' },
-                    { id: 'ai_not_good', label: 'ChatGPT is geen goede AI', desc: 'De premisse over ChatGPT klopt niet' },
-                    { id: 'no_replace', label: 'AI kan menselijk werk niet vervangen', desc: 'De hele redenering is onwaar' }
-                ],
-                hint: "De als-dan-regel is: goede AI \u2192 werk vervangen. Het argument bevestigt 'werk vervangen' (Q)...",
-                explanation: "Dit is <strong>bevestiging van de consequent</strong>: goede AI \u2192 werk vervangen. Dat ChatGPT werk kan vervangen (Q), bewijst niet dat het een 'goede AI' is (P). Er kunnen ook andere redenen zijn."
-            },
-            {
-                category: 'whywrong',
-                categoryLabel: 'Waarom is dit fout?',
-                argument: "Nederland is een democratie. In een democratie mag iedereen stemmen. Dus het beleid is altijd wat de meerderheid wil.",
-                questionText: "Waarom klopt deze redenering niet?",
-                correctAnswer: 'hidden_step',
-                options: [
-                    { id: 'hidden_step', label: 'Stemrecht betekent niet dat beleid altijd de meerderheid volgt', desc: 'Er zijn coalitievorming, lobby en andere factoren' },
-                    { id: 'not_democracy', label: 'Nederland is geen echte democratie', desc: 'De premisse klopt niet' },
-                    { id: 'voting_works', label: 'Stemmen werkt niet', desc: 'Het systeem functioneert niet' }
-                ],
-                hint: "Er wordt een grote sprong gemaakt van 'mogen stemmen' naar 'beleid = meerderheid'. Welke stappen worden overgeslagen?",
-                explanation: "Het argument maakt een <strong>ongerechtvaardigde sprong</strong>: van stemrecht naar beleid dat de meerderheid volgt. In werkelijkheid zijn er coalitievorming, compromissen, lobbying en vele andere factoren die beleid be\u00efnvloeden."
+                hint: "Wat als iedereen zich vergist?",
+                explanation: "Dezelfde fout die Socrates op de agora aantrof: aanzien en aantal worden verward met kennis."
             }
         ];
 
-        // Category 7: "Bouw het argument" (5 vragen)
+        // Category 7: Bouw het argument (5 vragen)
         const constructionQuestions = [
             {
-                category: 'construction',
-                categoryLabel: 'Bouw het argument',
-                subtype: 'conclusion',
-                premise1: "Als je geen helm draagt, riskeer je een hoofdletsel.",
+                category: 'construction', categoryLabel: 'Bouw het argument', subtype: 'conclusion',
+                premise1: "Als je bewust onrecht doet, beschadig je je eigen ziel.",
+                premise2: "Vluchten zou bewust onrecht doen zijn.",
+                missingLabel: "Wat is de juiste conclusie?",
+                correctAnswer: 'ziel_schade',
+                options: [
+                    { id: 'ziel_schade', label: 'Dus zou vluchten zijn ziel beschadigen', desc: '' },
+                    { id: 'vluchten_mag', label: 'Dus mocht hij vluchten', desc: '' },
+                    { id: 'wetten_slecht', label: 'Dus zijn de wetten van Athene slecht', desc: '' }
+                ],
+                hint: "Modus ponens: het als-deel is bevestigd.",
+                explanation: "De conclusie herhaalt het dan-deel van de eerste premisse (§1.6)."
+            },
+            {
+                category: 'construction', categoryLabel: 'Bouw het argument', subtype: 'premise',
+                premise2: "Socrates stelde vragen aan mensen met aanzien.",
+                conclusionText: "Dus was Socrates gevaarlijk voor Athene.",
+                missingLabel: "Welke premisse ontbreekt (P1)?",
+                correctAnswer: 'aanzien_gevaar',
+                options: [
+                    { id: 'aanzien_gevaar', label: 'Wie mensen met aanzien laat struikelen, ondermijnt de stad', desc: '' },
+                    { id: 'vragen_leuk', label: 'Wie vragen stelt, wil de stad altijd veranderen', desc: '' },
+                    { id: 'athene_oorlog', label: 'Athene had kort daarvoor de oorlog tegen Sparta verloren', desc: '' }
+                ],
+                hint: "Welke stap verbindt 'vragen stellen' met 'gevaarlijk'?",
+                explanation: "Zonder die verbindende premisse volgt er niets. Dit is de aanname onder de aanklacht (§1.3)."
+            },
+            {
+                category: 'construction', categoryLabel: 'Bouw het argument', subtype: 'conclusion',
+                premise1: "Wie niet kan uitleggen wat hij beweert, heeft schijnkennis.",
+                premise2: "De dichters konden niet uitleggen wat zij beweerden.",
+                missingLabel: "Wat is de juiste conclusie?",
+                correctAnswer: 'dichters_schijn',
+                options: [
+                    { id: 'dichters_schijn', label: 'Dus hadden de dichters schijnkennis', desc: '' },
+                    { id: 'dichters_dom', label: 'Dus konden de dichters niet goed dichten', desc: '' },
+                    { id: 'socrates_wijs', label: 'Dus wist Socrates meer dan de dichters', desc: '' }
+                ],
+                hint: "Blijf bij wat de premissen zeggen, niet bij wat je ervan vindt.",
+                explanation: "Schijnkennis is niet hetzelfde als domheid; het gaat om de gesloten deur (§2.2)."
+            },
+            {
+                category: 'construction', categoryLabel: 'Bouw het argument', subtype: 'premise',
+                premise2: "Socrates weigerde te stoppen met filosoferen.",
+                conclusionText: "Dus kreeg Socrates de doodstraf.",
+                missingLabel: "Welke premisse ontbreekt (P1)?",
+                correctAnswer: 'weigeren_dood',
+                options: [
+                    { id: 'weigeren_dood', label: 'Wie na een vonnis weigert te stoppen, krijgt de zwaarste straf', desc: '' },
+                    { id: 'jury_500', label: 'De jury bestond uit vijfhonderd door loting gekozen burgers', desc: '' },
+                    { id: 'plato_erbij', label: 'Plato beschreef het proces later in zijn Apologie', desc: '' }
+                ],
+                hint: "Welke van de drie verbindt de weigering met de straf?",
+                explanation: "De andere twee zijn waar maar irrelevant. Een premisse moet de sprong dichten, niet de sfeer tekenen."
+            },
+            {
+                category: 'construction', categoryLabel: 'Bouw het argument', subtype: 'conclusion',
+                premise1: "Als je geen helm draagt, riskeer je hoofdletsel.",
                 premise2: "Jij draagt geen helm.",
                 missingLabel: "Wat is de juiste conclusie?",
                 correctAnswer: 'head_injury',
                 options: [
-                    { id: 'head_injury', label: 'Dus jij riskeert een hoofdletsel', desc: '' },
+                    { id: 'head_injury', label: 'Dus jij riskeert hoofdletsel', desc: '' },
                     { id: 'helmet_safe', label: 'Dus helmen zijn veilig', desc: '' },
-                    { id: 'no_risk', label: 'Dus jij hebt geen risico', desc: '' }
+                    { id: 'no_risk', label: 'Dus loop je geen risico', desc: '' }
                 ],
-                hint: "Dit is modus ponens: P \u2192 Q, P is waar. Wat volgt er?",
-                explanation: "Via <strong>modus ponens</strong>: als geen helm \u2192 risico op hoofdletsel. Jij draagt geen helm (P). Dus: jij riskeert een hoofdletsel (Q)."
-            },
-            {
-                category: 'construction',
-                categoryLabel: 'Bouw het argument',
-                subtype: 'premise',
-                premise1: "???",
-                premise2: "Een papegaai is een vogel.",
-                conclusionText: "Dus een papegaai kan vliegen.",
-                missingLabel: "Welke premisse ontbreekt?",
-                correctAnswer: 'birds_fly',
-                options: [
-                    { id: 'birds_fly', label: 'Alle vogels kunnen vliegen', desc: '' },
-                    { id: 'parrots_colorful', label: 'Papegaaien zijn kleurrijk', desc: '' },
-                    { id: 'fly_wings', label: 'Vliegen vereist vleugels', desc: '' }
-                ],
-                hint: "Zoek de als-dan-regel die 'vogel' verbindt met 'kan vliegen'.",
-                explanation: "De ontbrekende premisse is: <strong>'Alle vogels kunnen vliegen'</strong>. Dan: vogel \u2192 kan vliegen; papegaai = vogel; dus papegaai kan vliegen (modus ponens). (Let op: in werkelijkheid kunnen niet alle vogels vliegen!)"
-            },
-            {
-                category: 'construction',
-                categoryLabel: 'Bouw het argument',
-                subtype: 'conclusion',
-                premise1: "Alle vormen van nepnieuws zijn schadelijk voor de democratie.",
-                premise2: "Deepfakes zijn een vorm van nepnieuws.",
-                missingLabel: "Wat is de juiste conclusie?",
-                correctAnswer: 'deepfakes_harmful',
-                options: [
-                    { id: 'deepfakes_harmful', label: 'Dus deepfakes zijn schadelijk voor de democratie', desc: '' },
-                    { id: 'ban_deepfakes', label: 'Dus deepfakes moeten verboden worden', desc: '' },
-                    { id: 'democracy_danger', label: 'Dus de democratie is in gevaar', desc: '' }
-                ],
-                hint: "Alle X zijn Y. Z is een X. Dus Z is...?",
-                explanation: "Via <strong>modus ponens</strong>: nepnieuws \u2192 schadelijk voor democratie. Deepfakes = nepnieuws. Dus: deepfakes zijn schadelijk voor de democratie. De andere opties zijn mogelijke meningen, maar volgen niet logisch."
-            },
-            {
-                category: 'construction',
-                categoryLabel: 'Bouw het argument',
-                subtype: 'premise',
-                premise1: "???",
-                premise2: "Het klimaat verandert niet.",
-                conclusionText: "Dus de CO2-uitstoot is niet gestegen.",
-                missingLabel: "Welke premisse ontbreekt?",
-                correctAnswer: 'co2_climate',
-                options: [
-                    { id: 'co2_climate', label: 'Als de CO2-uitstoot stijgt, verandert het klimaat', desc: '' },
-                    { id: 'climate_natural', label: 'Klimaatverandering is natuurlijk', desc: '' },
-                    { id: 'co2_bad', label: 'CO2 is slecht voor het milieu', desc: '' }
-                ],
-                hint: "De conclusie ontkent iets (\u00acP) op basis van een ontkenning (\u00acQ). Dit lijkt op modus tollens: P \u2192 Q, \u00acQ, dus \u00acP.",
-                explanation: "De ontbrekende premisse is: <strong>'Als de CO2-uitstoot stijgt, verandert het klimaat'</strong>. Dan via modus tollens: CO2 \u2192 klimaat verandert; klimaat verandert niet (\u00acQ); dus CO2 niet gestegen (\u00acP)."
-            },
-            {
-                category: 'construction',
-                categoryLabel: 'Bouw het argument',
-                subtype: 'conclusion',
-                premise1: "Als een leerling alle opdrachten maakt, haalt die een voldoende.",
-                premise2: "Sara heeft niet alle opdrachten gemaakt.",
-                missingLabel: "Welke conclusie volgt logisch?",
-                correctAnswer: 'none_valid',
-                options: [
-                    { id: 'sara_fails', label: 'Dus Sara haalt geen voldoende', desc: '' },
-                    { id: 'none_valid', label: 'Er volgt geen geldige conclusie', desc: '' },
-                    { id: 'sara_passes', label: 'Dus Sara haalt wel een voldoende', desc: '' }
-                ],
-                hint: "De tweede premisse ontkent het 'als'-deel (P). Kan je dan iets concluderen over Q? Denk aan ontkenning van de antecedent.",
-                explanation: "Er volgt <strong>geen geldige conclusie</strong>! Dit zou ontkenning van de antecedent zijn (\u00acP, dus \u00acQ), een drogreden. Sara kan alsnog een voldoende halen via herkansing, bonuspunten, etc."
+                hint: "Modus ponens.",
+                explanation: "Het als-deel is bevestigd, dus het dan-deel volgt."
             }
         ];
+
 
         // ========== GAME STATE ==========
         let currentQuestion = 0;
         let score = 0;
+        let independentCorrect = 0;
         let streak = 0;
         let maxStreak = 0;
         let hintsUsed = 0;
         let hintUsedThisQuestion = false;
+        let attemptsThisQuestion = 0;
+        let gameMode = 'training';
         let timerEnabled = false;
         let timerInterval = null;
-        let timeLeft = 30;
+        let timeLeft = 35;
         let practiceMode = false;
         let practiceCategory = null;
+        let reviewMode = false;
+        let reviewQuestions = [];
+        let reviewBank = [];
         let savedResultHTML = '';
-        let categoryScores = {
-            forms: { correct: 0, total: 0 },
-            validity: { correct: 0, total: 0 },
-            signals: { correct: 0, total: 0 },
-            assumptions: { correct: 0, total: 0 },
-            deduction: { correct: 0, total: 0 },
-            whywrong: { correct: 0, total: 0 },
-            construction: { correct: 0, total: 0 }
-        };
+        let categoryScores = freshCategoryScores();
         let shuffledQuestions = [];
         let answered = false;
         const TOTAL_QUESTIONS = 15;
+        const TIMER_SECONDS = 35;
 
         // ========== HELPER FUNCTIONS ==========
         function shuffle(array) {
@@ -1754,6 +2131,82 @@
                 [arr[i], arr[j]] = [arr[j], arr[i]];
             }
             return arr;
+        }
+
+        function freshCategoryScores() {
+            return {
+                forms: { correct: 0, total: 0 },
+                validity: { correct: 0, total: 0 },
+                signals: { correct: 0, total: 0 },
+                assumptions: { correct: 0, total: 0 },
+                deduction: { correct: 0, total: 0 },
+                whywrong: { correct: 0, total: 0 },
+                construction: { correct: 0, total: 0 }
+            };
+        }
+
+        function selectMode(mode) {
+            gameMode = mode;
+            const isArena = mode === 'arena';
+            document.querySelectorAll('.mode-card').forEach(card => {
+                const selected = card.dataset.mode === mode;
+                card.classList.toggle('selected', selected);
+                card.setAttribute('aria-checked', String(selected));
+            });
+            const checkbox = document.getElementById('timerCheckbox');
+            checkbox.disabled = !isArena;
+            if (!isArena) checkbox.checked = false;
+            document.getElementById('modeNote').textContent = isArena
+                ? 'Eén kans per vraag. Zet tijdsdruk aan als je extra uitdaging wilt.'
+                : 'Je krijgt feedback en maximaal twee pogingen per vraag.';
+            document.querySelector('.start-panel .btn-primary').textContent = isArena ? 'Start arena' : 'Start training';
+        }
+
+        function resetSessionState() {
+            currentQuestion = 0;
+            score = 0;
+            independentCorrect = 0;
+            streak = 0;
+            maxStreak = 0;
+            hintsUsed = 0;
+            attemptsThisQuestion = 0;
+            reviewQuestions = [];
+            categoryScores = freshCategoryScores();
+        }
+
+        function openGameScreen() {
+            document.getElementById('introScreen').classList.remove('active');
+            document.getElementById('resultScreen').classList.remove('active');
+            document.getElementById('gameScreen').classList.add('active');
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('headerRight').style.display = 'flex';
+            document.getElementById('totalQ').textContent = shuffledQuestions.length;
+            document.getElementById('maxScore').textContent = shuffledQuestions.length;
+            updateStreakDisplay();
+            renderQuestion();
+        }
+
+        function markForReview(q) {
+            if (!reviewQuestions.includes(q)) reviewQuestions.push(q);
+        }
+
+        function getAnswerLabel(q, answer) {
+            if (q.category === 'forms') {
+                const names = {
+                    modus_ponens: 'Modus ponens',
+                    modus_tollens: 'Modus tollens',
+                    affirming_consequent: 'Bevestiging van het consequent',
+                    denying_antecedent: 'Ontkenning van het antecedent'
+                };
+                return names[answer] || answer;
+            }
+            const option = (q.options || []).find(opt => opt.id === answer);
+            return option ? option.label : answer;
+        }
+
+        function splitConditional(text) {
+            const match = text.match(/^Als\s+(.+?),\s*dan\s+(.+?)[.]?$/i);
+            return match ? { p: match[1], q: match[2].replace(/[.]$/, '') } : null;
         }
 
         function pickQuestions() {
@@ -1786,14 +2239,15 @@
         // ========== TIMER FUNCTIONS ==========
         function startTimer() {
             if (!timerEnabled) return;
-            timeLeft = 30;
+            stopTimer();
+            timeLeft = TIMER_SECONDS;
             const container = document.getElementById('timerContainer');
             const fill = document.getElementById('timerFill');
             const text = document.getElementById('timerText');
             container.classList.add('active');
             fill.style.width = '100%';
             fill.className = 'timer-fill';
-            text.textContent = '30s';
+            text.textContent = TIMER_SECONDS + 's';
 
             timerInterval = setInterval(() => {
                 timeLeft -= 0.1;
@@ -1803,7 +2257,7 @@
                     timerInterval = null;
                     timerTimeout();
                 }
-                const pct = (timeLeft / 30) * 100;
+                const pct = (timeLeft / TIMER_SECONDS) * 100;
                 fill.style.width = pct + '%';
                 text.textContent = Math.ceil(timeLeft) + 's';
                 if (timeLeft <= 5) {
@@ -1828,12 +2282,14 @@
 
             // Count as wrong
             categoryScores[q.category].total++;
+            markForReview(q);
             streak = 0;
             updateStreakDisplay();
 
             // Style all buttons as disabled
             document.querySelectorAll('.choice-btn').forEach(btn => {
                 btn.classList.add('disabled');
+                btn.disabled = true;
                 const correctAnswer = getCorrectAnswer(q);
                 if (btn.dataset.answer === correctAnswer) {
                     btn.classList.add('show-correct');
@@ -1844,87 +2300,61 @@
             const feedback = document.getElementById('feedback');
             feedback.classList.add('show', 'wrong');
             feedback.innerHTML = `
-                <h4>&#9200; Tijd is om!</h4>
+                <h4>Tijd is om</h4>
+                <div class="answer-compare">
+                    <div><strong>Juiste antwoord</strong>${getAnswerLabel(q, getCorrectAnswer(q))}</div>
+                </div>
                 <p>${q.explanation}</p>
             `;
 
             document.getElementById('hintBtn').style.display = 'none';
             document.getElementById('nextButtonContainer').style.display = 'flex';
+            updateNextButtonLabel();
             document.getElementById('timerFill').style.width = '0%';
         }
 
         // ========== GAME FUNCTIONS ==========
         function startGame() {
-            timerEnabled = document.getElementById('timerCheckbox').checked;
+            timerEnabled = gameMode === 'arena' && document.getElementById('timerCheckbox').checked;
             shuffledQuestions = pickQuestions();
-            currentQuestion = 0;
-            score = 0;
-            streak = 0;
-            maxStreak = 0;
-            hintsUsed = 0;
             practiceMode = false;
             practiceCategory = null;
-            categoryScores = {
-                forms: { correct: 0, total: 0 },
-                validity: { correct: 0, total: 0 },
-                signals: { correct: 0, total: 0 },
-                assumptions: { correct: 0, total: 0 },
-                deduction: { correct: 0, total: 0 },
-                whywrong: { correct: 0, total: 0 },
-                construction: { correct: 0, total: 0 }
-            };
-
-            document.getElementById('introScreen').classList.remove('active');
-            document.getElementById('resultScreen').classList.remove('active');
-            document.getElementById('gameScreen').classList.add('active');
-            document.getElementById('progressContainer').style.display = 'block';
-            document.getElementById('headerRight').style.display = 'flex';
-            document.getElementById('totalQ').textContent = shuffledQuestions.length;
-            document.getElementById('maxScore').textContent = shuffledQuestions.length;
-            updateStreakDisplay();
-
-            renderQuestion();
+            reviewMode = false;
+            resetSessionState();
+            openGameScreen();
         }
 
         function startPracticeMode(category) {
             const categoryNames = {
                 forms: 'Redeneervormen',
                 validity: 'Waarheid & Geldigheid',
-                signals: 'Signaalwoorden',
+                signals: 'Claim, reden en signaalwoord',
                 assumptions: 'Verzwegen aannames',
-                deduction: 'Deductie vs Inductie',
+                deduction: 'Implicaties',
                 whywrong: 'Waarom is dit fout?',
                 construction: 'Bouw het argument'
             };
 
             practiceMode = true;
             practiceCategory = category;
+            reviewMode = false;
+            gameMode = 'training';
+            timerEnabled = false;
             shuffledQuestions = pickPracticeQuestions(category);
-            currentQuestion = 0;
-            score = 0;
-            streak = 0;
-            maxStreak = 0;
-            hintsUsed = 0;
-            categoryScores = {
-                forms: { correct: 0, total: 0 },
-                validity: { correct: 0, total: 0 },
-                signals: { correct: 0, total: 0 },
-                assumptions: { correct: 0, total: 0 },
-                deduction: { correct: 0, total: 0 },
-                whywrong: { correct: 0, total: 0 },
-                construction: { correct: 0, total: 0 }
-            };
+            resetSessionState();
+            openGameScreen();
+        }
 
-            document.getElementById('resultScreen').classList.remove('active');
-            document.getElementById('introScreen').classList.remove('active');
-            document.getElementById('gameScreen').classList.add('active');
-            document.getElementById('progressContainer').style.display = 'block';
-            document.getElementById('headerRight').style.display = 'flex';
-            document.getElementById('totalQ').textContent = shuffledQuestions.length;
-            document.getElementById('maxScore').textContent = shuffledQuestions.length;
-            updateStreakDisplay();
-
-            renderQuestion();
+        function startReviewMode() {
+            if (!reviewBank.length) return;
+            practiceMode = true;
+            practiceCategory = null;
+            reviewMode = true;
+            gameMode = 'training';
+            timerEnabled = false;
+            shuffledQuestions = shuffle(reviewBank);
+            resetSessionState();
+            openGameScreen();
         }
 
         function getCorrectAnswer(q) {
@@ -1950,18 +2380,20 @@
         function renderQuestion() {
             answered = false;
             hintUsedThisQuestion = false;
+            attemptsThisQuestion = 0;
             const q = shuffledQuestions[currentQuestion];
             const total = shuffledQuestions.length;
+            q._sessionOptions = q.options ? shuffle(q.options) : null;
 
             // Update progress
             document.getElementById('currentQ').textContent = currentQuestion + 1;
-            document.getElementById('roundLabel').textContent = `Ronde ${currentQuestion + 1}`;
-            document.getElementById('progressFill').style.width = ((currentQuestion) / total * 100) + '%';
+            document.getElementById('roundLabel').textContent = `${reviewMode ? 'Heronderzoek' : 'Zaak'} ${currentQuestion + 1} · ${gameMode === 'training' ? 'leren' : 'één kans'}`;
+            document.getElementById('progressFill').style.width = (((currentQuestion + 1) / total) * 100) + '%';
             document.getElementById('currentScore').textContent = score;
             document.getElementById('categoryBadge').textContent = q.categoryLabel;
 
             // Hide feedback, hint
-            document.getElementById('feedback').classList.remove('show', 'correct', 'wrong');
+            document.getElementById('feedback').classList.remove('show', 'correct', 'wrong', 'coaching');
             document.getElementById('nextButtonContainer').style.display = 'none';
             document.getElementById('hintBox').classList.remove('show');
             document.getElementById('hintBox').textContent = '';
@@ -1993,6 +2425,9 @@
 
             // Start timer if enabled
             startTimer();
+            if (!timerEnabled) document.getElementById('timerContainer').classList.remove('active');
+            document.getElementById('questionBox').setAttribute('tabindex', '-1');
+            document.getElementById('questionBox').focus({ preventScroll: true });
         }
 
         function renderFormQuestion(q) {
@@ -2006,24 +2441,18 @@
             `;
             document.getElementById('questionText').textContent = "Welke redeneervorm is dit?";
             document.getElementById('choices').className = 'choices';
-            document.getElementById('choices').innerHTML = `
-                <button class="choice-btn" data-answer="modus_ponens">
-                    <div class="choice-name">Modus Ponens</div>
-                    <div class="choice-type valid">\u2713 Geldig</div>
+            const formOptions = shuffle([
+                { id: 'modus_ponens', label: 'Modus ponens', valid: true },
+                { id: 'modus_tollens', label: 'Modus tollens', valid: true },
+                { id: 'affirming_consequent', label: 'Bevestiging van het consequent', valid: false },
+                { id: 'denying_antecedent', label: 'Ontkenning van het antecedent', valid: false }
+            ]);
+            document.getElementById('choices').innerHTML = formOptions.map(opt => `
+                <button type="button" class="choice-btn" data-answer="${opt.id}">
+                    <div class="choice-name">${opt.label}</div>
+                    <div class="choice-type ${opt.valid ? 'valid' : 'invalid'}">${opt.valid ? '✓ Geldig' : '✗ Ongeldig'}</div>
                 </button>
-                <button class="choice-btn" data-answer="modus_tollens">
-                    <div class="choice-name">Modus Tollens</div>
-                    <div class="choice-type valid">\u2713 Geldig</div>
-                </button>
-                <button class="choice-btn" data-answer="affirming_consequent">
-                    <div class="choice-name">Bevestiging Consequent</div>
-                    <div class="choice-type invalid">\u2717 Drogreden</div>
-                </button>
-                <button class="choice-btn" data-answer="denying_antecedent">
-                    <div class="choice-name">Ontkenning Antecedent</div>
-                    <div class="choice-type invalid">\u2717 Drogreden</div>
-                </button>
-            `;
+            `).join('');
             addChoiceListeners();
         }
 
@@ -2034,7 +2463,7 @@
             `;
             document.getElementById('questionText').textContent = q.questionText;
             document.getElementById('choices').className = 'choices three-columns';
-            document.getElementById('choices').innerHTML = q.options.map(opt => `
+            document.getElementById('choices').innerHTML = (q._sessionOptions || q.options).map(opt => `
                 <button class="choice-btn" data-answer="${opt.id}">
                     <div class="choice-name">${opt.label}</div>
                     <div class="choice-desc">${opt.desc}</div>
@@ -2045,12 +2474,12 @@
 
         function renderSignalQuestion(q) {
             document.getElementById('questionBox').innerHTML = `
-                <h3><span class="category-tag">Signaalwoorden</span> Lees de tekst:</h3>
+                <h3><span class="category-tag">Claim, reden en signaalwoord</span> Lees de tekst:</h3>
                 <div class="text-passage">${q.text}</div>
             `;
             document.getElementById('questionText').textContent = q.questionText;
             document.getElementById('choices').className = 'choices';
-            document.getElementById('choices').innerHTML = q.options.map(opt => `
+            document.getElementById('choices').innerHTML = (q._sessionOptions || q.options).map(opt => `
                 <button class="choice-btn" data-answer="${opt.id}">
                     <div class="choice-name">${opt.label}</div>
                     <div class="choice-desc">${opt.desc}</div>
@@ -2066,7 +2495,7 @@
             `;
             document.getElementById('questionText').textContent = q.questionText;
             document.getElementById('choices').className = 'choices single-column';
-            document.getElementById('choices').innerHTML = q.options.map(opt => `
+            document.getElementById('choices').innerHTML = (q._sessionOptions || q.options).map(opt => `
                 <button class="choice-btn" data-answer="${opt.id}">
                     <div class="choice-name">${opt.label}</div>
                 </button>
@@ -2076,12 +2505,12 @@
 
         function renderDeductionQuestion(q) {
             document.getElementById('questionBox').innerHTML = `
-                <h3><span class="category-tag">Deductie vs Inductie</span> Bekijk dit argument:</h3>
+                <h3><span class="category-tag">Implicaties</span> Stel dat dit klopt:</h3>
                 <div class="text-passage">${q.argument}</div>
             `;
             document.getElementById('questionText').textContent = q.questionText;
             document.getElementById('choices').className = 'choices';
-            document.getElementById('choices').innerHTML = q.options.map(opt => `
+            document.getElementById('choices').innerHTML = (q._sessionOptions || q.options).map(opt => `
                 <button class="choice-btn" data-answer="${opt.id}">
                     <div class="choice-name">${opt.label}</div>
                     <div class="choice-desc">${opt.desc}</div>
@@ -2097,7 +2526,7 @@
             `;
             document.getElementById('questionText').textContent = q.questionText;
             document.getElementById('choices').className = 'choices single-column';
-            document.getElementById('choices').innerHTML = q.options.map(opt => `
+            document.getElementById('choices').innerHTML = (q._sessionOptions || q.options).map(opt => `
                 <button class="choice-btn" data-answer="${opt.id}">
                     <div class="choice-name">${opt.label}</div>
                     <div class="choice-desc">${opt.desc}</div>
@@ -2130,7 +2559,7 @@
             document.getElementById('questionBox').innerHTML = boxHTML;
             document.getElementById('questionText').textContent = q.missingLabel;
             document.getElementById('choices').className = 'choices single-column';
-            document.getElementById('choices').innerHTML = q.options.map(opt => `
+            document.getElementById('choices').innerHTML = (q._sessionOptions || q.options).map(opt => `
                 <button class="choice-btn" data-answer="${opt.id}">
                     <div class="choice-name">${opt.label}</div>
                     ${opt.desc ? `<div class="choice-desc">${opt.desc}</div>` : ''}
@@ -2140,7 +2569,10 @@
         }
 
         function addChoiceListeners() {
-            document.querySelectorAll('.choice-btn').forEach(btn => {
+            document.querySelectorAll('#choices .choice-btn').forEach((btn, index) => {
+                btn.type = 'button';
+                btn.dataset.key = String(index + 1);
+                btn.setAttribute('aria-label', `${index + 1}. ${btn.innerText.trim()}`);
                 btn.addEventListener('click', () => selectAnswer(btn.dataset.answer));
             });
         }
@@ -2152,6 +2584,7 @@
 
             hintUsedThisQuestion = true;
             hintsUsed++;
+            markForReview(q);
             document.getElementById('hintBtn').style.display = 'none';
             const hintBox = document.getElementById('hintBox');
             hintBox.textContent = '\uD83D\uDCA1 ' + q.hint;
@@ -2160,23 +2593,47 @@
 
         function selectAnswer(answer) {
             if (answered) return;
-            answered = true;
-            stopTimer();
-
             const q = shuffledQuestions[currentQuestion];
             const correctAnswer = getCorrectAnswer(q);
             const isCorrect = answer === correctAnswer;
+            const buttons = [...document.querySelectorAll('#choices .choice-btn')];
+            const selectedButton = buttons.find(btn => btn.dataset.answer === answer);
+
+            // In de leerstand volgt na de eerste fout een gerichte herkansing.
+            if (!isCorrect && gameMode === 'training' && attemptsThisQuestion === 0) {
+                attemptsThisQuestion = 1;
+                markForReview(q);
+                streak = 0;
+                updateStreakDisplay();
+                if (selectedButton) {
+                    selectedButton.classList.add('wrong', 'selected', 'disabled');
+                    selectedButton.disabled = true;
+                }
+                const feedback = document.getElementById('feedback');
+                feedback.classList.remove('correct', 'wrong');
+                feedback.classList.add('show', 'coaching');
+                feedback.innerHTML = `
+                    <h4>Nog één poging</h4>
+                    <p>Je keuze past nog niet bij de logische stap. <strong>Denkspoor:</strong> ${q.hint || 'Welke stap moet noodzakelijk volgen uit wat er staat?'}</p>
+                    <p><em>Kies opnieuw; het juiste antwoord wordt nog niet verklapt.</em></p>
+                `;
+                document.getElementById('hintBtn').style.display = 'none';
+                return;
+            }
+
+            answered = true;
+            stopTimer();
 
             // Update scores
             categoryScores[q.category].total++;
             if (isCorrect) {
-                if (!hintUsedThisQuestion) {
-                    score++;
-                }
+                score++;
                 categoryScores[q.category].correct++;
                 streak++;
+                if (attemptsThisQuestion === 0 && !hintUsedThisQuestion) independentCorrect++;
                 if (streak > maxStreak) maxStreak = streak;
             } else {
+                markForReview(q);
                 streak = 0;
             }
             updateStreakDisplay();
@@ -2186,7 +2643,8 @@
             document.getElementById('hintBtn').style.display = 'none';
 
             // Style buttons
-            document.querySelectorAll('.choice-btn').forEach(btn => {
+            const firstWrongButton = buttons.find(btn => btn.classList.contains('wrong'));
+            buttons.forEach(btn => {
                 const btnAnswer = btn.dataset.answer;
                 if (btnAnswer === answer) {
                     btn.classList.add(isCorrect ? 'correct' : 'wrong');
@@ -2196,17 +2654,38 @@
                     btn.classList.add('show-correct');
                 }
                 btn.classList.add('disabled');
+                btn.disabled = true;
             });
 
             // Show feedback
             const feedback = document.getElementById('feedback');
+            feedback.classList.remove('coaching', 'correct', 'wrong');
             feedback.classList.add('show', isCorrect ? 'correct' : 'wrong');
 
             let explanationText = q.explanation;
             let hintNote = '';
             if (isCorrect && hintUsedThisQuestion) {
-                hintNote = '<p><em>Je hebt een hint gebruikt, dus je krijgt geen punt voor deze vraag.</em></p>';
+                hintNote = '<p><em>Met een hint opgelost. Zet deze vraag op je herhaallijst.</em></p>';
             }
+
+            let compareHTML = '';
+            if (!isCorrect) {
+                compareHTML = `
+                    <div class="answer-compare">
+                        <div><strong>Jouw antwoord</strong>${getAnswerLabel(q, answer)}</div>
+                        <div><strong>Juiste antwoord</strong>${getAnswerLabel(q, correctAnswer)}</div>
+                    </div>`;
+            } else if (attemptsThisQuestion > 0) {
+                compareHTML = `
+                    <div class="answer-compare">
+                        <div><strong>Eerste poging</strong>${firstWrongButton ? getAnswerLabel(q, firstWrongButton.dataset.answer) : 'Nog niet juist'}</div>
+                        <div><strong>Hersteld naar</strong>${getAnswerLabel(q, correctAnswer)}</div>
+                    </div>`;
+            }
+
+            const feedbackTitle = isCorrect
+                ? (attemptsThisQuestion > 0 ? 'Goed hersteld' : (hintUsedThisQuestion ? 'Met hulp opgelost' : 'Sterk gezien'))
+                : 'Deze stap houdt niet';
 
             if (q.category === 'forms') {
                 const formulas = {
@@ -2221,22 +2700,38 @@
                     'affirming_consequent': 'Bevestiging van de Consequent',
                     'denying_antecedent': 'Ontkenning van de Antecedent'
                 };
+                const parts = splitConditional(q.premise1);
+                const mappingHTML = parts ? `
+                    <div class="answer-compare">
+                        <div><strong>P · het als-deel</strong>${parts.p}</div>
+                        <div><strong>Q · het dan-deel</strong>${parts.q}</div>
+                    </div>` : '';
                 feedback.innerHTML = `
-                    <h4>${isCorrect ? '\u2713 Correct!' : '\u2717 Helaas, dat klopt niet'}</h4>
+                    <h4>${feedbackTitle}</h4>
+                    ${compareHTML}
                     <p>Dit is <strong>${typeNames[correctAnswer]}</strong>.</p>
                     <div class="formula-explain">${formulas[correctAnswer]}</div>
+                    ${mappingHTML}
                     <p>${explanationText}</p>
                     ${hintNote}
                 `;
             } else {
                 feedback.innerHTML = `
-                    <h4>${isCorrect ? '\u2713 Correct!' : '\u2717 Helaas, dat klopt niet'}</h4>
+                    <h4>${feedbackTitle}</h4>
+                    ${compareHTML}
                     <p>${explanationText}</p>
                     ${hintNote}
                 `;
             }
 
             document.getElementById('nextButtonContainer').style.display = 'flex';
+            updateNextButtonLabel();
+            document.getElementById('nextButton').focus();
+        }
+
+        function updateNextButtonLabel() {
+            const isLast = currentQuestion === shuffledQuestions.length - 1;
+            document.getElementById('nextButton').textContent = isLast ? 'Bekijk je oordeel →' : 'Volgende zaak →';
         }
 
         function nextQuestion() {
@@ -2254,15 +2749,16 @@
             document.getElementById('gameScreen').classList.remove('active');
             document.getElementById('resultScreen').classList.add('active');
             document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('headerRight').style.display = 'none';
 
             const totalQ = shuffledQuestions.length;
 
             const categoryNames = {
                 forms: 'Redeneervormen',
-                signals: 'Signaalwoorden',
+                signals: 'Claim, reden en signaalwoord',
                 validity: 'Waarheid/Geldigheid',
                 assumptions: 'Verzwegen aannames',
-                deduction: 'Deductie/Inductie',
+                deduction: 'Implicaties',
                 whywrong: 'Waarom fout?',
                 construction: 'Bouw het argument'
             };
@@ -2270,9 +2766,9 @@
             const studyTips = {
                 forms: "Oefen met het onderscheid tussen modus ponens (P bevestigen) en bevestiging van de consequent (Q bevestigen).",
                 validity: "Onthoud: geldigheid = structuur, waarheid = feiten. Een argument kan geldig zijn met onware premissen.",
-                signals: "Maak een lijstje: want/omdat/immers/aangezien = premisse, dus/daarom/bijgevolg/hieruit blijkt = conclusie.",
-                assumptions: "Zoek altijd de ontbrekende 'als...dan'-premisse die het argument compleet maakt.",
-                deduction: "Deductie = 100% zeker (van algemeen naar specifiek). Inductie = waarschijnlijk (van specifiek naar algemeen).",
+                signals: "Na want, omdat en aangezien volgt de reden; na dus, daarom en bijgevolg volgt de claim. Zoek eerst het signaalwoord, dan weet je welke kant je op moet lezen.",
+                assumptions: "Haal de aanname weg en kijk of dezelfde reden ook het tegendeel kan dragen. Kan dat, dan heb je hem te pakken.",
+                deduction: "Een implicatie kijkt vooruit: als deze uitspraak klopt, wat moet je dan nog meer aannemen? Reden en aanname kijken juist achteruit naar wat de redenering draagt.",
                 whywrong: "Denk bij foute argumenten altijd: welke logische stap wordt overgeslagen of omgedraaid?",
                 construction: "Oefen met het zelf opbouwen van argumenten: welke premisse mist, welke conclusie volgt?"
             };
@@ -2285,8 +2781,8 @@
                 if (cs.total === 0) continue;
                 const pct = cs.total > 0 ? (cs.correct / cs.total) * 100 : 100;
                 let tipHTML = '';
-                if (pct < 50) {
-                    tipHTML = `<div class="study-tip">\uD83D\uDCA1 ${studyTips[cat]}</div>`;
+                if (pct < 67) {
+                    tipHTML = `<div class="study-tip"><strong>Denkregel:</strong> ${studyTips[cat]}</div>`;
                 }
                 let practiceHTML = '';
                 if (pct < 100) {
@@ -2296,6 +2792,7 @@
                     <div class="stat-card">
                         <div class="stat-value">${cs.correct}/${cs.total}</div>
                         <div class="stat-label">${categoryNames[cat]}</div>
+                        <div class="mastery-track" aria-hidden="true"><div class="mastery-fill" style="width: ${pct}%"></div></div>
                         ${tipHTML}
                         ${practiceHTML}
                     </div>
@@ -2307,33 +2804,42 @@
             let icon, title, message;
 
             if (percentage >= 90) {
-                icon = '\uD83C\uDFC6';
-                title = 'Meesterlogicus!';
-                message = `<h3>Indrukwekkend!</h3><p>Je beheerst alle aspecten van propositielogica: van redeneervormen tot verzwegen aannames. Je bent klaar om elk argument te ontleden!</p>`;
+                icon = '✓';
+                title = 'Je oordeel staat stevig';
+                message = `<h3>Je ziet vorm én inhoud.</h3><p>Je herkent niet alleen bekende schema's, maar kunt ook aannames en implicaties opsporen. Probeer een lastig argument nu zelf in P en Q te vertalen.</p>`;
             } else if (percentage >= 70) {
-                icon = '\uD83C\uDFAF';
-                title = 'Sterke denker!';
-                message = `<h3>Goed gedaan!</h3><p>Je hebt een solide begrip van logica. Kijk nog eens naar de categorie\u00ebn waar je punten hebt laten liggen.</p>`;
+                icon = '→';
+                title = 'Sterk fundament';
+                message = `<h3>De meeste redeneringen blijven bij jou niet ononderzocht.</h3><p>Gebruik de denkregels bij je zwakkere categorieën en oefen daarna alleen de zaken die je lastig vond.</p>`;
             } else if (percentage >= 50) {
-                icon = '\uD83D\uDCDA';
-                title = 'Op de goede weg';
-                message = `<h3>Blijf oefenen!</h3><p>Je kent de basis, maar sommige onderdelen verdienen extra aandacht. Gebruik de oefen-knoppen hieronder!</p>`;
+                icon = '?';
+                title = 'Nog één onderzoekronde';
+                message = `<h3>Je basis is er, maar nog niet elke stap is stabiel.</h3><p>Begin bij de categorie met de laagste balk. Zeg bij elke als-dan-zin hardop welk deel P is en welk deel Q.</p>`;
             } else {
-                icon = '\uD83C\uDF31';
-                title = 'Leermoment';
-                message = `<h3>Logica is lastig!</h3><p>Geen zorgen \u2014 dit is complex materiaal. Lees de theorie nog eens door en gebruik de oefen-knoppen hieronder.</p>`;
+                icon = 'P→Q';
+                title = 'Begin opnieuw bij de vorm';
+                message = `<h3>Laat de inhoud even los.</h3><p>Schrijf eerst alleen P → Q op. Vraag dan: wordt P bevestigd, wordt Q ontkend, of gebeurt juist de misleidende omkering?</p>`;
             }
 
-            const practiceLabel = practiceMode ? `Oefensessie ${categoryNames[practiceCategory]} voltooid` : '';
+            const sessionTitle = reviewMode
+                ? 'Heronderzoek afgerond'
+                : (practiceMode ? `Oefensessie ${categoryNames[practiceCategory]} afgerond` : title);
+
+            if (!practiceMode) reviewBank = [...reviewQuestions];
 
             let resultHTML = `
-                <div class="result-icon">${icon}</div>
-                <h2>${practiceMode ? practiceLabel : title}</h2>
-                <div class="final-score"><span>${score}</span>/${totalQ}</div>
+                <div class="result-hero">
+                    <div class="result-icon">${icon}</div>
+                    <div>
+                        <h2>${sessionTitle}</h2>
+                        <div class="final-score"><span>${score}</span>/${totalQ} zaken beheerst</div>
+                    </div>
+                </div>
 
                 <div class="extra-stats">
-                    <div>\uD83D\uDD25 Langste reeks: <span>${maxStreak}</span></div>
-                    <div>\uD83D\uDCA1 Hints gebruikt: <span>${hintsUsed}</span></div>
+                    <div>Direct en zonder hulp: <span>${independentCorrect}</span></div>
+                    <div>Langste reeks: <span>${maxStreak}</span></div>
+                    <div>Hints gebruikt: <span>${hintsUsed}</span></div>
                 </div>
 
                 <div class="stats-grid">
@@ -2345,9 +2851,9 @@
                 </div>
 
                 <div class="button-group">
-                    ${practiceMode ? `<button class="btn btn-outline" onclick="backToResults()">Terug naar resultaat</button>` : ''}
-                    <button class="btn btn-primary" onclick="restartGame()">Opnieuw spelen</button>
-                    <a href="index.html" class="btn btn-outline">Terug naar overzicht</a>
+                    ${practiceMode && savedResultHTML ? `<button type="button" class="btn btn-outline" onclick="backToResults()">Terug naar hoofdresultaat</button>` : ''}
+                    ${!practiceMode && reviewBank.length ? `<button type="button" class="btn btn-primary" onclick="startReviewMode()">Oefen mijn lastige zaken (${reviewBank.length})</button>` : ''}
+                    <button type="button" class="btn ${!practiceMode && reviewBank.length ? 'btn-outline' : 'btn-primary'}" onclick="restartGame()">Nieuwe sessie</button>
                 </div>
             `;
 
@@ -2361,6 +2867,8 @@
 
         function backToResults() {
             if (savedResultHTML) {
+                practiceMode = false;
+                reviewMode = false;
                 document.getElementById('resultContent').innerHTML = savedResultHTML;
             }
         }
@@ -2369,9 +2877,27 @@
             document.getElementById('resultScreen').classList.remove('active');
             document.getElementById('introScreen').classList.add('active');
             document.getElementById('headerRight').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'none';
             document.getElementById('timerContainer').classList.remove('active');
             stopTimer();
+            document.getElementById('introScreen').scrollIntoView({ block: 'start' });
         }
+
+        document.addEventListener('keydown', event => {
+            if (!document.getElementById('gameScreen').classList.contains('active')) return;
+            if (event.target.matches('input, button')) return;
+
+            if (!answered && /^[1-4]$/.test(event.key)) {
+                const button = document.querySelector(`#choices .choice-btn[data-key="${event.key}"]`);
+                if (button && !button.classList.contains('disabled')) {
+                    event.preventDefault();
+                    button.click();
+                }
+            } else if (answered && event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('nextButton').click();
+            }
+        });
     </script>
 </body>
 </html>
