@@ -1,0 +1,1868 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123f3c">
+  <meta name="description" content="Een korte, curriculumgerichte denkgame over Socrates voor 4 vwo.">
+  <title>Socrates op de Agora - Denkproef</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #162828;
+      --ink-soft: #4c5e5b;
+      --green-950: #0d3331;
+      --green-900: #123f3c;
+      --green-800: #18514d;
+      --green-700: #246862;
+      --green-100: #dceae4;
+      --green-050: #edf4f0;
+      --paper: #f7f1e3;
+      --paper-2: #efe4ce;
+      --white: #fffdf7;
+      --gold: #c98328;
+      --gold-dark: #925911;
+      --gold-soft: #f2d9aa;
+      --coral: #b94f3d;
+      --coral-soft: #f8e1dc;
+      --shadow: 0 18px 55px rgba(13, 51, 49, .13);
+      --shadow-small: 0 8px 24px rgba(13, 51, 49, .1);
+      --radius: 22px;
+      --text-scale: 1;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: calc(16px * var(--text-scale));
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 5%, rgba(201, 131, 40, .16), transparent 31rem),
+        linear-gradient(135deg, rgba(18, 63, 60, .035) 25%, transparent 25%) 0 0 / 24px 24px,
+        var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    button, textarea, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: -5rem;
+      z-index: 100;
+      padding: .7rem 1rem;
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--green-900);
+      box-shadow: var(--shadow-small);
+    }
+
+    .skip-link:focus { top: 1rem; }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(18, 63, 60, .12);
+      background: rgba(247, 241, 227, .9);
+      backdrop-filter: blur(14px);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 2rem));
+      min-height: 68px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      border: 0;
+      padding: .35rem 0;
+      background: transparent;
+      color: var(--green-950);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      background: var(--green-900);
+      color: var(--gold-soft);
+      font: 700 1.1rem Georgia, serif;
+      box-shadow: inset 0 0 0 4px rgba(255, 255, 255, .06);
+    }
+
+    .brand-copy { display: grid; }
+    .brand-title { font-weight: 800; letter-spacing: -.02em; }
+    .brand-sub { color: var(--ink-soft); font-size: .77rem; }
+
+    .header-actions { display: flex; align-items: center; gap: .45rem; }
+
+    .icon-button {
+      min-width: 42px;
+      min-height: 42px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid rgba(18, 63, 60, .18);
+      border-radius: 12px;
+      background: rgba(255, 253, 247, .7);
+      color: var(--green-900);
+      cursor: pointer;
+    }
+
+    .icon-button:hover { background: var(--white); border-color: var(--green-700); }
+
+    .app-shell {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2.2rem 0 4rem;
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; animation: enter .32s ease both; }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      margin: 0 0 .75rem;
+      color: var(--gold-dark);
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 1.6rem;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--green-950);
+      line-height: 1.08;
+    }
+
+    h1 { font-size: clamp(2.7rem, 7vw, 5.7rem); letter-spacing: -.055em; }
+    h2 { font-size: clamp(2rem, 4.2vw, 3.55rem); letter-spacing: -.035em; }
+    h3 { font-size: 1.35rem; letter-spacing: -.015em; }
+
+    .lead {
+      max-width: 66ch;
+      color: var(--ink-soft);
+      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+    }
+
+    .hero {
+      min-height: min(720px, calc(100vh - 120px));
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(310px, .8fr);
+      gap: clamp(2rem, 6vw, 5.5rem);
+      align-items: center;
+    }
+
+    .hero-copy { padding-block: 2rem; }
+    .hero-copy h1 { max-width: 780px; margin-bottom: 1.15rem; }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      flex-wrap: wrap;
+      margin: 1.8rem 0 1.4rem;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      border: 1px solid transparent;
+      border-radius: 13px;
+      padding: .72rem 1.05rem;
+      background: var(--green-900);
+      color: var(--white);
+      font-weight: 780;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(18, 63, 60, .16);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); background: var(--green-800); box-shadow: 0 11px 28px rgba(18, 63, 60, .2); }
+    .button:active { transform: translateY(0); }
+    .button.secondary { background: var(--white); color: var(--green-900); border-color: rgba(18, 63, 60, .2); box-shadow: none; }
+    .button.secondary:hover { border-color: var(--green-700); background: var(--green-050); }
+    .button.ghost { background: transparent; color: var(--green-900); border-color: transparent; box-shadow: none; }
+    .button.ghost:hover { background: rgba(18, 63, 60, .07); }
+    .button.danger { background: transparent; color: var(--coral); border-color: rgba(185, 79, 61, .32); box-shadow: none; }
+    .button.danger:hover { background: var(--coral-soft); }
+    .button.small { min-height: 40px; padding: .52rem .82rem; font-size: .9rem; }
+    .button[disabled] { opacity: .45; cursor: not-allowed; transform: none; }
+
+    :focus-visible { outline: 3px solid #297f92; outline-offset: 3px; }
+
+    .privacy-note {
+      color: var(--ink-soft);
+      font-size: .82rem;
+    }
+
+    .portrait-stage {
+      position: relative;
+      min-height: 520px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 140px 140px 28px 28px;
+      background:
+        linear-gradient(to top, rgba(13, 51, 49, .92), rgba(13, 51, 49, .2)),
+        radial-gradient(circle at 50% 28%, #59817a 0 13%, transparent 13.5%),
+        linear-gradient(125deg, #244e4a, #d0a85d);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .portrait-stage::before,
+    .portrait-stage::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 34%;
+      height: 70%;
+      border: 12px solid rgba(255, 255, 255, .08);
+      border-bottom: 0;
+    }
+
+    .portrait-stage::before { left: -6%; }
+    .portrait-stage::after { right: -6%; }
+
+    .portrait-disc {
+      position: relative;
+      z-index: 2;
+      width: min(75%, 290px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--gold-soft);
+      border-radius: 50%;
+      background: rgba(13, 51, 49, .78);
+      color: var(--gold-soft);
+      font: 700 clamp(6rem, 18vw, 10rem) Georgia, serif;
+      box-shadow: 0 0 0 14px rgba(255, 255, 255, .045), 0 22px 60px rgba(0, 0, 0, .2);
+    }
+
+    .portrait-quote {
+      position: absolute;
+      z-index: 3;
+      left: 1.4rem;
+      right: 1.4rem;
+      bottom: 1.5rem;
+      margin: 0;
+      color: var(--white);
+      text-align: center;
+      font-family: Georgia, serif;
+      font-size: 1.02rem;
+      font-style: italic;
+    }
+
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .7rem;
+      margin-top: 1.4rem;
+    }
+
+    .feature {
+      padding: .9rem;
+      border-left: 3px solid var(--gold);
+      background: rgba(255, 253, 247, .56);
+      color: var(--ink-soft);
+      font-size: .88rem;
+    }
+
+    .feature strong { display: block; color: var(--ink); }
+
+    .teacher-details {
+      max-width: 760px;
+      margin-top: 1.4rem;
+      border: 1px solid rgba(18, 63, 60, .15);
+      border-radius: 14px;
+      background: rgba(255, 253, 247, .66);
+    }
+
+    .teacher-details summary {
+      padding: .85rem 1rem;
+      color: var(--green-900);
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .teacher-details > div { padding: 0 1rem 1rem; color: var(--ink-soft); }
+    .teacher-details ol { margin-bottom: 0; padding-left: 1.2rem; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 1rem;
+      margin: 1rem 0 1.7rem;
+    }
+
+    .section-head h2 { margin-bottom: .45rem; }
+    .section-head p { max-width: 62ch; margin-bottom: 0; color: var(--ink-soft); }
+
+    .completion-pill {
+      flex: none;
+      padding: .6rem .8rem;
+      border-radius: 999px;
+      background: var(--green-100);
+      color: var(--green-900);
+      font-size: .86rem;
+      font-weight: 790;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .topic-card {
+      position: relative;
+      min-height: 248px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: hidden;
+      border: 1px solid rgba(18, 63, 60, .14);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      background: rgba(255, 253, 247, .8);
+      box-shadow: var(--shadow-small);
+    }
+
+    .topic-card.featured { grid-column: span 2; min-height: 220px; }
+    .topic-card.completed { border-color: rgba(201, 131, 40, .65); }
+
+    .topic-card::after {
+      content: attr(data-greek);
+      position: absolute;
+      right: -.05em;
+      bottom: -.25em;
+      color: rgba(18, 63, 60, .06);
+      font: 700 5.4rem Georgia, serif;
+      pointer-events: none;
+    }
+
+    .topic-meta { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    .topic-icon { font-size: 1.5rem; }
+    .tag {
+      padding: .28rem .5rem;
+      border-radius: 999px;
+      background: var(--green-050);
+      color: var(--green-800);
+      font-size: .73rem;
+      font-weight: 780;
+    }
+
+    .tag.done { background: var(--gold-soft); color: var(--gold-dark); }
+    .topic-card h3 { margin-bottom: .5rem; }
+    .topic-card p { max-width: 53ch; color: var(--ink-soft); font-size: .93rem; }
+    .topic-card .button { position: relative; z-index: 2; margin-top: auto; }
+
+    .card-actions {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .card-actions .button { margin-top: 0; }
+
+    .topics-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: .8rem;
+    }
+
+    .lesson-note {
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+      margin-top: 1.3rem;
+      padding: 1rem;
+      border-radius: 16px;
+      background: rgba(18, 63, 60, .075);
+      color: var(--ink-soft);
+      font-size: .9rem;
+    }
+
+    .lesson-note strong { color: var(--ink); }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .game-main,
+    .game-side,
+    .summary-card {
+      border: 1px solid rgba(18, 63, 60, .14);
+      border-radius: var(--radius);
+      background: rgba(255, 253, 247, .9);
+      box-shadow: var(--shadow-small);
+    }
+
+    .game-main { min-height: 620px; overflow: hidden; }
+    .game-side { position: sticky; top: 88px; padding: 1rem; }
+
+    .case-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(18, 63, 60, .12);
+      background: linear-gradient(100deg, var(--green-950), var(--green-800));
+      color: var(--white);
+    }
+
+    .case-header strong { display: block; }
+    .case-header span { color: rgba(255, 255, 255, .72); font-size: .8rem; }
+    .case-header .button { border-color: rgba(255, 255, 255, .28); color: var(--white); }
+    .case-header .button:hover { background: rgba(255, 255, 255, .12); }
+
+    .game-stage { padding: clamp(1.25rem, 4vw, 2.2rem); }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--green-100);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--gold), #e2aa56);
+      transition: width .35s ease;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: .5rem;
+      margin-bottom: .45rem;
+      color: var(--ink-soft);
+      font-size: .78rem;
+      font-weight: 740;
+    }
+
+    .stage-kicker {
+      margin: 1.45rem 0 .5rem;
+      color: var(--gold-dark);
+      font-size: .75rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .stage-title { max-width: 780px; margin-bottom: .7rem; font-size: clamp(1.7rem, 4vw, 2.7rem); }
+    .stage-intro { max-width: 68ch; margin-bottom: 1.15rem; color: var(--ink-soft); }
+
+    .scene-card {
+      position: relative;
+      margin: 1.1rem 0 1.3rem;
+      padding: 1.2rem 1.2rem 1.2rem 1.4rem;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 16px 16px 0;
+      background: var(--paper);
+    }
+
+    .scene-card blockquote {
+      margin: 0;
+      color: var(--green-950);
+      font: 700 clamp(1.2rem, 2.3vw, 1.55rem)/1.35 Georgia, serif;
+    }
+
+    .scene-card cite { display: block; margin-top: .7rem; color: var(--ink-soft); font-size: .82rem; font-style: normal; }
+
+    .stance-grid,
+    .option-list {
+      display: grid;
+      gap: .72rem;
+      margin: 1rem 0;
+    }
+
+    .stance-grid { grid-template-columns: repeat(3, 1fr); }
+
+    .choice-button {
+      position: relative;
+      width: 100%;
+      min-height: 64px;
+      display: flex;
+      align-items: flex-start;
+      gap: .8rem;
+      border: 1px solid rgba(18, 63, 60, .18);
+      border-radius: 15px;
+      padding: .9rem 1rem;
+      background: var(--white);
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .17s ease, border-color .17s ease, background .17s ease;
+    }
+
+    .choice-button:hover { transform: translateY(-2px); border-color: var(--green-700); background: var(--green-050); }
+    .choice-button.selected { border-color: var(--gold); background: #fff8e8; box-shadow: 0 0 0 2px rgba(201, 131, 40, .15); }
+    .choice-button.correct { border-color: var(--green-700); background: var(--green-050); }
+    .choice-button.wrong { border-color: var(--coral); background: var(--coral-soft); }
+    .choice-button[disabled] { cursor: default; transform: none; opacity: .72; }
+
+    .choice-letter {
+      flex: none;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--green-100);
+      color: var(--green-900);
+      font-size: .79rem;
+      font-weight: 850;
+    }
+
+    .choice-copy strong { display: block; margin-bottom: .18rem; color: var(--green-950); }
+    .choice-copy span { display: block; color: var(--ink-soft); font-size: .88rem; }
+
+    .feedback {
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 15px;
+      background: var(--green-050);
+      color: var(--ink-soft);
+      animation: enter .25s ease both;
+    }
+
+    .feedback strong { display: block; margin-bottom: .2rem; color: var(--green-900); }
+    .feedback.try-again { background: var(--coral-soft); }
+    .feedback.try-again strong { color: #84382b; }
+
+    .stage-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .8rem;
+      flex-wrap: wrap;
+      margin-top: 1.35rem;
+    }
+
+    .field { margin: 1rem 0; }
+    .field label { display: block; margin-bottom: .38rem; color: var(--green-950); font-weight: 760; }
+    .field-help { display: block; margin-top: .35rem; color: var(--ink-soft); font-size: .8rem; }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      resize: vertical;
+      border: 1px solid rgba(18, 63, 60, .25);
+      border-radius: 14px;
+      padding: .9rem 1rem;
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    textarea:focus { border-color: #297f92; outline: 3px solid rgba(41, 127, 146, .18); }
+
+    .word-counter { text-align: right; color: var(--ink-soft); font-size: .76rem; }
+    .word-counter.enough { color: var(--green-700); font-weight: 760; }
+
+    .tool-list { display: grid; gap: .55rem; margin-top: .7rem; }
+
+    .tool-item {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: .65rem;
+      align-items: center;
+      padding: .55rem;
+      border-radius: 12px;
+      color: var(--ink-soft);
+      font-size: .8rem;
+    }
+
+    .tool-item.active { background: var(--green-050); color: var(--ink); }
+
+    .tool-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #e8e8df;
+      filter: grayscale(1);
+      opacity: .55;
+    }
+
+    .tool-item.active .tool-icon { background: var(--gold-soft); filter: none; opacity: 1; }
+    .side-divider { height: 1px; margin: 1rem 0; background: rgba(18, 63, 60, .12); }
+    .side-note { margin: 0; color: var(--ink-soft); font-size: .77rem; }
+
+    .summary-wrap { width: min(880px, 100%); margin: 1rem auto; }
+    .summary-card { overflow: hidden; }
+
+    .summary-hero {
+      padding: clamp(1.5rem, 5vw, 3rem);
+      background:
+        radial-gradient(circle at 90% 10%, rgba(242, 217, 170, .23), transparent 18rem),
+        var(--green-950);
+      color: var(--white);
+    }
+
+    .summary-hero .eyebrow { color: var(--gold-soft); }
+    .summary-hero h2 { max-width: 700px; color: var(--white); margin-bottom: .65rem; }
+    .summary-hero p { max-width: 66ch; color: rgba(255, 255, 255, .76); }
+
+    .summary-body { padding: clamp(1.25rem, 4vw, 2.4rem); }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: stretch;
+      margin: 1.2rem 0;
+    }
+
+    .position-card {
+      padding: 1rem;
+      border-radius: 15px;
+      background: var(--paper);
+    }
+
+    .position-card.final { background: var(--green-050); }
+    .position-card small { display: block; margin-bottom: .35rem; color: var(--gold-dark); font-weight: 820; text-transform: uppercase; letter-spacing: .08em; }
+    .position-card p { margin: 0; }
+    .change-arrow { display: grid; place-items: center; color: var(--gold-dark); font-size: 1.5rem; }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .8rem;
+      margin: 1rem 0;
+    }
+
+    .report-item {
+      padding: 1rem;
+      border: 1px solid rgba(18, 63, 60, .12);
+      border-radius: 14px;
+    }
+
+    .report-item.wide { grid-column: span 2; }
+    .report-item small { display: block; margin-bottom: .3rem; color: var(--gold-dark); font-weight: 820; text-transform: uppercase; letter-spacing: .07em; }
+    .report-item p { margin: 0; white-space: pre-wrap; }
+
+    .mastery-row { display: flex; gap: .55rem; flex-wrap: wrap; margin: .8rem 0 1.2rem; }
+
+    .mastery-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .48rem .65rem;
+      border-radius: 999px;
+      background: var(--green-100);
+      color: var(--green-900);
+      font-size: .79rem;
+      font-weight: 760;
+    }
+
+    .discussion-box {
+      margin: 1.2rem 0;
+      padding: 1.1rem;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 14px 14px 0;
+      background: #fff8e8;
+    }
+
+    .discussion-box strong { display: block; margin-bottom: .28rem; color: var(--green-950); }
+    .discussion-box p { margin: 0; }
+
+    .summary-actions { display: flex; gap: .65rem; flex-wrap: wrap; margin-top: 1.4rem; }
+
+    .toast {
+      position: fixed;
+      z-index: 80;
+      left: 50%;
+      bottom: 1.3rem;
+      transform: translate(-50%, 1rem);
+      max-width: calc(100% - 2rem);
+      padding: .75rem 1rem;
+      border-radius: 12px;
+      background: var(--green-950);
+      color: var(--white);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    dialog {
+      width: min(480px, calc(100% - 2rem));
+      border: 0;
+      border-radius: 20px;
+      padding: 0;
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .25);
+    }
+
+    dialog::backdrop { background: rgba(13, 30, 29, .55); backdrop-filter: blur(3px); }
+    .dialog-body { padding: 1.4rem; }
+    .dialog-body h3 { margin-bottom: .55rem; }
+    .dialog-body p { color: var(--ink-soft); }
+    .dialog-actions { display: flex; justify-content: flex-end; gap: .65rem; margin-top: 1.1rem; }
+
+    .noscript {
+      max-width: 760px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 1px solid var(--coral);
+      border-radius: 14px;
+      background: var(--coral-soft);
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .portrait-stage { min-height: 380px; border-radius: 90px 90px 24px 24px; }
+      .game-layout { grid-template-columns: 1fr; }
+      .game-side { position: static; order: -1; }
+      .tool-list { grid-template-columns: repeat(5, 1fr); }
+      .tool-item { display: block; padding: .35rem; text-align: center; }
+      .tool-item span:last-child { display: none; }
+      .tool-icon { margin: 0 auto; }
+    }
+
+    @media (max-width: 650px) {
+      .app-shell { width: min(100% - 1rem, 1120px); padding-top: 1rem; }
+      .header-inner { width: min(100% - 1rem, 1120px); }
+      .brand-sub { display: none; }
+      .hero { gap: 1rem; }
+      .hero-copy { padding-block: .8rem; }
+      .portrait-stage { min-height: 320px; }
+      .feature-strip { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .completion-pill { display: inline-flex; margin-top: .8rem; }
+      .topic-grid { grid-template-columns: 1fr; }
+      .topic-card.featured { grid-column: auto; }
+      .stance-grid { grid-template-columns: 1fr; }
+      .case-header { align-items: flex-start; }
+      .before-after { grid-template-columns: 1fr; }
+      .change-arrow { transform: rotate(90deg); }
+      .report-grid { grid-template-columns: 1fr; }
+      .report-item.wide { grid-column: auto; }
+      .brand-title { font-size: .9rem; }
+      .header-actions { gap: .25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+
+    @media print {
+      body { background: white; }
+      .app-header, .summary-actions, .toast, dialog { display: none !important; }
+      .app-shell { width: 100%; padding: 0; }
+      .screen { display: none !important; }
+      #summary-screen.active { display: block !important; }
+      .summary-card { border: 0; box-shadow: none; }
+      .summary-hero { background: white; color: black; padding: 0 0 1.2rem; border-bottom: 2px solid #123f3c; }
+      .summary-hero h2, .summary-hero p, .summary-hero .eyebrow { color: black; }
+      .summary-body { padding: 1rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Ga naar de game</a>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <button class="brand" id="brand-home" type="button" aria-label="Naar het beginscherm">
+        <span class="brand-mark" aria-hidden="true">Σ</span>
+        <span class="brand-copy">
+          <span class="brand-title">Socrates op de Agora</span>
+          <span class="brand-sub">Denkproef voor 4 vwo</span>
+        </span>
+      </button>
+      <div class="header-actions">
+        <button class="icon-button" id="text-size" type="button" aria-label="Tekst vergroten" title="Tekst vergroten">A+</button>
+        <button class="icon-button" id="show-info" type="button" aria-label="Uitleg over de game" title="Uitleg">?</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-shell" id="main" tabindex="-1">
+    <section class="screen active" id="home-screen" aria-labelledby="home-title">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Agora · Athene · denkwerk</p>
+          <h1 id="home-title">Kun jij je eerste antwoord overleven?</h1>
+          <p class="lead">Socrates geeft je geen punten voor snel gelijk. Hij kijkt of je een gedachte eerlijk kunt versterken, bevragen en herzien.</p>
+          <div class="hero-actions">
+            <button class="button" id="start-button" type="button">Kies een dossier <span aria-hidden="true">→</span></button>
+            <button class="button secondary" id="resume-button" type="button" hidden>Ga verder waar ik was</button>
+          </div>
+          <p class="privacy-note">Werkt offline · bewaart alleen op dit apparaat · geen account nodig</p>
+
+          <div class="feature-strip" aria-label="Kenmerken van de game">
+            <div class="feature"><strong>6-8 minuten</strong>per dossier</div>
+            <div class="feature"><strong>Geen cijfer</strong>wel gerichte feedback</div>
+            <div class="feature"><strong>Voor én tegen</strong>horzel + vroedvrouw</div>
+          </div>
+
+          <details class="teacher-details">
+            <summary>Zo gebruikt u dit in de les</summary>
+            <div>
+              <ol>
+                <li>Laat leerlingen individueel één dossier spelen.</li>
+                <li>Laat duo's hun begin- en eindpositie vergelijken.</li>
+                <li>Bespreek klassikaal welke vraag het denken werkelijk veranderde.</li>
+              </ol>
+            </div>
+          </details>
+        </div>
+
+        <div class="portrait-stage" aria-label="Gestileerd portret van Socrates">
+          <div class="portrait-disc" aria-hidden="true">Σ</div>
+          <p class="portrait-quote">“De vijand van filosofie is niet domheid, maar te vroege tevredenheid.”</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="topics-screen" aria-labelledby="topics-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Kies je onderzoek</p>
+          <h2 id="topics-title">Vijf dossiers, één methode</h2>
+          <p><strong>Speel er minimaal één helemaal uit.</strong> Eén dossier duurt ongeveer zeven minuten en is een volledige oefening: je begint met een positie, onderzoekt haar, en eindigt met je eigen herformulering. De andere vier zijn er voor wie meer wil, of voor een volgende keer.</p>
+        </div>
+        <div class="completion-pill" id="completion-count">0 van 5 voltooid</div>
+      </div>
+
+      <div class="topic-grid" id="topic-grid"></div>
+
+      <div class="lesson-note">
+        <span aria-hidden="true">ⓘ</span>
+        <div><strong>Let op:</strong> dit is een vrije, gemoderniseerde oefening bij Plato's Socrates - geen letterlijke historische dialoog. De verwijzingen sluiten aan bij <em>Socrates voor het tribunaal</em>.</div>
+      </div>
+      <div class="topics-actions">
+        <button class="button danger small" id="clear-progress" type="button">Wis alle lokale voortgang</button>
+      </div>
+    </section>
+
+    <section class="screen" id="game-screen" aria-labelledby="game-title">
+      <div class="game-layout">
+        <article class="game-main">
+          <header class="case-header">
+            <div>
+              <strong id="game-title">Dossier</strong>
+              <span id="case-source">Bron</span>
+            </div>
+            <button class="button ghost small" id="leave-game" type="button">Dossiers</button>
+          </header>
+          <div class="game-stage" id="game-stage" aria-live="polite"></div>
+        </article>
+
+        <aside class="game-side" aria-label="Je socratische gereedschappen">
+          <div class="progress-label"><span>Je route</span><span id="progress-text">Stap 1 van 6</span></div>
+          <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+          <div class="tool-list" id="tool-list"></div>
+          <div class="side-divider"></div>
+          <p class="side-note">Een misser kost geen punten. Opnieuw kiezen <em>is</em> het denkwerk.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen" id="summary-screen" aria-labelledby="summary-title">
+      <div class="summary-wrap">
+        <article class="summary-card">
+          <header class="summary-hero">
+            <p class="eyebrow">Denkverslag voltooid</p>
+            <h2 id="summary-title">Je antwoord heeft bewogen</h2>
+            <p>Niet omdat de game het laatste woord heeft, maar omdat jij je eerste zekerheid op de proef hebt gesteld.</p>
+          </header>
+          <div class="summary-body" id="summary-body"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="info-dialog" aria-labelledby="info-title">
+    <div class="dialog-body">
+      <h3 id="info-title">Hoe werkt de denkproef?</h3>
+      <p>Je onderzoekt één stelling in zes bewegingen: positie kiezen, steelmannen, verhelderen, testen, een aanname vinden en herformuleren.</p>
+      <p>Bij de keuzevragen is één optie het meest socratisch. Je mag onbeperkt opnieuw kiezen. Je eigen eindantwoord krijgt bewust geen automatisch cijfer.</p>
+      <div class="dialog-actions">
+        <button class="button" id="close-info" type="button">Begrepen</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="reset-dialog" aria-labelledby="reset-title">
+    <div class="dialog-body">
+      <h3 id="reset-title">Dossier opnieuw doen?</h3>
+      <p>Je bestaande denkverslag voor dit dossier wordt pas vervangen wanneer je de nieuwe route afrondt.</p>
+      <div class="dialog-actions">
+        <button class="button secondary" id="cancel-reset" type="button">Annuleren</button>
+        <button class="button" id="confirm-reset" type="button">Opnieuw starten</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="clear-dialog" aria-labelledby="clear-title">
+    <div class="dialog-body">
+      <h3 id="clear-title">Alle voortgang wissen?</h3>
+      <p>Alle voltooide denkverslagen en een eventueel open dossier verdwijnen van dit apparaat. Dit kan niet ongedaan worden gemaakt.</p>
+      <div class="dialog-actions">
+        <button class="button secondary" id="cancel-clear" type="button">Annuleren</button>
+        <button class="button danger" id="confirm-clear" type="button">Alles wissen</button>
+      </div>
+    </div>
+  </dialog>
+
+  <noscript><div class="noscript">Deze game heeft JavaScript nodig. Open het bestand in een moderne browser en sta JavaScript toe.</div></noscript>
+
+  <script>
+    "use strict";
+
+    const CASES = {
+      justice: {
+        id: "justice",
+        order: 1,
+        icon: "⚖️",
+        greek: "ΔΙΚΗ",
+        title: "De rechtvaardige wet",
+        short: "Kan een wettige regel toch onrechtvaardig zijn?",
+        source: "§2.7 · §5.1 · Euthyphro / Politeia I",
+        scene: "Op de Agora verdedigt Nikias een nieuwe regel: voortaan mogen alleen burgers uit rijke families spreken tijdens de volksvergadering.",
+        speaker: "Nikias",
+        claim: "Een rechtvaardig mens gehoorzaamt altijd de wet.",
+        prompt: "Onderzoek of rechtvaardigheid samenvalt met wettigheid.",
+        stances: ["Mee eens", "Deels mee eens", "Niet mee eens"],
+        steelman: {
+          title: "Bouw eerst de sterkste versie",
+          intro: "Welke reden maakt Nikias' positie het sterkst? Kies niet de makkelijkste prooi.",
+          options: [
+            { text: "Regels geven burgers een gedeelde maatstaf; zonder gehoorzaamheid dreigen willekeur en eigenrichting.", best: true, feedback: "Sterk. Je laat zien waarom rechtszekerheid en gelijke regels moreel aantrekkelijk zijn, vóórdat je kritiek geeft." },
+            { text: "Wie zelf uitkiest welke wetten hij volgt, ondermijnt daarmee het gezag van alle andere wetten.", best: false, feedback: "Een echte reden, maar hij gaat over de gevolgen van ongehoorzaamheid. Waarom de wet zelf rechtvaardig zou zijn, blijft onbeschermd." },
+            { text: "De vergadering heeft de regel volgens de juiste procedure aangenomen, dus daar valt niets tegen in te brengen.", best: false, feedback: "Dit herhaalt dat de regel wettig is. Precies dat stond ter discussie, dus als sterkste versie draait het in een cirkel." }
+          ]
+        },
+        question: {
+          title: "Open het begrip",
+          intro: "Welke vraag helpt Nikias eerst preciezer zeggen wat hij bedoelt?",
+          options: [
+            { text: "Hoeveel burgers stemden voor deze regel, en was dat een duidelijke meerderheid?", best: false, feedback: "Een feitelijke vraag. Het antwoord kan interessant zijn, maar het onderzoekt niet wat Nikias met rechtvaardig bedoelt." },
+            { text: "Bedoel je dat elke wettig aangenomen regel automatisch rechtvaardig is?", best: true, feedback: "Precies. De vraag verheldert de reikwijdte van zijn claim zonder hem al af te serveren." },
+            { text: "Vind je het dan ook rechtvaardig als jouw eigen familie het spreekrecht verliest?", best: false, feedback: "Deze vraag is niet flauw, maar hij dwingt met emotie een antwoord af. Daarmee sluit hij het gesprek in plaats van het te openen." }
+          ]
+        },
+        test: {
+          title: "Zet de definitie onder druk",
+          intro: "Welk geval is het sterkste tegenvoorbeeld?",
+          options: [
+            { text: "Een wet wordt door bijna niemand nageleefd, terwijl de stad daar geen enkele last van lijkt te hebben.", best: false, feedback: "Dit laat zien dat een wet slecht wordt nageleefd, niet dat hij onrechtvaardig is. Het test iets anders dan zijn claim." },
+            { text: "Een wettig aangenomen regel ontneemt één groep burgers zonder relevante reden het spreekrecht.", best: true, feedback: "Raak. Als de regel wettig én onrechtvaardig kan zijn, vallen rechtvaardigheid en wettigheid niet volledig samen." },
+            { text: "Een gewoonte die iedereen rechtvaardig vindt, wordt op een dag in een wet vastgelegd en verandert daardoor niets.", best: false, feedback: "Dit is juist een geval dat bij zijn claim past: wettig en rechtvaardig vallen hier samen. Een tegenvoorbeeld moet ze uit elkaar trekken." }
+          ]
+        },
+        assumption: {
+          title: "Leg de dragende aanname bloot",
+          intro: "Wat moet Nikias stilzwijgend aannemen?",
+          options: [
+            { text: "Wat volgens de juiste procedure is besloten, is daardoor ook moreel juist.", best: true, feedback: "Ja. Dit is de brug van 'wettig' naar 'rechtvaardig' - en precies die brug moet worden verdedigd." },
+            { text: "Zonder gehoorzaamheid aan de wet vervalt de stad in willekeur en eigenrichting.", best: false, feedback: "Dat is de reden die hij zelf uitspreekt, niet de stap die hij overslaat. Een aanname staat er juist níet." },
+            { text: "Wie deze regel volgt, moet ook een wet blijven gehoorzamen die hem onrecht aandoet.", best: false, feedback: "Dit volgt uit zijn positie; het is een implicatie. Een aanname ligt eronder in plaats van erachter." }
+          ]
+        },
+        challenge: "Hoe kunnen wetten gezag hebben én toch bekritiseerbaar blijven?",
+        starter: "Rechtvaardigheid vraagt meer dan gehoorzaamheid aan de wet, namelijk...",
+        talk: "Wanneer mag of moet een burger volgens jou een wet ongehoorzaam zijn?"
+      },
+
+      courage: {
+        id: "courage",
+        order: 2,
+        icon: "🛡️",
+        greek: "ΑΝΔΡΕΙΑ",
+        title: "Moed zonder angst",
+        short: "Is iemand pas moedig wanneer die niet bang is?",
+        source: "§2.4 · §4.4 · Laches",
+        scene: "Na een rumoerige training zegt de jonge soldaat Lysanias dat de beste strijders nooit angst voelen.",
+        speaker: "Lysanias",
+        claim: "Moed is niet bang zijn.",
+        prompt: "Onderzoek het verschil tussen moed, angstloosheid en roekeloosheid.",
+        stances: ["Mee eens", "Deels mee eens", "Niet mee eens"],
+        steelman: {
+          title: "Bouw eerst de sterkste versie",
+          intro: "Welke reden maakt Lysanias' definitie begrijpelijk?",
+          options: [
+            { text: "Angst kan verlammen; wie er niet voor bezwijkt, kan handelen wanneer anderen terugdeinzen.", best: true, feedback: "Goed. Je maakt zichtbaar waarom angstloosheid op moed lijkt, zonder al te doen alsof beide hetzelfde zijn." },
+            { text: "Wie geen angst voelt, aarzelt niet en kan daardoor sneller handelen dan iemand die twijfelt.", best: false, feedback: "Een echte reden, maar hij gaat over snelheid. Snel handelen zonder gevaar is nog geen moed." },
+            { text: "Lysanias heeft jaren in het leger gediend, dus over moed mag hij toch wel meepraten.", best: false, feedback: "Dit maakt hem geloofwaardig, maar het is geen reden vóór zijn definitie. Ervaring vervangt geen argument." }
+          ]
+        },
+        question: {
+          title: "Open het begrip",
+          intro: "Welke vraag helpt het verschil scherp krijgen?",
+          options: [
+            { text: "Hoe vaak heb jij zelf in een werkelijk gevaarlijke situatie gestaan?", best: false, feedback: "Een feitelijke vraag over hem. Zijn antwoord verandert niets aan wat moed is." },
+            { text: "Bedoel je dat iemand die gevaar niet herkent óók moedig is?", best: true, feedback: "Sterk. Je onderzoekt of onwetendheid en moed volgens de definitie ten onrechte samenvallen." },
+            { text: "Je bedoelt toch niet dat roekeloze mensen dan de moedigste van allemaal zijn?", best: false, feedback: "Deze vraag bevat het antwoord al. Zij duwt hem terug in plaats van hem verder te laten denken." }
+          ]
+        },
+        test: {
+          title: "Zet de definitie onder druk",
+          intro: "Welk geval is het scherpste tegenvoorbeeld?",
+          options: [
+            { text: "Iemand voelt angst en rent toch een brandend huis in om een kind te redden.", best: true, feedback: "Ja. Dit lijkt moedig juist mét angst. De definitie 'niet bang zijn' wordt daardoor te smal." },
+            { text: "Iemand voelt geen enkele angst en loopt rustig een brandend huis binnen.", best: false, feedback: "Dit past juist bij zijn definitie in plaats van haar te testen. Een tegenvoorbeeld moet wringen." },
+            { text: "Iemand vindt spinnen vies en pakt er toch een op om hem buiten te zetten.", best: false, feedback: "Er is hier weerzin, maar geen gevaar. Zonder risico kan het geval zijn definitie niet breken." }
+          ]
+        },
+        assumption: {
+          title: "Leg de dragende aanname bloot",
+          intro: "Welke aanname zit onder Lysanias' definitie?",
+          options: [
+            { text: "Angst is altijd een teken van zwakte en kan geen onderdeel van moed zijn.", best: true, feedback: "Juist. Zodra angst ook informatie of een te overwinnen weerstand kan zijn, moet de definitie veranderen." },
+            { text: "Wie niet bezwijkt voor angst kan handelen terwijl anderen terugdeinzen.", best: false, feedback: "Dat is zijn reden, niet zijn verzwegen stap. Een aanname spreekt hij juist niet uit." },
+            { text: "Dan is iemand die het gevaar niet eens ziet, moediger dan wie het onder ogen ziet.", best: false, feedback: "Dit volgt uit zijn definitie; het is een implicatie. Sterk als bezwaar, maar niet de aanname eronder." }
+          ]
+        },
+        challenge: "Hoe onderscheid je moed van roekeloosheid én van verlamming?",
+        starter: "Moed is niet de afwezigheid van angst, maar...",
+        talk: "Kan terugtrekken soms moediger zijn dan standhouden? Geef een geval."
+      },
+
+      freedom: {
+        id: "freedom",
+        order: 3,
+        icon: "🕊️",
+        greek: "ΕΛΕΥΘΕΡΙΑ",
+        title: "Vrij doen wat je wilt",
+        short: "Komt vrijheid neer op je zin kunnen doen?",
+        source: "§2.4 · §4.5 · begripsanalyse",
+        scene: "Tussen de marktkramen zegt Myrto dat zij pas vrij is wanneer niemand haar vertelt wat ze moet doen.",
+        speaker: "Myrto",
+        claim: "Vrijheid is doen wat je wilt.",
+        prompt: "Onderzoek of vrijheid alleen over afwezigheid van dwang gaat.",
+        stances: ["Mee eens", "Deels mee eens", "Niet mee eens"],
+        steelman: {
+          title: "Bouw eerst de sterkste versie",
+          intro: "Welke reden geeft Myrto's positie de meeste kracht?",
+          options: [
+            { text: "Wanneer anderen je keuzes bepalen, leef je volgens hun wil in plaats van je eigen oordeel.", best: true, feedback: "Sterk. Je benoemt autonomie: zelf richting aan je leven kunnen geven." },
+            { text: "Wie zich aan regels van anderen houdt, hoeft zelf nooit na te denken over wat hij wil.", best: false, feedback: "Dit maakt van regels volgen meteen gedachteloosheid. Dat is een karikatuur van de tegenpositie, geen steun voor de hare." },
+            { text: "Niemand kan van buitenaf bepalen wat goed voor jou is, want jij kent jezelf het best.", best: false, feedback: "Een echte reden, maar hij leunt op zelfkennis. Precies dat wordt straks betwijfeld, dus als sterkste versie is hij kwetsbaar." }
+          ]
+        },
+        question: {
+          title: "Open het begrip",
+          intro: "Welke vraag maakt 'willen' preciezer?",
+          options: [
+            { text: "Als er vandaag geen enkele regel zou bestaan, wat zou jij dan als eerste gaan doen?", best: false, feedback: "Een leuke vraag die voorbeelden oplevert, maar zij onderzoekt niet wat willen betekent." },
+            { text: "Als een opwelling botst met wat je zelf belangrijk vindt, wat wil jij dan werkelijk?", best: true, feedback: "Goed. Je helpt onderscheid maken tussen impuls, wens en gekozen richting." },
+            { text: "Je zegt dus eigenlijk dat afspraken met anderen jou alleen maar in de weg zitten?", best: false, feedback: "Deze vraag legt haar iets in de mond en zet haar klem. Zij gaat zich verdedigen in plaats van nadenken." }
+          ]
+        },
+        test: {
+          title: "Zet de definitie onder druk",
+          intro: "Welk geval test 'doen wat je wilt' het best?",
+          options: [
+            { text: "Je scrolt door terwijl je zelf had besloten te slapen, en voelt je achteraf gevangen.", best: true, feedback: "Scherp. Je doet wat je op elk moment wilt, maar ervaart minder zelfsturing. Dat maakt de definitie te eenvoudig." },
+            { text: "Je kiest zelf een opleiding, houdt die jaren vol en bent achteraf blij met die keuze.", best: false, feedback: "Hier vallen willen en vrij zijn juist samen. Dat bevestigt haar definitie in plaats van haar te testen." },
+            { text: "Jij wilt iets anders dan je vriend, en samen moeten jullie toch één ding kiezen.", best: false, feedback: "Dit gaat over botsende wensen tussen mensen, niet over de vraag of doen wat je wilt vrijheid ís." }
+          ]
+        },
+        assumption: {
+          title: "Leg de dragende aanname bloot",
+          intro: "Wat veronderstelt Myrto over verlangens?",
+          options: [
+            { text: "Wat ik op een moment wil, is echt van mij en helpt mij richting te geven aan mijn leven.", best: true, feedback: "Ja. Als verlangens beïnvloed, verslavend of onderling strijdig kunnen zijn, is 'doen wat je wilt' niet genoeg." },
+            { text: "Wie door anderen wordt bepaald, leeft volgens hun wil in plaats van volgens de zijne.", best: false, feedback: "Dat is haar reden, niet haar verzwegen stap. Deze spreekt zij juist wél uit." },
+            { text: "Dan is iemand die zijn opwellingen volgt vrijer dan iemand die zich aan een plan houdt.", best: false, feedback: "Dit volgt uit haar positie; het is een implicatie. De aanname ligt eronder, niet erachter." }
+          ]
+        },
+        challenge: "Vraagt vrijheid alleen ruimte van buiten, of ook zelfsturing van binnen?",
+        starter: "Vrijheid is kunnen handelen vanuit..., ook wanneer...",
+        talk: "Kan een beperking je soms juist vrijer maken? Denk aan training, afspraken of techniek."
+      },
+
+      authority: {
+        id: "authority",
+        order: 4,
+        icon: "🏛️",
+        greek: "ΑΡΧΗ",
+        title: "Goed omdat school het zegt",
+        short: "Is gezag de bron van wat goed is?",
+        source: "§2.7 · Euthyphro-dilemma",
+        scene: "Een schoolbestuurder uit de toekomst belandt op de Agora en verdedigt een nieuwe regel zonder de reden te willen geven.",
+        speaker: "De bestuurder",
+        claim: "Een schoolregel is goed omdat school hem heeft vastgesteld.",
+        prompt: "Pas het Euthyphro-dilemma toe op een herkenbare gezagsbron.",
+        stances: ["Mee eens", "Deels mee eens", "Niet mee eens"],
+        steelman: {
+          title: "Bouw eerst de sterkste versie",
+          intro: "Waarom verdient schoolgezag een serieuze verdediging?",
+          options: [
+            { text: "School is verantwoordelijk voor veiligheid en leren, en kan dat alleen met regels die voor iedereen gelden.", best: true, feedback: "Sterk. Je erkent verantwoordelijkheid, deskundigheid en voorspelbaarheid zonder gezag onfeilbaar te maken." },
+            { text: "Zonder duidelijke regels weet niemand waar hij aan toe is en ontstaat er willekeur tussen docenten.", best: false, feedback: "Een goede reden, maar hij gaat over duidelijkheid. Daarmee is nog niet gezegd dat de regel ook goed ís." },
+            { text: "De school heeft de regel officieel vastgesteld, dus binnen deze school geldt hij nu eenmaal voor iedereen.", best: false, feedback: "Dit herhaalt dat de regel geldig is. Precies dat stond ter discussie, dus als sterkste versie draait het in een cirkel." }
+          ]
+        },
+        question: {
+          title: "Open het dilemma",
+          intro: "Welke vraag raakt de structuur van het Euthyphro-dilemma?",
+          options: [
+            { text: "Is de regel goed doordat school hem stelt, of stelt school hem omdat er goede redenen voor zijn?", best: true, feedback: "Precies. Als goede redenen voorafgaan aan de regel, kan hetzelfde gezag ook aan die redenen worden getoetst." },
+            { text: "Wie heeft deze regel bedacht, en is er met leerlingen over gesproken voordat hij inging?", best: false, feedback: "Een feitelijke vraag over de procedure. Nuttig, maar zij raakt niet aan de vraag waarom iets goed is." },
+            { text: "Vind jij dan dat leerlingen alles moeten accepteren wat de school nu eenmaal bedenkt?", best: false, feedback: "Deze vraag legt de ander een positie in de mond. Zij dwingt tot verdediging in plaats van tot onderzoek." }
+          ]
+        },
+        test: {
+          title: "Zet de claim onder druk",
+          intro: "Welk geval maakt de spanning het duidelijkst?",
+          options: [
+            { text: "Een officiële regel blijkt een groep leerlingen zonder goede reden structureel te benadelen.", best: true, feedback: "Ja. Als de regel officieel maar toch slecht kan zijn, is het gezag niet zelf de volledige maatstaf van goedheid." },
+            { text: "Een regel die de school heeft ingevoerd blijkt in de praktijk goed te werken voor iedereen.", best: false, feedback: "Dit bevestigt zijn positie in plaats van haar te testen. Een tegenvoorbeeld moet juist wringen." },
+            { text: "Een leerling vindt een regel onredelijk en houdt zich er daarom niet aan.", best: false, feedback: "Dit laat zien dat iemand het oneens is, niet dat de regel onjuist is. Een mening is nog geen tegenvoorbeeld." }
+          ]
+        },
+        assumption: {
+          title: "Leg de dragende aanname bloot",
+          intro: "Welke aanname maakt gezag tot morele maatstaf?",
+          options: [
+            { text: "Een legitiem gezag kan zich niet vergissen over wat goed is voor degenen over wie het beslist.", best: true, feedback: "Juist. Zodra legitiem gezag feilbaar is, moet het redenen geven die zelf onderzocht kunnen worden." },
+            { text: "School kan haar taak alleen uitvoeren met regels die voor iedereen voorspelbaar zijn.", best: false, feedback: "Dat is de reden die hij geeft, niet de stap die hij overslaat." },
+            { text: "Dan wordt een regel goed op het moment dat de school hem invoert, en slecht zodra zij hem intrekt.", best: false, feedback: "Dit volgt uit zijn positie; het is een implicatie, en een scherpe. Maar de aanname ligt eronder." }
+          ]
+        },
+        challenge: "Hoe kan gezag legitiem zijn zonder onfeilbaar te worden?",
+        starter: "Een schoolregel is goed wanneer..., niet alleen wanneer...",
+        talk: "Welke redenen maken een schoolregel gezaghebbend, ook voor wie het er niet mee eens is?"
+      },
+
+      criticism: {
+        id: "criticism",
+        order: 5,
+        icon: "🐝",
+        greek: "ΕΛΕΓΧΟΣ",
+        title: "Altijd kritisch is altijd goed",
+        short: "Voedt elke vorm van gezag bevragen jongeren op?",
+        source: "§4.4-4.6 · §5.6 · Apologie",
+        scene: "Na Socrates' vragen roept een enthousiaste leerling dat elke vorm van wantrouwen en tegenspraak vanzelf bevrijdend is.",
+        speaker: "De leerling",
+        claim: "Wie gezag bevraagt, voedt jongeren altijd goed op.",
+        prompt: "Onderzoek de grens tussen kritisch denken, cynisme en verantwoordelijkheid.",
+        stances: ["Mee eens", "Deels mee eens", "Niet mee eens"],
+        steelman: {
+          title: "Bouw eerst de sterkste versie",
+          intro: "Waarom kan gezag bevragen werkelijk opvoedend zijn?",
+          options: [
+            { text: "Zonder vragen blijven fouten en machtsmisbruik onzichtbaar; leren oordelen vraagt redenen, geen gehoorzaamheid.", best: true, feedback: "Sterk. Dit verbindt kritiek aan zelfcorrectie en zelfstandig oordelen." },
+            { text: "Jongeren die alles klakkeloos aannemen, worden later makkelijk misleid door wie hun vertrouwen misbruikt.", best: false, feedback: "Een goede reden, maar hij pleit tegen goedgelovigheid, niet vóór altijd kritisch zijn. Dat is minder dan de stelling beweert." },
+            { text: "Socrates deed precies dit, en hij geldt tot op de dag van vandaag als voorbeeld van goede opvoeding.", best: false, feedback: "Dit beroept zich op een voorbeeld in plaats van op een reden. Juist of Socrates opvoedde, is wat onderzocht wordt." }
+          ]
+        },
+        question: {
+          title: "Open het begrip opvoeding",
+          intro: "Welke vraag helpt eerst bepalen wat 'goed opvoeden' betekent?",
+          options: [
+            { text: "Bedoel je met goed opvoeden dat jongeren zelf leren oordelen, of dat zij elk gezag afwijzen?", best: true, feedback: "Precies. De vraag onderscheidt autonomie van automatische tegenspraak." },
+            { text: "Hoeveel jongeren zijn de afgelopen jaren volgens onderzoek kritischer geworden over gezag?", best: false, feedback: "Een feitelijke vraag. Cijfers zeggen iets over hoeveel, niet over wat goed opvoeden betekent." },
+            { text: "Dus jij vindt dat een klas prima zou functioneren zonder enige regel of afspraak?", best: false, feedback: "Dit schrijft de ander iets extreems toe en weerlegt dat. Een stroman, geen vraag." }
+          ]
+        },
+        test: {
+          title: "Zet de claim onder druk",
+          intro: "Welk tegenvoorbeeld maakt 'altijd' onhoudbaar?",
+          options: [
+            { text: "Een populaire maker leert jongeren elke deskundige te wantrouwen en verdient aan hun onzekerheid.", best: true, feedback: "Scherp. Gezag bevragen kan zonder zorgvuldige maatstaven juist afhankelijkheid en verwarring vergroten." },
+            { text: "Een leerling stelt zijn docent een lastige vraag, en die docent blijkt zich vergist te hebben.", best: false, feedback: "Dit bevestigt de stelling juist: hier werkt kritiek goed. Een tegenvoorbeeld moet laten zien wanneer zij niet werkt." },
+            { text: "Een klas discussieert zo fel over een regel dat de les uitloopt en niemand meer luistert.", best: false, feedback: "Dit is een praktisch bezwaar over orde. Het raakt niet de vraag of kritiek opvoedt." }
+          ]
+        },
+        assumption: {
+          title: "Leg de dragende aanname bloot",
+          intro: "Welke aanname verbindt kritiek automatisch aan opvoeding?",
+          options: [
+            { text: "Schijnzekerheid afbreken leidt vanzelf tot beter oordeel, ook zonder hulp bij herformuleren.", best: true, feedback: "Ja. Het boek maakt juist duidelijk dat de horzel de vroedvrouw nodig heeft: prikken én helpen." },
+            { text: "Zonder vragen blijven fouten en vooroordelen onzichtbaar, en leert niemand zelf oordelen.", best: false, feedback: "Dat is de reden die de stelling zelf geeft, niet de stap die zij overslaat." },
+            { text: "Dan zou een leerling die alles bevraagt beter opgevoed zijn dan een leerling die soms vertrouwt.", best: false, feedback: "Dit volgt uit de stelling; het is een implicatie. De aanname ligt eronder." }
+          ]
+        },
+        challenge: "Wanneer bevrijdt een vraag, en wanneer laat zij iemand alleen met de brokstukken?",
+        starter: "Gezag bevragen is opvoedend wanneer de vraag..., én wanneer...",
+        talk: "Welke verantwoordelijkheid heeft degene die andermans zekerheid ondermijnt?"
+      }
+    };
+
+    const STEPS = [
+      { id: "position", label: "Positie", icon: "◐" },
+      { id: "steelman", label: "Steelman", icon: "🤝" },
+      { id: "question", label: "Vroedvrouw", icon: "🫶" },
+      { id: "test", label: "Horzel", icon: "🐝" },
+      { id: "assumption", label: "Aanname", icon: "🔎" },
+      { id: "revise", label: "Herzien", icon: "↻" }
+    ];
+
+    const STORAGE_KEY = "socrates_agora_v2";
+
+    // Na elke keuzestap vraagt het spel om één zin: waarom is dit sterker dan de andere twee?
+    // Zet WAAROM_VERPLICHT op false om het vak vrijblijvend te maken.
+    const WAAROM_VERPLICHT = true;
+    const WAAROM_MIN = 25;
+    const defaultState = () => ({
+      version: 2,
+      activeCase: null,
+      step: 0,
+      route: null,
+      completed: {},
+      textScale: 1
+    });
+
+    let state = loadState();
+    let pendingCase = null;
+    let toastTimer = null;
+
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const gameStage = document.getElementById("game-stage");
+    const progressText = document.getElementById("progress-text");
+    const progressBar = document.getElementById("progress-bar");
+    const toolList = document.getElementById("tool-list");
+    const resetDialog = document.getElementById("reset-dialog");
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved && saved.version === 2) return { ...defaultState(), ...saved };
+      } catch (error) {
+        console.warn("Voortgang kon niet worden geladen.", error);
+      }
+      return defaultState();
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (error) { console.warn("Voortgang kon niet worden bewaard.", error); }
+    }
+
+    function newRoute(caseId) {
+      return {
+        caseId,
+        startedAt: new Date().toISOString(),
+        initialStance: "",
+        initialNote: "",
+        selected: {},
+        why: {},
+        attempts: { steelman: 0, question: 0, test: 0, assumption: 0 },
+        finalStance: "",
+        revision: "",
+        remainingQuestion: ""
+      };
+    }
+
+    function showScreen(id) {
+      screens.forEach(screen => screen.classList.toggle("active", screen.id === id));
+      document.getElementById(id).setAttribute("tabindex", "-1");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      requestAnimationFrame(() => document.getElementById(id).focus({ preventScroll: true }));
+    }
+
+    function showHome() {
+      refreshResumeButton();
+      showScreen("home-screen");
+    }
+
+    function showTopics() {
+      renderTopics();
+      showScreen("topics-screen");
+    }
+
+    function refreshResumeButton() {
+      const button = document.getElementById("resume-button");
+      const resumable = state.activeCase && state.route && state.step < STEPS.length;
+      button.hidden = !resumable;
+      if (resumable) button.textContent = `Ga verder met ${CASES[state.activeCase].title}`;
+    }
+
+    function renderTopics() {
+      const grid = document.getElementById("topic-grid");
+      grid.innerHTML = "";
+      const done = Object.keys(state.completed).length;
+      document.getElementById("completion-count").textContent = `${done} van ${Object.keys(CASES).length} voltooid`;
+
+      Object.values(CASES).sort((a, b) => a.order - b.order).forEach((item, index) => {
+        const completed = state.completed[item.id];
+        const article = document.createElement("article");
+        article.className = `topic-card${index === 0 ? " featured" : ""}${completed ? " completed" : ""}`;
+        article.dataset.greek = item.greek;
+
+        const meta = document.createElement("div");
+        meta.className = "topic-meta";
+        meta.innerHTML = `<span class="topic-icon" aria-hidden="true">${item.icon}</span><span class="tag">6-8 min</span>${completed ? '<span class="tag done">Voltooid</span>' : ""}`;
+
+        const title = document.createElement("h3");
+        title.textContent = item.title;
+        const text = document.createElement("p");
+        text.textContent = item.short;
+        const actions = document.createElement("div");
+        actions.className = "card-actions";
+        if (completed) {
+          actions.append(
+            makeButton("Bekijk verslag", "button small", () => showCompleted(item.id)),
+            makeButton("Speel opnieuw", "button secondary small", () => chooseCase(item.id))
+          );
+        } else {
+          actions.append(makeButton("Start dossier", "button small", () => chooseCase(item.id)));
+        }
+
+        article.append(meta, title, text, actions);
+        grid.appendChild(article);
+      });
+    }
+
+    function chooseCase(caseId) {
+      if (state.completed[caseId]) {
+        pendingCase = caseId;
+        resetDialog.showModal();
+        return;
+      }
+      startCase(caseId);
+    }
+
+    function startCase(caseId) {
+      state.activeCase = caseId;
+      state.step = 0;
+      state.route = newRoute(caseId);
+      saveState();
+      renderGame();
+      showScreen("game-screen");
+    }
+
+    function resumeGame() {
+      if (!state.activeCase || !state.route) return showTopics();
+      renderGame();
+      showScreen("game-screen");
+    }
+
+    function renderGame() {
+      const item = CASES[state.activeCase];
+      document.getElementById("game-title").textContent = item.title;
+      document.getElementById("case-source").textContent = item.source;
+      updateProgress();
+
+      const stepId = STEPS[state.step].id;
+      if (stepId === "position") renderPosition(item);
+      else if (stepId === "revise") renderRevision(item);
+      else renderChoiceStep(item, stepId);
+    }
+
+    function updateProgress() {
+      const current = Math.min(state.step + 1, STEPS.length);
+      progressText.textContent = `Stap ${current} van ${STEPS.length}`;
+      progressBar.style.width = `${(current / STEPS.length) * 100}%`;
+      toolList.innerHTML = "";
+      STEPS.slice(1).forEach((tool, index) => {
+        const toolStep = index + 1;
+        const chosen = state.route?.selected?.[tool.id];
+        const solvedNow = Number.isInteger(chosen) && CASES[state.activeCase]?.[tool.id]?.options?.[chosen]?.best;
+        const active = state.step > toolStep || (state.step === toolStep && solvedNow) || (tool.id === "revise" && state.step === 5 && state.route?.revision?.trim().length >= 25);
+        const row = document.createElement("div");
+        row.className = `tool-item${active ? " active" : ""}`;
+        row.innerHTML = `<span class="tool-icon" aria-hidden="true">${tool.icon}</span><span>${tool.label}</span>`;
+        toolList.appendChild(row);
+      });
+    }
+
+    function progressMarkup(kicker, title, intro) {
+      return `<p class="stage-kicker">${kicker}</p><h2 class="stage-title">${title}</h2><p class="stage-intro">${intro}</p>`;
+    }
+
+    function sceneMarkup(item) {
+      return `<div class="scene-card"><p>${item.scene}</p><blockquote>“${item.claim}”</blockquote><cite>- ${item.speaker}</cite></div>`;
+    }
+
+    function renderPosition(item) {
+      gameStage.innerHTML = progressMarkup("Beweging 1 · vertrekpunt", "Neem voorlopig positie", item.prompt) + sceneMarkup(item);
+
+      const label = document.createElement("p");
+      label.className = "stage-intro";
+      label.textContent = "Wat denk je vóór het onderzoek? Je mag later verschuiven.";
+
+      const choices = document.createElement("div");
+      choices.className = "stance-grid";
+      item.stances.forEach((stance, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `choice-button${state.route.initialStance === stance ? " selected" : ""}`;
+        button.innerHTML = `<span class="choice-letter">${index + 1}</span><span class="choice-copy"><strong>${stance}</strong></span>`;
+        button.addEventListener("click", () => {
+          state.route.initialStance = stance;
+          saveState();
+          renderPosition(item);
+        });
+        choices.appendChild(button);
+      });
+
+      const field = document.createElement("div");
+      field.className = "field";
+      const fieldLabel = document.createElement("label");
+      fieldLabel.htmlFor = "initial-note";
+      fieldLabel.textContent = "Mijn eerste reden (optioneel)";
+      const area = document.createElement("textarea");
+      area.id = "initial-note";
+      area.rows = 3;
+      area.placeholder = "Ik denk dit omdat...";
+      area.value = state.route.initialNote;
+      area.addEventListener("input", () => { state.route.initialNote = area.value; saveState(); });
+      field.append(fieldLabel, area);
+
+      const actions = document.createElement("div");
+      actions.className = "stage-actions";
+      const back = makeButton("Terug", "button ghost", showTopics);
+      const next = makeButton("Onderzoek deze positie →", "button", () => advanceTo(1));
+      next.disabled = !state.route.initialStance;
+      actions.append(back, next);
+
+      gameStage.append(label, choices, field, actions);
+    }
+
+    function renderChoiceStep(item, stepId) {
+      const step = item[stepId];
+      const stepIndex = STEPS.findIndex(entry => entry.id === stepId);
+      gameStage.innerHTML = progressMarkup(`Beweging ${stepIndex + 1} · ${STEPS[stepIndex].label}`, step.title, step.intro);
+
+      const list = document.createElement("div");
+      list.className = "option-list";
+      const selectedIndex = state.route.selected[stepId];
+      const hasSelection = Number.isInteger(selectedIndex);
+      const selectedOption = hasSelection ? step.options[selectedIndex] : null;
+
+      step.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        let className = "choice-button";
+        if (hasSelection && index === selectedIndex) className += option.best ? " correct" : " wrong";
+        button.className = className;
+        button.disabled = hasSelection;
+        button.innerHTML = `<span class="choice-letter">${String.fromCharCode(65 + index)}</span><span class="choice-copy"><strong>${option.text}</strong></span>`;
+        button.addEventListener("click", () => selectOption(stepId, index));
+        list.appendChild(button);
+      });
+
+      gameStage.appendChild(list);
+
+      if (!state.route.why) state.route.why = {};
+
+      if (selectedOption) {
+        const feedback = document.createElement("div");
+        feedback.className = `feedback${selectedOption.best ? "" : " try-again"}`;
+        feedback.innerHTML = `<strong>${selectedOption.best ? "Deze beweging brengt het gesprek verder." : "Nog niet de sterkste beweging."}</strong><span>${selectedOption.feedback}</span>`;
+        gameStage.appendChild(feedback);
+
+        const actions = document.createElement("div");
+        actions.className = "stage-actions";
+        const retry = makeButton("Kies opnieuw", "button secondary", () => retryStep(stepId));
+        const next = makeButton("Volgende beweging →", "button", () => advanceTo(stepIndex + 1));
+
+        function motiveringVoldoet() {
+          if (!WAAROM_VERPLICHT) return true;
+          return (state.route.why[stepId] || "").trim().length >= WAAROM_MIN;
+        }
+        function ijkKnop() {
+          next.disabled = !selectedOption.best || !motiveringVoldoet();
+        }
+
+        if (selectedOption.best) {
+          const vraag = {
+            steelman: "Waarom is dit de sterkste versie van zijn positie, en de andere twee niet?",
+            question: "Waarom opent deze vraag het gesprek, terwijl de andere twee het sluiten?",
+            test: "Waarom is dit tegenvoorbeeld sterker dan de andere twee?",
+            assumption: "Waarom is dit de dragende aanname, en niet een van de andere twee?"
+          }[stepId] || "Waarom is dit sterker dan de andere twee?";
+
+          const veld = textField(
+            "why-" + stepId,
+            vraag,
+            "Eén zin is genoeg. Zeg wat deze keuze doet wat de andere niet doen.",
+            state.route.why[stepId] || "",
+            WAAROM_MIN,
+            value => { state.route.why[stepId] = value; saveState(); ijkKnop(); }
+          );
+          gameStage.appendChild(veld);
+        }
+
+        ijkKnop();
+        actions.append(retry, next);
+        gameStage.appendChild(actions);
+      }
+    }
+
+    function selectOption(stepId, index) {
+      state.route.attempts[stepId] += 1;
+      state.route.selected[stepId] = index;
+      saveState();
+      renderGame();
+      requestAnimationFrame(() => document.querySelector(".feedback")?.scrollIntoView({ block: "nearest", behavior: "smooth" }));
+    }
+
+    function retryStep(stepId) {
+      delete state.route.selected[stepId];
+      saveState();
+      renderGame();
+    }
+
+    function advanceTo(step) {
+      state.step = step;
+      saveState();
+      renderGame();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderRevision(item) {
+      gameStage.innerHTML = progressMarkup("Beweging 6 · herformuleren", "Laat je antwoord bewegen", "Een goed einde hoeft geen oplossing te zijn. Een scherpere definitie, eerlijke aporia of precies meningsverschil is ook winst.");
+
+      const challenge = document.createElement("div");
+      challenge.className = "scene-card";
+      challenge.innerHTML = `<blockquote>${item.challenge}</blockquote><cite>De vraag die na de elenchus overblijft</cite>`;
+
+      const stanceLabel = document.createElement("p");
+      stanceLabel.className = "stage-intro";
+      stanceLabel.textContent = `Je begon met: ${state.route.initialStance}. Waar sta je nu?`;
+
+      const stances = document.createElement("div");
+      stances.className = "stance-grid";
+      item.stances.forEach((stance, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `choice-button${state.route.finalStance === stance ? " selected" : ""}`;
+        button.innerHTML = `<span class="choice-letter">${index + 1}</span><span class="choice-copy"><strong>${stance}</strong></span>`;
+        button.addEventListener("click", () => { state.route.finalStance = stance; saveState(); renderRevision(item); });
+        stances.appendChild(button);
+      });
+
+      const revisionField = textField("revision", "Mijn herformulering", item.starter, state.route.revision, 25, value => { state.route.revision = value; saveState(); updateFinishButton(); });
+      const questionField = textField("remaining-question", "Mijn overblijvende vraag", "Wat ik nog wil onderzoeken is...", state.route.remainingQuestion, 10, value => { state.route.remainingQuestion = value; saveState(); updateFinishButton(); });
+
+      const actions = document.createElement("div");
+      actions.className = "stage-actions";
+      const back = makeButton("Vorige stap", "button ghost", () => advanceTo(4));
+      const finish = makeButton("Maak mijn denkverslag", "button", finishCase);
+      finish.id = "finish-case";
+      actions.append(back, finish);
+
+      gameStage.append(challenge, stanceLabel, stances, revisionField, questionField, actions);
+      updateFinishButton();
+    }
+
+    function textField(id, labelText, placeholder, value, minimum, onInput) {
+      const field = document.createElement("div");
+      field.className = "field";
+      const label = document.createElement("label");
+      label.htmlFor = id;
+      label.textContent = labelText;
+      const area = document.createElement("textarea");
+      area.id = id;
+      area.placeholder = placeholder;
+      area.value = value;
+      area.dataset.minimum = minimum;
+      const counter = document.createElement("div");
+      counter.className = "word-counter";
+      function update() {
+        const count = area.value.trim().length;
+        counter.textContent = `${count} tekens · minimaal ${minimum}`;
+        counter.classList.toggle("enough", count >= minimum);
+      }
+      area.addEventListener("input", () => { update(); onInput(area.value); });
+      update();
+      field.append(label, area, counter);
+      return field;
+    }
+
+    function updateFinishButton() {
+      const button = document.getElementById("finish-case");
+      if (!button) return;
+      button.disabled = !state.route.finalStance || state.route.revision.trim().length < 25 || state.route.remainingQuestion.trim().length < 10;
+    }
+
+    function finishCase() {
+      const completedRoute = { ...state.route, finishedAt: new Date().toISOString() };
+      state.completed[state.activeCase] = completedRoute;
+      state.route = null;
+      state.step = 0;
+      saveState();
+      renderSummary(state.activeCase);
+      showScreen("summary-screen");
+    }
+
+    function showCompleted(caseId) {
+      renderSummary(caseId);
+      showScreen("summary-screen");
+    }
+
+    function renderSummary(caseId) {
+      const item = CASES[caseId];
+      const route = state.completed[caseId];
+      const body = document.getElementById("summary-body");
+      document.getElementById("summary-title").textContent = `${item.icon} ${item.title}`;
+      body.innerHTML = "";
+
+      const intro = document.createElement("p");
+      intro.className = "lead";
+      intro.textContent = `Je onderzocht: “${item.claim}”`;
+
+      const beforeAfter = document.createElement("div");
+      beforeAfter.className = "before-after";
+      beforeAfter.innerHTML = `<div class="position-card"><small>Voor het onderzoek</small><p>${route.initialStance}${route.initialNote ? ` - ${escapeHTML(route.initialNote)}` : ""}</p></div><div class="change-arrow" aria-hidden="true">→</div><div class="position-card final"><small>Na het onderzoek</small><p>${route.finalStance}</p></div>`;
+
+      const heading = document.createElement("h3");
+      heading.textContent = "Je socratische route";
+
+      const retryCount = Object.values(route.attempts).reduce((sum, count) => sum + Math.max(0, count - 1), 0);
+      const routeNote = document.createElement("p");
+      routeNote.className = "stage-intro";
+      routeNote.textContent = retryCount === 0
+        ? "Je herkende alle vier denkbewegingen meteen. Je eigen herformulering blijft het belangrijkste deel."
+        : `Je hebt ${retryCount} ${retryCount === 1 ? "keuze" : "keuzes"} herzien. Dat is geen puntenverlies: corrigeren is precies de vaardigheid die je oefent.`;
+
+      const chips = document.createElement("div");
+      chips.className = "mastery-row";
+      ["Steelman", "Vroedvrouwvraag", "Tegenvoorbeeld", "Aanname", "Herformulering"].forEach(label => {
+        const chip = document.createElement("span");
+        chip.className = "mastery-chip";
+        chip.innerHTML = `<span aria-hidden="true">✓</span>${label}`;
+        chips.appendChild(chip);
+      });
+
+      const report = document.createElement("div");
+      report.className = "report-grid";
+      report.append(
+        reportItem("Sterkste tegenstem", selectedText(item, route, "steelman")),
+        reportItem("Waarom die het sterkst is", (route.why && route.why.steelman) || "-", true),
+        reportItem("Socratische vraag", selectedText(item, route, "question")),
+        reportItem("Waarom die vraag opent", (route.why && route.why.question) || "-", true),
+        reportItem("Tegenvoorbeeld", selectedText(item, route, "test")),
+        reportItem("Waarom dat geval bijt", (route.why && route.why.test) || "-", true),
+        reportItem("Verborgen aanname", selectedText(item, route, "assumption")),
+        reportItem("Waarom die aanname draagt", (route.why && route.why.assumption) || "-", true),
+        reportItem("Mijn herformulering", route.revision, true),
+        reportItem("Mijn open vraag", route.remainingQuestion, true)
+      );
+
+      const discussion = document.createElement("div");
+      discussion.className = "discussion-box";
+      discussion.innerHTML = `<strong>Bespreekvraag voor duo of klas</strong><p>${item.talk}</p>`;
+
+      const actions = document.createElement("div");
+      actions.className = "summary-actions";
+      actions.append(
+        makeButton("Kopieer verslag", "button", () => copySummary(caseId)),
+        makeButton("Download .txt", "button secondary", () => downloadSummary(caseId)),
+        makeButton("Print / bewaar als PDF", "button secondary", () => window.print()),
+        makeButton("Andere dossiers", "button ghost", showTopics),
+        makeButton("Opnieuw spelen", "button danger", () => { pendingCase = caseId; resetDialog.showModal(); })
+      );
+
+      body.append(intro, beforeAfter, heading, routeNote, chips, report, discussion, actions);
+    }
+
+    function reportItem(label, value, wide = false) {
+      const item = document.createElement("div");
+      item.className = `report-item${wide ? " wide" : ""}`;
+      const small = document.createElement("small");
+      small.textContent = label;
+      const paragraph = document.createElement("p");
+      paragraph.textContent = value;
+      item.append(small, paragraph);
+      return item;
+    }
+
+    function selectedText(item, route, stepId) {
+      const index = route.selected[stepId];
+      return item[stepId].options[index]?.text || "-";
+    }
+
+    function summaryText(caseId) {
+      const item = CASES[caseId];
+      const route = state.completed[caseId];
+      return [
+        "SOCRATES OP DE AGORA - DENKVERSLAG",
+        "",
+        `Dossier: ${item.title}`,
+        `Bron in het boek: ${item.source}`,
+        `Stelling: ${item.claim}`,
+        "",
+        `Beginpositie: ${route.initialStance}`,
+        route.initialNote ? `Eerste reden: ${route.initialNote}` : "Eerste reden: -",
+        "",
+        `Sterkste tegenstem: ${selectedText(item, route, "steelman")}`,
+        `  waarom: ${(route.why && route.why.steelman) || "-"}`,
+        `Socratische vraag: ${selectedText(item, route, "question")}`,
+        `  waarom: ${(route.why && route.why.question) || "-"}`,
+        `Tegenvoorbeeld: ${selectedText(item, route, "test")}`,
+        `  waarom: ${(route.why && route.why.test) || "-"}`,
+        `Verborgen aanname: ${selectedText(item, route, "assumption")}`,
+        `  waarom: ${(route.why && route.why.assumption) || "-"}`,
+        "",
+        `Eindpositie: ${route.finalStance}`,
+        `Herformulering: ${route.revision}`,
+        `Open vraag: ${route.remainingQuestion}`,
+        "",
+        `Bespreekvraag: ${item.talk}`
+      ].join("\n");
+    }
+
+    async function copySummary(caseId) {
+      const text = summaryText(caseId);
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+      }
+      showToast("Denkverslag gekopieerd");
+    }
+
+    function downloadSummary(caseId) {
+      const blob = new Blob([summaryText(caseId)], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `denkverslag-${caseId}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 500);
+      showToast("Denkverslag gedownload");
+    }
+
+    function makeButton(label, className, handler) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = className;
+      button.textContent = label;
+      button.addEventListener("click", handler);
+      return button;
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>'"]/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function cycleTextSize() {
+      const sizes = [1, 1.1, 1.2];
+      const current = sizes.indexOf(state.textScale);
+      state.textScale = sizes[(current + 1) % sizes.length];
+      document.documentElement.style.setProperty("--text-scale", state.textScale);
+      document.getElementById("text-size").textContent = state.textScale === 1 ? "A+" : state.textScale === 1.1 ? "A++" : "A";
+      saveState();
+      showToast(state.textScale === 1 ? "Standaard tekstgrootte" : "Tekst vergroot");
+    }
+
+    function syncTextSizeButton() {
+      document.getElementById("text-size").textContent = state.textScale === 1 ? "A+" : state.textScale === 1.1 ? "A++" : "A";
+    }
+
+    document.getElementById("start-button").addEventListener("click", showTopics);
+    document.getElementById("resume-button").addEventListener("click", resumeGame);
+    document.getElementById("brand-home").addEventListener("click", showHome);
+    document.getElementById("leave-game").addEventListener("click", showTopics);
+    document.getElementById("text-size").addEventListener("click", cycleTextSize);
+    document.getElementById("show-info").addEventListener("click", () => document.getElementById("info-dialog").showModal());
+    document.getElementById("close-info").addEventListener("click", () => document.getElementById("info-dialog").close());
+    document.getElementById("clear-progress").addEventListener("click", () => document.getElementById("clear-dialog").showModal());
+    document.getElementById("cancel-clear").addEventListener("click", () => document.getElementById("clear-dialog").close());
+    document.getElementById("confirm-clear").addEventListener("click", () => {
+      state = defaultState();
+      saveState();
+      document.documentElement.style.setProperty("--text-scale", state.textScale);
+      document.getElementById("clear-dialog").close();
+      renderTopics();
+      syncTextSizeButton();
+      showToast("Alle lokale voortgang is gewist");
+    });
+    document.getElementById("cancel-reset").addEventListener("click", () => { pendingCase = null; resetDialog.close(); });
+    document.getElementById("confirm-reset").addEventListener("click", () => {
+      const id = pendingCase;
+      pendingCase = null;
+      resetDialog.close();
+      if (id) startCase(id);
+    });
+
+    resetDialog.addEventListener("cancel", () => { pendingCase = null; });
+
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      if (document.querySelector("dialog[open]")) return;
+      const active = document.querySelector(".screen.active")?.id;
+      if (active === "game-screen" || active === "summary-screen") showTopics();
+    });
+
+    document.documentElement.style.setProperty("--text-scale", state.textScale || 1);
+    syncTextSizeButton();
+    refreshResumeButton();
+  </script>
+</body>
+</html>
