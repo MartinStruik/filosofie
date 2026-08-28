@@ -182,11 +182,32 @@
             margin-bottom: 1rem;
         }
 
+        .intro .intro-content-wrapper {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .intro .intro-content-text {
+            flex: 1;
+            min-width: 0;
+        }
+
         .intro .intro-content .intro-img {
-            float: right;
-            width: 180px;
-            margin: 0 0 1rem 1.5rem;
+            width: 50%;
+            max-width: 500px;
+            flex-shrink: 0;
             border-radius: 6px;
+        }
+
+        @media (max-width: 900px) {
+            .intro .intro-content-wrapper {
+                flex-direction: column;
+            }
+            .intro .intro-content .intro-img {
+                width: 100%;
+                max-width: 500px;
+            }
         }
 
         /* --- DENKSTIJL BANNER --- */
@@ -847,10 +868,14 @@
                     <span class="arrow">&#9654;</span> Lees meer over het vak filosofie
                 </summary>
                 <div class="intro-content">
-                    <img src="Grieken in gesprek.png" alt="Grieken in gesprek" class="intro-img">
-                    <p>Filosofie is een keuzevak in de vrije ruimte en past bij alle profielen. Je onderzoekt grote vragen over vrijheid, rechtvaardigheid, waarheid en identiteit — en verbindt idee&#235;n van klassieke en moderne denkers met actuele thema's als technologie, democratie en verantwoordelijkheid.</p>
-                    <p>In de les filosoferen we gezamenlijk als klas en in kleine groepjes. Je leert precies luisteren, scherp doorvragen en zorgvuldig redeneren. In de vijfde klas kies je voor een praktische opdracht tussen het maken van een filosofiefilm of het ontwerpen van een eigen filosofieles.</p>
-                    <p>Op deze site vind je interactieve spellen om logica en ethiek te oefenen, filosofiefilms en -lessen gemaakt door leerlingen, de essaybundel <em>De Jonge Denker</em>, en alle lesmodules en bronnen voor het vak.</p>
+                    <div class="intro-content-wrapper">
+                        <div class="intro-content-text">
+                            <p>Filosofie is een keuzevak in de vrije ruimte en past bij alle profielen. Je onderzoekt grote vragen over vrijheid, rechtvaardigheid, waarheid en identiteit — en verbindt idee&#235;n van klassieke en moderne denkers met actuele thema's als technologie, democratie en verantwoordelijkheid.</p>
+                            <p>In de les filosoferen we gezamenlijk als klas en in kleine groepjes. Je leert precies luisteren, scherp doorvragen en zorgvuldig redeneren. In de vijfde klas kies je voor een praktische opdracht tussen het maken van een filosofiefilm of het ontwerpen van een eigen filosofieles.</p>
+                            <p>Op deze site vind je interactieve spellen om logica en ethiek te oefenen, filosofiefilms en -lessen gemaakt door leerlingen, de essaybundel <em>De Jonge Denker</em>, en alle lesmodules en bronnen voor het vak.</p>
+                        </div>
+                        <img src="Grieken in gesprek.png" alt="Grieken in gesprek" class="intro-img">
+                    </div>
                 </div>
             </details>
         </section>
