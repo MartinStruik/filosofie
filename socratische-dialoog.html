@@ -1572,9 +1572,9 @@
 
       const challenge = document.createElement("div");
       challenge.className = "scene-card";
-      challenge.innerHTML = `<blockquote>${item.challenge}</blockquote><cite>De vraag die na de elenchus overblijft</cite>`;
+      challenge.innerHTML = `<blockquote>${item.challenge}</blockquote><cite>Hulpvraag bij je herformulering</cite>`;
 
-      const stanceLabel = document.createElement("p");
+      const stelling = document.createElement("div"); stelling.className = "scene-card"; stelling.innerHTML = '<blockquote>“' + item.claim + '”</blockquote><cite>- ' + item.speaker + '</cite>';      const stanceLabel = document.createElement("p");
       stanceLabel.className = "stage-intro";
       stanceLabel.textContent = `Je begon met: ${state.route.initialStance}. Waar sta je nu?`;
 
@@ -1599,7 +1599,7 @@
       finish.id = "finish-case";
       actions.append(back, finish);
 
-      gameStage.append(challenge, stanceLabel, stances, revisionField, questionField, actions);
+      gameStage.append(stelling, stanceLabel, stances, challenge, revisionField, questionField, actions);
       updateFinishButton();
     }
 
