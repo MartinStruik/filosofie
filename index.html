@@ -4,1166 +4,967 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filosofie - Oostvaarders College</title>
+    <meta name="description" content="Filosofie op het Oostvaarders College: lesboekjes voor 4, 5 en 6 vwo, spellen om te oefenen, en films en essays van leerlingen.">
+    <meta name="theme-color" content="#1a7a8a">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a7a8a'/%3E%3Ccircle cx='21' cy='32' r='13' fill='%23fff'/%3E%3Ccircle cx='43' cy='32' r='13' fill='%23fff'/%3E%3Ccircle cx='23' cy='33' r='6' fill='%2314272b'/%3E%3Ccircle cx='45' cy='33' r='6' fill='%2314272b'/%3E%3C/svg%3E">
+    <link rel="preload" href="fonts/besley-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @font-face {
+            font-family: "Besley";
+            font-style: normal;
+            font-weight: 400 900;
+            font-display: swap;
+            src: url("fonts/besley-latin-wght-normal.woff2") format("woff2");
         }
+        @font-face {
+            font-family: "Atkinson Next";
+            font-style: normal;
+            font-weight: 200 800;
+            font-display: swap;
+            src: url("fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2");
+        }
+        @font-face {
+            font-family: "Atkinson Next";
+            font-style: italic;
+            font-weight: 200 800;
+            font-display: swap;
+            src: url("fonts/atkinson-hyperlegible-next-latin-wght-italic.woff2") format("woff2");
+        }
+
+        :root {
+            --teal: #1a7a8a;
+            --teal-diep: #0f4650;
+            --inkt: #14272b;
+            --grijs: #4f6368;
+            --papier: #eef3f3;
+            --wit: #ffffff;
+            --goud: #c9a227;
+            --goud-licht: #e6c65c;
+            --lijn: #cfdadb;
+            --kop: "Besley", Georgia, "Times New Roman", serif;
+            --tekst: "Atkinson Next", "Segoe UI", Tahoma, Verdana, sans-serif;
+            --breed: 1120px;
+            --rand: clamp(1.1rem, 4vw, 2.5rem);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
-            color: #333;
-            background: #f0f2f5;
-            min-height: 100vh;
+            font-family: var(--tekst);
+            font-size: 1.0625rem;
+            line-height: 1.6;
+            color: var(--inkt);
+            background: var(--papier);
+            -webkit-text-size-adjust: 100%;
         }
 
-        /* --- HEADER --- */
-        header {
-            background: white;
-            padding: 1.5rem 2rem;
-            border-bottom: 4px solid #c9a227;
+        img { max-width: 100%; height: auto; display: block; }
+
+        a { color: var(--teal); }
+
+        a:focus-visible, button:focus-visible, summary:focus-visible {
+            outline: 3px solid var(--goud);
+            outline-offset: 3px;
+            border-radius: 2px;
         }
 
-        .header-content {
-            max-width: 1100px;
+        .binnen {
+            max-width: var(--breed);
             margin: 0 auto;
+            padding-left: var(--rand);
+            padding-right: var(--rand);
+        }
+
+        .skip {
+            position: absolute;
+            left: -999px;
+            top: 0;
+            background: var(--inkt);
+            color: var(--wit);
+            padding: 0.6rem 1rem;
+            z-index: 100;
+        }
+        .skip:focus { left: 0; }
+
+        /* --- BOVENBALK --- */
+        .top {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--wit);
+            border-bottom: 3px solid var(--goud);
+        }
+
+        .top .binnen {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 0.5rem 2rem;
             flex-wrap: wrap;
-            gap: 1rem;
         }
 
-        .school-logo {
+        .merk {
             display: flex;
             align-items: center;
+            gap: 0.9rem;
+            height: 60px;
             text-decoration: none;
+            color: var(--teal);
         }
 
-        .school-logo img {
-            height: 90px;
-            width: auto;
-        }
+        .merk img { height: 34px; width: auto; }
 
-        .page-title {
-            text-align: right;
-        }
-
-        .page-title h1 {
-            font-size: 2.5rem;
+        .merk span {
+            font-family: var(--kop);
             font-weight: 700;
-            color: #1a7a8a;
-            letter-spacing: 2px;
-            margin-bottom: 0.1rem;
+            font-size: 1.3rem;
+            padding-left: 0.9rem;
+            border-left: 2px solid var(--lijn);
+            line-height: 1.5;
         }
 
-        .page-title p {
-            font-size: 1rem;
-            color: #888;
-        }
-
-	@media (max-width: 600px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            .page-title {
-                text-align: center;
-            }
-            .school-logo img {
-                height: 60px;
-            }
-            .page-title h1 {
-                font-size: 1.8rem;
-            }
-            header {
-                padding: 1rem;
-            }
-        }
-
-        /* --- MAIN CONTENT --- */
-        main {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* --- LABELS/BADGES --- */
-        .label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.4rem 1rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.8rem;
-        }
-
-        .label-gold {
-            background: #c9a227;
-            color: white;
-        }
-
-        .label .eyes {
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-
-        /* --- INTRO SECTION --- */
-        .intro {
-            background: #e8eaed;
-            padding: 2rem;
-            border-radius: 0;
-            margin-bottom: 0;
-            border-left: 4px solid #1a7a8a;
-        }
-
-        .intro h2 {
-            color: #1a7a8a;
-            margin-bottom: 0.8rem;
-            font-size: 1.6rem;
-            font-weight: 700;
-        }
-
-        .intro-vragen {
-            color: #1a7a8a;
-            font-size: 1.05rem;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
-        .intro > p {
-            color: #555;
-            margin-bottom: 0.8rem;
-        }
-
-        .intro-slogan {
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .intro details summary {
-            color: #1a7a8a;
-            font-size: 1rem;
-            cursor: pointer;
+        .nav {
+            display: flex;
+            gap: 0.3rem;
             list-style: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        .intro details summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .intro details summary .arrow {
-            color: #1a7a8a;
-            font-size: 0.8rem;
-        }
-
-        .intro details[open] summary .arrow {
-            transform: rotate(90deg);
-        }
-
-        .intro .intro-content {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #ccc;
-            color: #555;
-        }
-
-        .intro .intro-content p {
-            margin-bottom: 1rem;
-        }
-
-        .intro .intro-content-wrapper {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-        }
-
-        .intro .intro-content-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .intro .intro-content .intro-img {
-            width: 50%;
-            max-width: 500px;
-            flex-shrink: 0;
-            border-radius: 6px;
-        }
-
-        @media (max-width: 900px) {
-            .intro .intro-content-wrapper {
-                flex-direction: column;
-            }
-            .intro .intro-content .intro-img {
-                width: 100%;
-                max-width: 500px;
-            }
-        }
-
-        /* --- DENKSTIJL BANNER --- */
-        .denkstijl-banner {
-            background: #1a7a8a;
-            color: white;
-            padding: 1.8rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .denkstijl-banner .banner-text h2 {
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        .denkstijl-banner .banner-text p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-        }
-
-        .denkstijl-banner .banner-btn {
-            background: #c9a227;
-            color: white;
-            padding: 0.9rem 2rem;
-            border-radius: 4px;
+        .nav a {
+            display: block;
+            padding: 0.55rem 0.8rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--inkt);
             text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.2s;
+            border-radius: 6px;
             white-space: nowrap;
         }
 
-        .denkstijl-banner .banner-btn:hover {
-            background: #b8922a;
-            transform: translateY(-2px);
+        .nav a:hover { background: var(--papier); color: var(--teal); }
+
+        @media (max-width: 900px) {
+            /* Het merk schuift weg, de navigatie blijft staan */
+            .top { top: -52px; }
+            .top .binnen { gap: 0; }
+            .merk { height: 52px; gap: 0.7rem; }
+            .merk img { height: 26px; }
+            .merk span { font-size: 1.1rem; padding-left: 0.7rem; }
+            .top nav {
+                flex: none;
+                width: calc(100% + 2 * var(--rand));
+                margin: 0 calc(-1 * var(--rand));
+                overflow-x: auto;
+                scrollbar-width: none;
+                border-top: 1px solid var(--lijn);
+            }
+            .top nav::-webkit-scrollbar { display: none; }
+            .nav { width: max-content; min-width: 100%; padding: 0 calc(var(--rand) - 0.3rem); gap: 0; }
+            .nav a { padding: 0.75rem 0.3rem; font-size: clamp(0.8rem, 3.6vw, 0.95rem); }
         }
 
-        /* --- SECTION STYLING --- */
-        .section-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+        /* --- OPENING --- */
+        .opening {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(2.5rem, 7vw, 5.5rem) 0 clamp(2.5rem, 6vw, 4.5rem);
         }
 
-        .section-box h2 {
-            color: #1a7a8a;
-            font-size: 1.2rem;
+        .opening .binnen {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) clamp(180px, 26vw, 320px);
+            gap: 2rem;
+            align-items: end;
+        }
+
+        .opening h1 {
+            font-family: var(--kop);
+            font-weight: 800;
+            font-size: clamp(2.3rem, 6.4vw, 4.75rem);
+            line-height: 1.04;
+            letter-spacing: -0.015em;
+            color: var(--teal-diep);
+            max-width: 13em;
+            text-wrap: balance;
+        }
+
+        .vragen {
+            margin-top: 1.4rem;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            line-height: 1.5;
+            color: #17707f;
+            max-width: 34em;
+        }
+
+        .opening .uitleg {
+            margin-top: 1.1rem;
+            max-width: 38em;
+            color: var(--inkt);
+        }
+
+        .opening .uitleg + .uitleg { margin-top: 0.7rem; }
+
+        .knoppen {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.9rem;
+        }
+
+        .knop {
+            display: inline-block;
+            padding: 0.8rem 1.4rem;
+            font-family: var(--tekst);
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-bottom: 0.8rem;
-            border-bottom: 3px solid #1a7a8a;
-            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.3;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 2px solid var(--teal);
+            background: var(--teal);
+            color: var(--wit);
         }
 
-        /* --- LESMODULES --- */
-        .lesmodules ul {
+        .knop:hover { background: var(--teal-diep); border-color: var(--teal-diep); }
+
+        .knop-rand { background: transparent; color: var(--teal-diep); }
+        .knop-rand:hover { background: var(--wit); color: var(--teal-diep); border-color: var(--teal-diep); }
+
+        .knop-goud { background: var(--goud); border-color: var(--goud); color: var(--inkt); }
+        .knop-goud:hover { background: var(--goud-licht); border-color: var(--goud-licht); }
+
+        /* De uil kijkt mee */
+        .uil {
+            align-self: end;
+            margin-bottom: calc(-1 * clamp(2.5rem, 6vw, 4.5rem));
+        }
+
+        .uil svg { display: block; width: 100%; height: auto; overflow: visible; }
+        .uil .kop { fill: var(--teal); }
+        .uil .wit { fill: var(--wit); }
+        .uil .pupil { fill: var(--inkt); transition: transform 0.14s ease-out; }
+        .uil .glans { fill: var(--wit); }
+        .uil .snavel { fill: var(--goud); }
+        .uil .ogen { transform-box: fill-box; transform-origin: center; animation: knipper 7s infinite; }
+
+        @keyframes knipper {
+            0%, 95.5%, 100% { transform: scaleY(1); }
+            97.5% { transform: scaleY(0.06); }
+        }
+
+        @media (max-width: 760px) {
+            .opening .binnen { grid-template-columns: 1fr; gap: 0; }
+            .uil { width: 150px; justify-self: end; margin-top: 1rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .uil .ogen { animation: none; }
+            .uil .pupil { transition: none; }
+        }
+
+        /* --- SECTIES --- */
+        .sectie {
+            padding: clamp(2.75rem, 7vw, 5rem) 0;
+            scroll-margin-top: 64px;
+        }
+
+        @media (max-width: 900px) {
+            .sectie { scroll-margin-top: 50px; }
+        }
+
+        .sectie-wit { background: var(--wit); }
+
+        .sectie h2 {
+            font-family: var(--kop);
+            font-weight: 800;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+            color: var(--teal-diep);
+        }
+
+        .sectie-intro {
+            margin-top: 0.6rem;
+            max-width: 40em;
+            color: var(--grijs);
+        }
+
+        /* --- LESMATERIAAL --- */
+        .jaren {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2.5rem;
+            margin-top: 2.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .jaren { grid-template-columns: 1fr; gap: 2.75rem; }
+        }
+
+        .jaar { border-top: 5px solid var(--teal); padding-top: 1rem; }
+
+        .jaar h3 {
+            font-family: var(--kop);
+            font-weight: 800;
+            font-size: 1.75rem;
+            line-height: 1.15;
+            color: var(--teal);
+        }
+
+        .jaar-thema {
+            margin-top: 0.3rem;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            color: var(--grijs);
+        }
+
+        .boeken { list-style: none; margin-top: 0.6rem; }
+
+        .boeken > li { border-bottom: 1px solid var(--lijn); padding: 0.35rem 0 0.9rem; }
+        .boeken > li:last-child { border-bottom: none; }
+
+        .boek {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            column-gap: 0.75rem;
+            align-items: baseline;
+            margin: 0 -0.7rem;
+            padding: 0.6rem 0.7rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--inkt);
+        }
+
+        .boek:hover { background: var(--papier); }
+        .boek:hover .boek-titel { color: var(--teal); text-decoration: underline; text-underline-offset: 0.18em; }
+
+        .boek-titel {
+            font-family: var(--kop);
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.25;
+        }
+
+        .pdf {
+            padding: 0 0.4rem;
+            font-family: var(--tekst);
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1.5;
+            color: var(--grijs);
+            border: 1px solid var(--lijn);
+            border-radius: 4px;
+        }
+
+        .boek-meta {
+            grid-column: 1 / -1;
+            margin-top: 0.15rem;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            color: var(--grijs);
+        }
+
+        .erbij { list-style: none; margin-top: 0.1rem; }
+
+        .erbij li {
+            display: grid;
+            grid-template-columns: 4.4em minmax(0, 1fr);
+            font-size: 0.95rem;
+            line-height: 1.4;
+            padding: 0.22rem 0;
+        }
+
+        .erbij .soort { font-weight: 700; color: var(--grijs); }
+
+        .erbij a { justify-self: start; }
+
+        .erbij a { text-underline-offset: 0.18em; }
+        .erbij a:hover { color: var(--teal-diep); }
+
+        .jaar-oefenen { margin-top: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--lijn); }
+
+        /* --- SPELLEN --- */
+        .sectie-teal { background: var(--teal-diep); color: var(--wit); }
+        .sectie-teal h2 { color: var(--wit); }
+        .sectie-teal .sectie-intro { color: #c9dcdf; }
+
+        .spellen {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 2.25rem;
             list-style: none;
         }
 
-        .lesmodules > ul > li {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
+        @media (max-width: 900px) { .spellen { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 560px) { .spellen { grid-template-columns: 1fr; } }
 
-        .lesmodules > ul > li:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .lesmodules a.module-link {
-            color: #333;
-            text-decoration: none;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.8rem;
-            padding: 0.5rem;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .lesmodules a.module-link:hover {
-            background: #e8f4f6;
-            color: #1a7a8a;
-        }
-
-        .lesmodules .icon {
-            font-size: 1.3rem;
-            margin-top: 0.1rem;
-        }
-
-        .lesmodules .module-title {
-            font-weight: 600;
-            display: block;
-        }
-
-        .lesmodules .module-subtitle {
-            font-size: 0.85rem;
-            color: #888;
-        }
-
-        .lesmodules .bijlage {
-            margin-left: 2.5rem;
-            font-size: 0.9rem;
-        }
-
-        /* Sub-items */
-        .sub-items {
-            margin-top: 0.5rem;
-            margin-left: 2.5rem;
+        .spel {
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .sub-items a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 0.8rem;
-            background: #e8f4f6;
-            border-radius: 4px;
-            color: #1a7a8a;
+            height: 100%;
+            padding: 1.25rem 1.3rem 1.15rem;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 8px;
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.2s;
+            color: var(--wit);
         }
 
-        .sub-items a:hover {
-            background: #1a7a8a;
-            color: white;
+        .spel:hover { border-color: var(--goud-licht); background: rgba(255, 255, 255, 0.07); }
+
+        .spel-titel {
+            font-family: var(--kop);
+            font-weight: 700;
+            font-size: 1.3rem;
+            line-height: 1.2;
+            color: var(--goud-licht);
         }
 
-        .sub-items a.video-link {
-            background: #fff3e0;
-            color: #e65100;
+        .spel-tekst { margin-top: 0.45rem; font-size: 0.98rem; line-height: 1.5; color: #e3eeef; }
+
+        .spel-voor { margin-top: auto; padding-top: 0.9rem; font-size: 0.88rem; color: #b5ccd0; }
+
+        .spel-test { background: var(--goud); border-color: var(--goud); color: var(--inkt); }
+        .spel-test:hover { background: var(--goud-licht); border-color: var(--goud-licht); }
+        .spel-test .spel-titel { color: var(--inkt); }
+        .spel-test .spel-tekst { color: var(--inkt); }
+        .spel-test .spel-voor { color: var(--inkt); font-weight: 700; font-size: 1rem; text-decoration: underline; text-underline-offset: 0.2em; }
+
+        /* --- DOOR LEERLINGEN --- */
+        .films {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+            gap: 2.5rem;
+            margin-top: 2.25rem;
+            align-items: start;
         }
 
-        .sub-items a.video-link:hover {
-            background: #e65100;
-            color: white;
+        .films figure img { border-radius: 8px; width: 100%; }
+
+        .filmlijsten { columns: 2; column-gap: 2.5rem; }
+
+        .filmgroep { break-inside: avoid; margin-bottom: 1.4rem; }
+
+        .filmgroep h3 {
+            font-family: var(--kop);
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.25;
+            color: var(--teal-diep);
+            padding-bottom: 0.35rem;
+            border-bottom: 3px solid var(--teal);
         }
 
-        .sub-items a.podcast-link {
-            background: #e8f5e9;
-            color: #2e7d32;
+        .filmgroep ul { list-style: none; }
+
+        .filmgroep li { border-bottom: 1px solid var(--lijn); }
+
+        .filmgroep a {
+            display: flex;
+            gap: 0.6rem;
+            align-items: baseline;
+            padding: 0.55rem 0;
+            color: var(--inkt);
+            text-decoration: none;
+            line-height: 1.35;
         }
 
-        .sub-items a.podcast-link:hover {
-            background: #2e7d32;
-            color: white;
+        .filmgroep a::before {
+            content: "";
+            flex: none;
+            width: 0;
+            height: 0;
+            border-left: 0.55em solid var(--teal);
+            border-top: 0.36em solid transparent;
+            border-bottom: 0.36em solid transparent;
         }
 
-        /* Examenboeken */
-        .examenboeken {
+        .filmgroep a:hover { color: var(--teal); text-decoration: underline; text-underline-offset: 0.18em; }
+
+        @media (max-width: 900px) {
+            .films { grid-template-columns: 1fr; gap: 1.75rem; }
+        }
+
+        @media (max-width: 560px) {
+            .filmlijsten { columns: 1; }
+        }
+
+        .werk {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (max-width: 760px) { .werk { grid-template-columns: 1fr; } }
+
+        .werk > div { border-top: 5px solid var(--teal); padding-top: 1rem; }
+
+        .werk h3 {
+            font-family: var(--kop);
+            font-weight: 700;
+            font-size: 1.45rem;
+            line-height: 1.2;
+            color: var(--teal-diep);
+        }
+
+        .werk p { margin-top: 0.6rem; max-width: 36em; }
+
+        .werk .knop { margin-top: 1.1rem; }
+
+        /* --- OVER HET VAK --- */
+        .vak-tekst {
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+            gap: 2.5rem;
             margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 2px dashed #ddd;
+            align-items: start;
         }
 
-        .examenboeken h3 {
-            color: #1a7a8a;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
+        .vak-tekst p { max-width: 38em; }
+        .vak-tekst p + p { margin-top: 0.9rem; }
+        .vak-tekst img { border-radius: 8px; width: 100%; }
 
-        /* --- FILMPJES SECTION --- */
-        .filmpjes-section {
-            background: #1a7a8a;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-
-        .filmpjes-section .label {
-            background: #c9a227;
-        }
-
-        .filmpjes-section h2 {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-bottom: 0.8rem;
-            border-bottom: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .filmpjes-section img {
-            width: 40%;
-            float: right;
-            border-radius: 6px;
-            margin: 0 0 1rem 1.5rem;
-        }
-
-        .video-category {
-            margin-bottom: 1.2rem;
-        }
-
-        .video-category h3 {
-            color: #c9a227;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .video-list {
-            list-style: none;
-        }
-
-        .video-list li {
-            background: rgba(255,255,255,0.1);
-            padding: 0.6rem 1rem;
-            border-radius: 4px;
-            margin-bottom: 0.4rem;
-            color: white;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .video-list li:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateX(5px);
-        }
-
-        .video-list .play-icon {
-            color: #c9a227;
-            font-size: 0.75rem;
-        }
-
-        .video-list a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            width: 100%;
-        }
-
-        .video-list a:hover {
-            color: #c9a227;
-        }
-
-        /* --- INTERACTIEVE SPELLEN --- */
-        .games-section {
-            background: linear-gradient(135deg, #1a7a8a 0%, #145f6a 100%);
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-
-        .games-section h2 {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .games-section .section-subtitle {
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .games-grid {
+        .past {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2.5rem;
+            margin-top: 2.75rem;
         }
 
-        @media (max-width: 700px) {
-            .games-grid {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 760px) {
+            .vak-tekst, .past { grid-template-columns: 1fr; gap: 2rem; }
+            .vak-tekst img { max-width: 420px; }
         }
 
-        .game-card {
-            background: rgba(255,255,255,0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .game-card:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-3px);
-            border-color: #c9a227;
-        }
-
-        .game-card .game-icon {
-            font-size: 2.2rem;
-            margin-bottom: 0.6rem;
-            display: block;
-        }
-
-        .game-card .game-title {
+        .past h3, .praktisch h3 {
+            font-family: var(--kop);
             font-weight: 700;
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 0.4rem;
-            color: #c9a227;
+            font-size: 1.3rem;
+            line-height: 1.25;
+            color: var(--teal-diep);
+            padding-bottom: 0.4rem;
+            border-bottom: 3px solid var(--teal);
         }
 
-        .game-card .game-desc {
-            font-size: 0.8rem;
-            opacity: 0.85;
-            line-height: 1.4;
-        }
+        .past ul { list-style: none; }
 
-        /* --- ESSAY SECTION --- */
-        .essay-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
+        .past li { padding: 0.6rem 0 0.6rem 1.7rem; border-bottom: 1px solid var(--lijn); position: relative; }
 
-        .essay-section h2 {
-            color: #1a7a8a;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-bottom: 0.8rem;
-            border-bottom: 3px solid #1a7a8a;
-        }
-
-        .essay-intro {
-            color: #555;
-            margin-bottom: 1.5rem;
-        }
-
-        .bundel-promo {
-            background: linear-gradient(135deg, #2d8a4e 0%, #1e6b3a 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .bundel-promo .bundel-icon {
-            font-size: 2.5rem;
-        }
-
-        .bundel-promo .bundel-text {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .bundel-promo h3 {
-            margin-bottom: 0.3rem;
-            color: white;
-            font-size: 1.1rem;
-        }
-
-        .bundel-promo p {
-            opacity: 0.9;
-            font-size: 0.9rem;
-        }
-
-        .bundel-btn {
-            background: white;
-            color: #2d8a4e;
-            padding: 0.7rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .bundel-btn:hover {
-            background: #e8f4f6;
-            transform: translateY(-2px);
-        }
-
-        /* --- LES SECTION --- */
-        .les-section {
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-
-        .les-section h2 {
-            color: #c9a227;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .les-section p {
-            opacity: 0.95;
-            margin-bottom: 1rem;
-        }
-
-        .les-section .les-btn {
-            display: inline-block;
-            background: #c9a227;
-            color: #1a2a3a;
-            padding: 0.8rem 1.8rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .les-section .les-btn:hover {
-            background: #e6c55a;
-            transform: translateY(-2px);
-        }
-
-        /* --- VOOR WIE / NUT SECTION --- */
-        .voorwie-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
-
-        .voorwie-section h2 {
-            color: #1a7a8a;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-bottom: 0.8rem;
-            border-bottom: 3px solid #1a7a8a;
-            margin-bottom: 1.5rem;
-        }
-
-        .voorwie-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        @media (max-width: 700px) {
-            .voorwie-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .voorwie-grid h3 {
-            color: #1a7a8a;
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-        }
-
-        .voorwie-grid ul {
-            list-style: none;
-        }
-
-        .voorwie-grid ul li {
-            padding: 0.5rem 0;
-            padding-left: 1.6rem;
-            position: relative;
-            color: #555;
-            font-size: 0.95rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .voorwie-grid ul li:last-child {
-            border-bottom: none;
-        }
-
-        .voorwie-grid ul li::before {
+        .past li::before {
+            content: "";
             position: absolute;
-            left: 0;
-            font-size: 1rem;
+            left: 0.15rem;
+            top: 1.05rem;
+            width: 0.85rem;
+            height: 0.45rem;
+            border-left: 3px solid var(--teal);
+            border-bottom: 3px solid var(--teal);
+            transform: rotate(-45deg);
         }
 
-        .voorwie-check li::before {
-            content: "\2714";
-            color: #2d8a4e;
-        }
+        .past .studies { margin-top: 0.8rem; color: var(--grijs); font-size: 0.98rem; }
 
-        .voorwie-nut li::before {
-            content: "\2192";
-            color: #1a7a8a;
-        }
+        .praktisch { margin-top: 2.75rem; }
 
-        .studie-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-top: 0.8rem;
-        }
-
-        .studie-tags span {
-            background: #e8f4f6;
-            color: #1a7a8a;
-            padding: 0.3rem 0.7rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* --- INFO SECTION --- */
-        .info-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
-
-        .info-section h2 {
-            color: #1a7a8a;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-bottom: 0.8rem;
-            border-bottom: 3px solid #1a7a8a;
-            margin-bottom: 1.5rem;
-        }
-
-        .info-grid {
+        .praktisch dl {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0 2rem;
         }
 
-        @media (max-width: 700px) {
-            .info-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        .praktisch dl > div { padding: 0.8rem 0 0.2rem; }
 
-        .info-item {
-            text-align: center;
-        }
+        .praktisch dt { font-weight: 700; color: var(--teal-diep); }
+        .praktisch dd { font-size: 0.98rem; line-height: 1.5; color: var(--inkt); }
 
-        .info-item .info-icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
+        @media (max-width: 900px) { .praktisch dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 560px) { .praktisch dl { grid-template-columns: 1fr; } }
 
-        .info-item h3 {
-            color: #1a7a8a;
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
-        }
+        /* --- VOET --- */
+        footer { background: var(--inkt); color: #c9d6d8; padding: 1.75rem 0; font-size: 0.95rem; }
 
-        .info-item p {
-            font-size: 0.85rem;
-            color: #666;
-            line-height: 1.4;
-        }
+        footer .binnen { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 
-        /* --- LESMATERIAAL DIVIDER --- */
-        .lesmateriaal-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 3px solid #ddd;
-        }
-
-        .lesmateriaal-header h2 {
-            color: #1a7a8a;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.3rem;
-        }
-
-        .lesmateriaal-header p {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        /* --- QUOTE BOX --- */
-        .quote-box {
-            background: #1a7a8a;
-            color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .quote-box blockquote {
-            font-size: 1.2rem;
-            font-style: italic;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #888;
-            font-size: 0.9rem;
-            border-top: 1px solid #ddd;
-            background: white;
-        }
+        footer a { color: var(--wit); text-underline-offset: 0.18em; }
     </style>
 </head>
-<body>
-    <header>
-        <div class="header-content">
-            <a href="#" class="school-logo">
-                <img src="logo.webp" alt="Oostvaarders College">
+<body id="top">
+    <a class="skip" href="#lesmateriaal">Naar het lesmateriaal</a>
+
+    <header class="top">
+        <div class="binnen">
+            <a href="#top" class="merk">
+                <img src="logo.webp" alt="Oostvaarders College" width="1170" height="180">
+                <span>Filosofie</span>
             </a>
-            <div class="page-title">
-                <h1>FILOSOFIE</h1>
-                <p>Examenvak</p>
-            </div>
+            <nav aria-label="Onderdelen van deze pagina">
+                <ul class="nav">
+                    <li><a href="#lesmateriaal">Lesmateriaal</a></li>
+                    <li><a href="#spellen">Spellen</a></li>
+                    <li><a href="#leerlingen">Door leerlingen</a></li>
+                    <li><a href="#vak">Over het vak</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <main>
-        <!-- Prikkelende Introductie -->
-        <section class="intro">
-            <span class="label label-gold"><span class="eyes">OO</span> INTRODUCTIE</span>
-            <h2>MAG JE LIEGEN OM IEMAND TE BESCHERMEN?</h2>
-            <p class="intro-vragen">Is een mens meer dan zijn brein? Wanneer is een oorlog rechtvaardig? Bestaat er zoiets als 'de waarheid'? En ben je echt vrij als je doet wat je wilt?</p>
-            <p>In filosofie onderzoek je dit soort vragen. Je leert scherp denken, goed luisteren en je eigen standpunt verdedigen. Je verwerft kennis en vaardigheden, maar uiteindelijk gaat het om j&#243;uw eigen denken — niet dat van een ander.</p>
-            <p class="intro-slogan"><strong>Filosofie leert je niet wát je moet denken, maar hóé je kunt denken.</strong></p>
-            <details>
-                <summary>
-                    <span class="arrow">&#9654;</span> Lees meer over het vak filosofie
-                </summary>
-                <div class="intro-content">
-                    <div class="intro-content-wrapper">
-                        <div class="intro-content-text">
-                            <p>Filosofie is een keuzevak in de vrije ruimte en past bij alle profielen. Je onderzoekt grote vragen over vrijheid, rechtvaardigheid, waarheid en identiteit — en verbindt idee&#235;n van klassieke en moderne denkers met actuele thema's als technologie, democratie en verantwoordelijkheid.</p>
-                            <p>In de les filosoferen we gezamenlijk als klas en in kleine groepjes. Je leert precies luisteren, scherp doorvragen en zorgvuldig redeneren. In de vijfde klas kies je voor een praktische opdracht tussen het maken van een filosofiefilm of het ontwerpen van een eigen filosofieles.</p>
-                            <p>Op deze site vind je interactieve spellen om logica en ethiek te oefenen, filosofiefilms en -lessen gemaakt door leerlingen, de essaybundel <em>De Jonge Denker</em>, en alle lesmodules en bronnen voor het vak.</p>
-                        </div>
-                        <img src="Grieken in gesprek.png" alt="Grieken in gesprek" class="intro-img">
-                    </div>
-                </div>
-            </details>
-        </section>
-
-        <!-- Denkstijl Banner -->
-        <section class="denkstijl-banner">
-            <div class="banner-text">
-                <h2>WAT VOOR SOORT DENKER BEN JIJ?</h2>
-                <p>Welke intellectuele deugden zijn jouw kracht? Waar liggen je uitdagingen? En welke filosoof past bij jouw manier van denken?</p>
-            </div>
-            <a href="intellectuele-deugden-test.html" class="banner-btn">START DE TEST &#8594;</a>
-        </section>
-
-        <!-- Interactieve Spellen -->
-        <section class="games-section">
-            <span class="label label-gold"><span class="eyes">OO</span> INTERACTIEF</span>
-            <h2>Interactieve Spellen</h2>
-            <p class="section-subtitle">Leer filosofie door te spelen en te experimenteren</p>
-
-            <div class="games-grid">
-                <a href="socratische-dialoog.html" class="game-card">
-                    <span class="game-icon">&#127963;&#65039;</span>
-                    <span class="game-title">Socrates op de Agora</span>
-                    <span class="game-desc">Versterk, bevraag en herzie je eigen antwoord in vijf dossiers</span>
-                </a>
-                <a href="logica-arena.html" class="game-card">
-                    <span class="game-icon">&#9876;&#65039;</span>
-                    <span class="game-title">Logica Arena</span>
-                    <span class="game-desc">Train je logisch denkvermogen met drogredenen en argumenten</span>
-                </a>
-                <a href="trolley-simulator.html" class="game-card">
-                    <span class="game-icon">&#128643;</span>
-                    <span class="game-title">Trolley Simulator</span>
-                    <span class="game-desc">Verken ethische dilemma's in dit klassieke gedachte-experiment</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- Filmpjes door leerlingen -->
-        <section class="filmpjes-section">
-            <span class="label label-gold"><span class="eyes">OO</span> FILMPJES</span>
-            <h2>Welkom bij de Filosofen</h2>
-            <p style="opacity: 0.85; font-size: 0.9rem; margin-bottom: 1.2rem;">Filosofiefilms gemaakt door leerlingen</p>
-
-            <img src="Welkom bij de filosofen.png" alt="Welkom bij de Filosofen">
-
-            <div class="video-category">
-                <h3>Talkshow</h3>
-                <ul class="video-list">
-                    <li><a href="https://www.youtube.com/watch?v=_prko4NOSlw" target="_blank"><span class="play-icon">&#9654;</span> De wereld staat stil</a></li>
-                </ul>
-            </div>
-
-            <div class="video-category">
-                <h3>Welkom bij de Filosofen!</h3>
-                <ul class="video-list">
-                    <li><a href="https://www.youtube.com/watch?v=cuWZhmFcsd4" target="_blank"><span class="play-icon">&#9654;</span> Wat is bewustzijn?</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=3PEDTZVhbrs" target="_blank"><span class="play-icon">&#9654;</span> Hebben dromen betekenis?</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=G3izt2kBlDQ" target="_blank"><span class="play-icon">&#9654;</span> Romantiek: volg je natuurlijke gevoel!</a></li>
-                    <li><a href="https://youtu.be/4MMZzJvLIik?si=jzXIOCk2liWIFDq4" target="_blank"><span class="play-icon">&#9654;</span> Geestverruiming of waanbeelden?</a></li>
-                    <li><a href="https://youtu.be/4lfhe6DpX2E?si=AwvdTcFu-zchjIgE" target="_blank"><span class="play-icon">&#9654;</span> Wat is echt?</a></li>
-                </ul>
-            </div>
-
-            <div class="video-category">
-                <h3>Overige films</h3>
-                <ul class="video-list">
-                    <li><a href="https://www.youtube.com/watch?v=ECITzV_O4Jc" target="_blank"><span class="play-icon">&#9654;</span> Is er leven na de dood?</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=fAeqL05m5PE" target="_blank"><span class="play-icon">&#9654;</span> Wat is geluk?</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=wX-G4IldIEA" target="_blank"><span class="play-icon">&#9654;</span> Geluk volgens de Stoa en het Boeddhisme</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=FoEmTnsTogM" target="_blank"><span class="play-icon">&#9654;</span> Wat is het doel van het leven?</a></li>
-                    <li><a href="https://05c91cfe397897d57203-ba573617b741250f1573463affe4e8b2.ssl.cf3.rackcdn.com/video/flv/c148cba33baafd0474e9d7db6a42043b/9f/9ad92a6e2346e6a05d23fddb8bd0ff/Eva+Truijens_lv_0_20240624141607.webm" target="_blank"><span class="play-icon">&#9654;</span> Absurdisme en de zin van het leven</a></li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Leerlingenwerk: Essay -->
-        <section class="essay-section">
-            <h2>Het Filosofisch Essay</h2>
-            <p class="essay-intro">
-                Het filosofisch essay is een doordacht betoog waarin leerlingen een "grote vraag" uitpluizen.
-                Je begint met een prikkelend citaat, onderzoekt wat er op het spel staat, weegt argumenten
-                tegen elkaar af en werkt via zorgvuldige redeneringen naar een eigen conclusie toe.
-            </p>
-
-            <div class="bundel-promo">
-                <span class="bundel-icon">&#128218;</span>
-                <div class="bundel-text">
-                    <h3>Essaybundel: De Jonge Denker</h3>
-                    <p>Een selectie van de beste filosofische essays, geschreven door leerlingen. Uitgelicht: <em>&ldquo;Is ego&#239;sme het probleem van de mensheid?&rdquo;</em> (Janine), <em>&ldquo;Zijn wij ons brein?&rdquo;</em> (Alyssa) en <em>&ldquo;De Strijd om Erkenning: Zijn de Maghreb-landen Arabisch of Amazigh?&rdquo;</em> (Kassim).</p>
-                </div>
-                <a href="pdfs/De Jonge Denker - Essaybundel.pdf" class="bundel-btn" target="_blank">Download bundel</a>
-            </div>
-        </section>
-
-        <!-- Leerlingenwerk: Zelf een filosofieles ontwerpen -->
-        <section class="les-section">
-            <h2>Zelf een Filosofieles Ontwerpen</h2>
-            <p>
-                Wil je zelf aan de slag als filosofiedocent? Bekijk lesideeën van leerlingen die zelf
-                een filosofische les hebben ontworpen en gegeven. Met prikkelende vragen, bekende
-                filosofen en praktische tips om je eigen les op te zetten.
-            </p>
-            <a href="lesideeen.html" class="les-btn">Bekijk lesidee&#235;n</a>
-        </section>
-
-        <!-- Voor wie? / Wat heb je eraan? -->
-        <section class="voorwie-section">
-            <h2>Is filosofie iets voor jou?</h2>
-            <div class="voorwie-grid">
+        <!-- Opening -->
+        <section class="opening">
+            <div class="binnen">
                 <div>
-                    <h3>Dit vak past bij je als je...</h3>
-                    <ul class="voorwie-check">
-                        <li>Houdt van moeilijke vragen waar geen simpel antwoord op is</li>
-                        <li>Graag discussieert en samen redeneert</li>
-                        <li>Je mening wilt verdiepen met sterke argumenten</li>
-                        <li>Openstaat voor nieuwe en andere perspectieven</li>
-                        <li>Nieuwsgierig bent naar hoe de wereld in elkaar zit</li>
-                    </ul>
+                    <h1>Mag je liegen om iemand te beschermen?</h1>
+                    <p class="vragen">Is een mens meer dan zijn brein? Wanneer is een oorlog rechtvaardig? Bestaat er zoiets als &lsquo;de waarheid&rsquo;? En ben je echt vrij als je doet wat je wilt?</p>
+                    <p class="uitleg">In filosofie onderzoek je dit soort vragen. Je leert scherp denken, goed luisteren en je eigen standpunt verdedigen. Je verwerft kennis en vaardigheden, maar uiteindelijk gaat het om j&oacute;uw eigen denken, niet dat van een ander.</p>
+                    <p class="uitleg"><strong>Filosofie leert je niet w&aacute;t je moet denken, maar h&oacute;&eacute; je kunt denken.</strong></p>
+                    <div class="knoppen">
+                        <a href="#lesmateriaal" class="knop">Naar het lesmateriaal</a>
+                        <a href="#vak" class="knop knop-rand">Is filosofie iets voor jou?</a>
+                    </div>
                 </div>
-                <div>
-                    <h3>Wat heb je eraan?</h3>
-                    <ul class="voorwie-nut">
-                        <li>Zelfvertrouwen in het formuleren en verdedigen van je idee&#235;n</li>
-                        <li>Academische vaardigheden: analyseren, redeneren, schrijven</li>
-                        <li>Scherper leren denken over maatschappelijke vraagstukken</li>
-                        <li>Sterke voorbereiding op universitaire studies</li>
-                    </ul>
-                    <div class="studie-tags">
-                        <span>Psychologie</span>
-                        <span>Rechten</span>
-                        <span>Politicologie</span>
-                        <span>AI</span>
-                        <span>Filosofie</span>
-                        <span>Journalistiek</span>
-                        <span>Geneeskunde</span>
+                <div class="uil" aria-hidden="true">
+                    <svg viewBox="0 0 320 262" role="presentation" focusable="false">
+                        <path class="kop" d="M16 262V132C16 86 34 58 22 6c34 26 72 40 138 40s104-14 138-40c-12 52 6 80 6 126v130z"/>
+                        <g class="ogen">
+                            <circle class="wit" cx="104" cy="140" r="53"/>
+                            <circle class="wit" cx="216" cy="140" r="53"/>
+                            <g class="pupil" data-cx="104" data-cy="140">
+                                <circle cx="104" cy="140" r="24"/>
+                                <circle class="glans" cx="96" cy="131" r="7"/>
+                            </g>
+                            <g class="pupil" data-cx="216" data-cy="140">
+                                <circle cx="216" cy="140" r="24"/>
+                                <circle class="glans" cx="208" cy="131" r="7"/>
+                            </g>
+                        </g>
+                        <path class="snavel" d="M144 190h32l-16 34z"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lesmateriaal -->
+        <section class="sectie sectie-wit" id="lesmateriaal">
+            <div class="binnen">
+                <h2>Lesmateriaal</h2>
+                <p class="sectie-intro">Alle boekjes per leerjaar. Een boekje opent als pdf in een nieuw tabblad.</p>
+
+                <div class="jaren">
+                    <div class="jaar">
+                        <h3>4 vwo</h3>
+                        <ul class="boeken">
+                            <li>
+                                <a href="pdfs/Socrates voor het tribunaal.pdf" class="boek" target="_blank" rel="noopener">
+                                    <span class="boek-titel">Socrates voor het tribunaal</span><span class="pdf">pdf</span>
+                                    <span class="boek-meta">Inleiding in de filosofie, periode 1</span>
+                                </a>
+                                <ul class="erbij">
+                                    <li><span class="soort">Spel</span> <a href="socratische-dialoog.html">Socrates op de Agora</a></li>
+                                    <li><span class="soort">Spel</span> <a href="logica-arena.html">Logica Arena</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="pdfs/Wat is een mens.pdf" class="boek" target="_blank" rel="noopener">
+                                    <span class="boek-titel">Wat is een mens?</span><span class="pdf">pdf</span>
+                                    <span class="boek-meta">Antropologie, periode 2</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pdfs/Ethiek .pdf" class="boek" target="_blank" rel="noopener">
+                                    <span class="boek-titel">Goed en kwaad</span><span class="pdf">pdf</span>
+                                    <span class="boek-meta">Ethiek</span>
+                                </a>
+                                <ul class="erbij">
+                                    <li><span class="soort">Spel</span> <a href="trolley-simulator.html">Trolley Simulator</a></li>
+                                    <li><span class="soort">Video</span> <a href="https://www.youtube.com/watch?v=REgjhiMg4vU" target="_blank" rel="noopener">Mag je vlees eten? Door Emma en Teun</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="jaar">
+                        <h3>5 vwo</h3>
+                        <ul class="boeken">
+                            <li>
+                                <a href="pdfs/Zeker weten.pdf" class="boek" target="_blank" rel="noopener">
+                                    <span class="boek-titel">Zeker weten?</span><span class="pdf">pdf</span>
+                                    <span class="boek-meta">Kennistheorie, periode 1</span>
+                                </a>
+                                <ul class="erbij">
+                                    <li><span class="soort">Video</span> <a href="https://www.youtube.com/watch?v=XxnmLmsIRb4" target="_blank" rel="noopener">Kritische vragen bij chemtrails</a></li>
+                                    <li><span class="soort">Podcast</span> <a href="https://open.spotify.com/episode/7I7nkz7TmPW0RzLyQDNBg4?si=5f9a9641ed99425a" target="_blank" rel="noopener">Geloof jij het? De Complotcast, door Wietze en Tomas</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="pdfs/Samen leven.pdf" class="boek" target="_blank" rel="noopener">
+                                    <span class="boek-titel">Samen leven?</span><span class="pdf">pdf</span>
+                                    <span class="boek-meta">Sociale en politieke filosofie, periode 2</span>
+                                </a>
+                                <ul class="erbij">
+                                    <li><span class="soort">Video</span> <a href="https://www.youtube.com/watch?v=njG3zAkrCwA" target="_blank" rel="noopener">Kapitalisme en de piramide van Maslow</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="pdfs/De wetenschapsdokter.pdf" class="boek" target="_blank" rel="noopener">
+                                    <span class="boek-titel">De wetenschapsdokter</span><span class="pdf">pdf</span>
+                                    <span class="boek-meta">Wetenschapsfilosofie</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="jaar">
+                        <h3>6 vwo</h3>
+                        <p class="jaar-thema">Examenthema: de vraag naar de mens in relatie tot techniek en wetenschap</p>
+                        <ul class="boeken">
+                            <li>
+                                <a href="pdfs/Lesboekje K1-K2.pdf" class="boek" target="_blank" rel="noopener">
+                                    <span class="boek-titel">Lesboekje kwesties 1 en 2</span><span class="pdf">pdf</span>
+                                    <span class="boek-meta">Wat is de mens? Veranderen wetenschap en techniek ons mensbeeld?</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pdfs/Lesboekje K3-K4.pdf" class="boek" target="_blank" rel="noopener">
+                                    <span class="boek-titel">Lesboekje kwesties 3 en 4</span><span class="pdf">pdf</span>
+                                    <span class="boek-meta">Verandert het wezen van de mens door techniek? Grensvervagingen</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="erbij jaar-oefenen">
+                            <li><span class="soort">Spel</span> <a href="https://claude.ai/artifact/U1fzoaY9GfeSBa9GK22ieC" target="_blank" rel="noopener">De arena</a></li>
+                            <li><span class="soort">Spel</span> <a href="de-techbros/">De Techbro&rsquo;s</a></li>
+                            <li><span class="soort">Video</span> <a href="https://www.youtube.com/watch?v=yscg2ERfOaw&amp;list=PLNQwh1JkMz6LQsimlR-fFNZldREaek0cE" target="_blank" rel="noopener">Uitlegvideo&rsquo;s van Ben en Rob</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Praktische Informatie -->
-        <section class="info-section">
-            <h2>Praktische Informatie</h2>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="info-icon">&#128218;</span>
-                    <h3>Profiel</h3>
-                    <p>Keuzevak, combineerbaar met alle profielen</p>
-                </div>
-                <div class="info-item">
-                    <span class="info-icon">&#9200;</span>
-                    <h3>Studielast</h3>
-                    <p>3 lesuren per week in de bovenbouw (4, 5 en 6 VWO)</p>
-                </div>
-                <div class="info-item">
-                    <span class="info-icon">&#128221;</span>
-                    <h3>Toetsing</h3>
-                    <p>Essays, presentaties, filosofische gesprekken en een centraal eindexamen</p>
-                </div>
-                <div class="info-item">
-                    <span class="info-icon">&#127919;</span>
-                    <h3>Voorkennis</h3>
-                    <p>Geen voorkennis nodig — alleen nieuwsgierigheid en zin om na te denken</p>
-                </div>
-            </div>
-        </section>
+        <!-- Spellen en tests -->
+        <section class="sectie sectie-teal" id="spellen">
+            <div class="binnen">
+                <h2>Spellen en tests</h2>
+                <p class="sectie-intro">Leer filosofie door te spelen en te experimenteren.</p>
 
-        <!-- Scheidslijn: Lesmateriaal -->
-        <div class="lesmateriaal-header">
-            <h2>Lesmateriaal</h2>
-            <p>Lesmodules en bronnen voor leerlingen die filosofie volgen</p>
-        </div>
-
-        <!-- Lesmodules -->
-        <section class="section-box lesmodules">
-            <h2>Lesmodules</h2>
-            <ul>
-                <li>
-                    <a href="pdfs/Socrates voor het tribunaal.pdf" class="module-link" target="_blank">
-                        <span class="icon">&#128216;</span>
-                        <div>
-                            <span class="module-title">1. Inleiding in de filosofie</span>
-                            <span class="module-subtitle">Socrates voor het tribunaal</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="pdfs/Wat is een mens.pdf" class="module-link" target="_blank">
-                        <span class="icon">&#128215;</span>
-                        <div>
-                            <span class="module-title">2. Antropologie</span>
-                            <span class="module-subtitle">Wat is een mens?</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="pdfs/Ethiek .pdf" class="module-link" target="_blank">
-                        <span class="icon">&#128213;</span>
-                        <div>
-                            <span class="module-title">3. Ethiek</span>
-                            <span class="module-subtitle">Goed en kwaad</span>
-                        </div>
-                    </a>
-                    <div class="sub-items">
-                        <a href="https://www.youtube.com/watch?v=REgjhiMg4vU" class="video-link" target="_blank">&#9654; Mag je vlees eten? - door Emma en Teun</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="pdfs/Zeker weten.pdf" class="module-link" target="_blank">
-                        <span class="icon">&#128217;</span>
-                        <div>
-                            <span class="module-title">4. Kennistheorie</span>
-                            <span class="module-subtitle">Zeker weten?</span>
-                        </div>
-                    </a>
-                    <div class="sub-items">
-                        <a href="https://www.youtube.com/watch?v=XxnmLmsIRb4" class="video-link" target="_blank">&#9654; Kritische vragen bij chemtrails</a>
-                        <a href="https://open.spotify.com/episode/7I7nkz7TmPW0RzLyQDNBg4?si=5f9a9641ed99425a" class="podcast-link" target="_blank">&#127911; Geloof jij het? De Complotcast - door Wietze en Tomas</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="pdfs/Samen leven.pdf" class="module-link" target="_blank">
-                        <span class="icon">&#128210;</span>
-                        <div>
-                            <span class="module-title">5. Sociale en politieke filosofie</span>
-                            <span class="module-subtitle">Samen leven?</span>
-                        </div>
-                    </a>
-                    <div class="sub-items">
-                        <a href="https://www.youtube.com/watch?v=njG3zAkrCwA" class="video-link" target="_blank">&#9654; Kapitalisme en de piramide van Maslow</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="pdfs/De wetenschapsdokter.pdf" class="module-link" target="_blank">
-                        <span class="icon">&#128211;</span>
-                        <div>
-                            <span class="module-title">6. Wetenschapsfilosofie</span>
-                            <span class="module-subtitle">De wetenschapsdokter</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="examenboeken">
-                <h3>Examenboeken</h3>
-                <ul>
+                <ul class="spellen">
                     <li>
-                        <a href="https://claude.ai/artifact/U1fzoaY9GfeSBa9GK22ieC" class="module-link" target="_blank">
-                            <span class="icon">&#129354;</span>
-                            <div>
-                                <span class="module-title">De arena</span>
-                                <span class="module-subtitle">De syllabusdenkers in duels over stellingen</span>
-                            </div>
+                        <a href="intellectuele-deugden-test.html" class="spel spel-test">
+                            <span class="spel-titel">Wat voor soort denker ben jij?</span>
+                            <span class="spel-tekst">Welke intellectuele deugden zijn jouw kracht? Waar liggen je uitdagingen? En welke filosoof past bij jouw manier van denken?</span>
+                            <span class="spel-voor">Start de test</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pdfs/Lesboekje K1-K2.pdf" class="module-link" target="_blank">
-                            <span class="icon">&#128214;</span>
-                            <div>
-                                <span class="module-title">7. De mens, techniek en wetenschap - Kwesties 1 en 2</span>
-                                <span class="module-subtitle">Wat is de mens? Veranderen wetenschap en techniek ons mensbeeld?</span>
-                            </div>
+                        <a href="socratische-dialoog.html" class="spel">
+                            <span class="spel-titel">Socrates op de Agora</span>
+                            <span class="spel-tekst">Versterk, bevraag en herzie je eigen antwoord in vijf dossiers.</span>
+                            <span class="spel-voor">Bij 4 vwo, Socrates voor het tribunaal</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pdfs/Lesboekje K3-K4.pdf" class="module-link" target="_blank">
-                            <span class="icon">&#128214;</span>
-                            <div>
-                                <span class="module-title">7. De mens, techniek en wetenschap - Kwesties 3 en 4</span>
-                                <span class="module-subtitle">Verandert het wezen van de mens door techniek? Grensvervagingen</span>
-                            </div>
+                        <a href="logica-arena.html" class="spel">
+                            <span class="spel-titel">Logica Arena</span>
+                            <span class="spel-tekst">Train je logisch denkvermogen met drogredenen en argumenten.</span>
+                            <span class="spel-voor">Bij 4 vwo, Socrates voor het tribunaal</span>
                         </a>
-                        <div class="sub-items">
-                            <a href="https://www.youtube.com/watch?v=yscg2ERfOaw&amp;list=PLNQwh1JkMz6LQsimlR-fFNZldREaek0cE" class="video-link" target="_blank">&#9654; Uitlegvideo's van Ben en Rob</a>
-                        </div>
+                    </li>
+                    <li>
+                        <a href="trolley-simulator.html" class="spel">
+                            <span class="spel-titel">Trolley Simulator</span>
+                            <span class="spel-tekst">Verken ethische dilemma&rsquo;s in dit klassieke gedachte-experiment.</span>
+                            <span class="spel-voor">Bij 4 vwo, ethiek</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://claude.ai/artifact/U1fzoaY9GfeSBa9GK22ieC" class="spel" target="_blank" rel="noopener">
+                            <span class="spel-titel">De arena</span>
+                            <span class="spel-tekst">De denkers van het examen boksen tegen elkaar in duels over stellingen.</span>
+                            <span class="spel-voor">Bij 6 vwo, examenthema</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="de-techbros/" class="spel">
+                            <span class="spel-titel">De Techbro&rsquo;s</span>
+                            <span class="spel-tekst">Satirisch spel: bestuur een techbedrijf en ontdek welk mensbeeld er achter je keuzes zit.</span>
+                            <span class="spel-voor">Bij 6 vwo, examenthema</span>
+                        </a>
                     </li>
                 </ul>
             </div>
         </section>
 
-        <div class="quote-box">
-            <blockquote>"Filosofie leert je niet w&#225;t je moet denken, maar h&#243;&#233; je kunt denken."</blockquote>
-        </div>
+        <!-- Gemaakt door leerlingen -->
+        <section class="sectie" id="leerlingen">
+            <div class="binnen">
+                <h2>Gemaakt door leerlingen</h2>
+                <p class="sectie-intro">Filosofiefilms, essays en lessen van leerlingen. De films openen op YouTube.</p>
+
+                <div class="films">
+                    <figure>
+                        <img src="img/welkom-bij-de-filosofen.webp" alt="Groepsfoto van leerlingen onder de titel Welkom bij de filosofen" width="1280" height="684" loading="lazy">
+                    </figure>
+
+                    <div class="filmlijsten">
+                        <div class="filmgroep">
+                            <h3>Welkom bij de Filosofen!</h3>
+                            <ul>
+                                <li><a href="https://www.youtube.com/watch?v=cuWZhmFcsd4" target="_blank" rel="noopener">Wat is bewustzijn?</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=3PEDTZVhbrs" target="_blank" rel="noopener">Hebben dromen betekenis?</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=G3izt2kBlDQ" target="_blank" rel="noopener">Romantiek: volg je natuurlijke gevoel!</a></li>
+                                <li><a href="https://youtu.be/4MMZzJvLIik?si=jzXIOCk2liWIFDq4" target="_blank" rel="noopener">Geestverruiming of waanbeelden?</a></li>
+                                <li><a href="https://youtu.be/4lfhe6DpX2E?si=AwvdTcFu-zchjIgE" target="_blank" rel="noopener">Wat is echt?</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="filmgroep">
+                            <h3>Talkshow</h3>
+                            <ul>
+                                <li><a href="https://www.youtube.com/watch?v=_prko4NOSlw" target="_blank" rel="noopener">De wereld staat stil</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="filmgroep">
+                            <h3>Overige films</h3>
+                            <ul>
+                                <li><a href="https://www.youtube.com/watch?v=ECITzV_O4Jc" target="_blank" rel="noopener">Is er leven na de dood?</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=fAeqL05m5PE" target="_blank" rel="noopener">Wat is geluk?</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=wX-G4IldIEA" target="_blank" rel="noopener">Geluk volgens de Stoa en het Boeddhisme</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=FoEmTnsTogM" target="_blank" rel="noopener">Wat is het doel van het leven?</a></li>
+                                <li><a href="https://05c91cfe397897d57203-ba573617b741250f1573463affe4e8b2.ssl.cf3.rackcdn.com/video/flv/c148cba33baafd0474e9d7db6a42043b/9f/9ad92a6e2346e6a05d23fddb8bd0ff/Eva+Truijens_lv_0_20240624141607.webm" target="_blank" rel="noopener">Absurdisme en de zin van het leven</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="werk">
+                    <div>
+                        <h3>Essaybundel De Jonge Denker</h3>
+                        <p>Het filosofisch essay is een doordacht betoog waarin leerlingen een &ldquo;grote vraag&rdquo; uitpluizen. Je begint met een prikkelend citaat, onderzoekt wat er op het spel staat, weegt argumenten tegen elkaar af en werkt via zorgvuldige redeneringen naar een eigen conclusie toe.</p>
+                        <p>De bundel is een selectie van de beste essays. Uitgelicht: <em>&ldquo;Is ego&iuml;sme het probleem van de mensheid?&rdquo;</em> (Janine), <em>&ldquo;Zijn wij ons brein?&rdquo;</em> (Alyssa) en <em>&ldquo;De Strijd om Erkenning: Zijn de Maghreb-landen Arabisch of Amazigh?&rdquo;</em> (Kassim).</p>
+                        <a href="pdfs/De Jonge Denker - Essaybundel.pdf" class="knop" target="_blank" rel="noopener">Download de bundel (pdf)</a>
+                    </div>
+                    <div>
+                        <h3>Zelf een filosofieles ontwerpen</h3>
+                        <p>Wil je zelf aan de slag als filosofiedocent? Bekijk lesidee&euml;n van leerlingen die zelf een filosofische les hebben ontworpen en gegeven. Met prikkelende vragen, bekende filosofen en praktische tips om je eigen les op te zetten.</p>
+                        <a href="lesideeen.html" class="knop knop-rand">Bekijk de lesidee&euml;n</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Over het vak -->
+        <section class="sectie sectie-wit" id="vak">
+            <div class="binnen">
+                <h2>Is filosofie iets voor jou?</h2>
+
+                <div class="vak-tekst">
+                    <div>
+                        <p>Filosofie is een keuzevak in de vrije ruimte en past bij alle profielen. Je onderzoekt grote vragen over vrijheid, rechtvaardigheid, waarheid en identiteit, en verbindt idee&euml;n van klassieke en moderne denkers met actuele thema&rsquo;s als technologie, democratie en verantwoordelijkheid.</p>
+                        <p>In de les filosoferen we gezamenlijk als klas en in kleine groepjes. Je leert precies luisteren, scherp doorvragen en zorgvuldig redeneren. In de vijfde klas kies je voor een praktische opdracht tussen het maken van een filosofiefilm of het ontwerpen van een eigen filosofieles.</p>
+                    </div>
+                    <img src="img/grieken-in-gesprek.webp" alt="Tekening van Griekse filosofen in gesprek" width="603" height="495" loading="lazy">
+                </div>
+
+                <div class="past">
+                    <div>
+                        <h3>Dit vak past bij je als je...</h3>
+                        <ul>
+                            <li>Houdt van moeilijke vragen waar geen simpel antwoord op is</li>
+                            <li>Graag discussieert en samen redeneert</li>
+                            <li>Je mening wilt verdiepen met sterke argumenten</li>
+                            <li>Openstaat voor nieuwe en andere perspectieven</li>
+                            <li>Nieuwsgierig bent naar hoe de wereld in elkaar zit</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Wat heb je eraan?</h3>
+                        <ul>
+                            <li>Zelfvertrouwen in het formuleren en verdedigen van je idee&euml;n</li>
+                            <li>Academische vaardigheden: analyseren, redeneren, schrijven</li>
+                            <li>Scherper leren denken over maatschappelijke vraagstukken</li>
+                            <li>Sterke voorbereiding op universitaire studies</li>
+                        </ul>
+                        <p class="studies">Bijvoorbeeld psychologie, rechten, politicologie, AI, filosofie, journalistiek en geneeskunde.</p>
+                    </div>
+                </div>
+
+                <div class="praktisch">
+                    <h3>Praktische informatie</h3>
+                    <dl>
+                        <div>
+                            <dt>Profiel</dt>
+                            <dd>Keuzevak, combineerbaar met alle profielen</dd>
+                        </div>
+                        <div>
+                            <dt>Studielast</dt>
+                            <dd>3 lesuren per week in de bovenbouw (4, 5 en 6 vwo)</dd>
+                        </div>
+                        <div>
+                            <dt>Toetsing</dt>
+                            <dd>Essays, presentaties, filosofische gesprekken en een centraal eindexamen</dd>
+                        </div>
+                        <div>
+                            <dt>Voorkennis</dt>
+                            <dd>Geen voorkennis nodig, alleen nieuwsgierigheid en zin om na te denken</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p>Filosofie &#8212; Oostvaarders College</p>
+        <div class="binnen">
+            <p>Filosofie, Oostvaarders College</p>
+            <p><a href="#top">Naar boven</a></p>
+        </div>
     </footer>
+
+    <script>
+        /* De uil volgt je muis of vinger. Zonder script kijkt hij gewoon recht vooruit. */
+        (function () {
+            var svg = document.querySelector('.uil svg');
+            if (!svg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var pupillen = Array.prototype.slice.call(svg.querySelectorAll('.pupil'));
+            var kop = document.querySelector('.opening h1');
+            var wacht = false;
+
+            function kijk(x, y) {
+                var r = svg.getBoundingClientRect();
+                if (!r.width) return;
+                var schaal = r.width / 320;
+                pupillen.forEach(function (p) {
+                    var cx = r.left + p.getAttribute('data-cx') * schaal;
+                    var cy = r.top + p.getAttribute('data-cy') * schaal;
+                    var dx = x - cx, dy = y - cy;
+                    var d = Math.sqrt(dx * dx + dy * dy) || 1;
+                    var m = Math.min(26, d / 12);
+                    p.style.transform = 'translate(' + (dx / d * m).toFixed(1) + 'px,' + (dy / d * m).toFixed(1) + 'px)';
+                });
+            }
+
+            function naarDeVraag() {
+                var r = kop.getBoundingClientRect();
+                kijk(r.left + r.width / 2, r.top + r.height / 2);
+            }
+
+            function beweeg(e) {
+                if (wacht) return;
+                wacht = true;
+                var x = e.clientX, y = e.clientY;
+                requestAnimationFrame(function () { kijk(x, y); wacht = false; });
+            }
+
+            window.addEventListener('pointermove', beweeg, { passive: true });
+            window.addEventListener('pointerdown', beweeg, { passive: true });
+            document.documentElement.addEventListener('mouseleave', naarDeVraag);
+            naarDeVraag();
+        })();
+    </script>
 </body>
 </html>
