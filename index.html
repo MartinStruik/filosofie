@@ -585,6 +585,34 @@
         @media (max-width: 900px) { .praktisch dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
         @media (max-width: 560px) { .praktisch dl { grid-template-columns: 1fr; } }
 
+        /* --- CONTACT --- */
+        .contact {
+            margin-top: 2.75rem;
+            padding: 1.6rem clamp(1.1rem, 3vw, 1.9rem);
+            background: var(--papier);
+            border-left: 5px solid var(--goud);
+            border-radius: 8px;
+            scroll-margin-top: 80px;
+        }
+
+        .contact h3 {
+            font-family: var(--kop);
+            font-weight: 700;
+            font-size: 1.3rem;
+            line-height: 1.25;
+            color: var(--teal-diep);
+        }
+
+        .contact p { max-width: 40em; margin-top: 0.6rem; }
+
+        .contact .knoppen { margin-top: 1.2rem; }
+
+        .contact .adres { margin-top: 1rem; font-size: 0.95rem; color: var(--grijs); }
+
+        .contact .adres a { color: var(--teal-diep); font-weight: 700; text-underline-offset: 0.18em; }
+
+        @media (max-width: 900px) { .contact { scroll-margin-top: 66px; } }
+
         /* --- VOET --- */
         footer { background: var(--inkt); color: #c9d6d8; padding: 1.75rem 0; font-size: 0.95rem; }
 
@@ -608,6 +636,7 @@
                     <li><a href="#spellen">Spellen</a></li>
                     <li><a href="#leerlingen">Door leerlingen</a></li>
                     <li><a href="#vak">Over het vak</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -922,13 +951,24 @@
                         </div>
                     </dl>
                 </div>
+
+                <div class="contact" id="contact">
+                    <h3>Vragen? Kom gerust een keer kijken</h3>
+                    <p>Wil je meer weten over het vak, of twijfel je of filosofie bij je past? Leg je vraag voor aan de docent, de heer M. Struik. Ook ouders zijn welkom met hun vragen.</p>
+                    <p>Benieuwd hoe een filosofieles eruitziet? Je bent van harte welkom om een keer een les bij te wonen.</p>
+                    <div class="knoppen">
+                        <a href="mailto:m.struik@asg.nl?subject=Vraag%20over%20het%20vak%20filosofie" class="knop">Stel een vraag</a>
+                        <a href="mailto:m.struik@asg.nl?subject=Een%20filosofieles%20bijwonen" class="knop knop-rand">Een les bijwonen</a>
+                    </div>
+                    <p class="adres">Of mail direct naar <a href="mailto:m.struik@asg.nl">m.struik@asg.nl</a></p>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="binnen">
-            <p>Filosofie, Oostvaarders College</p>
+            <p>Filosofie, Oostvaarders College &middot; <a href="mailto:m.struik@asg.nl">m.struik@asg.nl</a></p>
             <p><a href="#top">Naar boven</a></p>
         </div>
     </footer>
