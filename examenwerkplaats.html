@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Examenwerkplaats · filosofie 6 vwo</title>
+<meta name="description" content="Oefen examenvragen filosofie: lees de vraag, kies je aanpak, schrijf en kijk zelf na.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday, leren voor het examen
+   IDEA een examenblad met een nakijkkantlijn: links het CSE-blad, rechts de werkplaats waar je beslist, schrijft en nakijkt
+   PICTURE het examenblad zelf, met klikbare zinnen en vraagdelen, plus een puntenstrook
+   COLOUR wit, inkt #10223a, kobalt leidend, groen en rood alleen samen met een teken (✓ ✗)
+   TYPE Space Grotesk + Inter
+   LAYOUT laptop: blad links (sticky), werkplaats rechts; telefoon: titel, blad, werkplaats */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0a0d18);--ink:light-dark(#10223a,#e8ecf6);--soft:light-dark(#566175,#a5adbf);--line:light-dark(#d5dbe7,#2a3247);--paper:light-dark(#f4f6fb,#121829);--blue:light-dark(#1240e0,#8ea8ff);--bluebg:light-dark(#e8edff,#1a2350);--ok:light-dark(#127a31,#62d683);--okbg:light-dark(#e6f5ea,#10301f);--no:light-dark(#c4202b,#ff7d83);--nobg:light-dark(#fdeaea,#3a1518);--mark:light-dark(#fff1a1,#5a4b00)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip;margin:0}
+h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;line-height:1.1;letter-spacing:-.02em;margin:0}
+.band{padding-block:clamp(20px,3vw,40px);padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
+.top{background:var(--blue);color:#fff;padding-block:clamp(18px,2.5vw,30px)}
+.top h1{font-size:clamp(30px,4vw,44px)}
+.top p{margin:.4em 0 0;opacity:.92}
+.grid{display:grid;gap:clamp(18px,3vw,36px);grid-template-columns:minmax(0,1fr);max-width:1240px;margin:0 auto}
+@media(min-width:900px){.grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}.sheet{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto}.tosheet{display:none}}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:22px 24px 24px;font-family:Georgia,"Times New Roman",serif;font-size:16.5px;line-height:1.6}
+.sheet .ophead{font-family:Inter,sans-serif;font-weight:600;font-size:14px;color:var(--soft);margin-bottom:10px}
+.sheet p{margin:0 0 .8em}
+.s{border-radius:3px;padding:1px 2px}
+.picking .sheet-s{cursor:pointer;text-decoration:underline dotted var(--soft);text-underline-offset:4px}
+.picking .sheet-s:hover,.picking .sheet-s:focus-visible{background:var(--bluebg);outline:none}
+.s.sel{background:var(--mark);text-decoration:underline solid var(--ink)}
+.tag{font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;border:1px solid currentColor;border-radius:3px;padding:0 5px;margin-left:4px;white-space:nowrap}
+.tag.t-p{color:var(--blue)}.tag.t-x{color:var(--soft)}
+.q{margin-top:14px;border-top:2px solid var(--ink);padding-top:12px;display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:4px 12px}
+.q .pts,.q .nr{font-family:Inter,sans-serif;font-weight:600}
+.tok{border-radius:3px;padding:0 1px}
+.tokpick .tok{cursor:pointer;outline:1px dashed var(--soft);outline-offset:1px;margin:2px 1px;display:inline-block;line-height:1.35}
+.tok.sel{background:var(--mark);outline:2px solid var(--ink)}
+.src{font-family:Inter,sans-serif;font-size:13px;color:var(--soft);margin-top:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin-bottom:14px;font-size:14px}
+.link{font:600 14px Inter,sans-serif;color:var(--blue);background:none;border:0;padding:6px 0;cursor:pointer;min-height:36px}
+.prog{color:var(--soft);font-weight:500}
+.work h2{font-size:clamp(24px,2.6vw,30px);margin-bottom:6px}
+.lead{color:var(--soft);margin:0 0 16px}
+.door{display:block;width:100%;text-align:left;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:6px;padding:16px 18px;margin-bottom:12px;cursor:pointer;font:inherit}
+.door:hover,.door:focus-visible{border-color:var(--blue);outline:none}
+.door b{display:block;font-family:"Space Grotesk",sans-serif;font-size:19px;margin-bottom:2px}
+.door span{color:var(--soft);font-size:15px}
+.btn{font:600 15px Inter,sans-serif;border-radius:6px;padding:11px 16px;min-height:44px;cursor:pointer;border:2px solid var(--blue);background:var(--blue);color:#fff}
+.btn.ghost{background:transparent;color:var(--blue)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+textarea{width:100%;min-height:190px;font:16px/1.55 Inter,sans-serif;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:6px;padding:12px}
+textarea:focus{border-color:var(--blue);outline:none}
+textarea.tweede{border-color:var(--ok);min-height:110px}
+.card{border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-top:16px;background:var(--bg)}
+.card h3{font-size:18px;margin-bottom:8px}
+.hmenu{border:1px solid var(--line);border-radius:6px;margin-top:16px}
+.hitem{border-top:1px solid var(--line)}.hitem:first-child{border-top:0}
+.htitle{display:flex;gap:10px;width:100%;text-align:left;font:600 15px Inter,sans-serif;color:var(--ink);background:none;border:0;padding:12px 14px;cursor:pointer;min-height:44px;align-items:center}
+.htitle .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);font-size:13px;flex:none}
+.htitle .used{margin-left:auto;font-weight:500;color:var(--soft);font-size:13px}
+.hbody{padding:0 16px 16px;border-left:5px solid var(--blue);margin:0 0 4px 14px}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:6px;padding:10px 12px;margin:8px 0;cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.no{border-color:var(--no);background:var(--nobg)}
+.opt.ok::before{content:"✓ ";color:var(--ok);font-weight:700}.opt.no::before{content:"✗ ";color:var(--no);font-weight:700}
+.diag{font-size:14px;margin:-4px 0 8px 12px}
+.fb{margin-top:10px;padding:10px 12px;border-radius:6px;background:var(--paper)}
+.fb.ok{background:var(--okbg)}.fb.no{background:var(--nobg)}
+.fb ul{margin:6px 0 0;padding-left:20px}
+.ans{background:var(--paper);border-radius:6px;padding:12px 14px;margin:10px 0}
+.ans.pickable .s{cursor:pointer}
+.ans.pickable .s:hover,.ans.pickable .s:focus-visible{background:var(--bluebg);outline:none}
+.ans .n{font:600 12px Inter,sans-serif;color:var(--soft);margin-right:3px;vertical-align:super}
+.kleur2{border-left:5px solid var(--ok);padding:8px 12px;margin-top:8px;background:var(--okbg);border-radius:0 6px 6px 0}
+.kleur2::before{content:"Tweede kleur: ";font-weight:700}
+.strip{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px;margin:14px 0}
+.slot{border:2px solid var(--line);border-radius:6px;padding:8px 10px;font-size:14px}
+.slot b{display:block;font-family:"Space Grotesk",sans-serif;font-size:16px}
+.slot.g1{border-color:var(--ok);background:var(--okbg)}.slot.g0{border-color:var(--no);background:var(--nobg)}
+.pair{display:inline-flex;gap:6px;flex-wrap:wrap}
+.pill{font:600 14px Inter,sans-serif;min-width:44px;min-height:40px;border-radius:6px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;padding:0 10px}
+.pill.on{border-color:var(--blue);background:var(--bluebg)}
+.pt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.flag,.anchor,.model,.note{padding:8px 12px;border-radius:0 6px 6px 0;margin:8px 0}
+.flag{border-left:5px solid var(--no);background:var(--nobg)}.flag::before{content:"Rode vlag: ";font-weight:700}
+.anchor{border-left:5px solid var(--blue);background:var(--bluebg)}.anchor::before{content:"Ankervraag: ";font-weight:700}
+.model{border-left:5px solid var(--ok);background:var(--okbg)}.model::before{content:"Modelantwoord: ";font-weight:700}
+.model .alt{display:block;margin-top:6px}.model .alt::before{content:"Ook goed, korter: ";font-weight:700}
+.note{border-left:5px solid var(--soft);background:var(--paper)}
+.tele{font-family:"Space Grotesk",sans-serif}
+.small{font-size:14px;color:var(--soft)}
+.timer{font:600 15px "Space Grotesk",sans-serif;font-variant-numeric:tabular-nums}
+label.radio{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}
+label.radio input{margin-top:5px;width:18px;height:18px}
+select{font:15px Inter,sans-serif;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:6px;padding:4px 6px;min-height:34px}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--nobg);padding:8px 10px;border-radius:6px}
+.foot{font-size:13px;color:var(--soft);max-width:1240px;margin:0 auto}
+@media(max-width:600px){.strip{grid-template-columns:minmax(0,1fr)}.sheet{padding:16px}}
+</style>
+<style>[hidden]{display:none!important} img{max-width:100%}</style>
+</head>
+<body>
+<header class="band top">
+  <h1>Examenwerkplaats</h1>
+  <p id="kop"></p>
+</header>
+
+<main class="band grid">
+  <section class="sheet" id="sheet" aria-label="Examenblad"></section>
+  <section class="work" id="work" aria-live="polite"></section>
+</main>
+<p class="band foot">Versie 0.2. Je antwoord blijft alleen in dit venster staan; er wordt niets opgeslagen of verstuurd.</p>
+
+<script>
+{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sheet=$('#sheet'), work=$('#work');
+
+/* ================= vragen ================= */
+const V22={
+ kop:'Kwestie 3 · Kockelkoren · CSE vwo 2024-II, vraag 22 · 3 punten', op:'Opgave 3 · Leven als een das', pts:3, nr:'22', minuten:12,
+ src:'Tekst en vraag: CSE vwo filosofie 2024, tijdvak 2 (licht ingekort). Criterium: officieel correctievoorschrift. Leerlingantwoorden op deze site zijn zelfbedacht.',
+ paras:[[0,1,2],[3,4,5],[6],[7,8]],
+ sent:[
+  {t:'Dierenarts en filosoof Charles Foster wilde graag weten hoe het is om een dier te zijn.',tag:'x',lab:'context',why:'Achtergrond. Er hangt geen punt aan.'},
+  {t:'Als experiment besloot hij om een paar weken te leven als een das.',tag:'x',lab:'context',why:'Achtergrond. Dat Foster weken weg was, helpt bij het verschil, maar het punt zelf staat niet in de tekst.'},
+  {t:'Hij leefde in een hol in een bos waarin hij overdag sliep en waaruit hij ’s nachts al snuffelend tevoorschijn kroop.',tag:'x',lab:'ruis',why:'Kleurrijk detail over het dassenleven. Trekt aandacht, levert niets op.'},
+  {t:'Fosters treinreis naar huis, na afloop van zijn experiment, voelt onnatuurlijk snel.',tag:'p',lab:'punt 1',why:'Zintuiglijke ontregeling: de reis voelt onnatuurlijk snel.'},
+  {t:'Het is alsof hij zich in smerige ‘geurblokken’ bevindt, tussen blèrende en knetterende geluiden.',tag:'p',lab:'punt 1',why:'Zintuiglijke ontregeling: geurblokken en lawaai.'},
+  {t:'Hij mist de kleine, zintuiglijke genoegens van het dassenleven, zoals de geur van het bos.',tag:'p',lab:'punt 1',why:'Hij vergelijkt de trein met het dassenleven. Hieraan hang je de afstand en de reflectie op.'},
+  {t:'Na thuiskomst went hij weer aan het snelle en lawaaierige stadsleven, verliest hij zijn sterke geurvermogen en wordt treinreizen weer normaal.',tag:'p',lab:'punt 2',why:'Hij went weer en treinreizen wordt normaal. Hieraan hang je de inlijving op.'},
+  {t:'Petran Kockelkoren beschrijft met een voorbeeld van treinervaringen dat mensen in omgang met techniek decentreren en recentreren.',tag:'x',lab:'aanloop',why:'Aanloop. Kockelkorens voorbeeld zelf staat niet in de tekst: dat moet je uit je hoofd weten.'},
+  {t:'Tussen de treinervaringen die Foster en Kockelkoren beschrijven bestaan overeenkomsten, maar ook een verschil.',tag:'x',lab:'aanloop',why:'Aanloop: je zoekt overeenkomsten én een verschil.'}],
+ qtok:[{t:'Leg',k:2},{t:'met het begrip decentreren',k:1},{t:'een overeenkomst',k:1},{t:'tussen beide treinervaringen',k:0},{t:'uit.',k:2},{t:'Leg vervolgens',k:2},{t:'met het begrip recentreren',k:1},{t:'een overeenkomst',k:1},{t:'en een verschil',k:1},{t:'tussen beide treinervaringen',k:0},{t:'uit.',k:2}],
+ punt:[
+  {kort:'decentreren · overeenkomst',type:'theorie + casus',
+   anker:'Staat er dat de zintuigen in béíde treinervaringen ontregeld raken, én dat die ontregeling afstand geeft tot het gewone leven, zodat je erop kunt reflecteren?',
+   vlag:'Alleen “ze raken in de war”, “ze moeten wennen”, of wel ontregeling maar zonder afstand en reflectie? Dan is dit punt niet binnen.',
+   model:'Zowel Foster als de eerste treinreizigers bij Kockelkoren raken zintuiglijk ontregeld: Foster zit in ‘geurblokken’ tussen blèrende geluiden, de eerste reizigers kregen treinziektes. Dat is decentreren: door die ontregeling ervaren ze afstand tot hun gewone leven en kunnen ze erop reflecteren, zoals Foster terugdenkt aan het dassenleven.',
+   alt:'Beide reizigers worden door de trein zintuiglijk ontregeld en komen zo op afstand van hun gewone leven, waardoor ze erover gaan nadenken: decentreren.'},
+  {kort:'recentreren · overeenkomst',type:'theorie + casus',
+   anker:'Staat er dat de trein bij béíde wordt ingelijfd, zodat de reiziger zichzelf weer als middelpunt van de situatie ervaart?',
+   vlag:'Alleen “ze wennen eraan” of “alles wordt weer normaal”, zonder inlijving en zonder middelpunt? Dan is dit punt niet binnen.',
+   model:'Daarna lijven ze allebei de trein in: voor Foster wordt treinreizen weer normaal, voor de historische reizigers wordt de nieuwe treinervaring vertrouwd. Dat is recentreren: de reiziger ervaart zichzelf weer als middelpunt van de situatie.',
+   alt:'Bij allebei raakt de trein ingelijfd, zodat ze zich weer middelpunt van hun reis voelen: recentreren.'},
+  {kort:'recentreren · verschil',type:'redenering: geen bronzin in de tekst',
+   anker:'Leg je het verschil uit met recentreren zelf: bij Kockelkoren een collectief, tijdrovend leerproces, of de inlijving van een nieuwe manier van waarnemen die de ervaring verandert; bij Foster niet, omdat hij alleen opnieuw went aan iets wat al normaal is?',
+   vlag:'Een verschil in klachten (geur tegenover treinziekte) of in personen is geen verschil in recentreren.',
+   model:'Het verschil: bij Kockelkoren is recentreren een collectief, cultureel leerproces dat decennia duurde en een nieuwe manier van waarnemen opleverde. Foster leeft in een tijd waarin treinreizen al normaal is; hij is het alleen zelf ontwend en went er opnieuw aan.',
+   alt:'Bij Kockelkoren moest een hele samenleving lang leren treinreizen; Foster hoefde alleen zelf opnieuw te wennen aan iets wat al normaal was.'}]
+};
+const TR={
+ kop:'Transfervraag · Kockelkoren · eigen vraag · 2 punten', op:'Nieuwe vraag · De VR-bril', pts:2, nr:'T1', minuten:8,
+ src:'Eigen vraag van de docent. Het beoordelingscriterium is ook van de docent, opgesteld naar het voorbeeld van het correctievoorschrift.',
+ paras:[[0,1,2,3],[4],[5,6]],
+ sent:['Lina zet in de les voor het eerst een VR-bril op.','Ineens staat ze midden in een Romeinse stad, terwijl haar lichaam op een stoel in het lokaal zit.','Draait ze haar hoofd, dan draait de stad mee; wil ze een stap zetten, dan voelt ze de vloer niet bewegen.','Na vijf minuten is ze misselijk en zet ze de bril af.','Terug in het lokaal ziet ze het ineens anders: hoe klein en grijs het eigenlijk is.','Haar broer speelt al jaren VR-spellen.','Hij beweegt in de virtuele wereld alsof het niets is, en wordt nooit misselijk.'].map(t=>({t})),
+ vraag:'Leg met het begrip decentreren uit wat Lina meemaakt. Leg vervolgens met het begrip recentreren uit wat er bij haar broer is gebeurd.',
+ punt:[
+  {kort:'decentreren · Lina',type:'theorie + casus',
+   anker:'Staat er dat Lina’s zintuigen ontregeld raken (zien en voelen kloppen niet meer met elkaar), én dat dit haar afstand geeft tot haar gewone situatie, zodat ze erop gaat reflecteren?',
+   vlag:'Alleen “ze wordt misselijk” of “ze moet nog wennen”? Dan is dit punt niet binnen.',
+   model:'Lina raakt zintuiglijk ontregeld: ze ziet de stad meedraaien, maar voelt de vloer niet bewegen, en wordt misselijk. Dat is decentreren: daardoor staat ze op afstand van haar gewone situatie en ziet ze het lokaal ineens anders, hoe klein en grijs het is.',
+   alt:'Door de VR-bril kloppen Lina’s zintuigen niet meer en kijkt ze daarna van een afstand naar haar eigen lokaal: decentreren.'},
+  {kort:'recentreren · broer',type:'theorie + casus',
+   anker:'Staat er dat de broer de VR-bril heeft ingelijfd, zodat hij zichzelf in de virtuele wereld weer als middelpunt ervaart?',
+   vlag:'Alleen “hij is eraan gewend”? Dan is dit punt niet binnen.',
+   model:'Bij haar broer is de VR-bril ingelijfd: hij beweegt in de virtuele wereld alsof het niets is en wordt niet meer misselijk. Dat is recentreren: hij ervaart zichzelf weer als middelpunt van de situatie, met de bril als deel van zijn waarneming.',
+   alt:'De broer heeft de bril ingelijfd en voelt zich in de virtuele wereld weer middelpunt: recentreren.'}]
+};
+const PRIME={zinnen:[
+ 'Foster en de reizigers uit Kockelkorens voorbeeld raken allebei in de war door de trein: Foster vindt de geuren smerig en de mensen in de 19e eeuw werden ziek.',
+ 'Dat is decentreren.',
+ 'Daarna lijven ze de trein in, Foster en de 19e-eeuwse reizigers allebei: hun zintuigen nemen hem op en ze voelen zich weer het middelpunt van hun reis.',
+ 'Dat is recentreren.',
+ 'Het verschil is dat Foster last had van geuren en geluiden, terwijl de 19e-eeuwse reizigers echt ziek werden.'],
+ doc:[0,1,0],
+ why:['In de war raken is de helft. Het voorschrift vraagt ook dat de ontregeling afstand tot het gewone leven geeft, zodat je erop kunt reflecteren. Dat staat er niet.',
+      'Inlijving (de zintuigen nemen de trein op) én weer middelpunt, voor beide reizigers. Punt binnen.',
+      'Dit is een verschil in klachten, niet in recentreren. Gevraagd is een verschil in het leerproces: collectief en langdurig tegenover één persoon die opnieuw went.']};
+const BIJNA={zinnen:[
+ 'In beide treinervaringen raken de reizigers zintuiglijk ontregeld: Foster voelt zich in ‘geurblokken’, de eerste treinreizigers kregen treinziektes.',
+ 'Door die ontregeling komen ze op afstand van hun gewone leven te staan en gaan ze erover nadenken; Foster mist bijvoorbeeld het dassenleven.',
+ 'Dat is decentreren.',
+ 'Daarna wennen ze er allebei aan en wordt alles weer zoals vroeger: dat is recentreren.',
+ 'Het verschil is dat de reizigers uit de 19e eeuw als hele samenleving decennialang moesten leren treinreizen, terwijl Foster alleen zelf opnieuw moest wennen aan iets wat al normaal was.'],
+ doc:[1,0,1], zin:['1, 2 en 3','4','5'],
+ why:['Ontregeling in beide ervaringen (zin 1), afstand met reflectie (zin 2) en het begrip (zin 3). Precies wat het voorschrift vraagt.',
+      '“Wennen” en “alles weer zoals vroeger” zeggen niet dat de trein wordt ingelijfd en dat de reiziger zich weer middelpunt voelt. Daarom is dit punt niet binnen.',
+      'Het verschil zit in het recentreren zelf: een collectief, tijdrovend leerproces tegenover één persoon die opnieuw went aan iets wat al normaal is.']};
+
+/* ================= toestand ================= */
+let st, item=V22, tId=null;
+function fresh(){st={ans:'',tr:'',hintOpen:-1,used:new Set(),helpShown:false,zt:[],prime:[],where:[],self:[],b:[null,null,null],bz:['','',''],diagOk:false,herstelPunt:null,herstel:'',herstelOk:null,cat:null,next:null,timerOn:false,tEnd:0,first:null};}
+fresh();
+function stopTimer(){if(tId){clearInterval(tId);tId=null;}}
+
+/* ================= examenblad ================= */
+function setSheet(it){
+  item=it; $('#kop').textContent=it.kop;
+  const S=(i)=>`<span class="s sheet-s" data-i="${i}" tabindex="-1">${esc(it.sent[i].t)}</span>`;
+  const q=it.qtok?it.qtok.map((x,i)=>`<span class="tok" data-q="${i}">${esc(x.t)}</span>`).join(' '):esc(it.vraag);
+  sheet.innerHTML=`<div class="ophead">${esc(it.op)}</div>${it.paras.map(p=>`<p>${p.map(S).join(' ')}</p>`).join('')}
+   <div class="q"><span class="pts">${it.pts}p</span><span class="nr">${esc(it.nr)}</span><span>${q}</span></div><div class="src">${esc(it.src)}</div>`;
+  pick(false); tokpick(false);
+}
+function pick(on){sheet.classList.toggle('picking',on); $$('.sheet-s').forEach(s=>{s.tabIndex=on?0:-1; s.setAttribute('role',on?'button':'text'); if(!on)s.classList.remove('sel');});}
+function tokpick(on){sheet.classList.toggle('tokpick',on); $$('.tok').forEach(t=>{t.tabIndex=on?0:-1; if(!on)t.classList.remove('sel');});}
+function sheetToggle(e){
+  const s=e.target.closest('.sheet-s'); if(s&&sheet.classList.contains('picking')) s.classList.toggle('sel');
+  const q=e.target.closest('.tok'); if(q&&sheet.classList.contains('tokpick')) q.classList.toggle('sel');
+}
+sheet.addEventListener('click',sheetToggle);
+sheet.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){if(e.target.closest('.sheet-s,.tok')){e.preventDefault();sheetToggle(e);}}});
+const toSheet=`<button class="link tosheet" data-tosheet>↑ Naar het examenblad</button>`;
+work.addEventListener('click',e=>{if(e.target.closest('[data-tosheet]')) sheet.scrollIntoView({behavior:'smooth'});});
+
+/* ================= navigatie ================= */
+function nav(prog,back){
+  return `<div class="nav" id="nav"><span><button class="link" id="home">← Andere ingang</button>${back?` · <button class="link" id="back">Vorige stap</button>`:''}</span><span class="prog">${esc(prog)}</span></div>`;
+}
+function bindNav(back){
+  $('#home').onclick=()=>{
+    const busy=(st.ans.trim()||st.tr.trim());
+    if(!busy){goStart();return;}
+    $('#nav').innerHTML=`<div class="confirm"><span>Je geschreven antwoord gaat verloren. Toch terug?</span><button class="btn" id="yes">Ja, terug</button><button class="btn ghost" id="no">Nee, blijf</button></div>`;
+    $('#yes').onclick=goStart; $('#no').onclick=()=>{$('#nav').outerHTML=nav($('.prog')?.textContent||'',back);bindNav(back);};
+  };
+  const b=$('#back'); if(b) b.onclick=back;
+}
+function goStart(){stopTimer(); fresh(); setSheet(V22); start();}
+
+/* ================= start ================= */
+function start(){
+  stopTimer();
+  work.innerHTML=`<h2>Hoe wil je beginnen?</h2>
+  <p class="lead">Lees de tekst en de vraag in het examenblad. Kies dan wat bij je past. Je kunt altijd terug naar dit scherm.</p>
+  <button class="door" data-go="A"><b>Ik weet niet hoe ik moet beginnen</b><span>Schrijf je antwoord. Kies een aanwijzing wanneer je vastloopt.</span></button>
+  <button class="door" data-go="B"><b>Ik dacht dat mijn antwoord goed was</b><span>Kijk een bijna-goed antwoord na als examinator en vind het punt dat net niet binnen is.</span></button>
+  <button class="door" data-go="C"><b>Ik schrijf zonder hulp</b><span>Zoals op de toets, met een timer als je wilt. Daarna kijk je zelf na.</span></button>`;
+  work.querySelectorAll('.door').forEach(b=>b.onclick=()=>{const g=b.dataset.go; if(g==='B') bStep(1); else {st.helpShown=g==='A'; write();}});
+}
+
+/* ================= aanwijzingen ================= */
+const HINTS=[
+ {t:'Wat vraagt de vraag?',
+  html:()=>`<p>Klik in de vraag in het examenblad de delen aan die zeggen <b>met welk begrip</b> je <b>wat</b> moet doen (een overeenkomst of een verschil). ${toSheet}</p><div class="row"><button class="btn ghost" id="hchk">Controleer</button></div><div id="hfb"></div>`,
+  on:()=>{tokpick(true); $('#hchk').onclick=()=>{
+    const Q=item.qtok, sel=$$('.tok.sel').map(t=>+t.dataset.q), goed=Q.map((x,i)=>x.k===1?i:-1).filter(i=>i>=0);
+    const hit=goed.filter(i=>sel.includes(i)).length;
+    $('#hfb').innerHTML=`<div class="fb ${hit===goed.length?'ok':''}">Je vond ${hit} van de ${goed.length} delen. De vraag heeft drie taken, één per punt: <b>1</b> een overeenkomst met decentreren, <b>2</b> een overeenkomst met recentreren, <b>3</b> een verschil, óók met recentreren. Het opdrachtwoord is “leg uit”: je moet uitleggen, dus niet alleen het begrip noemen.</div>`;
+    goed.forEach(i=>$(`.tok[data-q="${i}"]`).classList.add('sel'));}}},
+ {t:'Wat vraagt decentreren in deze vraag?',
+  html:()=>mc('dec',[
+    ['Je zintuigen raken in de war.',0,'Bijna. Dit is de ontregeling, maar het voorschrift wil ook wat die oplevert: afstand tot je gewone leven, zodat je erop kunt reflecteren.'],
+    ['Je raakt zintuiglijk ontregeld, waardoor je afstand neemt tot je gewone leven en erop kunt reflecteren.',1,'Ja. Ontregeling én afstand met reflectie. Het lesboekje zegt het algemener: je komt vreemd tegenover je eigen situatie te staan, zodat je van een afstand kunt reflecteren op hoe lichaam en techniek je ervaring bemiddelen.'],
+    ['Je moet nog wennen aan iets nieuws.',0,'Rode vlag. Wennen hoort bij recentreren, en ook daar is het te mager.'],
+    ['Je staat niet meer in het middelpunt.',0,'Klopt als beeld, maar de zintuiglijke ontregeling en de reflectie ontbreken.']])},
+ {t:'Welke bronzinnen dragen een punt?',
+  html:()=>`<p>Klik in het examenblad de zinnen aan waar je een punt aan kunt ophangen. ${toSheet}</p><div class="row"><button class="btn ghost" id="hchk">Laat zien</button></div><div id="hfb"></div>`,
+  on:()=>{pick(true); $('#hchk').onclick=()=>{
+    $$('.sheet .tag').forEach(t=>t.remove()); let goed=0,fout=0;
+    $$('.sheet-s').forEach(s=>{const d=item.sent[+s.dataset.i]; const sel=s.classList.contains('sel'); if(sel&&d.tag==='p')goed++; if(sel&&d.tag!=='p')fout++;
+      s.insertAdjacentHTML('beforeend',` <span class="tag ${d.tag==='p'?'t-p':'t-x'}">${d.lab}</span>`);});
+    const list=item.sent.map((d,i)=>`<li><b>${d.lab}</b>: “${esc(d.t.slice(0,48))}…” ${esc(d.why)}</li>`).join('');
+    $('#hfb').innerHTML=`<div class="fb">Je koos ${goed} dragende zin${goed===1?'':'nen'}${fout?` en ${fout} zin${fout===1?'':'nen'} zonder punt`:''}. De labels staan nu in het examenblad.<ul>${list}</ul><p style="margin:8px 0 0"><b>Punt 3 heeft géén bronzin.</b> Het verschil haal je uit wat je van Kockelkoren weet. <b>Examenregel:</b> niet elk punt staat in de casus; bij een verschil of een afweging komt vaak één punt rechtstreeks uit de theorie.</p></div>`;
+    pick(false);}}},
+ {t:'Je hebt het begrip uitgelegd. Wat dan nog?',
+  html:()=>mc('wat',[
+    ['Laten zien dat het voor béíde treinervaringen geldt',1,'Ja. Het is een overeenkomst: Foster én Kockelkorens reizigers. Over één kant schrijven is een half antwoord.'],
+    ['Uitleggen waarom treinreizen vervelend kan zijn',0,'Dat vraagt niemand. Je gaat van het begrip naar je eigen mening over treinen.'],
+    ['Fosters treinreis zo volledig mogelijk navertellen',0,'Navertellen is geen uitleg. Het begrip moet het detail dragen, niet andersom.']])},
+ {t:'Maak een bouwplan in trefwoorden',
+  html:()=>`<p>Kies per punt het skelet dat klopt. Formuleren doe je zelf, met details uit de tekst.</p>`+
+   [['p1',[['decentreren → zintuigen ontregeld → afstand en reflectie',1,'Ja: beide helften van decentreren.'],['decentreren → trein voelt te snel → Foster wil terug naar het bos',0,'Dit vertelt Foster na; het zegt niet wat decentreren is.'],['decentreren → wennen aan de trein',0,'Wennen hoort bij recentreren. Rode vlag.']]],
+    ['p2',[['recentreren → geurvermogen kwijt → das-zijn voorbij',0,'Klopt over Foster, maar zegt niets over wat er met de trein gebeurt.'],['recentreren → trein ingelijfd → weer middelpunt',1,'Ja: inlijving en weer middelpunt.'],['recentreren → alles went weer',0,'Wennen alleen is te mager: wat gebeurt er met de trein, en met de reiziger?']]],
+    ['p3',[['verschil → andere klachten',0,'Een verschil in klachten is geen verschil in recentreren.'],['verschil → Foster leefde als das, de reizigers niet',0,'Waar, maar het verschil moet in het recentreren zelf zitten.'],['recentreren → collectief leerproces en nieuwe waarneming → tegenover: alleen hij, opnieuw wennen',1,'Ja: het verschil zit in het soort recentreren.']]]]
+   .map(([id,o],i)=>`<p class="small" style="margin:12px 0 0">Punt ${i+1}</p>`+o.map(([t,g,d])=>`<button class="opt tele" data-g="${g}" data-grp="${id}" data-d="${esc(d)}">${esc(t)}</button>`).join('')+`<div class="diag" id="d-${id}"></div>`).join(''),
+  on:()=>work.querySelectorAll('.opt[data-grp]').forEach(b=>b.onclick=()=>{const g=b.dataset.grp; work.querySelectorAll(`.opt[data-grp="${g}"]`).forEach(x=>x.classList.remove('ok','no')); b.classList.add(b.dataset.g==='1'?'ok':'no'); $('#d-'+g).textContent=b.dataset.d;})}
+];
+function mc(id,opts){return opts.map(([t,g,w])=>`<button class="opt" data-mc="${id}" data-g="${g}" data-w="${esc(w)}">${esc(t)}</button>`).join('')+`<div class="fb" id="fb-${id}" hidden></div>`;}
+function bindMc(cb){work.querySelectorAll('.opt[data-mc]').forEach(b=>b.onclick=()=>{const id=b.dataset.mc; work.querySelectorAll(`.opt[data-mc="${id}"]`).forEach(x=>x.classList.remove('ok','no')); const ok=b.dataset.g==='1'; b.classList.add(ok?'ok':'no'); const f=$('#fb-'+id); f.hidden=false; f.className='fb '+(ok?'ok':'no'); f.textContent=b.dataset.w; cb&&cb(id,ok);});}
+
+/* ================= schrijven ================= */
+function timerHtml(min){return `<div class="row" style="margin-top:0"><button class="btn ghost" id="tbtn">${st.timerOn?'Timer uit':`Timer aan (${min} min)`}</button><span class="timer" id="tshow"></span></div>`;}
+function bindTimer(min){
+  const show=()=>{const r=Math.round((st.tEnd-Date.now())/1000), a=Math.abs(r); const m=Math.floor(a/60),s=String(a%60).padStart(2,'0'); const el=$('#tshow'); if(el) el.textContent=r>=0?`${m}:${s} over`:`tijd om, +${m}:${s}. Maak je zin af.`;};
+  $('#tbtn').onclick=()=>{st.timerOn=!st.timerOn; stopTimer(); if(st.timerOn){st.tEnd=Date.now()+min*60000; tId=setInterval(show,1000); show();} else $('#tshow').textContent=''; $('#tbtn').textContent=st.timerOn?'Timer uit':`Timer aan (${min} min)`;};
+  if(st.timerOn){stopTimer(); tId=setInterval(show,1000); show();}
+}
+function write(){
+  const A=st.helpShown;
+  work.innerHTML=nav('Schrijven')+`<h2>Schrijf je antwoord</h2>
+  <p class="lead">${A?'Begin gerust. Loop je vast, kies dan hieronder een aanwijzing.':'Schrijf zoals op de toets: ongeveer 4 minuten per punt.'}</p>
+  ${timerHtml(item.minuten)}
+  <textarea id="ans" placeholder="Jouw antwoord op vraag 22" style="margin-top:10px">${esc(st.ans)}</textarea>
+  <div class="row"><button class="btn" id="done">Klaar, nakijken</button><span class="small" id="cnt"></span></div>
+  <div id="help">${A?menu():`<button class="link" id="showhelp">Toch hulp nodig?</button>`}</div>`;
+  bindNav(null); bindTimer(item.minuten);
+  const ta=$('#ans'); ta.oninput=()=>{st.ans=ta.value; const n=st.ans.trim().length; $('#done').disabled=n<40; $('#cnt').textContent=n<40?`Nog ${40-n} tekens om te kunnen nakijken`:'';}; ta.oninput();
+  $('#done').onclick=()=>{pick(false);tokpick(false);stopTimer();st.first=st.ans;nk(1);};
+  const sh=$('#showhelp'); if(sh) sh.onclick=()=>{st.helpShown=true; $('#help').innerHTML=menu(); bindMenu();};
+  if(A) bindMenu();
+}
+function menu(){
+  return `<div class="hmenu"><div class="small" style="padding:10px 14px 0">Aanwijzingen. Kies wat je nodig hebt; je hoeft ze niet allemaal.</div>${HINTS.map((h,i)=>`<div class="hitem"><button class="htitle" data-h="${i}" aria-expanded="${st.hintOpen===i}"><span class="num">${i+1}</span>${esc(h.t)}${st.used.has(i)?'<span class="used">bekeken</span>':''}</button>${st.hintOpen===i?`<div class="hbody">${h.html()}<div class="row"><button class="btn" id="gow">Ik ga schrijven</button></div></div>`:''}</div>`).join('')}</div>`;
+}
+function bindMenu(){
+  work.querySelectorAll('.htitle').forEach(b=>b.onclick=()=>{const i=+b.dataset.h; pick(false); tokpick(false); st.hintOpen=st.hintOpen===i?-1:i; if(st.hintOpen>=0) st.used.add(i); $('#help').innerHTML=menu(); bindMenu();});
+  if(st.hintOpen>=0){bindMc(); HINTS[st.hintOpen].on&&HINTS[st.hintOpen].on();
+    $('#gow').onclick=()=>{pick(false);tokpick(false);st.hintOpen=-1; $('#help').innerHTML=menu(); bindMenu(); const ta=$('#ans'); ta.scrollIntoView({behavior:'smooth',block:'center'}); ta.focus({preventScroll:true});};}
+}
+
+/* ================= nakijken ================= */
+const splitZ=t=>t.trim().split(/(?<=[.!?])\s+|\n+/).map(x=>x.trim()).filter(x=>x.length>1);
+const strip=(it,sc)=>`<div class="strip" style="--n:${it.punt.length}">${it.punt.map((p,i)=>`<div class="slot ${sc&&sc[i]!=null?'g'+sc[i]:''}"><b>Punt ${i+1}${sc&&sc[i]!=null?(sc[i]?' ✓':' ✗'):''}</b>${esc(p.kort)}</div>`).join('')}</div>`;
+const pills=(name,i,vals,cur)=>`<span class="pair">${vals.map(v=>`<button class="pill ${cur===v?'on':''}" data-n="${name}" data-i="${i}" data-v="${v}" aria-pressed="${cur===v}">${v}</button>`).join('')}</span>`;
+function bindPills(cb){work.querySelectorAll('.pill[data-n]').forEach(b=>b.onclick=()=>{const v=isNaN(+b.dataset.v)?b.dataset.v:+b.dataset.v; st[b.dataset.n][+b.dataset.i]=v; cb&&cb();});}
+const ansHtml=(z,pickable,sel)=>`<div class="ans ${pickable?'pickable':''}">${z.map((x,j)=>`<span class="s ${sel&&sel.includes(j)?'sel':''}" data-w="${j}" ${pickable?'tabindex="0" role="button"':''}><span class="n">${j+1}</span>${esc(x)}</span> `).join('')||'<i>Leeg antwoord</i>'}</div>`;
+
+/* gedeelde controle per punt; key = 'ans' of 'tr' */
+function ownPunt(it,i,steps,onBack,onNext){
+  const p=it.punt[i], w=st.where[i], zin=splitZ(st[st.key]);
+  const mild=it===V22&&st.prime[i]===1&&PRIME.doc[i]===0;
+  work.innerHTML=nav(`${steps} · punt ${i+1} van ${it.punt.length}`,onBack)+`<h2>Jouw antwoord · punt ${i+1}</h2><p class="lead">${esc(p.kort)} <span class="small">(${esc(p.type)})</span></p>
+   ${mild?`<div class="note">Let op: bij het voorbeeldantwoord gaf je dit punt te snel. Kijk nu extra streng.</div>`:''}
+   <div class="anchor">${esc(p.anker)}</div><div class="flag">${esc(p.vlag)}</div>
+   <p><b>Waar in jouw antwoord staat dit?</b> Klik één of meer van jouw zinnen aan.</p>
+   ${ansHtml(zin,true,Array.isArray(w)?w:[])}
+   <div class="row" style="margin-top:4px"><button class="pill ${w==='none'?'on':''}" id="none">Die zin ontbreekt</button>${Array.isArray(w)&&w.length?'<button class="btn ghost" id="show">Ik heb mijn zin(nen) gekozen</button>':''}</div>
+   <div id="rev"></div>
+   <div class="row"><button class="btn" id="go" disabled>${i<it.punt.length-1?'Volgend punt':'Verder'}</button></div>`;
+  bindNav(onBack);
+  const again=()=>ownPunt(it,i,steps,onBack,onNext);
+  work.querySelectorAll('.ans .s').forEach(s=>{const f=()=>{const j=+s.dataset.w; let a=Array.isArray(st.where[i])?st.where[i]:[]; a=a.includes(j)?a.filter(x=>x!==j):[...a,j]; st.where[i]=a; st.self[i]=undefined; again();}; s.onclick=f; s.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();f();}};});
+  $('#none').onclick=()=>{st.where[i]='none'; st.self[i]=0; again();};
+  const reveal=()=>{
+    $('#rev').innerHTML=`<div class="model">${esc(p.model)}<span class="alt">${esc(p.alt)}</span></div>`+
+     (st.where[i]==='none'?`<div class="pt"><span>Punt ${i+1}: <b>0</b>, de zin ontbreekt.</span><button class="link" id="undo">Toch een zin aanwijzen</button></div>`:
+     `<div class="pt"><span>Haalt jouw zin(nen) het punt binnen, gemeten aan de ankervraag?</span>${pills('self',i,[0,1],st.self[i])}</div>`);
+    $('#go').disabled=st.self[i]==null;
+    const u=$('#undo'); if(u) u.onclick=()=>{st.where[i]=[]; st.self[i]=undefined; again();};
+    bindPills(()=>{reveal();});
+  };
+  if(st.where[i]==='none'||(st.self[i]!=null)) reveal();
+  const sh=$('#show'); if(sh) sh.onclick=reveal;
+  $('#go').onclick=onNext;
+}
+
+function nk(step){
+  const it=V22, N=5, P=`Nakijken · stap ${step} van ${N}`;
+  st.key='ans';
+  if(step===1){
+    work.innerHTML=nav(P,()=>write())+`<h2>Hoe zeker ben je?</h2><p class="lead">Voordat je iets ziet: zet per punt Z (zeker) of T (ik twijfel).</p>${strip(it)}
+     ${it.punt.map((p,i)=>`<div class="pt"><span>Punt ${i+1} · ${esc(p.kort)}</span>${pills('zt',i,['Z','T'],st.zt[i])}</div>`).join('')}
+     <div class="row"><button class="btn" id="go" ${it.punt.some((_,i)=>!st.zt[i])?'disabled':''}>Verder</button></div>`;
+    bindNav(()=>write()); bindPills(()=>nk(1)); $('#go').onclick=()=>nk(2); return;
+  }
+  if(step===2){
+    const r=st.primeShown;
+    work.innerHTML=nav(P,()=>{st.primeShown=false;nk(1);})+`<h2>Eerst andermans antwoord</h2><p class="lead">Kijk dit zelfbedachte antwoord na met de ankervragen. Daarna kijk je met dezelfde ogen naar je eigen antwoord.</p>
+     ${ansHtml(PRIME.zinnen,false)}
+     ${it.punt.map((p,i)=>`<div class="pt"><span><b>Punt ${i+1}</b> · <span class="small">${esc(p.anker)}</span></span>${pills('prime',i,[0,1],st.prime[i])}</div>
+       ${r?`<div class="fb ${PRIME.doc[i]===st.prime[i]?'ok':'no'}">Docent: ${PRIME.doc[i]} punt. ${esc(PRIME.why[i])}${PRIME.doc[i]!==st.prime[i]?' Jij gaf '+st.prime[i]+'.':''}</div>`:''}`).join('')}
+     <div class="row">${r?'<button class="btn" id="go">Nu mijn eigen antwoord</button>':`<button class="btn" id="go" ${[0,1,2].some(i=>st.prime[i]==null)?'disabled':''}>Bekijk het oordeel</button>`}</div>`;
+    bindNav(()=>{st.primeShown=false;nk(1);});
+    if(!r) bindPills(()=>nk(2));
+    $('#go').onclick=()=>{if(r){ownChain(0);} else {st.primeShown=true; nk(2);}}; return;
+  }
+  if(step===4){ herstel(); return; }
+  if(step===5){ afronden(); }
+}
+function ownChain(i){
+  const it=V22;
+  ownPunt(it,i,'Nakijken · stap 3 van 5',()=> i===0?nk(2):ownChain(i-1),()=>{ if(i<it.punt.length-1) ownChain(i+1); else (st.self.slice(0,3).reduce((a,b)=>a+(b||0),0)<3?nk(4):nk(5)); });
+}
+function herstel(){
+  const it=V22, mis=it.punt.map((_,i)=>i).filter(i=>st.self[i]!==1);
+  if(st.herstelPunt==null) st.herstelPunt=mis[0];
+  const p=it.punt[st.herstelPunt];
+  work.innerHTML=nav('Nakijken · stap 4 van 5',()=>ownChain(2))+`<h2>Herstel één punt</h2>
+   <p class="lead">Niet het hele antwoord opnieuw. Kies één punt dat nog niet binnen was en schrijf alleen dat stuk in je tweede kleur.</p>
+   <div class="row" style="margin-top:0">${mis.map(i=>`<button class="pill ${st.herstelPunt===i?'on':''}" data-hp="${i}">Punt ${i+1} · ${esc(it.punt[i].kort)}</button>`).join('')}</div>
+   <p class="small" style="margin:14px 0 4px">Je eerste versie:</p>${ansHtml(splitZ(st.first||st.ans),false)}
+   <div class="anchor">${esc(p.anker)}</div>
+   <textarea class="tweede" id="hz" placeholder="Tweede kleur: alleen wat erbij komt of anders moet">${esc(st.herstel)}</textarea>
+   <div class="row"><button class="btn ghost" id="cmp" ${st.herstel.trim().length<20?'disabled':''}>Vergelijk met het model</button><button class="btn" id="go">${st.herstelOk==null?'Overslaan':'Verder'}</button></div><div id="cv"></div>`;
+  bindNav(()=>ownChain(2));
+  work.querySelectorAll('[data-hp]').forEach(b=>b.onclick=()=>{st.herstelPunt=+b.dataset.hp; st.herstelOk=null; herstel();});
+  const hz=$('#hz'); hz.oninput=()=>{st.herstel=hz.value; $('#cmp').disabled=st.herstel.trim().length<20;};
+  $('#cmp').onclick=()=>{$('#cv').innerHTML=`<div class="model">${esc(p.model)}<span class="alt">${esc(p.alt)}</span></div><div class="pt"><span>Haalt je tweede kleur het punt nu binnen?</span><span class="pair"><button class="pill" data-y="1">ja</button><button class="pill" data-y="0">nee</button></span></div><div id="yn"></div>`;
+    work.querySelectorAll('[data-y]').forEach(b=>b.onclick=()=>{st.herstelOk=b.dataset.y==='1'; $('#yn').innerHTML=st.herstelOk?`<div class="fb ok">Dit is de zin die je de volgende keer meteen schrijft.</div>`:`<div class="fb no">Welk woord uit het model mis je nog? Vul je tweede kleur aan en vergelijk opnieuw.</div>`; $('#go').textContent='Verder';});};
+  $('#go').onclick=()=>nk(5);
+}
+function afronden(){
+  const it=V22, sc=it.punt.map((_,i)=>st.self[i]||0), tot=sc.reduce((a,b)=>a+b,0);
+  const notes=sc.map((s,i)=>{const z=st.zt[i], none=st.where[i]==='none';
+    if(z==='Z'&&s===0) return none?`Punt ${i+1}: je zette Z, maar de zin ontbrak. Wist je het niet, of las je de vraag anders?`:`Punt ${i+1}: je zette Z en gaf jezelf 0. Leg je zin naast het modelantwoord: wat ontbrak er precies?`;
+    if(z==='T'&&s===1) return `Punt ${i+1}: twijfel en goed. Haal het deze week nog een keer op, dan zit het vast.`;
+    if(z==='T'&&s===0) return `Punt ${i+1}: twijfel en niet binnen. Lees in het lesboekje hoofdstuk 10 de kernformulering nog eens.`;
+    return '';}).filter(Boolean);
+  const CATS=[['kennisgat','begrip of argument ontbrak'],['leesfout','opdracht of tekst verkeerd gelezen'],['koppelingsfout','begrip niet aan de casus vastgemaakt'],['structuurfout','een antwoordstap ontbrak of stond verkeerd'],['formuleringsfout','goed bedoeld, te vaag opgeschreven']];
+  const NEXT=['De vraag eerst in taken knippen: welk begrip bij welke taak','Elk begrip eerst volledig uitleggen, met beide helften','Per taak laten zien dat het voor béíde kanten geldt','Bij een verschil zoeken waar het begrip zelf anders werkt'];
+  const back=()=>tot<3?nk(4):ownChain(2);
+  work.innerHTML=nav('Nakijken · stap 5 van 5',back)+`<h2>Afronden</h2>
+   <p class="lead">${tot===3?'Alle drie de punten binnen, zelf toegekend. Probeer nu een nieuwe vraag zonder hulp.':`Je gaf jezelf ${tot} van de 3 punten.${st.herstelOk?' En één punt heb je hersteld in je tweede kleur: dat is de winst van vandaag.':''}`}</p>${strip(it,sc)}
+   ${notes.map(n=>`<div class="fb">${esc(n)}</div>`).join('')}
+   <p class="small" style="margin:14px 0 4px">Jouw antwoord:</p>${ansHtml(splitZ(st.first||st.ans),false)}${st.herstel.trim()?`<div class="kleur2">${esc(st.herstel)}</div>`:''}
+   ${tot<3?`<div class="card"><h3>Eén primaire foutcategorie</h3>${CATS.map(([c,d])=>`<label class="radio"><input type="radio" name="cat" value="${c}" ${st.cat===c?'checked':''}><span><b>${c}</b> · ${d}</span></label>`).join('')}</div>`:''}
+   <div class="card"><h3>Wat doe ik bij de volgende vraag als eerste?</h3>${NEXT.map(n=>`<label class="radio"><input type="radio" name="nxt" value="${esc(n)}" ${st.next===n?'checked':''}><span>${esc(n)}</span></label>`).join('')}</div>
+   <div class="row"><button class="btn" id="tr">Probeer een nieuwe vraag</button><button class="btn ghost" id="other">Bekijk de examinator-ingang</button></div>`;
+  bindNav(back);
+  work.querySelectorAll('input[name=cat]').forEach(r=>r.onchange=()=>st.cat=r.value);
+  work.querySelectorAll('input[name=nxt]').forEach(r=>r.onchange=()=>st.next=r.value);
+  $('#tr').onclick=transferWrite; $('#other').onclick=()=>bStep(1);
+}
+
+/* ================= transfer ================= */
+function transferWrite(){
+  stopTimer(); st.timerOn=false; setSheet(TR); st.key='tr'; st.where=[]; st.self=[];
+  work.innerHTML=nav('Nieuwe vraag · schrijven')+`<h2>Een nieuwe vraag, zonder hulp</h2>
+   <p class="lead">Zelfde soort vraag, andere casus. ${st.next?`Je nam je voor: <b>${esc(st.next.toLowerCase())}</b>.`:'Bedenk eerst wat je als eerste doet.'}</p>
+   ${timerHtml(TR.minuten)}<textarea id="ans" placeholder="Jouw antwoord op de nieuwe vraag" style="margin-top:10px">${esc(st.tr)}</textarea>
+   <div class="row"><button class="btn" id="done">Klaar, nakijken</button><span class="small" id="cnt"></span></div>`;
+  bindNav(null); bindTimer(TR.minuten);
+  const ta=$('#ans'); ta.oninput=()=>{st.tr=ta.value; const n=st.tr.trim().length; $('#done').disabled=n<30; $('#cnt').textContent=n<30?`Nog ${30-n} tekens om te kunnen nakijken`:'';}; ta.oninput();
+  $('#done').onclick=()=>{stopTimer(); trChain(0);};
+}
+function trChain(i){
+  ownPunt(TR,i,'Nieuwe vraag · nakijken',()=> i===0?transferWrite():trChain(i-1),()=> i<TR.punt.length-1?trChain(i+1):trEnd());
+}
+function trEnd(){
+  const sc=TR.punt.map((_,i)=>st.self[i]||0), tot=sc.reduce((a,b)=>a+b,0);
+  work.innerHTML=nav('Nieuwe vraag · klaar',()=>trChain(1))+`<h2>${tot} van de 2 punten, zelf toegekend</h2>${strip(TR,sc)}
+   <div class="card"><h3>Wist je bij deze nieuwe vraag wat je als eerste kon doen?</h3><div class="pair">${['ja','een beetje','nee'].map(v=>`<button class="pill" data-f="${v}">${v}</button>`).join('')}</div><div id="ff"></div></div>
+   <div class="row"><button class="btn ghost" id="again">Terug naar vraag 22</button></div>`;
+  bindNav(()=>trChain(1));
+  work.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{work.querySelectorAll('[data-f]').forEach(x=>x.classList.toggle('on',x===b));
+    $('#ff').innerHTML=`<div class="fb">${b.dataset.f==='ja'?'Dan zit de aanpak erin. Vertrouw er op de toets op.':b.dataset.f==='een beetje'?'Normaal na één keer. Herhaal dezelfde eerste stap bij de volgende examenvraag in je denkboekje.':'Dan is de eerste stap het oefenpunt. Kies bij vraag 22 de aanwijzing “Wat vraagt de vraag?” en kijk hoe je de taken uit de vraag haalt.'}</div>`;});
+  $('#again').onclick=goStart;
+}
+
+/* ================= ingang B ================= */
+function bStep(n){
+  setSheet(V22);
+  const P=`Examinator · stap ${n} van 4`, back=n===1?null:()=>bStep(n-1);
+  if(n===1||n===2){
+    const r=n===2, opts=['','1','2','3','4','5','1 en 2','1, 2 en 3','geen'];
+    work.innerHTML=nav(P,back)+`<h2>${r?'Het oordeel':'Jij bent de examinator'}</h2>
+     <p class="lead">${r?'Vergelijk jouw oordeel met dat van de docent.':'Een leerling dacht dat dit 3 punten waren. Kies per punt de zin(nen) in het antwoord die het punt dragen, en geef 0 of 1.'}</p>
+     ${ansHtml(BIJNA.zinnen,false)}
+     ${V22.punt.map((p,i)=>`<div class="pt"><span><b>Punt ${i+1}</b> · ${esc(p.kort)}<br><span class="small">Zin in het antwoord: <select data-bz="${i}" ${r?'disabled':''} aria-label="Zin voor punt ${i+1}">${opts.map(o=>`<option ${st.bz[i]===o?'selected':''}>${o}</option>`).join('')}</select></span></span>${r?`<span>jij: ${st.b[i]}</span>`:pills('b',i,[0,1],st.b[i])}</div>
+      ${r?`<div class="fb ${BIJNA.doc[i]===st.b[i]?'ok':'no'}"><b>Docent: ${BIJNA.doc[i]} punt, zin ${BIJNA.zin[i]}.</b> ${st.bz[i]===BIJNA.zin[i]?'Jij wees dezelfde zinnen aan.':`Jij wees “${esc(st.bz[i])}” aan.`} ${esc(BIJNA.why[i])}${st.b[i]===1&&BIJNA.doc[i]===0?' Je was overtuigd, de docent gaf het niet. Lees zin 4 nog eens.':''}</div>`:''}`).join('')}
+     <div class="row"><button class="btn" id="go" ${!r&&(st.b.includes(null)||st.bz.includes(''))?'disabled':''}>${r?'Wat ontbreekt er?':'Bekijk het oordeel'}</button>${!r&&(st.b.includes(null)||st.bz.includes(''))?'<span class="small">Kies bij elk punt een zin en een score.</span>':''}</div>`;
+    bindNav(back);
+    work.querySelectorAll('select[data-bz]').forEach(s=>s.onchange=()=>{st.bz[+s.dataset.bz]=s.value; bStep(1);});
+    if(!r) bindPills(()=>bStep(1));
+    $('#go').onclick=()=>bStep(r?3:2); return;
+  }
+  if(n===3){
+    work.innerHTML=nav(P,back)+`<h2>Welke vraag laat zin 4 nog open?</h2><p class="lead">“${esc(BIJNA.zinnen[3])}”</p>
+     ${mc('diag',[
+      ['Hoe lang duurde het wennen precies?',0,'Tijd hoort bij punt 3, en voor Foster staat het niet in de tekst. Het gat in zin 4 zit ergens anders.'],
+      ['Wat gebeurt er met de trein zelf: wordt hij ingelijfd, zodat de reiziger zich weer middelpunt voelt?',1,'Ja. “Wennen” zegt dat het went, maar niet wát er gebeurt. Recentreren is: de techniek inlijven en jezelf weer als middelpunt ervaren.'],
+      ['Waarom vond Foster de trein eigenlijk vervelend?',0,'Dat is decentreren, en dat staat al goed in zin 1 tot en met 3.']])}
+     <div class="row"><button class="btn" id="go" ${st.diagOk?'':'disabled'}>Herschrijf de zin</button></div>`;
+    bindNav(back); bindMc((id,ok)=>{if(ok){st.diagOk=true; $('#go').disabled=false;}}); $('#go').onclick=()=>bStep(4); return;
+  }
+  if(n===4){
+    work.innerHTML=nav(P,back)+`<h2>Herschrijf alleen zin 4</h2><p class="lead">Niet het hele antwoord. Eén zin die het punt wél binnenhaalt.</p>
+     ${ansHtml([BIJNA.zinnen[3]],false)}
+     <textarea class="tweede" id="rw" placeholder="Jouw nieuwe zin 4, in je tweede kleur"></textarea>
+     <div class="row"><button class="btn" id="go" disabled>Vergelijk</button></div><div id="cmp"></div>`;
+    bindNav(back);
+    const rw=$('#rw'); rw.oninput=()=>$('#go').disabled=rw.value.trim().length<20;
+    $('#go').onclick=()=>{$('#cmp').innerHTML=`<div class="anchor">${esc(V22.punt[1].anker)}</div><div class="model">${esc(V22.punt[1].model)}<span class="alt">${esc(V22.punt[1].alt)}</span></div>
+      <div class="pt"><span>Haalt jouw zin het punt binnen?</span><span class="pair"><button class="pill" data-y="1">ja</button><button class="pill" data-y="0">nee</button></span></div><div id="yn"></div>`;
+      work.querySelectorAll('[data-y]').forEach(b=>b.onclick=()=>{$('#yn').innerHTML=b.dataset.y==='1'?`<div class="fb ok">Mooi. Probeer nu een nieuwe vraag van hetzelfde soort, zonder hulp.</div><div class="row"><button class="btn" id="tw">Probeer een nieuwe vraag</button><button class="btn ghost" id="bk">Terug naar het begin</button></div>`:`<div class="fb no">Kijk welk woord uit het model bij jou ontbreekt: ingelijfd, of middelpunt. Pas je zin aan en vergelijk opnieuw.</div>`;
+        const tw=$('#tw'); if(tw){tw.onclick=transferWrite; $('#bk').onclick=goStart;}});};
+  }
+}
+
+setSheet(V22); start();
+}
+</script>
+</body>
+</html>
